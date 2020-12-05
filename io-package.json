@@ -1,0 +1,94 @@
+{
+	"common": {
+		"name": "lg-ess-home",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "LG ESS Home Hybrid Wechselrichter",
+		"titleLang": {
+			"en": "LG ESS Home Hybrid Wechselrichter",
+			"de": "LG ESS Home Hybrid Wechselrichter",
+			"ru": "LG ESS Home Hybrid Wechselrichter",
+			"pt": "LG ESS Home Hybrid Wechselrichter",
+			"nl": "LG ESS Home Hybrid Wechselrichter",
+			"fr": "LG ESS Home Hybrid Wechselrichter",
+			"it": "LG ESS Home Hybrid Wechselrichter",
+			"es": "LG ESS Home Hybrid Wechselrichter",
+			"pl": "LG ESS Home Hybrid Wechselrichter",
+			"zh-cn": "LG ESS家庭混合动力车"
+		},
+		"desc": {
+			"en": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"de": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"ru": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"pt": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"nl": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"fr": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"it": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"es": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
+			"pl": "Beschreibung des Wechselrichters ToDo",
+			"zh-cn": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter."
+		},
+		"authors": [
+			"Morluktom <strassertom@gmx.de>"
+		],
+		"keywords": [
+			"ioBroker",
+			"template",
+			"Smart Home",
+			"home automation"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "lg-ess-home.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
+		"readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "energy",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"ipadress": "xxx.xxx.xxx.xxx",
+		"password": "",
+		"refreshTime": 30,
+		"fastUpdateCommon": false
+	},
+	"objects": [],
+    "instanceObjects": [{
+        "_id": "info.connection",
+        "type": "state",
+        "common": {
+            "role": "indicator.connected",
+            "name": "If connected to LG ESS Home",
+            "type": "boolean",
+            "read": true,
+            "write": false,
+            "def": false
+        },
+        "native": {		
+		}
+    }]
+}
