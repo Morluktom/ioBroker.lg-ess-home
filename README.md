@@ -12,17 +12,23 @@
 
 **Tests:** ![Test and Release](https://github.com/Morluktom/ioBroker.lg-ess-home/workflows/Test%20and%20Release/badge.svg)
 
-## lg-ess-home adapter for ioBroker
+## LG ESS Home adapter for ioBroker
 
-Beschreibung des Wechselrichters ToDo
+An iobroker adapter for a LG ESS hybrid inverter. With this adapter, the status of the inverter can be read. It is also possible to operate the inverter.
 
-## Developer manual
+## Configuration
 This section is intended for the developer. It can be deleted later
 
-### Getting started
+### Getting the password
 
 You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.lg-ess-home`
+1. Download the file `LG_Ess_Password.exe` from https://github.com/Morluktom/ioBroker.lg-ess-home/tools
+1. Connect the computer to the WLAN of the LG_ESS system. (WLAN password is on the type plate)
+1. Start LG_Ess_Password.exe (At least .Net Framework 4.5 required)
+1. Make a note of your password
+
+
+
 1. Initialize the current folder as a new git repository:  
 	```bash
 	git init
