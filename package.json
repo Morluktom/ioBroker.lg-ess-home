@@ -21,7 +21,6 @@
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
     "request": "^1.0.0"
-
   },
   "devDependencies": {
     "@iobroker/testing": "^2.3.0",
