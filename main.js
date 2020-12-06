@@ -11,6 +11,7 @@ const utils 	= require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
 const LgEss     = require('./lib/LgEss');
+const request   = require('request');
 
 var timer,timerLong;
 var lgEss;
