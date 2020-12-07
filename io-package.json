@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.1",
+		"version": "0.0.2",
 		"news": {
+			"0.0.2": {
+				"en": "Separate Intervall for Common and Home",
+				"de": "Separates Intervall für Common und Home",
+				"ru": "Раздельное интервью для общего и домашнего",
+				"pt": "Intervalo separado para comum e doméstico",
+				"nl": "Afzonderlijke interventie voor algemeen en thuis",
+				"fr": "Intervalle séparé pour le commun et le domicile",
+				"it": "Intervallo separato per comune e domestico",
+				"es": "Intervalo separado para común y hogar",
+				"pl": "Oddzielne interwały dla wspólnych i domowych",
+				"zh-cn": "公共和家庭的独立间隔"
+			},
 			"0.0.1": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
@@ -16,30 +28,30 @@
 				"zh-cn": "首次出版"
 			}
 		},
-		"title": "LG ESS Home Hybrid Wechselrichter",
+		"title": "LG ESS Home Hybrid Inverter",
 		"titleLang": {
-			"en": "LG ESS Home Hybrid Wechselrichter",
+			"en": "LG ESS Home Hybrid Inverter",
 			"de": "LG ESS Home Hybrid Wechselrichter",
-			"ru": "LG ESS Home Hybrid Wechselrichter",
-			"pt": "LG ESS Home Hybrid Wechselrichter",
-			"nl": "LG ESS Home Hybrid Wechselrichter",
-			"fr": "LG ESS Home Hybrid Wechselrichter",
-			"it": "LG ESS Home Hybrid Wechselrichter",
-			"es": "LG ESS Home Hybrid Wechselrichter",
-			"pl": "LG ESS Home Hybrid Wechselrichter",
-			"zh-cn": "LG ESS家庭混合动力车"
+			"ru": "Гибридный инвертор LG ESS для дома",
+			"pt": "LG ESS Home Hybrid Inverter",
+			"nl": "LG ESS Home hybride omvormer",
+			"fr": "Onduleur hybride LG ESS Home",
+			"it": "Inverter ibrido LG ESS Home",
+			"es": "Inversor híbrido doméstico LG ESS",
+			"pl": "Domowy falownik hybrydowy LG ESS",
+			"zh-cn": "LG ESS家庭混合逆变器"
 		},
 		"desc": {
-			"en": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"de": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"ru": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"pt": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"nl": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"fr": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"it": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"es": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter.",
-			"pl": "Beschreibung des Wechselrichters ToDo",
-			"zh-cn": "Adapter zum lesen von Daten von LG ESS Home Wechselrichter."
+			"en": "Adapter to read data from a LG ESS inverter.",
+			"de": "Adapter zum Lesen von Daten von einem LG ESS-Wechselrichter.",
+			"ru": "Адаптер для чтения данных с инвертора LG ESS.",
+			"pt": "Adaptador para ler dados de um inversor LG ESS.",
+			"nl": "Adapter om gegevens van een LG ESS-omvormer te lezen.",
+			"fr": "Adaptateur pour lire les données d'un onduleur LG ESS.",
+			"it": "Adattatore per leggere i dati da un inverter LG ESS.",
+			"es": "Adaptador para leer datos de un inversor LG ESS.",
+			"pl": "Adapter do odczytu danych z falownika LG ESS.",
+			"zh-cn": "用于从LG ESS逆变器读取数据的适配器。"
 		},
 		"authors": [
 			"Morluktom <strassertom@gmx.de>"
@@ -70,15 +82,29 @@
 			}
 		]
 	},
+    "encryptedNative": [
+        "password"
+    ],
+    "protectedNative": [
+        "password"
+    ],
 	"native": {
 		"ipadress": "xxx.xxx.xxx.xxx",
 		"password": "",
 		"refreshTime": 30,
-		"fastUpdateCommon": false
+		"refreshTimeCommon": 60
 	},
 	"objects": [],
     "instanceObjects": [{
-        "_id": "info.connection",
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+		{
+		"_id": "info.connection",
         "type": "state",
         "common": {
             "role": "indicator.connected",

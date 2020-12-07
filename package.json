@@ -1,7 +1,7 @@
 {
   "name": "iobroker.lg-ess-home",
-  "version": "0.0.1",
-  "description": "Beschreibung des Wechselrichters ToDo",
+  "version": "0.0.2",
+  "description": "Adapter to read data from a LG ESS inverter.",
   "author": {
     "name": "Morluktom",
     "email": "strassertom@gmx.de"
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.4.0",
-    "request": "^1.0.0"
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.3.0",

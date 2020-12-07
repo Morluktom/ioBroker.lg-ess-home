@@ -38,28 +38,29 @@ systemDictionary = {
 		"pl": "Hasło",
 		"zh-cn": "密码"
 	},
-	"Update intervall [s]": {
-		"en": "Update intervall [s]",
-		"de": "Update Intervall [s]",
-		"ru": "интервал обновления [с]",
-		"pt": "atualizar intervalo [s]",
-		"nl": "update interval [s]",
-		"fr": "mise à jour de l'intervalle [s]",
-		"it": "aggiornamento intervall [s]",
-		"es": "actualizar intervalo [s]",
-		"pl": "aktualizacja interwału [s]",
-		"zh-cn": "更新时间间隔[s]"
+	"Update Intervall Home [s]": {
+		"en": "Update Intervall Home [s]",
+		"de": "Update Intervall Home [s]",
+		"ru": "Обновить Intervall Home [s]",
+		"pt": "Atualizar a página inicial do Intervall",
+		"nl": "Update Intervall Home [s]",
+		"fr": "Mettre à jour le [s] domicile [s] Intervall",
+		"it": "Aggiorna Intervall Home [s]",
+		"es": "Actualizar Intervall Home [s]",
+		"pl": "Zaktualizuj stronę główną Intervall [s]",
+		"zh-cn": "更新Intervall主页[s]"
 	},
-	"Update String data in short intervall": {
-		"en": "Update String data in short intervall",
-		"de": "Aktualisieren der String-Daten in kurzen Intervall",
-		"ru": "Обновление строковых данных за короткий интервал",
-		"pt": "Atualizar os dados da string em um curto intervalo",
-		"nl": "Update String-gegevens met korte tussenpozen",
-		"fr": "Mettre à jour les données de chaîne dans un bref intervalle",
-		"it": "Aggiorna i dati della stringa a brevi intervalli",
-		"es": "Actualizar datos de cadenas en un intervalo corto",
-		"pl": "Aktualizuj dane String w krótkich odstępach czasu",
-		"zh-cn": "在短间隔内更新字符串数据"
+	"Update Intervall Common [s]": {
+		"en": "Update Intervall Common [s]",
+		"de": "Update Intervall Common [s]",
+		"ru": "Обновить общий интервал [s]",
+		"pt": "Atualizar Intervall Comum [s]",
+		"nl": "Update Intervall Common [s]",
+		"fr": "Mettre à jour le [s] commun [s] d'intervalle",
+		"it": "Aggiorna Intervall Common [s]",
+		"es": "Actualizar Intervall Common [s]",
+		"pl": "Zaktualizuj interwały wspólne [s]",
+		"zh-cn": "更新时间间隔常见问题[s]"
 	}
+
 };

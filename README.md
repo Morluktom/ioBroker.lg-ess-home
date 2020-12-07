@@ -27,6 +27,9 @@ An iobroker adapter for a LG ESS hybrid inverter. With this adapter, the status 
 
 ## Changelog
 
+### 0.0.2
+* (Morluktom) Separate Intervall for Common and Home
+
 ### 0.0.1
 * (Morluktom) initial release
 
