@@ -54,7 +54,8 @@
             $('.value').each(function () {
                    var $key = $(this);
                    var id = $key.attr('id');
-                if (id === 'password') {
+                console.log(id);
+                if (id === 'userpassword') {
                     settings[id] = decrypt(secret, settings[id]);
                 }
                 if ($key.attr('type') === 'checkbox') {
@@ -141,7 +142,7 @@
                        obj[id] = $this.prop('checked');
                    } else {
                        var value = $this.val();
-                       if (id === 'password') {
+                       if (id === 'userpassword') {
                            value = encrypt(secret, value);
                        }
                        obj[id] = value;
@@ -172,19 +173,19 @@
 				<label for="ipadress" class="translate">IP Adress</label>
 			</div>
 			<div class="col s6 input-field">
-                <input type="password" class="value" id="password" />
+                <input type="password" class="value" id="userpassword" />
                 <label for="password" class="translate">Password</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col s3 input-field">
-                <input class="value n" id="refreshTime" type="number" min="1" max="60" size="30"/>
+                <input class="value" id="refreshTime" type="number" min="1" max="60" size="30"/>
                 <label class="translate" for="refreshTime">Update Intervall Home [s]</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col s3 input-field">
-                <input class="value n" id="refreshTimeCommon" type="number" min="1" max="600" size="30"/>
+                <input class="value" id="refreshTimeCommon" type="number" min="1" max="600" size="30"/>
                 <label class="translate" for="refreshTimeCommon">Update intervall Common [s]</label>
 			</div>
 		</div>

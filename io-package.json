@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.2",
+		"version": "0.0.3",
 		"news": {
+			"0.0.3": {
+					"en": "Structure of the channel and states changed",
+					"de": "Struktur der Channel und States geändert",
+					"ru": "Изменена структура канала и состояния.",
+					"pt": "Estrutura do canal e estados alterados",
+					"nl": "De structuur van het kanaal en de statussen zijn gewijzigd",
+					"fr": "Modification de la structure du canal et des états",
+					"it": "La struttura del canale e gli stati sono cambiati",
+					"es": "La estructura del canal y los estados cambiaron",
+					"pl": "Zmieniła się struktura kanału i stany",
+					"zh-cn": "通道的结构和状态已更改"
+				  },			
 			"0.0.2": {
 				"en": "Separate Intervall for Common and Home",
 				"de": "Separates Intervall für Common und Home",
@@ -82,15 +94,9 @@
 			}
 		]
 	},
-    "encryptedNative": [
-        "password"
-    ],
-    "protectedNative": [
-        "password"
-    ],
 	"native": {
 		"ipadress": "xxx.xxx.xxx.xxx",
-		"password": "",
+		"userpassword": "",
 		"refreshTime": 30,
 		"refreshTimeCommon": 60
 	},

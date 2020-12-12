@@ -47,19 +47,23 @@ class LgEssHome extends utils.Adapter {
 
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
-		this.log.info("Config Ip Adress: " + this.config.ipadress);
-		this.log.info("Config Password: " + this.config.password);
+		/*this.log.info("Config Password: " + this.config.userpassword);
 		this.log.info("Config refresh time Home: " + this.config.refreshTime);
 		this.log.info("Config refresh time Common: " + this.config.refreshTimeCommon);
+		*/
+
+		if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(this.config.ipadress) == false){
+			this.log.info("Ip Adress: " + this.config.ipadress + " is invalid");
+		}
 
 		this.getForeignObject("system.config", (err, obj) => {
 			try {
 				if (obj && obj.native && obj.native.secret) {
 					//noinspection JSUnresolvedVariable
-					this.config.password = decrypt(obj.native.secret, this.config.password);
+					this.config.userpassword = decrypt(obj.native.secret, this.config.userpassword);
 				} else {
 					//noinspection JSUnresolvedVariable
-					this.config.password = decrypt("Zgfr56gFe87jJOM", this.config.password);
+					this.config.userpassword = decrypt("Zgfr56gFe87jJOM", this.config.userpassword);
 				}
 					
 			} catch (err) {
@@ -73,9 +77,13 @@ class LgEssHome extends utils.Adapter {
 	 * Main Routine
 	 */
 	main(){
-		lgEss = new LgEss(this, this.config.ipadress, this.config.password, this.config.refreshTime, this.config.refreshTimeCommon);
+		lgEss = new LgEss(this, this.config.ipadress, this.config.userpassword, this.config.refreshTime, this.config.refreshTimeCommon);
 		lgEss.Login();
+
+		this.subscribeStates('commands.*');
+
 	}
+
 
 
 	/**
@@ -124,9 +132,9 @@ class LgEssHome extends utils.Adapter {
 		if (state) {
 			// The state was changed
 			if (state.ack == false)
-				//lgEss.SetCommand(id, state.val)
+				lgEss.SetCommand(id, state.val)
 				
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+			//this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
 		} else {
 			// The state was deleted
 			this.log.info(`state ${id} deleted`);
