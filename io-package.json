@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.3",
+		"version": "0.0.4",
 		"news": {
+			"0.0.4": {
+				"en": "W => kW, values confirmed",
+				"de": "W => kW, Werte bestätigt",
+				"ru": "W => кВт, значения подтверждены",
+				"pt": "W => kW, valores confirmados",
+				"nl": "W => kW, waarden bevestigd",
+				"fr": "W => kW, valeurs confirmées",
+				"it": "W => kW, valori confermati",
+				"es": "W => kW, valores confirmados",
+				"pl": "W => kW, wartości potwierdzone",
+				"zh-cn": "W => kW，值已确认"
+			  },
 			"0.0.3": {
 					"en": "Structure of the channel and states changed",
 					"de": "Struktur der Channel und States geändert",

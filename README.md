@@ -27,6 +27,9 @@ An iobroker adapter for a LG ESS hybrid inverter. With this adapter, the status 
 
 ## Changelog
 
+### 0.0.4
+* (Morluktom) W => kW, values confirmed
+
 ### 0.0.3
 * (Morluktom) Structure of the channel and states changed
 
