@@ -27,6 +27,10 @@ An iobroker adapter for a LG ESS hybrid inverter. With this adapter, the status 
 
 ## Changelog
 
+### 0.0.5 (2020-12-15)
+* (Morluktom) ScalingFactor moved to nativ
+* password encryption => auto encryption (Maybe you have to set the password new)
+
 ### 0.0.4
 * (Morluktom) W => kW, values confirmed
 

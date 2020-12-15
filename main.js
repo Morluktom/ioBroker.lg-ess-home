@@ -15,11 +15,11 @@ const LgEss     = require('./lib/LgEss');
 var lgEss;
 
 function decrypt(key, value) {
-	var result = '';
-	for (var i = 0; i < value.length; ++i) {
-		result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-	}
-	return result;
+    let result = '';
+    for (let i = 0; i < value.length; ++i) {
+        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+    }
+    return result;
 }
 
 class LgEssHome extends utils.Adapter {
@@ -55,7 +55,7 @@ class LgEssHome extends utils.Adapter {
 		if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(this.config.ipadress) == false){
 			this.log.info("Ip Adress: " + this.config.ipadress + " is invalid");
 		}
-
+		/*
 		this.getForeignObject("system.config", (err, obj) => {
 			try {
 				if (obj && obj.native && obj.native.secret) {
@@ -71,6 +71,22 @@ class LgEssHome extends utils.Adapter {
 			}
 			this.main();
 		});
+		*/
+		this.getForeignObject('system.config', (err, obj) => {
+			if (!this.supportsFeature || !this.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
+				if (obj && obj.native && obj.native.secret) {
+					//noinspection JSUnresolvedVariable
+					this.config.userpassword = decrypt(obj.native.secret, this.config.userpassword);
+				} else {
+					//noinspection JSUnresolvedVariable
+					this.config.userpassword = decrypt('Zgfr56gFe87jJOM', this.config.userpassword);
+				}
+			}
+			this.main();
+		});
+
+
+
 	}
 
 	/**

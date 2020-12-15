@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.4",
+		"version": "0.0.5",
 		"news": {
+			"0.0.5": {
+				"en": "auto password encryption ",
+				"de": "automatische Passwortverschlüsselung",
+				"ru": "автоматическое шифрование пароля",
+				"pt": "criptografia automática de senha",
+				"nl": "automatische wachtwoordversleuteling",
+				"fr": "cryptage automatique du mot de passe",
+				"it": "crittografia automatica della password",
+				"es": "cifrado automático de contraseña",
+				"pl": "automatyczne szyfrowanie hasła",
+				"zh-cn": "自动密码加密"
+			  },
 			"0.0.4": {
 				"en": "W => kW, values confirmed",
 				"de": "W => kW, Werte bestätigt",
@@ -106,6 +118,12 @@
 			}
 		]
 	},
+    "encryptedNative": [
+        "userpassword"
+    ],
+    "protectedNative": [
+        "userpassword"
+    ],
 	"native": {
 		"ipadress": "xxx.xxx.xxx.xxx",
 		"userpassword": "",
