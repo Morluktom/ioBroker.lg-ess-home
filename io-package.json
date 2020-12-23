@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.5",
+		"version": "0.0.6",
 		"news": {
+			"0.0.6": {
+				"en": "Data type recognition fixed",
+				"de": "Datentyperkennung behoben",
+				"ru": "Исправлено распознавание типа данных",
+				"pt": "Reconhecimento de tipo de dados corrigido",
+				"nl": "Datatypeherkenning opgelost",
+				"fr": "Reconnaissance du type de données corrigée",
+				"it": "Riconoscimento del tipo di dati corretto",
+				"es": "Reconocimiento de tipo de datos fijo",
+				"pl": "Naprawiono rozpoznawanie typu danych",
+				"zh-cn": "数据类型识别已修复"
+			  },			
 			"0.0.5": {
 				"en": "auto password encryption ",
 				"de": "automatische Passwortverschlüsselung",
