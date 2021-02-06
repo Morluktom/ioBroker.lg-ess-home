@@ -1,6 +1,6 @@
 {
   "name": "iobroker.lg-ess-home",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Adapter to read data from a LG ESS inverter.",
   "author": {
     "name": "Morluktom",

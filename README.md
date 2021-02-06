@@ -37,6 +37,9 @@ This should give you the password and a status in return.
 
 ## Changelog
 
+### 0.0.8 (2021-02-06)
+* (Morluktom) Code cleanup
+
 ### 0.0.7 (2021-02-01)
 * (Morluktom) Code cleanup
 

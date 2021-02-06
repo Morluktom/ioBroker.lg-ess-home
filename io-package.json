@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.7",
+		"version": "0.0.8",
 		"news": {
+			"0.0.8": {
+				"en": "code clean up",
+				"de": "Code bereinigen",
+				"ru": "очистка кода",
+				"pt": "limpeza de código",
+				"nl": "code opschonen",
+				"fr": "nettoyage du code",
+				"it": "pulizia del codice",
+				"es": "limpieza de código",
+				"pl": "czyszczenie kodu",
+				"zh-cn": "代码清理"
+			},
 			"0.0.7": {
 				"en": "code clean up",
 				"de": "Code bereinigen",
