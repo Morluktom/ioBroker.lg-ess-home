@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "lg-ess-home",
-		"version": "0.0.8",
+		"version": "0.0.9",
 		"news": {
+			"0.0.9": {
+				"en": "Bugfix boolean value",
+				"de": "Bugfix boolescher Wert",
+				"ru": "Исправление логического значения",
+				"pt": "Valor booleano de correção de bug",
+				"nl": "Bugfix booleaanse waarde",
+				"fr": "Correction de bug valeur booléenne",
+				"it": "Valore booleano di Bugfix",
+				"es": "Valor booleano de corrección de errores",
+				"pl": "Wartość logiczna poprawki błędu",
+				"zh-cn": "错误修正布尔值"			},			
+			
 			"0.0.8": {
 				"en": "code clean up",
 				"de": "Code bereinigen",
