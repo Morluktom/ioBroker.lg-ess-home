@@ -37,6 +37,9 @@ This should give you the password and a status in return.
 
 ## Changelog
 
+### 0.0.10 (2021-05-04)
+* (Morluktom) Bugfix boolean value
+
 ### 0.0.9 (2021-05-04)
 * (Morluktom) Bugfix boolean value
 
