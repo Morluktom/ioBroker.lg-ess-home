@@ -57,6 +57,9 @@
                 if (id === 'userpassword' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
                     settings[id] = decrypt(secret, settings[id]);
                 }
+                if (id === 'installerpassword' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
+                    settings[id] = decrypt(secret, settings[id]);
+                }
 
                 if ($key.attr('type') === 'checkbox') {
                     // do not call onChange direct, because onChange could expect some arguments
@@ -102,6 +105,9 @@
                     if (id === 'userpassword' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
                         value = encrypt(secret, value);
                     }
+                    if (id === 'installerpassword' && (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE'))) {
+                        value = encrypt(secret, value);
+                    }
                     obj[id] = value;
                 }
             });
@@ -109,6 +115,19 @@
             callback(obj);
         }
     </script>
+
+    <style>
+        /* Title of each section */
+        .title { font-weight: bold; }
+        /* Info text of each section */
+        .info { margin-left: 1em; }
+        /* Table header */
+        .table-values th { height: 2em; background-color:#2196F3; font-size:90%; }
+        /* Table: Add button */
+        .table-button-add { margin: 0.3em 0 1em 0; }
+    </style>
+
+
 </head>
 <body>
 
@@ -124,7 +143,8 @@
 
 		<!-- For example columns with settings: -->
 		<div class="row">
-			<div class="col s6 input-field">
+            <p class="translate title">headerGeneralSettings</p>
+            <div class="col s6 input-field">
 				<input type="text" class="value" id="ipadress" />
 				<label for="ipadress" class="translate">IP Adress</label>
 			</div>
@@ -138,13 +158,27 @@
                 <input class="value" id="refreshTime" type="number" min="1" max="60" size="30"/>
                 <label class="translate" for="refreshTime">Update Intervall Home [s]</label>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col s3 input-field">
+            <div class="col s3 input-field">
                 <input class="value" id="refreshTimeCommon" type="number" min="1" max="600" size="30"/>
-                <label class="translate" for="refreshTimeCommon">Update intervall Common [s]</label>
+                <label class="translate" for="refreshTimeCommon">Update Intervall Common [s]</label>
+			</div>
+        </div>
+
+		<div class="row">
+            <p class="translate title">headerInstallerLogin</p>
+            <p class="translate info">InstallerLoginInfo</p>
+			<div class="col s6 input-field">
+				<input type="checkbox" class="value" id="loginInstaller" />
+				<label for="ipadress" class="translate">checkboxInstallerLogin</label>
+			</div>
+			<div class="col s6 input-field">
+                <input type="password" class="value" id="installerPassword" />
+                <label for="password" class="translate">InstallerPassword</label>
 			</div>
 		</div>
+
+
+
 	</div>
 </body>
 

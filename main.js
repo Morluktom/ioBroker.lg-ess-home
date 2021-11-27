@@ -62,9 +62,11 @@ class LgEssHome extends utils.Adapter {
 				if (obj && obj.native && obj.native.secret) {
 					//noinspection JSUnresolvedVariable
 					this.config.userpassword = decrypt(obj.native.secret, this.config.userpassword);
+					this.config.installerPassword = decrypt(obj.native.secret, this.config.installerPassword);
 				} else {
 					//noinspection JSUnresolvedVariable
 					this.config.userpassword = decrypt('Zgfr56gFe87jJOM', this.config.userpassword);
+					this.config.installerPassword = decrypt('Zgfr56gFe87jJOM', this.config.installerPassword);
 				}
 			}
 			this.main();
@@ -78,7 +80,9 @@ class LgEssHome extends utils.Adapter {
 	 * Main Routine
 	 */
 	main(){
-		lgEss = new LgEss(this, this.config.ipadress, this.config.userpassword, this.config.refreshTime, this.config.refreshTimeCommon);
+		lgEss = new LgEss(this, this.config.ipadress, this.config.userpassword, 
+						  this.config.refreshTime, this.config.refreshTimeCommon,
+						  this.config.loginInstaller, this.config.installerPassword);
 		lgEss.Login();
 
 		this.subscribeStates('commands.*');

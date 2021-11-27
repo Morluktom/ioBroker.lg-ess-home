@@ -1,216 +1,247 @@
 {
-	"common": {
-		"name": "lg-ess-home",
-		"version": "0.0.10",
-		"news": {
-			"0.0.10": {
-				"en": "Bugfix boolean value",
-				"de": "Bugfix boolescher Wert",
-				"ru": "Исправление логического значения",
-				"pt": "Valor booleano de correção de bug",
-				"nl": "Bugfix booleaanse waarde",
-				"fr": "Correction de bug valeur booléenne",
-				"it": "Valore booleano di Bugfix",
-				"es": "Valor booleano de corrección de errores",
-				"pl": "Wartość logiczna poprawki błędu",
-				"zh-cn": "错误修正布尔值"			
-			},
-			"0.0.9": {
-				"en": "Bugfix boolean value",
-				"de": "Bugfix boolescher Wert",
-				"ru": "Исправление логического значения",
-				"pt": "Valor booleano de correção de bug",
-				"nl": "Bugfix booleaanse waarde",
-				"fr": "Correction de bug valeur booléenne",
-				"it": "Valore booleano di Bugfix",
-				"es": "Valor booleano de corrección de errores",
-				"pl": "Wartość logiczna poprawki błędu",
-				"zh-cn": "错误修正布尔值"			
-			},					
-			"0.0.8": {
-				"en": "code clean up",
-				"de": "Code bereinigen",
-				"ru": "очистка кода",
-				"pt": "limpeza de código",
-				"nl": "code opschonen",
-				"fr": "nettoyage du code",
-				"it": "pulizia del codice",
-				"es": "limpieza de código",
-				"pl": "czyszczenie kodu",
-				"zh-cn": "代码清理"
-			},
-			"0.0.7": {
-				"en": "code clean up",
-				"de": "Code bereinigen",
-				"ru": "очистка кода",
-				"pt": "limpeza de código",
-				"nl": "code opschonen",
-				"fr": "nettoyage du code",
-				"it": "pulizia del codice",
-				"es": "limpieza de código",
-				"pl": "czyszczenie kodu",
-				"zh-cn": "代码清理"
-			},				
-			"0.0.6": {
-				"en": "Data type recognition fixed",
-				"de": "Datentyperkennung behoben",
-				"ru": "Исправлено распознавание типа данных",
-				"pt": "Reconhecimento de tipo de dados corrigido",
-				"nl": "Datatypeherkenning opgelost",
-				"fr": "Reconnaissance du type de données corrigée",
-				"it": "Riconoscimento del tipo di dati corretto",
-				"es": "Reconocimiento de tipo de datos fijo",
-				"pl": "Naprawiono rozpoznawanie typu danych",
-				"zh-cn": "数据类型识别已修复"
-			  },			
-			"0.0.5": {
-				"en": "auto password encryption ",
-				"de": "automatische Passwortverschlüsselung",
-				"ru": "автоматическое шифрование пароля",
-				"pt": "criptografia automática de senha",
-				"nl": "automatische wachtwoordversleuteling",
-				"fr": "cryptage automatique du mot de passe",
-				"it": "crittografia automatica della password",
-				"es": "cifrado automático de contraseña",
-				"pl": "automatyczne szyfrowanie hasła",
-				"zh-cn": "自动密码加密"
-			  },
-			"0.0.4": {
-				"en": "W => kW, values confirmed",
-				"de": "W => kW, Werte bestätigt",
-				"ru": "W => кВт, значения подтверждены",
-				"pt": "W => kW, valores confirmados",
-				"nl": "W => kW, waarden bevestigd",
-				"fr": "W => kW, valeurs confirmées",
-				"it": "W => kW, valori confermati",
-				"es": "W => kW, valores confirmados",
-				"pl": "W => kW, wartości potwierdzone",
-				"zh-cn": "W => kW，值已确认"
-			  },
-			"0.0.3": {
-					"en": "Structure of the channel and states changed",
-					"de": "Struktur der Channel und States geändert",
-					"ru": "Изменена структура канала и состояния.",
-					"pt": "Estrutura do canal e estados alterados",
-					"nl": "De structuur van het kanaal en de statussen zijn gewijzigd",
-					"fr": "Modification de la structure du canal et des états",
-					"it": "La struttura del canale e gli stati sono cambiati",
-					"es": "La estructura del canal y los estados cambiaron",
-					"pl": "Zmieniła się struktura kanału i stany",
-					"zh-cn": "通道的结构和状态已更改"
-				  },			
-			"0.0.2": {
-				"en": "Separate Intervall for Common and Home",
-				"de": "Separates Intervall für Common und Home",
-				"ru": "Раздельное интервью для общего и домашнего",
-				"pt": "Intervalo separado para comum e doméstico",
-				"nl": "Afzonderlijke interventie voor algemeen en thuis",
-				"fr": "Intervalle séparé pour le commun et le domicile",
-				"it": "Intervallo separato per comune e domestico",
-				"es": "Intervalo separado para común y hogar",
-				"pl": "Oddzielne interwały dla wspólnych i domowych",
-				"zh-cn": "公共和家庭的独立间隔"
-			},
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"zh-cn": "首次出版"
-			}
-		},
-		"title": "LG ESS Home Hybrid Inverter",
-		"titleLang": {
-			"en": "LG ESS Home Hybrid Inverter",
-			"de": "LG ESS Home Hybrid Wechselrichter",
-			"ru": "Гибридный инвертор LG ESS для дома",
-			"pt": "LG ESS Home Hybrid Inverter",
-			"nl": "LG ESS Home hybride omvormer",
-			"fr": "Onduleur hybride LG ESS Home",
-			"it": "Inverter ibrido LG ESS Home",
-			"es": "Inversor híbrido doméstico LG ESS",
-			"pl": "Domowy falownik hybrydowy LG ESS",
-			"zh-cn": "LG ESS家庭混合逆变器"
-		},
-		"desc": {
-			"en": "Adapter to read data from a LG ESS inverter.",
-			"de": "Adapter zum Lesen von Daten von einem LG ESS-Wechselrichter.",
-			"ru": "Адаптер для чтения данных с инвертора LG ESS.",
-			"pt": "Adaptador para ler dados de um inversor LG ESS.",
-			"nl": "Adapter om gegevens van een LG ESS-omvormer te lezen.",
-			"fr": "Adaptateur pour lire les données d'un onduleur LG ESS.",
-			"it": "Adattatore per leggere i dati da un inverter LG ESS.",
-			"es": "Adaptador para leer datos de un inversor LG ESS.",
-			"pl": "Adapter do odczytu danych z falownika LG ESS.",
-			"zh-cn": "用于从LG ESS逆变器读取数据的适配器。"
-		},
-		"authors": [
-			"Morluktom <strassertom@gmx.de>"
-		],
-		"keywords": [
-			"ioBroker",
-			"template",
-			"Smart Home",
-			"home automation"
-		],
-		"license": "MIT",
-		"platform": "Javascript/Node.js",
-		"main": "main.js",
-		"icon": "lg-ess-home.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
-		"readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"type": "energy",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
-		"materialize": true,
-		"dependencies": [
-			{
-				"js-controller": ">=2.0.0"
-			}
-		]
-	},
-    "encryptedNative": [
-        "userpassword"
+  "common": {
+    "name": "lg-ess-home",
+    "version": "0.1.0",
+    "news": {
+      "0.1.0": {
+        "en": "Read installer and chart data",
+        "de": "Installations- und Diagrammdaten lesen",
+        "ru": "Прочитать установщик и данные диаграммы",
+        "pt": "Leia os dados do instalador e do gráfico",
+        "nl": "Installatie- en kaartgegevens lezen",
+        "fr": "Lire les données du programme d'installation et du graphique",
+        "it": "Leggi i dati del programma di installazione e del grafico",
+        "es": "Leer el instalador y los datos del gráfico",
+        "pl": "Przeczytaj dane instalatora i wykresu",
+        "zh-cn": "读取安装程序和图表数据"
+      },
+      "0.0.10": {
+        "en": "Bugfix boolean value",
+        "de": "Bugfix boolescher Wert",
+        "ru": "Исправление логического значения",
+        "pt": "Valor booleano de correção de bug",
+        "nl": "Bugfix booleaanse waarde",
+        "fr": "Correction de bug valeur booléenne",
+        "it": "Valore booleano di Bugfix",
+        "es": "Valor booleano de corrección de errores",
+        "pl": "Wartość logiczna poprawki błędu",
+        "zh-cn": "错误修正布尔值"
+      },
+      "0.0.9": {
+        "en": "Bugfix boolean value",
+        "de": "Bugfix boolescher Wert",
+        "ru": "Исправление логического значения",
+        "pt": "Valor booleano de correção de bug",
+        "nl": "Bugfix booleaanse waarde",
+        "fr": "Correction de bug valeur booléenne",
+        "it": "Valore booleano di Bugfix",
+        "es": "Valor booleano de corrección de errores",
+        "pl": "Wartość logiczna poprawki błędu",
+        "zh-cn": "错误修正布尔值"
+      },
+      "0.0.8": {
+        "en": "code clean up",
+        "de": "Code bereinigen",
+        "ru": "очистка кода",
+        "pt": "limpeza de código",
+        "nl": "code opschonen",
+        "fr": "nettoyage du code",
+        "it": "pulizia del codice",
+        "es": "limpieza de código",
+        "pl": "czyszczenie kodu",
+        "zh-cn": "代码清理"
+      },
+      "0.0.7": {
+        "en": "code clean up",
+        "de": "Code bereinigen",
+        "ru": "очистка кода",
+        "pt": "limpeza de código",
+        "nl": "code opschonen",
+        "fr": "nettoyage du code",
+        "it": "pulizia del codice",
+        "es": "limpieza de código",
+        "pl": "czyszczenie kodu",
+        "zh-cn": "代码清理"
+      },
+      "0.0.6": {
+        "en": "Data type recognition fixed",
+        "de": "Datentyperkennung behoben",
+        "ru": "Исправлено распознавание типа данных",
+        "pt": "Reconhecimento de tipo de dados corrigido",
+        "nl": "Datatypeherkenning opgelost",
+        "fr": "Reconnaissance du type de données corrigée",
+        "it": "Riconoscimento del tipo di dati corretto",
+        "es": "Reconocimiento de tipo de datos fijo",
+        "pl": "Naprawiono rozpoznawanie typu danych",
+        "zh-cn": "数据类型识别已修复"
+      },
+      "0.0.5": {
+        "en": "auto password encryption ",
+        "de": "automatische Passwortverschlüsselung",
+        "ru": "автоматическое шифрование пароля",
+        "pt": "criptografia automática de senha",
+        "nl": "automatische wachtwoordversleuteling",
+        "fr": "cryptage automatique du mot de passe",
+        "it": "crittografia automatica della password",
+        "es": "cifrado automático de contraseña",
+        "pl": "automatyczne szyfrowanie hasła",
+        "zh-cn": "自动密码加密"
+      },
+      "0.0.4": {
+        "en": "W => kW, values confirmed",
+        "de": "W => kW, Werte bestätigt",
+        "ru": "W => кВт, значения подтверждены",
+        "pt": "W => kW, valores confirmados",
+        "nl": "W => kW, waarden bevestigd",
+        "fr": "W => kW, valeurs confirmées",
+        "it": "W => kW, valori confermati",
+        "es": "W => kW, valores confirmados",
+        "pl": "W => kW, wartości potwierdzone",
+        "zh-cn": "W => kW，值已确认"
+      },
+      "0.0.3": {
+        "en": "Structure of the channel and states changed",
+        "de": "Struktur der Channel und States geändert",
+        "ru": "Изменена структура канала и состояния.",
+        "pt": "Estrutura do canal e estados alterados",
+        "nl": "De structuur van het kanaal en de statussen zijn gewijzigd",
+        "fr": "Modification de la structure du canal et des états",
+        "it": "La struttura del canale e gli stati sono cambiati",
+        "es": "La estructura del canal y los estados cambiaron",
+        "pl": "Zmieniła się struktura kanału i stany",
+        "zh-cn": "通道的结构和状态已更改"
+      },
+      "0.0.2": {
+        "en": "Separate Intervall for Common and Home",
+        "de": "Separates Intervall für Common und Home",
+        "ru": "Раздельное интервью для общего и домашнего",
+        "pt": "Intervalo separado para comum e doméstico",
+        "nl": "Afzonderlijke interventie voor algemeen en thuis",
+        "fr": "Intervalle séparé pour le commun et le domicile",
+        "it": "Intervallo separato per comune e domestico",
+        "es": "Intervalo separado para común y hogar",
+        "pl": "Oddzielne interwały dla wspólnych i domowych",
+        "zh-cn": "公共和家庭的独立间隔"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
+    },
+    "title": "LG ESS Home Hybrid Inverter",
+    "titleLang": {
+      "en": "LG ESS Home Hybrid Inverter",
+      "de": "LG ESS Home Hybrid Wechselrichter",
+      "ru": "Гибридный инвертор LG ESS для дома",
+      "pt": "LG ESS Home Hybrid Inverter",
+      "nl": "LG ESS Home hybride omvormer",
+      "fr": "Onduleur hybride LG ESS Home",
+      "it": "Inverter ibrido LG ESS Home",
+      "es": "Inversor híbrido doméstico LG ESS",
+      "pl": "Domowy falownik hybrydowy LG ESS",
+      "zh-cn": "LG ESS家庭混合逆变器"
+    },
+    "desc": {
+      "en": "Adapter to read data from a LG ESS inverter.",
+      "de": "Adapter zum Lesen von Daten von einem LG ESS-Wechselrichter.",
+      "ru": "Адаптер для чтения данных с инвертора LG ESS.",
+      "pt": "Adaptador para ler dados de um inversor LG ESS.",
+      "nl": "Adapter om gegevens van een LG ESS-omvormer te lezen.",
+      "fr": "Adaptateur pour lire les données d'un onduleur LG ESS.",
+      "it": "Adattatore per leggere i dati da un inverter LG ESS.",
+      "es": "Adaptador para leer datos de un inversor LG ESS.",
+      "pl": "Adapter do odczytu danych z falownika LG ESS.",
+      "zh-cn": "用于从LG ESS逆变器读取数据的适配器。"
+    },
+    "authors": [
+      "Morluktom <strassertom@gmx.de>"
     ],
-    "protectedNative": [
-        "userpassword"
+    "keywords": [
+      "ioBroker",
+      "template",
+      "Smart Home",
+      "home automation"
     ],
-	"native": {
-		"ipadress": "xxx.xxx.xxx.xxx",
-		"userpassword": "",
-		"refreshTime": 30,
-		"refreshTimeCommon": 60
-	},
-	"objects": [],
-    "instanceObjects": [{
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-		{
-		"_id": "info.connection",
-        "type": "state",
-        "common": {
-            "role": "indicator.connected",
-            "name": "If connected to LG ESS Home",
-            "type": "boolean",
-            "read": true,
-            "write": false,
-            "def": false
-        },
-        "native": {		
-		}
-    }]
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "lg-ess-home.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
+    "readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=2.0.0"
+      }
+    ],
+    "installedFrom": "iobroker.lg-ess-home@0.0.10"
+  },
+  "encryptedNative": [
+    "userpassword",
+    "installerPassword"
+  ],
+  "protectedNative": [
+    "userpassword",
+    "installerPassword"
+  ],
+  "native": {
+    "ipadress": "xxx.xxx.xxx.xxx",
+    "userpassword": "",
+    "installerPassword": "",
+    "refreshTime": 30,
+    "refreshTimeCommon": 60,
+    "loginInstaller": false  
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If connected to LG ESS Home",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },      
+      "native": {}
+    },
+    {
+      "_id": "info.connectedUser",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": "Connected User",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },      
+      "native": {}
+    }
+  ]
 }
