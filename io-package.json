@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "replaced deprecated library and login as installer only when needed",
+        "de": "veraltete Bibliothek ersetzt und nur bei Bedarf als Installer anmelden",
+        "ru": "заменена устаревшая библиотека и войдите в систему как установщик только при необходимости",
+        "pt": "substituiu a biblioteca obsoleta e faça login como instalador apenas quando necessário",
+        "nl": "verouderde bibliotheek vervangen en alleen inloggen als installatieprogramma als dat nodig is",
+        "fr": "remplacement de la bibliothèque obsolète et connexion en tant qu'installateur uniquement en cas de besoin",
+        "it": "sostituita la libreria deprecata e accedi come installatore solo quando necessario",
+        "es": "reemplazó la biblioteca obsoleta e inicie sesión como instalador solo cuando sea necesario",
+        "pl": "zastąpiono przestarzałą bibliotekę i loguj się jako instalator tylko wtedy, gdy jest to potrzebne",
+        "zh-cn": "替换已弃用的库并仅在需要时以安装程序登录"
+      },      
       "0.1.0": {
         "en": "Read installer and chart data",
         "de": "Installations- und Diagrammdaten lesen",
@@ -189,7 +201,7 @@
         "js-controller": ">=2.0.0"
       }
     ],
-    "installedFrom": "iobroker.lg-ess-home@0.0.10"
+    "installedFrom": "iobroker.lg-ess-home@0.1.0"
   },
   "encryptedNative": [
     "userpassword",
@@ -205,7 +217,7 @@
     "installerPassword": "",
     "refreshTime": 30,
     "refreshTimeCommon": 60,
-    "loginInstaller": false  
+    "loginInstaller": false
   },
   "objects": [],
   "instanceObjects": [
@@ -227,7 +239,7 @@
         "read": true,
         "write": false,
         "def": false
-      },      
+      },
       "native": {}
     },
     {
@@ -240,7 +252,7 @@
         "read": true,
         "write": false,
         "def": ""
-      },      
+      },
       "native": {}
     }
   ]

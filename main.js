@@ -83,8 +83,7 @@ class LgEssHome extends utils.Adapter {
 		lgEss = new LgEss(this, this.config.ipadress, this.config.userpassword, 
 						  this.config.refreshTime, this.config.refreshTimeCommon,
 						  this.config.loginInstaller, this.config.installerPassword);
-		lgEss.Login();
-
+		lgEss.Start();
 		this.subscribeStates('commands.*');
 
 	}
@@ -102,7 +101,7 @@ class LgEssHome extends utils.Adapter {
 			// clearTimeout(timeout2);
 			// ...
 			//clearInterval(timer);
-			lgEss.StopTimer(true);
+			lgEss.Stop();
 
 
 			callback();
