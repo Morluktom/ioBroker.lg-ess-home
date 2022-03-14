@@ -216,7 +216,7 @@
         "js-controller": ">=2.0.0"
       },
       "vis"
-    ],
+    ]
   },
   "encryptedNative": [
     "userpassword",
