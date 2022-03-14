@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "news": {
+  	  "0.2.0": {
+	    "en": "Chart Widget added",
+	    "de": "Diagramm-Widget hinzugefügt",
+	    "ru": "Добавлен виджет диаграммы",
+	    "pt": "Widget de gráfico adicionado",
+	    "nl": "Grafiekwidget toegevoegd",
+	    "fr": "Widget graphique ajouté",
+	    "it": "Widget grafico aggiunto",
+	    "es": "Widget de gráfico agregado",
+	    "pl": "Dodano widżet wykresu",
+	    "zh-cn": "添加了图表小部件"
+	  },
       "0.1.1": {
         "en": "replaced deprecated library and login as installer only when needed",
         "de": "veraltete Bibliothek ersetzt und nur bei Bedarf als Installer anmelden",
@@ -190,6 +202,9 @@
     "extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
     "readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
     "loglevel": "info",
+    "restartAdapters": [
+      "vis"
+    ],    
     "mode": "daemon",
     "type": "energy",
     "compact": true,
@@ -199,9 +214,9 @@
     "dependencies": [
       {
         "js-controller": ">=2.0.0"
-      }
+      },
+      "vis"
     ],
-    "installedFrom": "iobroker.lg-ess-home@0.1.0"
   },
   "encryptedNative": [
     "userpassword",

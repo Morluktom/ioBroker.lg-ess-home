@@ -1,0 +1,162 @@
+/* Style your widget here */
+.lg-ess-home-class {
+    font-style: italic;
+}
+
+/*---------- Chart ----------*/
+.lg-ess-home-one-charts {
+    height: calc((100% - 115px));
+    width: 100%;
+}
+
+.lg-ess-home-two-charts {
+    height: calc((100% - 90px)/2);
+    width: 100%;
+}
+
+.lg-ess-home-hide-chart {
+    display: none;
+}
+
+/*---------- Header ----------*/
+.lg-ess-home-header {
+    padding-top: 15px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+  
+/*---------- Timebar ----------*/
+.lg-ess-home-timebar{
+    text-align: center;
+    padding-bottom: 0px;
+    margin-bottom: 15px;
+    vertical-align: middle;
+    line-height: 25px;
+}
+
+/*---------- Dropdown ----------*/
+.lg-ess-home-dropbtn {
+    margin-right: 20px;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 22px;
+    float: right;
+    background-image: url("../img/icon-calendar.gif");
+  }
+  
+.lg-ess-home-dropbtn:hover, .lg-ess-home-dropbtn:focus, .lg-ess-home-dropbtn .active {
+    background-color: #d4d4d4;
+}
+
+.lg-ess-home-dropdown {
+    margin-bottom: 0px;
+    margin-top: 5px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.lg-ess-home-dropdown span {
+    display: inline-block;
+    border-radius: 16px;
+}
+
+.lg-ess-home-dropdown-content {
+    right: 20px;
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto; 
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+.lg-ess-home-dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: none;
+}
+
+.lg-ess-home-dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.lg-ess-home-dropdown button:hover {
+    background-color: #ddd;
+}
+  
+.lg-ess-home-dropdown-content-show {
+    display: block;
+}
+
+/*---------- Side Navigation ----------*/
+.lg-ess-home-sidenav-menue-opner{
+    font-size:25px;
+    margin-left: 20px;
+    position: relative;
+    cursor:pointer;
+    float: left;
+}
+
+.lg-ess-home-sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+  
+.lg-ess-home-sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.lg-ess-home-sidenav a:hover {
+    color: #bebebe;
+}
+
+.lg-ess-home-sidenav .active {
+    color: #f1f1f1;
+}
+  
+.lg-ess-home-sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+  
+@media screen and (max-height: 450px) {
+    .lg-ess-home-sidenav {padding-top: 15px;}
+    .lg-ess-home-sidenav a {font-size: 18px;}
+}
+
+/*---------- Total ----------*/
+.lg-ess-home-total {
+    margin-left: 20px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.lg-ess-home-total .marker{
+    display:inline-block;
+    margin-right:4px;
+    border-radius:10px;
+    width:10px;
+    height:10px;
+}
+
