@@ -13,6 +13,8 @@ var _colorPur  = '#f08881';
 var _colorDischarge = '#a3eded';
 var _colorCons = '#ff0064';
 
+var _widgetID;
+
 function createChart(strChart, strChartType){
     const strPv = instance + '.user.graph.pv.' + strChart +'.val';
     const strLoad = instance + '.user.graph.load.' + strChart +'.val';
@@ -22,6 +24,7 @@ function createChart(strChart, strChartType){
     const jsonBatt = JSON.parse(vis.states[strBatt]);
     const jsonLoad = JSON.parse(vis.states[strLoad]);
     
+    /* Create Date string */
     var strTitle;
     if (strChart == 'year'){
         strTitle = convertFromStringToDate(jsonPv.m_timeFrom).toLocaleDateString([],{year: 'numeric'})
@@ -35,31 +38,40 @@ function createChart(strChart, strChartType){
     if (strChart == 'week'){
         strTitle = strTitle  + " - " + convertFromStringToDate(jsonPv.m_timeTo).toLocaleDateString([],{year: 'numeric',  month: '2-digit', day: '2-digit'})
     }
+    $(`#${_widgetID}-strDate`).text(strTitle);
+
+    if ((jsonPv.db != "success")||(jsonBatt.db != "success")||(jsonLoad.db != "success")){
+        $('.lg-ess-home-error').css({ 'display':'block' });
+        $(`#${_widgetID}-strTotal`).html('');
+        return;
+    }
+    $('.lg-ess-home-error').css({ 'display':'none' });
+
 
     if (strChartType == 'OverviewChart'){
         var charts = createOverviewCharts(strChart,jsonPv, jsonBatt,jsonLoad);
         var chart1 = charts.chartGen;
         var chart2 = charts.chartPurch;
-        var footer = '';
-        return {chart1,chart2,strTitle,footer};
+        $(`#${_widgetID}-strTotal`).html('');
+        return {chart1,chart2};
     }
     else if (strChartType == 'PvChart'){
         var charts = createPvCharts(strChart,jsonPv);
         var chart1 = charts.chartPv;
-        var footer = charts.footer;
-        return {chart1,chart1,strTitle,footer};
+        $(`#${_widgetID}-strTotal`).html(charts.footer);
+        return {chart1};
     } 
     else if (strChartType == 'EssChart'){
         var charts = createEssCharts(strChart,jsonBatt);
         var chart1 = charts.chartEss;
-        var footer = charts.footer;
-        return {chart1,chart1,strTitle,footer};
+        $(`#${_widgetID}-strTotal`).html(charts.footer);
+        return {chart1};
     }
     else if (strChartType == 'LoadChart'){
         var charts = createLoadCharts(strChart, jsonLoad);
         var chart1 = charts.chartLoad;
-        var footer = charts.footer;
-        return {chart1,chart1,strTitle,footer};
+        $(`#${_widgetID}-strTotal`).html(charts.footer);
+        return {chart1};
     } 
 }
 
@@ -220,6 +232,8 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
 
         //Direct consumption
         directConsumption = generation - feedIn - battCharge;
+        if (directConsumption < 0) directConsumption = 0;
+
         chartGen.series[2].data.push(directConsumption);
         chartPurch.series[2].data.push(directConsumption);
         

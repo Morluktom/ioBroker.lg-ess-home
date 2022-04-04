@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+	  "0.2.1": {
+		"en": "Update Chart Widget",
+		"de": "Diagramm-Widget aktualisiert",
+		"ru": "Обновить виджет диаграммы",
+		"pt": "Atualizar widget de gráfico",
+		"nl": "Kaartwidget bijwerken",
+		"fr": "Mettre à jour le widget graphique",
+		"it": "Aggiorna widget grafico",
+		"es": "Actualizar widget de gráfico",
+		"pl": "Aktualizuj widżet wykresu",
+		"zh-cn": "更新图表小部件"
+	  },		
   	  "0.2.0": {
 	    "en": "Chart Widget added",
 	    "de": "Diagramm-Widget hinzugefügt",
@@ -210,6 +222,7 @@
     "compact": true,
     "connectionType": "local",
     "dataSource": "poll",
+    "messagebox": true,
     "materialize": true,
     "dependencies": [
       {

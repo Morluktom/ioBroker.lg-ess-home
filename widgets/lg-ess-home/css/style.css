@@ -11,7 +11,7 @@
 
 .lg-ess-home-two-charts {
     height: calc((100% - 90px)/2);
-    width: 100%;
+    /* width: 100%; */
 }
 
 .lg-ess-home-hide-chart {
@@ -25,125 +25,108 @@
     font-size: 20px;
     text-align: center;
 }
+
+.lg-ess-home-error {
+    position:absolute;
+    width: 200px;
+    height: 50px;
+    margin-left: -100px;
+    margin-top: - 25px;
+    top: 50%;
+    left: 50%;
+    color: red;
+    text-align: center;
+    vertical-align: middle;
+    display: none;
+}
+
+.lg-ess-home-error-symbol{
+    font-size: xx-large;
+}
   
 /*---------- Timebar ----------*/
 .lg-ess-home-timebar{
-    text-align: center;
     padding-bottom: 0px;
     margin-bottom: 15px;
     vertical-align: middle;
     line-height: 25px;
-}
-
-/*---------- Dropdown ----------*/
-.lg-ess-home-dropbtn {
-    margin-right: 20px;
-    border: none;
-    cursor: pointer;
-    width: 20px;
-    height: 22px;
-    float: right;
-    background-image: url("../img/icon-calendar.gif");
-  }
-  
-.lg-ess-home-dropbtn:hover, .lg-ess-home-dropbtn:focus, .lg-ess-home-dropbtn .active {
-    background-color: #d4d4d4;
-}
-
-.lg-ess-home-dropdown {
-    margin-bottom: 0px;
-    margin-top: 5px;
-    margin-right: 5px;
-    text-align: center;
-}
-
-.lg-ess-home-dropdown span {
-    display: inline-block;
-    border-radius: 16px;
-}
-
-.lg-ess-home-dropdown-content {
-    right: 20px;
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    overflow: auto; 
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-.lg-ess-home-dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border: none;
-}
-
-.lg-ess-home-dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.lg-ess-home-dropdown button:hover {
-    background-color: #ddd;
-}
-  
-.lg-ess-home-dropdown-content-show {
-    display: block;
-}
-
-/*---------- Side Navigation ----------*/
-.lg-ess-home-sidenav-menue-opner{
-    font-size:25px;
-    margin-left: 20px;
+    height: 25px;
     position: relative;
-    cursor:pointer;
-    float: left;
+    cursor: pointer;
 }
 
-.lg-ess-home-sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-  }
-  
-.lg-ess-home-sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
+.lg-ess-home-timebar .backward {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.lg-ess-home-sidenav a:hover {
-    color: #bebebe;
+.lg-ess-home-timebar .forward {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.lg-ess-home-sidenav .active {
-    color: #f1f1f1;
+.lg-ess-home-timebar .last {
+    color: gray;
+    cursor: default;
 }
-  
-.lg-ess-home-sidenav .closebtn {
+
+.lg-ess-home-timebar div {
     position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.lg-ess-home-timebar div span{
+    position: relative;
+    display:inline-block;
+}
+.lg-ess-home-timebar input {
+    position: absolute;
+    border: none; 
+    outline:none; 
+    font-size: 16px;
+    font-family:Arial,sans-serif;
+    background: transparent;
+}
+
+.lg-ess-home-timebar input:focus-visible {
+    border: none;
+    outline: none;
+}
+
+.lg-ess-home-timebar input::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
     top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
+    width: auto;
 }
-  
-@media screen and (max-height: 450px) {
-    .lg-ess-home-sidenav {padding-top: 15px;}
-    .lg-ess-home-sidenav a {font-size: 18px;}
+
+.lg-ess-home-timebar input::-webkit-datetime-edit-year-field { 
+    color: transparent;
+    background: transparent;
 }
+
+.lg-ess-home-timebar input::-webkit-datetime-edit-month-field { 
+    color: transparent;
+    background: transparent;
+}
+.lg-ess-home-timebar input::-webkit-datetime-edit-day-field { 
+    color: transparent;
+    background: transparent;
+}
+
+.lg-ess-home-timebar input::-webkit-datetime-edit-text { 
+    color: transparent;
+    background: transparent;
+}
+
+
 
 /*---------- Total ----------*/
 .lg-ess-home-total {
@@ -159,4 +142,91 @@
     width:10px;
     height:10px;
 }
+
+.lg-ess-home-right-menu {
+    background: var(--menu_background);
+    height: 100%;
+    right: 0px;
+    position: absolute;
+    top: 0;
+    width: 0px;
+    z-index: 100;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+.lg-ess-home-right-menu-box{
+    margin-top: 20px;
+    position: absolute;
+    top: 0px;
+    height: 25px;
+    width: 25px;
+    padding: 10px;
+    background: var(--menu_background);
+    border-radius: 8px 0 0 8px;
+    margin-left: -44px;
+}
+
+.lg-ess-home-right-menu-box-icon{
+    fill:none;
+    stroke:var(--menu_color_font);
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-width: 2px;
+}
+
+.lg-ess-home-right-menu-container{
+    height: 100%;
+    padding: 0 1em;
+    display: none;
+}
+
+.lg-ess-home-right-menu-container h2 {
+    text-align: center;
+    color: var(--menu_color_font);
+    opacity: 0;
+    -webkit-transition: all 2000ms ease-in-out;
+    transition: all 2000ms ease-in-out;
+}
+
+.lg-ess-home-right_menu_item {
+    margin-left: 30px;
+    opacity: 0;
+    -webkit-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+
+
+  
+.icon-list a {
+    position: relative;
+    font-family: "Oswald", "Helvetica Neue", Helvetica, sans-serif;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: #eee;
+    font-size: 20px;
+    transition: all 0.3s ease;
+  }
+.icon-list a::before {
+    position: absolute;
+    content: "";
+    width: 0%;
+    height: 2px;
+    top: 80%;
+    transition: all 0.3s ease;
+  }
+.icon-list a:hover {
+    color: #CDDC39;
+}
+.icon-list .selected {
+    color: #CDDC39;
+}
+.icon-list a:hover::before {
+    width: 50%;
+    background-color: #CDDC39;
+  }
+
+
 
