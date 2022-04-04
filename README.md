@@ -35,6 +35,9 @@ you can use any REST Client to get the password:
 This should give you the password and a status in return.
 
 ## Changelog
+### 0.2.2 (2022-04-04)
+* (Morluktom) Chart widget updated
+
 ### 0.2.1 (2022-04-04)
 * (Morluktom) Chart widget updated
 

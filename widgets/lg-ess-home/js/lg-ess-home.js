@@ -398,11 +398,11 @@ vis.binds['lg-ess-home'] = {
 
         //date_input.min = new Date().getFullYear() + '-01-01';
         date_input.max = new Date().toLocaleDateString('en-ca');
-        date_input.value = new Date().toLocaleDateString('en-ca');
-
+        date_input.value = '';
+        let selectedDate = new Date().toLocaleDateString('en-ca'); 
         /* Button backward */
         $( `#${widgetID}-btnBackward`).click(function() {
-            var date = new Date(date_input.value)
+            var date = new Date(selectedDate)
             if (strChart == 'day')
                 date.setDate(date.getDate() - 1);
             else if (strChart == 'week')
@@ -411,8 +411,8 @@ vis.binds['lg-ess-home'] = {
                 date.setMonth(date.getMonth() - 1);  
             else if (strChart == 'year')
                 date.setDate(date.getDate() - 365);                        
-            date_input.value = date.toLocaleDateString('en-ca');
-            loadChartData(date_input.value);
+            selectedDate = date.toLocaleDateString('en-ca');
+            loadChartData(selectedDate);
             $( `#${widgetID}-btnForward`).removeClass('last');
         });
 
@@ -420,7 +420,7 @@ vis.binds['lg-ess-home'] = {
         $( `#${widgetID}-btnForward`).click(function() {
             if ($(this).hasClass('last')) return;
             
-            var date = new Date(date_input.value)
+            var date = new Date(selectedDate)
             if (strChart == 'day')
                 date.setDate(date.getDate() + 1);
             else if (strChart == 'week')
@@ -433,8 +433,8 @@ vis.binds['lg-ess-home'] = {
             var today = new Date();
             if (date > today) date = today;
 
-            date_input.value = date.toLocaleDateString('en-ca');
-            loadChartData(date_input.value);
+            selectedDate = date.toLocaleDateString('en-ca');
+            loadChartData(selectedDate);
 
             if (today.toDateString() == date.toDateString())
                 $( `#${widgetID}-btnForward`).addClass('last');
@@ -442,13 +442,15 @@ vis.binds['lg-ess-home'] = {
 
         /* Selected date changed */
         $( "#date_input" ).change(function() {
+            selectedDate = (this).value;
+            (this).value = '';
             var today = new Date();  
-            var date = new Date((this).value)      
+            var date = new Date(selectedDate)      
             if (today.toDateString() == date.toDateString())
                 $( `#${widgetID}-btnForward`).addClass('last');
             else
                 $( `#${widgetID}-btnForward`).removeClass('last');               
-            loadChartData((this).value);
+            loadChartData(selectedDate);
         });
 
         /* Load actual chart data */

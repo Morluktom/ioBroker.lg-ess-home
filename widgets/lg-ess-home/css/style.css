@@ -125,7 +125,9 @@
     color: transparent;
     background: transparent;
 }
-
+.lg-ess-home-timebar input::-webkit-inner-spin-button { 
+    display: none;
+}
 
 
 /*---------- Total ----------*/
