@@ -82,6 +82,7 @@
 }
 .lg-ess-home-timebar input {
     position: absolute;
+    -webkit-appearance: none;
     border: none; 
     outline:none; 
     font-size: 16px;
