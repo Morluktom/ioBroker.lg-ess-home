@@ -155,7 +155,6 @@ class LgEssHome extends utils.Adapter {
 	*/
 	async onMessage(obj) {
 		if (typeof obj === "object" && obj.message) {
-			this.log.info(obj.command);
 			if (obj.command === "getChart") {
 	 			// e.g. send email or pushover or whatever
 	 			this.log.debug('[LG_ESS] Message getChart Date: '+ obj.message);

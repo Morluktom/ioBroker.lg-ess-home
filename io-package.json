@@ -1,44 +1,56 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "news": {
-	  "0.2.2": {
-		"en": "Update Chart Widget",
-		"de": "Diagramm-Widget aktualisiert",
-		"ru": "Обновить виджет диаграммы",
-		"pt": "Atualizar widget de gráfico",
-		"nl": "Kaartwidget bijwerken",
-		"fr": "Mettre à jour le widget graphique",
-		"it": "Aggiorna widget grafico",
-		"es": "Actualizar widget de gráfico",
-		"pl": "Aktualizuj widżet wykresu",
-		"zh-cn": "更新图表小部件"
-	  },
-	  "0.2.1": {
-		"en": "Update Chart Widget",
-		"de": "Diagramm-Widget aktualisiert",
-		"ru": "Обновить виджет диаграммы",
-		"pt": "Atualizar widget de gráfico",
-		"nl": "Kaartwidget bijwerken",
-		"fr": "Mettre à jour le widget graphique",
-		"it": "Aggiorna widget grafico",
-		"es": "Actualizar widget de gráfico",
-		"pl": "Aktualizuj widżet wykresu",
-		"zh-cn": "更新图表小部件"
-	  },		
-  	  "0.2.0": {
-	    "en": "Chart Widget added",
-	    "de": "Diagramm-Widget hinzugefügt",
-	    "ru": "Добавлен виджет диаграммы",
-	    "pt": "Widget de gráfico adicionado",
-	    "nl": "Grafiekwidget toegevoegd",
-	    "fr": "Widget graphique ajouté",
-	    "it": "Widget grafico aggiunto",
-	    "es": "Widget de gráfico agregado",
-	    "pl": "Dodano widżet wykresu",
-	    "zh-cn": "添加了图表小部件"
-	  },
+      "0.2.3": {
+	    "en": "Datepicker changed to jquery",
+	    "de": "Datepicker wurde in jquery geändert",
+	    "ru": "Datepicker изменен на jquery",
+	    "pt": "Datepicker alterado para jquery",
+	    "nl": "Datumkiezer gewijzigd in jQuery",
+	    "fr": "Sélecteur de date changé en jquery",
+	    "it": "Datepicker cambiato in jquery",
+	    "es": "Selector de fecha cambiado a jquery",
+	    "pl": "Datepicker zmieniono na jquery",
+	    "zh-cn": "日期选择器更改为 jquery"
+      },
+      "0.2.2": {
+        "en": "Update Chart Widget",
+        "de": "Diagramm-Widget aktualisiert",
+        "ru": "Обновить виджет диаграммы",
+        "pt": "Atualizar widget de gráfico",
+        "nl": "Kaartwidget bijwerken",
+        "fr": "Mettre à jour le widget graphique",
+        "it": "Aggiorna widget grafico",
+        "es": "Actualizar widget de gráfico",
+        "pl": "Aktualizuj widżet wykresu",
+        "zh-cn": "更新图表小部件"
+      },
+      "0.2.1": {
+        "en": "Update Chart Widget",
+        "de": "Diagramm-Widget aktualisiert",
+        "ru": "Обновить виджет диаграммы",
+        "pt": "Atualizar widget de gráfico",
+        "nl": "Kaartwidget bijwerken",
+        "fr": "Mettre à jour le widget graphique",
+        "it": "Aggiorna widget grafico",
+        "es": "Actualizar widget de gráfico",
+        "pl": "Aktualizuj widżet wykresu",
+        "zh-cn": "更新图表小部件"
+      },
+      "0.2.0": {
+        "en": "Chart Widget added",
+        "de": "Diagramm-Widget hinzugefügt",
+        "ru": "Добавлен виджет диаграммы",
+        "pt": "Widget de gráfico adicionado",
+        "nl": "Grafiekwidget toegevoegd",
+        "fr": "Widget graphique ajouté",
+        "it": "Widget grafico aggiunto",
+        "es": "Widget de gráfico agregado",
+        "pl": "Dodano widżet wykresu",
+        "zh-cn": "添加了图表小部件"
+      },
       "0.1.1": {
         "en": "replaced deprecated library and login as installer only when needed",
         "de": "veraltete Bibliothek ersetzt und nur bei Bedarf als Installer anmelden",
@@ -50,7 +62,7 @@
         "es": "reemplazó la biblioteca obsoleta e inicie sesión como instalador solo cuando sea necesario",
         "pl": "zastąpiono przestarzałą bibliotekę i loguj się jako instalator tylko wtedy, gdy jest to potrzebne",
         "zh-cn": "替换已弃用的库并仅在需要时以安装程序登录"
-      },      
+      },
       "0.1.0": {
         "en": "Read installer and chart data",
         "de": "Installations- und Diagrammdaten lesen",
@@ -228,7 +240,7 @@
     "loglevel": "info",
     "restartAdapters": [
       "vis"
-    ],    
+    ],
     "mode": "daemon",
     "type": "energy",
     "compact": true,

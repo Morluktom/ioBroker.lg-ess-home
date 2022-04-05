@@ -374,14 +374,16 @@ vis.binds['lg-ess-home'] = {
 
         text += `<div class="lg-ess-home-timebar">`
         text += `   <div>`
-        text += `       <span id="${widgetID}-btnBackward" class="backward"><<</span>`;       
-        text += `       <span id="${widgetID}-strDate"></span>`;
-        text += `       <span id="${widgetID}-btnForward" class="forward last">>></span>`;
+        text += `	    <button id="${widgetID}-btnBackward" class="backward" href="#"><<</button>`;      
+        text += `       <button id="${widgetID}-strDate"></button>`;
+        text += `       <button id="${widgetID}-btnForward" class="forward last">>></button>`;
         text += `   </div>`;
+
         text += `   <div>`
-        text += `       <input type="date" name="date" id="date_input" required></input>`;
+        text += `       <input name="date" id="date_input" required></input>`;
         text += `   </div>`;
         text += `</div>`;
+
 
         text += `<div id="${widgetID}-strTotal"class="lg-ess-home-total"></div>`;
 
@@ -396,9 +398,17 @@ vis.binds['lg-ess-home'] = {
 
         var $strHeader = $(`#${widgetID}-strHeader`);
 
-        //date_input.min = new Date().getFullYear() + '-01-01';
-        date_input.max = new Date().toLocaleDateString('en-ca');
-        date_input.value = '';
+        $( function() {
+            $(`#date_input`).datepicker({
+                maxDate: '0',
+                showButtonPanel: false
+            });
+        });
+
+        $(`#${widgetID}-strDate`).click(function() {
+            $(`#date_input`).datepicker('show');
+      });
+
         let selectedDate = new Date().toLocaleDateString('en-ca'); 
         /* Button backward */
         $( `#${widgetID}-btnBackward`).click(function() {
@@ -442,10 +452,9 @@ vis.binds['lg-ess-home'] = {
 
         /* Selected date changed */
         $( "#date_input" ).change(function() {
-            selectedDate = (this).value;
-            (this).value = '';
             var today = new Date();  
-            var date = new Date(selectedDate)      
+            var date = new Date((this).value);
+            selectedDate = date.toLocaleDateString('en-ca');    
             if (today.toDateString() == date.toDateString())
                 $( `#${widgetID}-btnForward`).addClass('last');
             else

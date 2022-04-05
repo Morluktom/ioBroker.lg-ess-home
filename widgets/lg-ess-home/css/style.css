@@ -54,7 +54,11 @@
     position: relative;
     cursor: pointer;
 }
-
+.lg-ess-home-timebar button {
+    text-decoration: none;
+    background: none;
+    border: none;
+}
 .lg-ess-home-timebar .backward {
     padding-left: 20px;
     padding-right: 20px;
@@ -76,17 +80,13 @@
     width: 100%;
 }
 
-.lg-ess-home-timebar div span{
-    position: relative;
-    display:inline-block;
-}
 .lg-ess-home-timebar input {
     position: absolute;
-    -webkit-appearance: none;
     border: none; 
     outline:none; 
     font-size: 16px;
     font-family:Arial,sans-serif;
+    color: transparent;
     background: transparent;
 }
 
@@ -94,42 +94,6 @@
     border: none;
     outline: none;
 }
-
-.lg-ess-home-timebar input::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: auto;
-}
-
-.lg-ess-home-timebar input::-webkit-datetime-edit-year-field { 
-    color: transparent;
-    background: transparent;
-}
-
-.lg-ess-home-timebar input::-webkit-datetime-edit-month-field { 
-    color: transparent;
-    background: transparent;
-}
-.lg-ess-home-timebar input::-webkit-datetime-edit-day-field { 
-    color: transparent;
-    background: transparent;
-}
-
-.lg-ess-home-timebar input::-webkit-datetime-edit-text { 
-    color: transparent;
-    background: transparent;
-}
-.lg-ess-home-timebar input::-webkit-inner-spin-button { 
-    display: none;
-}
-
 
 /*---------- Total ----------*/
 .lg-ess-home-total {
