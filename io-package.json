@@ -196,7 +196,6 @@
         "zh-cn": "首次出版"
       }
     },
-    "title": "LG ESS Home Hybrid Inverter",
     "titleLang": {
       "en": "LG ESS Home Hybrid Inverter",
       "de": "LG ESS Home Hybrid Wechselrichter",
@@ -225,9 +224,7 @@
       "Morluktom <strassertom@gmx.de>"
     ],
     "keywords": [
-      "ioBroker",
-      "template",
-      "Smart Home",
+      "LG-ESS",
       "home automation"
     ],
     "license": "MIT",
