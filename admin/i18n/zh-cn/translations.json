@@ -1,0 +1,14 @@
+{
+    "Options": "选项",
+    "IP Adress": "IP地址",
+    "IP Adress of LG ESS Inverter": "LG ESS逆变器IP地址",
+    "Password": "密码",
+    "Update Intervall Home [s]": "更新间隔主页 [s]",
+    "Update Intervall Common [s]": "更新间隔公共 [s]",
+    "Main settings": "主要设置",
+    "Installer Password": "安装员密码",
+    "Installer settings": "安装程序设置",
+    "Enable Installer Login": "启用安装程序登录",
+    "Password of the Inverter. To get this password lock at the github readme.": "逆变器密码。",
+    "Password of the Inverter": "逆变器密码。"
+}

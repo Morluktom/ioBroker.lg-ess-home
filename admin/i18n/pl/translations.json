@@ -1,0 +1,14 @@
+{
+    "Options": "Opcje",
+    "IP Adress": "Adres IP",
+    "IP Adress of LG ESS Inverter": "Adres IP falownika LG ESS",
+    "Password": "Hasło",
+    "Update Intervall Home [s]": "Strona główna interwału aktualizacji [s]",
+    "Update Intervall Common [s]": "Częstotliwość aktualizacji Wspólny [s]",
+    "Main settings": "Ustawienia główne",
+    "Installer Password": "Hasło instalatora",
+    "Installer settings": "Ustawienia instalatora",
+    "Enable Installer Login": "Włącz logowanie instalatora",
+    "Password of the Inverter. To get this password lock at the github readme.": "Hasło falownika. ",
+    "Password of the Inverter": "Hasło falownika."
+}

@@ -1,0 +1,12 @@
+{
+    "Main settings" : "Main settings",
+    "IP Adress" : "IP Adress",
+    "IP Adress of LG ESS Inverter" : "IP Adress of LG ESS Inverter",
+    "Password" : "Password",
+    "Update Intervall Home [s]" : "Update Intervall Home [s]",
+    "Update Intervall Common [s]" : "Update Intervall Common [s]",
+    "Installer settings": "Installer settings",
+    "Enable Installer Login": "Enable Installer Login",
+    "Installer Password" : "Installer Password",
+    "Password of the Inverter": "Password of the Inverter"
+}

@@ -27,10 +27,10 @@ An iobroker adapter for a LG ESS hybrid inverter. With this adapter, the status 
 For those, who don't like exe: (Thanks grex1975)\
 you can use any REST Client to get the password:
 1. connect to the WLAN of the LG_ESS
-1. Execute a GET request\
+1. Execute a POST request\
 	Url: https://192.168.23.1/v1/user/setting/read/password \
 	Headers: "Charset": "UTF-8", "Content-Type": "application/json"\
-	Body: "key": "lgepmsuser!@#"
+	{Body: "key": "lgepmsuser!@#"}
 	
 This should give you the password and a status in return.
 
@@ -41,6 +41,7 @@ This should give you the password and a status in return.
 -->
 ### **WORK IN PROGRESS**
 * (Morluktom) Fixed warnings found by adapter checker
+* (Morluktom) Added Admin 5 configuration
 
 ### 0.2.3 (2022-04-05)
 * (Morluktom) Chart widget: Datepicker changed to jquery

@@ -1,0 +1,75 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_mainTab": {
+            "type": "panel",
+            "label": "Main settings",
+            "items": {
+                "ipadress": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "IP Adress",
+                    "help": "IP Adress of LG ESS Inverter"
+                },
+                "userpassword": {
+                    "newLine": true,
+                    "type": "password",
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "Password",
+                    "help": "Password of the Inverter"
+                },
+                "_divider1": {
+                    "type": "divider"
+                },            
+                "refreshTime": {
+                    "newLine": true,
+                    "type": "number",
+                    "min": 1,
+                    "max": 60,
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "Update Intervall Home [s]"
+                },
+                "refreshTimeCommon": {
+                    "newLine": true,
+                    "type": "number",
+                    "min": 1,
+                    "max": 600,
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "Update Intervall Common [s]"
+                }
+            }
+        },
+        "_installerTab": {
+            "type": "panel",
+            "label": "Installer settings",
+            "items": {
+                "loginInstaller": {
+                    "type": "checkbox",
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "Enable Installer Login"
+                },
+                "installerPassword": {
+                    "newLine": true,
+                    "hidden": "data.loginInstaller == false",
+                    "type": "password",
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 4,
+                    "label": "Installer Password"
+                }
+ 
+            }           
+        }
+    }
+}
