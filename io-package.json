@@ -13,7 +13,8 @@
                 "it": "Datepicker cambiato in jquery",
                 "es": "Selector de fecha cambiado a jquery",
                 "pl": "Datepicker zmieniono na jquery",
-                "zh-cn": "日期选择器更改为 jquery"
+                "zh-cn": "日期选择器更改为 jquery",
+                "uk": "Datepicker змінено на jquery"
             },
             "0.2.2": {
                 "en": "Update Chart Widget",
@@ -25,7 +26,8 @@
                 "it": "Aggiorna widget grafico",
                 "es": "Actualizar widget de gráfico",
                 "pl": "Aktualizuj widżet wykresu",
-                "zh-cn": "更新图表小部件"
+                "zh-cn": "更新图表小部件",
+                "uk": "Оновити віджет діаграми"
             },
             "0.2.1": {
                 "en": "Update Chart Widget",
@@ -37,7 +39,8 @@
                 "it": "Aggiorna widget grafico",
                 "es": "Actualizar widget de gráfico",
                 "pl": "Aktualizuj widżet wykresu",
-                "zh-cn": "更新图表小部件"
+                "zh-cn": "更新图表小部件",
+                "uk": "Оновити віджет діаграми"
             },
             "0.2.0": {
                 "en": "Chart Widget added",
@@ -49,7 +52,8 @@
                 "it": "Widget grafico aggiunto",
                 "es": "Widget de gráfico agregado",
                 "pl": "Dodano widżet wykresu",
-                "zh-cn": "添加了图表小部件"
+                "zh-cn": "添加了图表小部件",
+                "uk": "Додано віджет діаграми"
             },
             "0.1.1": {
                 "en": "replaced deprecated library and login as installer only when needed",
@@ -61,7 +65,8 @@
                 "it": "sostituita la libreria deprecata e accedi come installatore solo quando necessario",
                 "es": "reemplazó la biblioteca obsoleta e inicie sesión como instalador solo cuando sea necesario",
                 "pl": "zastąpiono przestarzałą bibliotekę i loguj się jako instalator tylko wtedy, gdy jest to potrzebne",
-                "zh-cn": "替换已弃用的库并仅在需要时以安装程序登录"
+                "zh-cn": "替换已弃用的库并仅在需要时以安装程序登录",
+                "uk": "замінено застарілу бібліотеку та ввійдіть як інсталятор лише за потреби"
             },
             "0.1.0": {
                 "en": "Read installer and chart data",
@@ -73,7 +78,8 @@
                 "it": "Leggi i dati del programma di installazione e del grafico",
                 "es": "Leer el instalador y los datos del gráfico",
                 "pl": "Przeczytaj dane instalatora i wykresu",
-                "zh-cn": "读取安装程序和图表数据"
+                "zh-cn": "读取安装程序和图表数据",
+                "uk": "Прочитайте дані інсталятора та діаграми"
             },
             "0.0.10": {
                 "en": "Bugfix boolean value",
@@ -85,7 +91,8 @@
                 "it": "Valore booleano di Bugfix",
                 "es": "Valor booleano de corrección de errores",
                 "pl": "Wartość logiczna poprawki błędu",
-                "zh-cn": "错误修正布尔值"
+                "zh-cn": "错误修正布尔值",
+                "uk": "Виправлено логічне значення"
             },
             "0.0.9": {
                 "en": "Bugfix boolean value",
@@ -97,7 +104,8 @@
                 "it": "Valore booleano di Bugfix",
                 "es": "Valor booleano de corrección de errores",
                 "pl": "Wartość logiczna poprawki błędu",
-                "zh-cn": "错误修正布尔值"
+                "zh-cn": "错误修正布尔值",
+                "uk": "Виправлено логічне значення"
             },
             "0.0.8": {
                 "en": "code clean up",
@@ -109,7 +117,8 @@
                 "it": "pulizia del codice",
                 "es": "limpieza de código",
                 "pl": "czyszczenie kodu",
-                "zh-cn": "代码清理"
+                "zh-cn": "代码清理",
+                "uk": "очищення коду"
             },
             "0.0.7": {
                 "en": "code clean up",
@@ -121,7 +130,8 @@
                 "it": "pulizia del codice",
                 "es": "limpieza de código",
                 "pl": "czyszczenie kodu",
-                "zh-cn": "代码清理"
+                "zh-cn": "代码清理",
+                "uk": "очищення коду"
             },
             "0.0.6": {
                 "en": "Data type recognition fixed",
@@ -133,7 +143,8 @@
                 "it": "Riconoscimento del tipo di dati corretto",
                 "es": "Reconocimiento de tipo de datos fijo",
                 "pl": "Naprawiono rozpoznawanie typu danych",
-                "zh-cn": "数据类型识别已修复"
+                "zh-cn": "数据类型识别已修复",
+                "uk": "Виправлено розпізнавання типів даних"
             },
             "0.0.5": {
                 "en": "auto password encryption ",
@@ -145,7 +156,8 @@
                 "it": "crittografia automatica della password",
                 "es": "cifrado automático de contraseña",
                 "pl": "automatyczne szyfrowanie hasła",
-                "zh-cn": "自动密码加密"
+                "zh-cn": "自动密码加密",
+                "uk": "автоматичне шифрування пароля"
             },
             "0.0.4": {
                 "en": "W => kW, values confirmed",
@@ -157,7 +169,8 @@
                 "it": "W => kW, valori confermati",
                 "es": "W => kW, valores confirmados",
                 "pl": "W => kW, wartości potwierdzone",
-                "zh-cn": "W => kW，值已确认"
+                "zh-cn": "W => kW，值已确认",
+                "uk": "Вт => кВт, значення підтверджені"
             },
             "0.0.3": {
                 "en": "Structure of the channel and states changed",
@@ -169,7 +182,8 @@
                 "it": "La struttura del canale e gli stati sono cambiati",
                 "es": "La estructura del canal y los estados cambiaron",
                 "pl": "Zmieniła się struktura kanału i stany",
-                "zh-cn": "通道的结构和状态已更改"
+                "zh-cn": "通道的结构和状态已更改",
+                "uk": "Змінено структуру каналу та штати"
             },
             "0.0.2": {
                 "en": "Separate Intervall for Common and Home",
@@ -181,7 +195,8 @@
                 "it": "Intervallo separato per comune e domestico",
                 "es": "Intervalo separado para común y hogar",
                 "pl": "Oddzielne interwały dla wspólnych i domowych",
-                "zh-cn": "公共和家庭的独立间隔"
+                "zh-cn": "公共和家庭的独立间隔",
+                "uk": "Окремий інтервал для загального та домашнього"
             },
             "0.0.1": {
                 "en": "initial release",
@@ -193,7 +208,8 @@
                 "it": "Versione iniziale",
                 "es": "Versión inicial",
                 "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
+                "zh-cn": "首次出版",
+                "uk": "початковий випуск"
             }
         },
         "titleLang": {
@@ -206,7 +222,8 @@
             "it": "Inverter ibrido LG ESS Home",
             "es": "Inversor híbrido doméstico LG ESS",
             "pl": "Domowy falownik hybrydowy LG ESS",
-            "zh-cn": "LG ESS家庭混合逆变器"
+            "zh-cn": "LG ESS家庭混合逆变器",
+            "uk": "Домашній гібридний інвертор LG ESS"
         },
         "desc": {
             "en": "Adapter to read data from a LG ESS inverter.",
@@ -218,7 +235,8 @@
             "it": "Adattatore per leggere i dati da un inverter LG ESS.",
             "es": "Adaptador para leer datos de un inversor LG ESS.",
             "pl": "Adapter do odczytu danych z falownika LG ESS.",
-            "zh-cn": "用于从LG ESS逆变器读取数据的适配器。"
+            "zh-cn": "用于从LG ESS逆变器读取数据的适配器。",
+            "uk": "Адаптер для читання даних з інвертора LG ESS."
         },
         "authors": [
             "Morluktom <strassertom@gmx.de>"

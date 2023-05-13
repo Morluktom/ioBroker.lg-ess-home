@@ -25,7 +25,7 @@
     "@alcalzone/release-script": "^3.5.9",
     "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
     "@alcalzone/release-script-plugin-license": "^3.5.9",
-    "@iobroker/adapter-dev": "^1.0.0",
+    "@iobroker/adapter-dev": "^1.2.0",
     "@iobroker/testing": "^3.0.2",
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.5",
@@ -56,18 +56,18 @@
     "io-package.json",
     "LICENSE",
     "main.js"
-  ],  
+  ],
   "scripts": {
-      "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
-      "test:package": "mocha test/package --exit",
-      "test:integration": "mocha test/integration --exit",
-      "test": "npm run test:js && npm run test:package",
-      "check": "tsc --noEmit -p tsconfig.check.json",
-      "lint": "eslint --ext .js,.jsx",
-      "translate": "translate-adapter",
-      "release": "release-script patch --yes",
-      "release-minor": "release-script minor --yes",
-      "release-major": "release-script major --yes"
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "check": "tsc --noEmit -p tsconfig.check.json",
+    "lint": "eslint --ext .js,.jsx",
+    "translate": "translate-adapter",
+    "release": "release-script patch --yes",
+    "release-minor": "release-script minor --yes",
+    "release-major": "release-script major --yes"
   },
   "bugs": {
     "url": "https://github.com/Morluktom/ioBroker.lg-ess-home/issues"
