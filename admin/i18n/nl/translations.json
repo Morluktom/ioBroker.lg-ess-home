@@ -1,14 +1,12 @@
 {
-    "Options": "Opties",
+    "Main settings": "Belangrijkste instellingen",
     "IP Adress": "IP adres",
     "IP Adress of LG ESS Inverter": "IP-adres van de LG ESS-omvormer",
     "Password": "Wachtwoord",
     "Update Intervall Home [s]": "Update Intervall Home [s]",
     "Update Intervall Common [s]": "Update Intervall Common [s]",
-    "Main settings": "Belangrijkste instellingen",
-    "Installer Password": "Installateur wachtwoord",
     "Installer settings": "Installateur instellingen",
     "Enable Installer Login": "Schakel installateurslogin in",
-    "Password of the Inverter. To get this password lock at the github readme.": "Wachtwoord van de omvormer. ",
-    "Password of the Inverter": "Wachtwoord van de omvormer."
+    "Installer Password": "Installateur wachtwoord",
+    "Password of the Inverter": "Wachtwoord van de omvormer"
 }
