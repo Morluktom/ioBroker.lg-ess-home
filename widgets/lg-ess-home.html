@@ -12,7 +12,6 @@
 <!-- here you can include so many js-files as you want -->
 <script type="text/javascript" src="widgets/lg-ess-home/js/lg-ess-home.js"></script>
 <script type="text/javascript" src="widgets/lg-ess-home/lib/echarts.js"></script>
-<script type="text/javascript" src="widgets/lg-ess-home/js/words.js"></script>
 <script type="text/javascript" src="widgets/lg-ess-home/js/chart.js"></script>
 
 <!-- the full description of format in data-vis-attrs can be found here:
@@ -118,7 +117,10 @@
                         Direct_consumption[#abafd7]/color;
                         Charge[#bded71]/color;
                         Discharge[#a3eded]/color;
-                        Soc[#f5c04d]/color"
+                        Soc[#f5c04d]/color;"
+        data-vis-attrs1="group.PvForecast;
+                        PvForecastInstance[pvforecast.0.summary.JSONData]/id,json;
+                        PvForecastColor[#000000]/color;"                    
         data-vis-set="lg-ess-home"
         data-vis-type="val"
         data-vis-name="LG Ess Chart">

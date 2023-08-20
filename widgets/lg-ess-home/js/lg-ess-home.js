@@ -13,7 +13,20 @@ $.extend(
     true,
     systemDictionary,
     {
-		'lgEssInstance': {
+        'PvForecastInstance': {
+            "en": "PV Forecast Adapter",
+            "de": "PV Forecast Adapter",
+            "ru": "PV Прогноз адаптер",
+            "pt": "Adaptador de previsão PV",
+            "nl": "PV Forecast Adap",
+            "fr": "Adaptateur de prévision PV",
+            "it": "Adattatore di previsione del fotovoltaico",
+            "es": "Adaptador de predicción PV",
+            "pl": "PV Forecast Adapter",
+            "uk": "Адаптер прогнозу PV",
+            "zh-cn": "PV 广播"
+          },
+        'lgEssInstance': {
             'en': 'adapter instance',
             'de': 'Adapterinstanz',
             'ru': 'экземпляр адаптера',
@@ -229,6 +242,32 @@ $.extend(
             "pl": "Zabarwienie",
             "zh-cn": "颜色"
         },
+		'group_PvForecast': {
+            "en": "PV Forecast",
+            "de": "PV-Vorhersage",
+            "ru": "PV Прогноз",
+            "pt": "Previsão de PV",
+            "nl": "PV Forast",
+            "fr": "PV Prévisions",
+            "it": "Previsioni",
+            "es": "PV Forecast",
+            "pl": "PV Forecast",
+            "uk": "ПВ прогноз",
+            "zh-cn": "传真:"
+          }, 
+          'PvForecastColor': {
+            "en": "PV Forecast",
+            "de": "PV-Vorhersage",
+            "ru": "PV Прогноз",
+            "pt": "Previsão de PV",
+            "nl": "PV Forast",
+            "fr": "PV Prévisions",
+            "it": "Previsioni",
+            "es": "PV Forecast",
+            "pl": "PV Forecast",
+            "uk": "ПВ прогноз",
+            "zh-cn": "传真:"
+          },               
         "Charts": {
             "en": "Charts",
             "de": "Diagramme",
@@ -290,6 +329,8 @@ vis.binds['lg-ess-home'] = {
         _colorDischarge = data._data.Discharge;
         _colorCons = data._data.Consumption;
         _colorSoc = data._data.Soc;
+        _pvForecast = data._data.PvForecastInstance;
+        _colorPvForecast = data._data.PvForecastColor;
         _widgetID = widgetID;
 
 		console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Trying to render widget');
@@ -619,7 +660,8 @@ vis.binds['lg-ess-home'] = {
             instance + '.user.graph.batt.month',
             instance + '.user.graph.pv.year',
 			instance + '.user.graph.load.year',
-            instance + '.user.graph.batt.year',        
+            instance + '.user.graph.batt.year',
+            _pvForecast,      
         ];
 
         // Update states and subscribe to changes

@@ -7,6 +7,8 @@ var _colorDirect = '#abafd7';
 var _colorCharge  = '#bded71';
 var _colorFeedIn = '#f5c04d';
 var _colorSoc = '#ff8400';
+var _colorPvForecast = '#000000'
+var _pvForecast;
 
 //Verbrauch: #ff0064, Direkter Verbrauch #abafd7, Entladen: #a3eded, Gekauft: #f08881
 var _colorPur  = '#f08881';
@@ -19,10 +21,12 @@ function createChart(strChart, strChartType){
     const strPv = instance + '.user.graph.pv.' + strChart +'.val';
     const strLoad = instance + '.user.graph.load.' + strChart +'.val';
     const strBatt = instance + '.user.graph.batt.' + strChart +'.val';
+    const strForecast = _pvForecast +'.val';
  
     const jsonPv = JSON.parse(vis.states[strPv]);
     const jsonBatt = JSON.parse(vis.states[strBatt]);
     const jsonLoad = JSON.parse(vis.states[strLoad]);
+    const jsonForecast = JSON.parse(vis.states[strForecast]);
     
     /* Create Date string */
     var strTitle;
@@ -49,7 +53,7 @@ function createChart(strChart, strChartType){
 
 
     if (strChartType == 'OverviewChart'){
-        var charts = createOverviewCharts(strChart,jsonPv, jsonBatt,jsonLoad);
+        var charts = createOverviewCharts(strChart,jsonPv, jsonBatt,jsonLoad,jsonForecast);
         var chart1 = charts.chartGen;
         var chart2 = charts.chartPurch;
         $(`#${_widgetID}-strTotal`).html('');
@@ -75,11 +79,20 @@ function createChart(strChart, strChartType){
     } 
 }
 
-function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
+function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad,jsonForecast){
     var chartType;
     var unit;
     var timeOptions;
     var factor;
+
+    var today = new Date();
+    var showForecast = (today.toDateString() == convertFromStringToDate(jsonPv.loginfo[0].time).toDateString()) && (strChart == 'day');
+
+    if (!jsonForecast || !jsonForecast[0]  || !jsonForecast[0].t) {
+        console.log('Forecast Data not valid');
+        showForecast = false;
+    }
+
     if (strChart == 'day'){
         chartType = 'line';
         unit = 'kW'
@@ -87,20 +100,20 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
         factor = 0.004;
     }
     else if (strChart == 'week'){
-        chartType = 'bar'
-        unit = 'kWh'
+        chartType = 'bar';
+        unit = 'kWh';
         timeOptions = {weekday: 'short',  month: 'numeric', day: 'numeric'};
         factor = 0.001;
     }
     else if (strChart == 'year'){
-        chartType = 'bar'
-        unit = 'kWh'
+        chartType = 'bar';
+        unit = 'kWh';
         timeOptions = {year: 'numeric', month: 'long'};
         factor = 0.001;
     }
     else{
-        chartType = 'bar'
-        unit = 'kWh'
+        chartType = 'bar';
+        unit = 'kWh';
         timeOptions = {};
         factor = 0.001;
     }
@@ -199,6 +212,22 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
                 formatter: `{value} %`
             },
         })
+
+        if (showForecast == true){
+ 
+            chartGen.series.push({
+                name: translate("group_PvForecast"),
+                type: chartType,
+                smooth: true,
+                symbol: 'none',
+                barWidth: 5,
+                data: [],
+                lineStyle: {
+                    width: 1,
+                    type: 'dashed'
+                  },
+            });
+        };
     }
 
     let directConsumption =0;
@@ -240,6 +269,32 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
         //Consumption and Purchase
         chartPurch.series[3].data.push(jsonLoad.loginfo[i].consumption * factor);
         chartPurch.series[0].data.push(jsonLoad.loginfo[i].purchase * factor);
+
+        //Forecast
+        if ((strChart == 'day') && (showForecast == true)){
+            var startTimeChart = convertFromStringToDate(jsonPv.loginfo[0].time).valueOf();
+            var endTimeChart = convertFromStringToDate(jsonPv.loginfo[jsonPv.loginfo.length-1].time).valueOf();
+
+
+            var w = 0;
+
+            for(let u = 0; u < jsonPv.loginfo.length; u++) {
+                var time = convertFromStringToDate(jsonPv.loginfo[u].time).valueOf();
+                
+                if (time < jsonForecast[0].t){
+                    chartGen.series[5].data.push(0);
+                }  
+                else if (endTimeChart < jsonForecast[w].t){
+                    //chartGen.series[5].data.push(0);
+                }  
+                else if (time === jsonForecast[w].t){
+                    chartGen.series[5].data.push(jsonForecast[w].y);
+                    w++;
+                }  else if (w > 0){
+                    chartGen.series[5].data.push((jsonForecast[w].y + jsonForecast[w-1].y)/2);
+                }
+            }
+        }
     }
 
     //Legend
@@ -250,6 +305,9 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
     if (strChart == 'day'){
         chartGen.legend.data.push(translate("Soc"));
     }
+    if (showForecast == true){
+        chartGen.legend.data.push(translate("group_PvForecast"));
+    }
 
     chartPurch.legend.data.push(translate("Consumption"));
     chartPurch.legend.data.push(translate("Direct_consumption"));
@@ -257,7 +315,7 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad){
     chartPurch.legend.data.push(translate("Purchased"));
 
     //Colors
-    chartGen.color = [_colorFeedIn, _colorCharge, _colorDirect, _colorGen, _colorSoc];
+    chartGen.color = [_colorFeedIn, _colorCharge, _colorDirect, _colorGen, _colorSoc, _colorPvForecast];
     chartPurch.color = [_colorPur , _colorDischarge, _colorDirect, _colorCons];
 
     return {chartGen,chartPurch};    
