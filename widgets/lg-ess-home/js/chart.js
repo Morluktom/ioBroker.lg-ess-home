@@ -22,11 +22,13 @@ function createChart(strChart, strChartType){
     const strLoad = instance + '.user.graph.load.' + strChart +'.val';
     const strBatt = instance + '.user.graph.batt.' + strChart +'.val';
     const strForecast = _pvForecast +'.val';
- 
+    let jsonForecast;
     const jsonPv = JSON.parse(vis.states[strPv]);
     const jsonBatt = JSON.parse(vis.states[strBatt]);
     const jsonLoad = JSON.parse(vis.states[strLoad]);
-    const jsonForecast = JSON.parse(vis.states[strForecast]);
+    if (vis.states[strForecast]){
+        jsonForecast = JSON.parse(vis.states[strForecast]);
+    } 
     
     /* Create Date string */
     var strTitle;
@@ -222,7 +224,7 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad,jsonForecast){
                 symbol: 'none',
                 barWidth: 5,
                 data: [],
-                lineStyle: {
+               lineStyle: {
                     width: 1,
                     type: 'dashed'
                   },
@@ -235,6 +237,13 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad,jsonForecast){
     let feedIn = 0;
     let battCharge = 0;
     let battDisCharge = 0;
+    let indexForecast = 0;
+
+    // round forecast time 
+    if (showForecast == true){
+        jsonForecast[0].t = roundDate(new Date(jsonForecast[0].t),15).valueOf();
+    }
+
     for(let i = 0; i < jsonBatt.loginfo.length; i++) {
         if (strChart == 'day'){
             chartGen.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleTimeString([],timeOptions));
@@ -272,28 +281,20 @@ function createOverviewCharts(strChart,jsonPv,jsonBatt,jsonLoad,jsonForecast){
 
         //Forecast
         if ((strChart == 'day') && (showForecast == true)){
-            var startTimeChart = convertFromStringToDate(jsonPv.loginfo[0].time).valueOf();
-            var endTimeChart = convertFromStringToDate(jsonPv.loginfo[jsonPv.loginfo.length-1].time).valueOf();
-
-
-            var w = 0;
-
-            for(let u = 0; u < jsonPv.loginfo.length; u++) {
-                var time = convertFromStringToDate(jsonPv.loginfo[u].time).valueOf();
-                
-                if (time < jsonForecast[0].t){
-                    chartGen.series[5].data.push(0);
-                }  
-                else if (endTimeChart < jsonForecast[w].t){
-                    //chartGen.series[5].data.push(0);
-                }  
-                else if (time === jsonForecast[w].t){
-                    chartGen.series[5].data.push(jsonForecast[w].y);
-                    w++;
-                }  else if (w > 0){
-                    chartGen.series[5].data.push((jsonForecast[w].y + jsonForecast[w-1].y)/2);
-                }
+            var time = convertFromStringToDate(jsonPv.loginfo[i].time).valueOf();
+            
+            if (time < jsonForecast[0].t){
+                chartGen.series[5].data.push(0);
+            }  
+            else if (time === jsonForecast[indexForecast].t){
+                console.log('Test ' + jsonForecast[indexForecast].y);
+                chartGen.series[5].data.push(jsonForecast[indexForecast].y);
+                indexForecast++;
+            } 
+            else if (indexForecast > 0){
+                chartGen.series[5].data.push((jsonForecast[indexForecast].y + jsonForecast[indexForecast-1].y)/2);
             }
+            
         }
     }
 
@@ -658,6 +659,11 @@ function createBasicChart(unit){
 
 
 }
+
+function roundDate(date, minuten) {
+    var factor = minuten * 6e4;
+    return new Date(Math.round(date / factor) * factor);
+  }
 
 // Translate function
 function translate(text) {
