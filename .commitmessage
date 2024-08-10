@@ -1,0 +1,7 @@
+chore: release v0.3.0
+
+* (Morluktom) Fixed warnings found by adapter checker
+* (Morluktom) Added Admin 5 configuration
+* (Morluktom) Added Ukrainan language
+* (Morluktom) Add PV Forecast to chart
+* (morluktom) NodeJS >= 18.x and js-controller >= 5 is required
