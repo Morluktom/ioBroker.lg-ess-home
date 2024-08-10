@@ -72,11 +72,13 @@
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:js && npm run test:package",
     "check": "tsc --noEmit -p tsconfig.check.json",
-    "lint": "eslint --ext .js,.jsx",
+    "lint": "eslint",
     "translate": "translate-adapter",
-    "release": "release-script patch --yes",
-    "release-minor": "release-script minor --yes",
-    "release-major": "release-script major --yes"
+    "release": "release-script",
+    "release-patch": "release-script patch --yes --no-update-lockfile",
+    "release-minor": "release-script minor --yes --no-update-lockfile",
+    "release-major": "release-script major --yes --no-update-lockfile",
+    "update-packages": "ncu --upgrade"
   },
   "bugs": {
     "url": "https://github.com/Morluktom/ioBroker.lg-ess-home/issues"
