@@ -1,162 +1,174 @@
 {
-    "common": {
-        "name": "lg-ess-home",
-        "version": "0.2.3",
-        "news": {
-            "0.2.3": {
-                "en": "Datepicker changed to jquery",
-                "de": "Datepicker wurde in jquery geändert",
-                "ru": "Datepicker изменен на jquery",
-                "pt": "Datepicker alterado para jquery",
-                "nl": "Datumkiezer gewijzigd in jQuery",
-                "fr": "Sélecteur de date changé en jquery",
-                "it": "Datepicker cambiato in jquery",
-                "es": "Selector de fecha cambiado a jquery",
-                "pl": "Datepicker zmieniono na jquery",
-                "zh-cn": "日期选择器更改为 jquery",
-                "uk": "Datepicker змінено на jquery"
-            },
-            "0.2.1": {
-                "en": "Update Chart Widget",
-                "de": "Diagramm-Widget aktualisiert",
-                "ru": "Обновить виджет диаграммы",
-                "pt": "Atualizar widget de gráfico",
-                "nl": "Kaartwidget bijwerken",
-                "fr": "Mettre à jour le widget graphique",
-                "it": "Aggiorna widget grafico",
-                "es": "Actualizar widget de gráfico",
-                "pl": "Aktualizuj widżet wykresu",
-                "zh-cn": "更新图表小部件",
-                "uk": "Оновити віджет діаграми"
-            },
-            "0.2.0": {
-                "en": "Chart Widget added",
-                "de": "Diagramm-Widget hinzugefügt",
-                "ru": "Добавлен виджет диаграммы",
-                "pt": "Widget de gráfico adicionado",
-                "nl": "Grafiekwidget toegevoegd",
-                "fr": "Widget graphique ajouté",
-                "it": "Widget grafico aggiunto",
-                "es": "Widget de gráfico agregado",
-                "pl": "Dodano widżet wykresu",
-                "zh-cn": "添加了图表小部件",
-                "uk": "Додано віджет діаграми"
-            }
-
-        },
-        "titleLang": {
-            "en": "LG ESS Home Hybrid Inverter",
-            "de": "LG ESS Home Hybrid Wechselrichter",
-            "ru": "Гибридный инвертор LG ESS для дома",
-            "pt": "LG ESS Home Hybrid Inverter",
-            "nl": "LG ESS Home hybride omvormer",
-            "fr": "Onduleur hybride LG ESS Home",
-            "it": "Inverter ibrido LG ESS Home",
-            "es": "Inversor híbrido doméstico LG ESS",
-            "pl": "Domowy falownik hybrydowy LG ESS",
-            "zh-cn": "LG ESS家庭混合逆变器",
-            "uk": "Домашній гібридний інвертор LG ESS"
-        },
-        "desc": {
-            "en": "Adapter to read data from a LG ESS inverter.",
-            "de": "Adapter zum Lesen von Daten von einem LG ESS-Wechselrichter.",
-            "ru": "Адаптер для чтения данных с инвертора LG ESS.",
-            "pt": "Adaptador para ler dados de um inversor LG ESS.",
-            "nl": "Adapter om gegevens van een LG ESS-omvormer te lezen.",
-            "fr": "Adaptateur pour lire les données d'un onduleur LG ESS.",
-            "it": "Adattatore per leggere i dati da un inverter LG ESS.",
-            "es": "Adaptador para leer datos de un inversor LG ESS.",
-            "pl": "Adapter do odczytu danych z falownika LG ESS.",
-            "zh-cn": "用于从LG ESS逆变器读取数据的适配器。",
-            "uk": "Адаптер для читання даних з інвертора LG ESS."
-        },
-        "authors": [
-            "Morluktom <strassertom@gmx.de>"
-        ],
-        "keywords": [
-            "LG-ESS",
-            "home automation"
-        ],
-        "tier": 3,
-        "licenseInformation": {
-          "license": "MIT",
-          "type": "free"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "lg-ess-home.png",
-        "enabled": true,
-        "adminUI": {
-            "config": "json"
-        },
-        "extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
-        "readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
-        "loglevel": "info",
-        "restartAdapters": [
-            "vis"
-        ],
-        "mode": "daemon",
-        "type": "energy",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "messagebox": true,
-        "dependencies": [
-            {
-                "js-controller": ">=5.0.19"
-            }
-        ]
+  "common": {
+    "name": "lg-ess-home",
+    "version": "0.3.0",
+    "news": {
+      "0.3.0": {
+        "en": "Fixed warnings found by adapter checker\nAdded Admin 5 configuration\nAdded Ukrainan language\nAdd PV Forecast to chart\nNodeJS >= 18.x and js-controller >= 5 is required",
+        "de": "Feste Warnungen durch Adapter-Checker gefunden\nAdmin 5 Konfiguration hinzugefügt\nUkrainan Sprache hinzugefügt\nPV-Vorhersage zum Diagramm hinzufügen\nNodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
+        "ru": "Исправленные предупреждения, найденные адаптером\nДобавлена конфигурация Админ 5\nДобавлен украинский язык\nДобавить PV-прогноз в график\nNodeJS >= 18.x и js-контроллер >= 5 требуется",
+        "pt": "Avisos fixos encontrados pelo verificador do adaptador\nAdicionado configuração Admin 5\nAdicionado idioma Ukrainan\nAdicionar PV Previsão para gráfico\nNodeJS >= 18.x e js-controller >= 5 é necessário",
+        "nl": "Vaste waarschuwingen gevonden door adapter controleer\nAdmin 5 configuratie toegevoegd\nOekraïnse taal toegevoegd\nPV-voorspelling toevoegen aan grafiek\nVoor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
+        "fr": "Avertissements corrigés trouvés par adaptateur checker\nAjout de la configuration Admin 5\nAjout de la langue ukrainienne\nAjouter des prévisions PV au graphique\nNodeJS >= 18.x et js-controller >= 5 est nécessaire",
+        "it": "Avvertenze fisse trovate da adattatore checker\nConfigurazione Admin 5\nAggiunto Ukrainan lingua\nAggiungi PV Forecast per grafico\nNodeJS >= 18.x e js-controller 5 è richiesto",
+        "es": "Avisos fijos encontrados por adaptador\nConfiguración de Admin 5\nAñadido Ukrainan language\nAñadir PV Forecast a la gráfica\nNodeJS >= 18.x y js-controller Se requiere 5",
+        "pl": "Stałe ostrzeżenia znalezione przez sprawdzacz adaptera\nDodano konfigurację Admin 5\nDodano język ukraiński\nDodaj prognozę PV do wykresu\nNodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
+        "uk": "Виправлені попередження, знайдені за допомогою адаптера\nДодано налаштування адміністратора 5\nДодано українську мову\nДодати PV прогноз на діаграму\nNodeJS >= 18.x та js-controller >= 5 обов'язково",
+        "zh-cn": "适配器检查器发现的固定警告\n添加管理员 5 配置\n加入乌克兰语\n在图表中添加光电预测\n节点JS18x和js控制器QQ 需要5个"
+      },
+      "0.2.3": {
+        "en": "Datepicker changed to jquery",
+        "de": "Datepicker wurde in jquery geändert",
+        "ru": "Datepicker изменен на jquery",
+        "pt": "Datepicker alterado para jquery",
+        "nl": "Datumkiezer gewijzigd in jQuery",
+        "fr": "Sélecteur de date changé en jquery",
+        "it": "Datepicker cambiato in jquery",
+        "es": "Selector de fecha cambiado a jquery",
+        "pl": "Datepicker zmieniono na jquery",
+        "zh-cn": "日期选择器更改为 jquery",
+        "uk": "Datepicker змінено на jquery"
+      },
+      "0.2.1": {
+        "en": "Update Chart Widget",
+        "de": "Diagramm-Widget aktualisiert",
+        "ru": "Обновить виджет диаграммы",
+        "pt": "Atualizar widget de gráfico",
+        "nl": "Kaartwidget bijwerken",
+        "fr": "Mettre à jour le widget graphique",
+        "it": "Aggiorna widget grafico",
+        "es": "Actualizar widget de gráfico",
+        "pl": "Aktualizuj widżet wykresu",
+        "zh-cn": "更新图表小部件",
+        "uk": "Оновити віджет діаграми"
+      },
+      "0.2.0": {
+        "en": "Chart Widget added",
+        "de": "Diagramm-Widget hinzugefügt",
+        "ru": "Добавлен виджет диаграммы",
+        "pt": "Widget de gráfico adicionado",
+        "nl": "Grafiekwidget toegevoegd",
+        "fr": "Widget graphique ajouté",
+        "it": "Widget grafico aggiunto",
+        "es": "Widget de gráfico agregado",
+        "pl": "Dodano widżet wykresu",
+        "zh-cn": "添加了图表小部件",
+        "uk": "Додано віджет діаграми"
+      }
     },
-    "encryptedNative": [
-        "userpassword",
-        "installerPassword"
-    ],
-    "protectedNative": [
-        "userpassword",
-        "installerPassword"
-    ],
-    "native": {
-        "ipadress": "xxx.xxx.xxx.xxx",
-        "userpassword": "",
-        "installerPassword": "",
-        "refreshTime": 30,
-        "refreshTimeCommon": 60,
-        "loginInstaller": false
+    "titleLang": {
+      "en": "LG ESS Home Hybrid Inverter",
+      "de": "LG ESS Home Hybrid Wechselrichter",
+      "ru": "Гибридный инвертор LG ESS для дома",
+      "pt": "LG ESS Home Hybrid Inverter",
+      "nl": "LG ESS Home hybride omvormer",
+      "fr": "Onduleur hybride LG ESS Home",
+      "it": "Inverter ibrido LG ESS Home",
+      "es": "Inversor híbrido doméstico LG ESS",
+      "pl": "Domowy falownik hybrydowy LG ESS",
+      "zh-cn": "LG ESS家庭混合逆变器",
+      "uk": "Домашній гібридний інвертор LG ESS"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "If connected to LG ESS Home",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connectedUser",
-            "type": "state",
-            "common": {
-                "role": "text",
-                "name": "Connected User",
-                "type": "string",
-                "read": true,
-                "write": false,
-                "def": ""
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Adapter to read data from a LG ESS inverter.",
+      "de": "Adapter zum Lesen von Daten von einem LG ESS-Wechselrichter.",
+      "ru": "Адаптер для чтения данных с инвертора LG ESS.",
+      "pt": "Adaptador para ler dados de um inversor LG ESS.",
+      "nl": "Adapter om gegevens van een LG ESS-omvormer te lezen.",
+      "fr": "Adaptateur pour lire les données d'un onduleur LG ESS.",
+      "it": "Adattatore per leggere i dati da un inverter LG ESS.",
+      "es": "Adaptador para leer datos de un inversor LG ESS.",
+      "pl": "Adapter do odczytu danych z falownika LG ESS.",
+      "zh-cn": "用于从LG ESS逆变器读取数据的适配器。",
+      "uk": "Адаптер для читання даних з інвертора LG ESS."
+    },
+    "authors": [
+      "Morluktom <strassertom@gmx.de>"
+    ],
+    "keywords": [
+      "LG-ESS",
+      "home automation"
+    ],
+    "tier": 3,
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "lg-ess-home.png",
+    "enabled": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "extIcon": "https://raw.githubusercontent.com/Morluktom/ioBroker.lg-ess-home/master/admin/lg-ess-home.png",
+    "readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
+    "loglevel": "info",
+    "restartAdapters": [
+      "vis"
+    ],
+    "mode": "daemon",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "messagebox": true,
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
     ]
+  },
+  "encryptedNative": [
+    "userpassword",
+    "installerPassword"
+  ],
+  "protectedNative": [
+    "userpassword",
+    "installerPassword"
+  ],
+  "native": {
+    "ipadress": "xxx.xxx.xxx.xxx",
+    "userpassword": "",
+    "installerPassword": "",
+    "refreshTime": 30,
+    "refreshTimeCommon": 60,
+    "loginInstaller": false
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "If connected to LG ESS Home",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connectedUser",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": "Connected User",
+        "type": "string",
+        "read": true,
+        "write": false,
+        "def": ""
+      },
+      "native": {}
+    }
+  ]
 }

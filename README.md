@@ -44,7 +44,7 @@ This should give you the password and a status in return.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.3.0 (2024-08-10)
 * (Morluktom) Fixed warnings found by adapter checker
 * (Morluktom) Added Admin 5 configuration
 * (Morluktom) Added Ukrainan language
