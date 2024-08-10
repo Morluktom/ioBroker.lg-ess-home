@@ -14,18 +14,18 @@ $.extend(
     systemDictionary,
     {
         'PvForecastInstance': {
-            "en": "PV Forecast Adapter",
-            "de": "PV Forecast Adapter",
-            "ru": "PV Прогноз адаптер",
-            "pt": "Adaptador de previsão PV",
-            "nl": "PV Forecast Adap",
-            "fr": "Adaptateur de prévision PV",
-            "it": "Adattatore di previsione del fotovoltaico",
-            "es": "Adaptador de predicción PV",
-            "pl": "PV Forecast Adapter",
-            "uk": "Адаптер прогнозу PV",
-            "zh-cn": "PV 广播"
-          },
+            'en': 'PV Forecast Adapter',
+            'de': 'PV Forecast Adapter',
+            'ru': 'PV Прогноз адаптер',
+            'pt': 'Adaptador de previsão PV',
+            'nl': 'PV Forecast Adap',
+            'fr': 'Adaptateur de prévision PV',
+            'it': 'Adattatore di previsione del fotovoltaico',
+            'es': 'Adaptador de predicción PV',
+            'pl': 'PV Forecast Adapter',
+            'uk': 'Адаптер прогнозу PV',
+            'zh-cn': 'PV 广播'
+        },
         'lgEssInstance': {
             'en': 'adapter instance',
             'de': 'Adapterinstanz',
@@ -37,273 +37,273 @@ $.extend(
             'es': 'instancia de adaptador',
             'pl': 'instancja adaptera',
             'zh-cn': '适配器实例'
-        },	
-        "Generation": {
-            "en": "Generation",
-            "de": "Erzeugung",
-            "ru": "Поколение",
-            "pt": "Geração",
-            "nl": "Generatie",
-            "fr": "Génération",
-            "it": "Generazione",
-            "es": "Generacion",
-            "pl": "Pokolenie",
-            "zh-cn": "一代"
         },
-        "Consumption": {
-            "en": "Consumption",
-            "de": "Verbrauch",
-            "ru": "Потребление",
-            "pt": "Consumo",
-            "nl": "Consumptie",
-            "fr": "Consommation",
-            "it": "Consumo",
-            "es": "Consumo",
-            "pl": "Konsumpcja",
-            "zh-cn": "消耗"
+        'Generation': {
+            'en': 'Generation',
+            'de': 'Erzeugung',
+            'ru': 'Поколение',
+            'pt': 'Geração',
+            'nl': 'Generatie',
+            'fr': 'Génération',
+            'it': 'Generazione',
+            'es': 'Generacion',
+            'pl': 'Pokolenie',
+            'zh-cn': '一代'
         },
-    	"Feed_in": {
-            "en": "Power grid feed-in",
-            "de": "Netzeinspeisung",
-            "ru": "Подача электроэнергии в сеть",
-            "pt": "Alimentação da rede elétrica",
-            "nl": "Teruglevering aan het elektriciteitsnet",
-            "fr": "Alimentation du réseau électrique",
-            "it": "Immissione in rete elettrica",
-            "es": "Alimentación a la red eléctrica",
-            "pl": "Zasilanie sieci energetycznej",
-            "zh-cn": "电网馈入"
+        'Consumption': {
+            'en': 'Consumption',
+            'de': 'Verbrauch',
+            'ru': 'Потребление',
+            'pt': 'Consumo',
+            'nl': 'Consumptie',
+            'fr': 'Consommation',
+            'it': 'Consumo',
+            'es': 'Consumo',
+            'pl': 'Konsumpcja',
+            'zh-cn': '消耗'
         },
-	    "Purchased": {
-            "en": "Purchased electricity",
-            "de": "gekaufter Strom",
-            "ru": "Купленная электроэнергия",
-            "pt": "Eletricidade comprada",
-            "nl": "Ingekochte elektriciteit",
-            "fr": "Électricité achetée",
-            "it": "Energia elettrica acquistata",
-            "es": "Electricidad comprada",
-            "pl": "Zakupiona energia elektryczna",
-            "zh-cn": "购买的电力"
+    	'Feed_in': {
+            'en': 'Power grid feed-in',
+            'de': 'Netzeinspeisung',
+            'ru': 'Подача электроэнергии в сеть',
+            'pt': 'Alimentação da rede elétrica',
+            'nl': 'Teruglevering aan het elektriciteitsnet',
+            'fr': 'Alimentation du réseau électrique',
+            'it': 'Immissione in rete elettrica',
+            'es': 'Alimentación a la red eléctrica',
+            'pl': 'Zasilanie sieci energetycznej',
+            'zh-cn': '电网馈入'
         },
-        "Direct_consumption": {
-            "en": "direct consumption",
-            "de": "direkter Verbrauch",
-            "ru": "прямое потребление",
-            "pt": "consumo direto",
-            "nl": "directe consumptie",
-            "fr": "consommation directe",
-            "it": "consumo diretto",
-            "es": "consumo directo",
-            "pl": "bezpośrednie spożycie",
-            "zh-cn": "直接消费"	
+	    'Purchased': {
+            'en': 'Purchased electricity',
+            'de': 'gekaufter Strom',
+            'ru': 'Купленная электроэнергия',
+            'pt': 'Eletricidade comprada',
+            'nl': 'Ingekochte elektriciteit',
+            'fr': 'Électricité achetée',
+            'it': 'Energia elettrica acquistata',
+            'es': 'Electricidad comprada',
+            'pl': 'Zakupiona energia elektryczna',
+            'zh-cn': '购买的电力'
         },
-        "Discharge": {
-            "en": "Discharge",
-            "de": "Entladen",
-            "ru": "Разрядить",
-            "pt": "Descarregar",
-            "nl": "ontladen",
-            "fr": "Décharger",
-            "it": "Scarica",
-            "es": "descargar",
-            "pl": "Rozładuj",
-            "zh-cn": "不充电"
+        'Direct_consumption': {
+            'en': 'direct consumption',
+            'de': 'direkter Verbrauch',
+            'ru': 'прямое потребление',
+            'pt': 'consumo direto',
+            'nl': 'directe consumptie',
+            'fr': 'consommation directe',
+            'it': 'consumo diretto',
+            'es': 'consumo directo',
+            'pl': 'bezpośrednie spożycie',
+            'zh-cn': '直接消费'
         },
-        "Charge": {
-            "en": "Charge",
-            "de": "Aufladen",
-            "ru": "Обвинение",
-            "pt": "Cobrar",
-            "nl": "Aanval",
-            "fr": "Charger",
-            "it": "Caricare",
-            "es": "Cargo",
-            "pl": "Opłata",
-            "zh-cn": "收费"
+        'Discharge': {
+            'en': 'Discharge',
+            'de': 'Entladen',
+            'ru': 'Разрядить',
+            'pt': 'Descarregar',
+            'nl': 'ontladen',
+            'fr': 'Décharger',
+            'it': 'Scarica',
+            'es': 'descargar',
+            'pl': 'Rozładuj',
+            'zh-cn': '不充电'
         },
-        "Soc": {
-            "en": "State of charge",
-            "de": "Ladezustand",
-            "ru": "Состояние заряда",
-            "pt": "Estado de cobrança",
-            "nl": "Staat van het opladen",
-            "fr": "État de charge",
-            "it": "Stato di carica",
-            "es": "Estado de carga",
-            "pl": "Stan naładowania",
-            "zh-cn": "充电状态"
+        'Charge': {
+            'en': 'Charge',
+            'de': 'Aufladen',
+            'ru': 'Обвинение',
+            'pt': 'Cobrar',
+            'nl': 'Aanval',
+            'fr': 'Charger',
+            'it': 'Caricare',
+            'es': 'Cargo',
+            'pl': 'Opłata',
+            'zh-cn': '收费'
         },
-        "Day": {
-            "en": "Day",
-            "de": "Tag",
-            "ru": "День",
-            "pt": "Dia",
-            "nl": "Dag",
-            "fr": "Jour",
-            "it": "Giorno",
-            "es": "Día",
-            "pl": "Dzień",
-            "zh-cn": "日"
+        'Soc': {
+            'en': 'State of charge',
+            'de': 'Ladezustand',
+            'ru': 'Состояние заряда',
+            'pt': 'Estado de cobrança',
+            'nl': 'Staat van het opladen',
+            'fr': 'État de charge',
+            'it': 'Stato di carica',
+            'es': 'Estado de carga',
+            'pl': 'Stan naładowania',
+            'zh-cn': '充电状态'
         },
-        "Week": {
-            "en": "Week",
-            "de": "Woche",
-            "ru": "Неделю",
-            "pt": "Semana",
-            "nl": "Week",
-            "fr": "Semaine",
-            "it": "Settimana",
-            "es": "Semana",
-            "pl": "Tydzień",
-            "zh-cn": "星期"
+        'Day': {
+            'en': 'Day',
+            'de': 'Tag',
+            'ru': 'День',
+            'pt': 'Dia',
+            'nl': 'Dag',
+            'fr': 'Jour',
+            'it': 'Giorno',
+            'es': 'Día',
+            'pl': 'Dzień',
+            'zh-cn': '日'
         },
-        "Month": {
-            "en": "Month",
-            "de": "Monat",
-            "ru": "Месяц",
-            "pt": "Mês",
-            "nl": "Maand",
-            "fr": "Mois",
-            "it": "Mese",
-            "es": "Mes",
-            "pl": "Miesiąc",
-            "zh-cn": "月"
+        'Week': {
+            'en': 'Week',
+            'de': 'Woche',
+            'ru': 'Неделю',
+            'pt': 'Semana',
+            'nl': 'Week',
+            'fr': 'Semaine',
+            'it': 'Settimana',
+            'es': 'Semana',
+            'pl': 'Tydzień',
+            'zh-cn': '星期'
         },
-        "Year": {
-            "en": "Year",
-            "de": "Jahr",
-            "ru": "Год",
-            "pt": "Ano",
-            "nl": "Jaar",
-            "fr": "An",
-            "it": "Anno",
-            "es": "Año",
-            "pl": "Rok",
-            "zh-cn": "年"
+        'Month': {
+            'en': 'Month',
+            'de': 'Monat',
+            'ru': 'Месяц',
+            'pt': 'Mês',
+            'nl': 'Maand',
+            'fr': 'Mois',
+            'it': 'Mese',
+            'es': 'Mes',
+            'pl': 'Miesiąc',
+            'zh-cn': '月'
         },
-        "energy_view": {
-            "en": "energy view",
-            "de": "Energieansicht",
-            "ru": "вид энергии",
-            "pt": "visão de energia",
-            "nl": "energie weergave",
-            "fr": "vue énergétique",
-            "it": "vista energetica",
-            "es": "vista de energía",
-            "pl": "widok energii",
-            "zh-cn": "能量观"
-          },
-          "PV_diagram": {
-            "en": "PV diagram",
-            "de": "PV-Diagramm",
-            "ru": "PV-диаграмма",
-            "pt": "diagrama PV",
-            "nl": "PV-diagram",
-            "fr": "Diagramme photovoltaïque",
-            "it": "Diagramma fotovoltaico",
-            "es": "diagrama fotovoltaico",
-            "pl": "Schemat fotowoltaiczny",
-            "zh-cn": "光伏图"
-          },
-          "ESS_diagram": {
-            "en": "ESS diagram",
-            "de": "ESS-Diagramm",
-            "ru": "диаграмма ЭСС",
-            "pt": "Diagrama ESS",
-            "nl": "ESS-diagram",
-            "fr": "Schéma SSE",
-            "it": "Diagramma ESS",
-            "es": "diagrama SEE",
-            "pl": "Schemat ESS",
-            "zh-cn": "ESS图"
-          },
-        "Load_diagram": {
-            "en": "Load diagram",
-            "de": "Last-Diagramm",
-            "ru": "Диаграмма нагрузки",
-            "pt": "Diagrama de carga",
-            "nl": "Laad diagram",
-            "fr": "Diagramme de charge",
-            "it": "Diagramma di carico",
-            "es": "Diagrama de carga",
-            "pl": "Schemat obciążenia",
-            "zh-cn": "负载图"
-          },
-        "group_colorLgEssHome": {
-            "en": "Colors",
-            "de": "Farben",
-            "ru": "Цвета",
-            "pt": "Cores",
-            "nl": "kleuren",
-            "fr": "Couleurs",
-            "it": "Colori",
-            "es": "Colores",
-            "pl": "Zabarwienie",
-            "zh-cn": "颜色"
+        'Year': {
+            'en': 'Year',
+            'de': 'Jahr',
+            'ru': 'Год',
+            'pt': 'Ano',
+            'nl': 'Jaar',
+            'fr': 'An',
+            'it': 'Anno',
+            'es': 'Año',
+            'pl': 'Rok',
+            'zh-cn': '年'
         },
-		'group_PvForecast': {
-            "en": "PV Forecast",
-            "de": "PV-Vorhersage",
-            "ru": "PV Прогноз",
-            "pt": "Previsão de PV",
-            "nl": "PV Forast",
-            "fr": "PV Prévisions",
-            "it": "Previsioni",
-            "es": "PV Forecast",
-            "pl": "PV Forecast",
-            "uk": "ПВ прогноз",
-            "zh-cn": "传真:"
-          }, 
-          'PvForecastColor': {
-            "en": "PV Forecast",
-            "de": "PV-Vorhersage",
-            "ru": "PV Прогноз",
-            "pt": "Previsão de PV",
-            "nl": "PV Forast",
-            "fr": "PV Prévisions",
-            "it": "Previsioni",
-            "es": "PV Forecast",
-            "pl": "PV Forecast",
-            "uk": "ПВ прогноз",
-            "zh-cn": "传真:"
-          },               
-        "Charts": {
-            "en": "Charts",
-            "de": "Diagramme",
-            "ru": "Графики",
-            "pt": "Gráficos",
-            "nl": "Grafieken",
-            "fr": "Graphiques",
-            "it": "Grafici",
-            "es": "Gráficos",
-            "pl": "Wykresy",
-            "zh-cn": "图表"
+        'energy_view': {
+            'en': 'energy view',
+            'de': 'Energieansicht',
+            'ru': 'вид энергии',
+            'pt': 'visão de energia',
+            'nl': 'energie weergave',
+            'fr': 'vue énergétique',
+            'it': 'vista energetica',
+            'es': 'vista de energía',
+            'pl': 'widok energii',
+            'zh-cn': '能量观'
         },
-        "period_of_time": {
-            "en": "period of time",
-            "de": "Zeitspanne",
-            "ru": "период времени",
-            "pt": "período de tempo",
-            "nl": "periode",
-            "fr": "période de temps",
-            "it": "periodo di tempo",
-            "es": "período de tiempo",
-            "pl": "okres czasu",
-            "zh-cn": "一段的时间"
+        'PV_diagram': {
+            'en': 'PV diagram',
+            'de': 'PV-Diagramm',
+            'ru': 'PV-диаграмма',
+            'pt': 'diagrama PV',
+            'nl': 'PV-diagram',
+            'fr': 'Diagramme photovoltaïque',
+            'it': 'Diagramma fotovoltaico',
+            'es': 'diagrama fotovoltaico',
+            'pl': 'Schemat fotowoltaiczny',
+            'zh-cn': '光伏图'
         },
-        "No_data_available": {
-            "en": "No data available ",
-            "de": "Keine Daten verfügbar",
-            "ru": "Данные недоступны",
-            "pt": "Nenhum dado disponível",
-            "nl": "Geen gegevens beschikbaar",
-            "fr": "Pas de données disponibles",
-            "it": "Nessun dato disponibile",
-            "es": "Datos no disponibles",
-            "pl": "Brak dostępnych danych",
-            "zh-cn": "无可用数据"
-          }
+        'ESS_diagram': {
+            'en': 'ESS diagram',
+            'de': 'ESS-Diagramm',
+            'ru': 'диаграмма ЭСС',
+            'pt': 'Diagrama ESS',
+            'nl': 'ESS-diagram',
+            'fr': 'Schéma SSE',
+            'it': 'Diagramma ESS',
+            'es': 'diagrama SEE',
+            'pl': 'Schemat ESS',
+            'zh-cn': 'ESS图'
+        },
+        'Load_diagram': {
+            'en': 'Load diagram',
+            'de': 'Last-Diagramm',
+            'ru': 'Диаграмма нагрузки',
+            'pt': 'Diagrama de carga',
+            'nl': 'Laad diagram',
+            'fr': 'Diagramme de charge',
+            'it': 'Diagramma di carico',
+            'es': 'Diagrama de carga',
+            'pl': 'Schemat obciążenia',
+            'zh-cn': '负载图'
+        },
+        'group_colorLgEssHome': {
+            'en': 'Colors',
+            'de': 'Farben',
+            'ru': 'Цвета',
+            'pt': 'Cores',
+            'nl': 'kleuren',
+            'fr': 'Couleurs',
+            'it': 'Colori',
+            'es': 'Colores',
+            'pl': 'Zabarwienie',
+            'zh-cn': '颜色'
+        },
+        'group_PvForecast': {
+            'en': 'PV Forecast',
+            'de': 'PV-Vorhersage',
+            'ru': 'PV Прогноз',
+            'pt': 'Previsão de PV',
+            'nl': 'PV Forast',
+            'fr': 'PV Prévisions',
+            'it': 'Previsioni',
+            'es': 'PV Forecast',
+            'pl': 'PV Forecast',
+            'uk': 'ПВ прогноз',
+            'zh-cn': '传真:'
+        },
+        'PvForecastColor': {
+            'en': 'PV Forecast',
+            'de': 'PV-Vorhersage',
+            'ru': 'PV Прогноз',
+            'pt': 'Previsão de PV',
+            'nl': 'PV Forast',
+            'fr': 'PV Prévisions',
+            'it': 'Previsioni',
+            'es': 'PV Forecast',
+            'pl': 'PV Forecast',
+            'uk': 'ПВ прогноз',
+            'zh-cn': '传真:'
+        },
+        'Charts': {
+            'en': 'Charts',
+            'de': 'Diagramme',
+            'ru': 'Графики',
+            'pt': 'Gráficos',
+            'nl': 'Grafieken',
+            'fr': 'Graphiques',
+            'it': 'Grafici',
+            'es': 'Gráficos',
+            'pl': 'Wykresy',
+            'zh-cn': '图表'
+        },
+        'period_of_time': {
+            'en': 'period of time',
+            'de': 'Zeitspanne',
+            'ru': 'период времени',
+            'pt': 'período de tempo',
+            'nl': 'periode',
+            'fr': 'période de temps',
+            'it': 'periodo di tempo',
+            'es': 'período de tiempo',
+            'pl': 'okres czasu',
+            'zh-cn': '一段的时间'
+        },
+        'No_data_available': {
+            'en': 'No data available ',
+            'de': 'Keine Daten verfügbar',
+            'ru': 'Данные недоступны',
+            'pt': 'Nenhum dado disponível',
+            'nl': 'Geen gegevens beschikbaar',
+            'fr': 'Pas de données disponibles',
+            'it': 'Nessun dato disponibile',
+            'es': 'Datos no disponibles',
+            'pl': 'Brak dostępnych danych',
+            'zh-cn': '无可用数据'
+        }
     }
 );
 
@@ -319,11 +319,11 @@ vis.binds['lg-ess-home'] = {
     },
     createWidget: function (widgetID, view, data, style) {
 
-		instance = data._data.lgEssInstance || 'lg-ess-home.0';
-        
+        instance = data._data.lgEssInstance || 'lg-ess-home.0';
+
         _colorPur = data._data.Purchased;
         _colorGen = data._data.Generation;
-        _colorDirect = data._data.Direct_consumption;      
+        _colorDirect = data._data.Direct_consumption;
         _colorCharge = data._data.Charge;
         _colorFeedIn = data._data.Feed_in;
         _colorDischarge = data._data.Discharge;
@@ -333,19 +333,19 @@ vis.binds['lg-ess-home'] = {
         _colorPvForecast = data._data.PvForecastColor;
         _widgetID = widgetID;
 
-		console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Trying to render widget');
-		var $div = $('#' + widgetID);
+        console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Trying to render widget');
+        const $div = $('#' + widgetID);
         // if nothing found => wait
         if (!$div.length) {
             return setTimeout(function () {
                 vis.binds['lg-ess-home'].createWidget(widgetID, view, data, style);
             }, 100);
         }
-		var strChart = "day";
-        var strChartType = "OverviewChart";
+        let strChart = 'day';
+        let strChartType = 'OverviewChart';
 
-		var text = '';
-        
+        let text = '';
+
         text += `<div id="${widgetID}-strHeader"class="lg-ess-home-header"></div>`;
 
         /* ------------ Left Menu ------------*/
@@ -370,7 +370,7 @@ vis.binds['lg-ess-home'] = {
         text += `			<a id="menu-text_LoadChart" class="list_item" href="#">List Item 04</a>`;
         text += `	    </div>`;
         text += `	</div>`;
-        text += `</div>`; 
+        text += `</div>`;
 
         /* ------------ Right Menu ------------*/
         text += `<div class="lg-ess-home-right-menu">`;
@@ -381,7 +381,7 @@ vis.binds['lg-ess-home'] = {
         text += `	        <a id="${widgetID}-btn_week" class="lg-ess-home-right_menu_item" href="#"><span>Woche</span></a>`;
         text += `	        <a id="${widgetID}-btn_month" class="lg-ess-home-right_menu_item" href="#"><span>Monat</span></a>`;
         text += `	        <a id="${widgetID}-btn_year" class="lg-ess-home-right_menu_item" href="#"><span>Jahr</span></a>`;
-        text += `	    </div>`;     
+        text += `	    </div>`;
         text += `	</div>`;
         text += `   <div class="lg-ess-home-right-menu-box">`;
         text += `		<div class="menu-icon-container">`;
@@ -407,20 +407,20 @@ vis.binds['lg-ess-home'] = {
         text += `   </div>`;
         text += `</div>`;
 
-        text += `<div class="loading">Loading&#8230;</div>`
-        text += `<div class="lg-ess-home-error">`
-        text += `   <div class="lg-ess-home-error-symbol">&#9888</div>`
-        text += `   <div class="lg-ess-home-error-text">keine Daten vorhanden</div>`
-        text += `</div>`
+        text += `<div class="loading">Loading&#8230;</div>`;
+        text += `<div class="lg-ess-home-error">`;
+        text += `   <div class="lg-ess-home-error-symbol">&#9888</div>`;
+        text += `   <div class="lg-ess-home-error-text">keine Daten vorhanden</div>`;
+        text += `</div>`;
 
-        text += `<div class="lg-ess-home-timebar">`
-        text += `   <div>`
-        text += `	    <button id="${widgetID}-btnBackward" class="backward" href="#"><<</button>`;      
+        text += `<div class="lg-ess-home-timebar">`;
+        text += `   <div>`;
+        text += `	    <button id="${widgetID}-btnBackward" class="backward" href="#"><<</button>`;
         text += `       <button id="${widgetID}-strDate"></button>`;
         text += `       <button id="${widgetID}-btnForward" class="forward last">>></button>`;
         text += `   </div>`;
 
-        text += `   <div>`
+        text += `   <div>`;
         text += `       <input name="date" id="date_input" required></input>`;
         text += `   </div>`;
         text += `</div>`;
@@ -429,15 +429,15 @@ vis.binds['lg-ess-home'] = {
         text += `<div id="${widgetID}-strTotal"class="lg-ess-home-total"></div>`;
 
         text += `<div id="${widgetID}-Chart1" class="lg-ess-home-two-charts"></div>`;
-		text += `<div id="${widgetID}-Chart2" class="lg-ess-home-two-charts"></div>`;
+        text += `<div id="${widgetID}-Chart2" class="lg-ess-home-two-charts"></div>`;
 
         //Add html
         $div.html(text);
 
-        var $chart1 = $(`#${widgetID}-Chart1`);
-        var $chart2 = $(`#${widgetID}-Chart2`);
+        const $chart1 = $(`#${widgetID}-Chart1`);
+        const $chart2 = $(`#${widgetID}-Chart2`);
 
-        var $strHeader = $(`#${widgetID}-strHeader`);
+        const $strHeader = $(`#${widgetID}-strHeader`);
 
         $( function() {
             $(`#date_input`).datepicker({
@@ -448,20 +448,20 @@ vis.binds['lg-ess-home'] = {
 
         $(`#${widgetID}-strDate`).click(function() {
             $(`#date_input`).datepicker('show');
-      });
+        });
 
-        let selectedDate = new Date().toLocaleDateString('en-ca'); 
+        let selectedDate = new Date().toLocaleDateString('en-ca');
         /* Button backward */
         $( `#${widgetID}-btnBackward`).click(function() {
-            var date = new Date(selectedDate)
+            const date = new Date(selectedDate);
             if (strChart == 'day')
                 date.setDate(date.getDate() - 1);
             else if (strChart == 'week')
                 date.setDate(date.getDate() - 7);
             else if (strChart == 'month')
-                date.setMonth(date.getMonth() - 1);  
+                date.setMonth(date.getMonth() - 1);
             else if (strChart == 'year')
-                date.setDate(date.getDate() - 365);                        
+                date.setDate(date.getDate() - 365);
             selectedDate = date.toLocaleDateString('en-ca');
             loadChartData(selectedDate);
             $( `#${widgetID}-btnForward`).removeClass('last');
@@ -470,18 +470,18 @@ vis.binds['lg-ess-home'] = {
         /* Button forward */
         $( `#${widgetID}-btnForward`).click(function() {
             if ($(this).hasClass('last')) return;
-            
-            var date = new Date(selectedDate)
+
+            let date = new Date(selectedDate);
             if (strChart == 'day')
                 date.setDate(date.getDate() + 1);
             else if (strChart == 'week')
                 date.setDate(date.getDate() + 7);
             else if (strChart == 'month')
-                date.setMonth(date.getMonth() + 1);  
+                date.setMonth(date.getMonth() + 1);
             else if (strChart == 'year')
-                date.setDate(date.getDate() + 365);  
-            
-            var today = new Date();
+                date.setDate(date.getDate() + 365);
+
+            const today = new Date();
             if (date > today) date = today;
 
             selectedDate = date.toLocaleDateString('en-ca');
@@ -492,14 +492,14 @@ vis.binds['lg-ess-home'] = {
         });
 
         /* Selected date changed */
-        $( "#date_input" ).change(function() {
-            var today = new Date();  
-            var date = new Date((this).value);
-            selectedDate = date.toLocaleDateString('en-ca');    
+        $( '#date_input' ).change(function() {
+            const today = new Date();
+            const date = new Date((this).value);
+            selectedDate = date.toLocaleDateString('en-ca');
             if (today.toDateString() == date.toDateString())
                 $( `#${widgetID}-btnForward`).addClass('last');
             else
-                $( `#${widgetID}-btnForward`).removeClass('last');               
+                $( `#${widgetID}-btnForward`).removeClass('last');
             loadChartData(selectedDate);
         });
 
@@ -512,24 +512,24 @@ vis.binds['lg-ess-home'] = {
         /*---------------------------------------------------------------------------------------------
             Left Menue
          ---------------------------------------------------------------------------------------------*/
-         /* Translate Left Menue */
-         $('#menu-text_OverviewChart').text(translate('energy_view'));
-         $('#menu-text_PvChart').text(translate('PV_diagram'));
-         $('#menu-text_EssChart').text(translate('ESS_diagram'));
-         $('#menu-text_LoadChart').text(translate('Load_diagram'));
-         $('.lg-ess-home-left-menu .container h2').text(translate('Charts'));
+        /* Translate Left Menue */
+        $('#menu-text_OverviewChart').text(translate('energy_view'));
+        $('#menu-text_PvChart').text(translate('PV_diagram'));
+        $('#menu-text_EssChart').text(translate('ESS_diagram'));
+        $('#menu-text_LoadChart').text(translate('Load_diagram'));
+        $('.lg-ess-home-left-menu .container h2').text(translate('Charts'));
 
         /* Open Menue */
-         $(document).on('click',`#${widgetID}-btnOpenMainMenu.js-menu_toggle.closed`,function(e){
-            e.preventDefault(); 
+        $(document).on('click',`#${widgetID}-btnOpenMainMenu.js-menu_toggle.closed`,function(e){
+            e.preventDefault();
             $(this).removeClass('closed').addClass('opened');
-        
+
             $('.lg-ess-home-left-menu').css({ 'width':'250px' });
             $('.container').css({ 'display':'block' });
             $('.container h2').css({ 'opacity':'1' });
-        
+
             $('.list_item').each(function(i){
-                var thisLI = $(this);
+                const thisLI = $(this);
                 setTimeout(function(){
                     thisLI.css({
                         'opacity':'1',
@@ -538,66 +538,66 @@ vis.binds['lg-ess-home'] = {
                 },100*i);
             });
         });
-        
+
         /* Close Menue */
         $(document).on('click',`#${widgetID}-btnOpenMainMenu.js-menu_toggle.opened`,function(e){
-            e.preventDefault(); 
+            e.preventDefault();
             $(this).removeClass('opened').addClass('closed');
-        
+
             $('.lg-ess-home-left-menu').css({ 'width':'0px' });
             $('.container').css({ 'display':'none' });
             $('.container h2').css({ 'opacity':'0' });
-        
+
             $('.list_item').css({
                 'opacity':'0',
                 'margin-left':'-20px'
             });
-        });      
+        });
 
         /* Menue Item click */
         $(document).on('click','.list_item',function(e){
             e.preventDefault();
-            $('.list_item.selected').removeClass('selected');        
-            $(this).addClass('selected');   
-            const words = $(this).attr("id").split('_');
+            $('.list_item.selected').removeClass('selected');
+            $(this).addClass('selected');
+            const words = $(this).attr('id').split('_');
             strChartType = words[1];
             newChart();
 
             /* Close Menue */
             $(`#${widgetID}-btnOpenMainMenu.js-menu_toggle.opened`).removeClass('opened').addClass('closed');
-        
+
             $('.lg-ess-home-left-menu').css({ 'width':'0px' });
             $('.container').css({ 'display':'none' });
-        
+
             $('.list_item').css({
                 'opacity':'0',
                 'margin-left':'-20px'
             });
 
         });
-        
+
 
         /*---------------------------------------------------------------------------------------------
             Menue right
          ---------------------------------------------------------------------------------------------*/
-         /* Translate Right Menue */
-         $(`#${widgetID}-btn_day`).text(translate('Day'));
-         $(`#${widgetID}-btn_week`).text(translate('Week'));
-         $(`#${widgetID}-btn_month`).text(translate('Month'));
-         $(`#${widgetID}-btn_year`).text(translate('Year'));
-         $('.lg-ess-home-right-menu .lg-ess-home-right-menu-container h2').text(translate('period_of_time'));
+        /* Translate Right Menue */
+        $(`#${widgetID}-btn_day`).text(translate('Day'));
+        $(`#${widgetID}-btn_week`).text(translate('Week'));
+        $(`#${widgetID}-btn_month`).text(translate('Month'));
+        $(`#${widgetID}-btn_year`).text(translate('Year'));
+        $('.lg-ess-home-right-menu .lg-ess-home-right-menu-container h2').text(translate('period_of_time'));
 
         /* Open Menue */
-         $(document).on('click',`#${widgetID}-btnOpenRightMenu.js-menu_toggle.closed`,function(e){
-            e.preventDefault(); 
+        $(document).on('click',`#${widgetID}-btnOpenRightMenu.js-menu_toggle.closed`,function(e){
+            e.preventDefault();
             $(this).removeClass('closed').addClass('opened');
-        
+
             $('.lg-ess-home-right-menu').css({ 'width':'250px' });
             $('.lg-ess-home-right-menu-container').css({ 'display':'block' });
             $('.lg-ess-home-right-menu-container h2').css({ 'opacity':'1' });
-        
+
             $('.lg-ess-home-right_menu_item').each(function(i){
-                var thisLI = $(this);
+                const thisLI = $(this);
                 setTimeout(function(){
                     thisLI.css({
                         'opacity':'1',
@@ -609,9 +609,9 @@ vis.binds['lg-ess-home'] = {
 
         /* Close Menue */
         $(document).on('click',`#${widgetID}-btnOpenRightMenu.js-menu_toggle.opened`,function(e){
-            e.preventDefault(); 
+            e.preventDefault();
             $(this).removeClass('opened').addClass('closed');
-        
+
             $('.lg-ess-home-right-menu').css({ 'width':'0px' });
             $('.lg-ess-home-right-menu-container').css({ 'display':'none' });
             $('.lg-ess-home-right-menu-container h2').css({ 'opacity':'0' });
@@ -620,55 +620,55 @@ vis.binds['lg-ess-home'] = {
                 'opacity':'0',
                 'margin-left':'30px'
             });
-        }); 
-        
+        });
+
         /* Right Menu Item click */
         $(document).on('click','.lg-ess-home-right_menu_item',function(e){
             e.preventDefault();
-            $('.lg-ess-home-right_menu_item.selected').removeClass('selected');        
-            $(this).addClass('selected');   
-            const words = $(this).attr("id").split('_');
+            $('.lg-ess-home-right_menu_item.selected').removeClass('selected');
+            $(this).addClass('selected');
+            const words = $(this).attr('id').split('_');
             strChart = words[1];
             newChart();
 
             /*Close Menue*/
             $(`#${widgetID}-btnOpenRightMenu.js-menu_toggle.opened`).removeClass('opened').addClass('closed');
-        
+
             $('.lg-ess-home-right-menu').css({ 'width':'0px' });
             $('.lg-ess-home-right-menu-container').css({ 'display':'none' });
-        
+
             $('.lg-ess-home-right_menu_item').css({
                 'opacity':'0',
                 'margin-left':'30px'
             });
 
         });
-          
-		// Initialize the echarts instance based on the prepared dom
-		let myChart1 = echarts.init(document.getElementById(widgetID +"-Chart1"));
-		let myChart2 = echarts.init(document.getElementById(widgetID +"-Chart2"));
 
-        let dps = [
+        // Initialize the echarts instance based on the prepared dom
+        const myChart1 = echarts.init(document.getElementById(widgetID +'-Chart1'));
+        const myChart2 = echarts.init(document.getElementById(widgetID +'-Chart2'));
+
+        const dps = [
             instance + '.user.graph.pv.day',
-			instance + '.user.graph.load.day',
+            instance + '.user.graph.load.day',
             instance + '.user.graph.batt.day',
             instance + '.user.graph.pv.week',
-			instance + '.user.graph.load.week',
+            instance + '.user.graph.load.week',
             instance + '.user.graph.batt.week',
             instance + '.user.graph.pv.month',
-			instance + '.user.graph.load.month',
+            instance + '.user.graph.load.month',
             instance + '.user.graph.batt.month',
             instance + '.user.graph.pv.year',
-			instance + '.user.graph.load.year',
+            instance + '.user.graph.load.year',
             instance + '.user.graph.batt.year',
-            _pvForecast,      
+            _pvForecast,
         ];
 
         // Update states and subscribe to changes
         vis.conn.getStates(dps, function (error, states) {
             console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Subscribing to state changes');
             vis.updateStates(states);
-            vis.conn.subscribe(dps);	
+            vis.conn.subscribe(dps);
 
             // add onChange listener
             for (let i = 0; i < dps.length; i++) {
@@ -680,34 +680,34 @@ vis.binds['lg-ess-home'] = {
             $div.data('bound', dps);
             $div.data('bindHandler', onChange);
 
-		})
+        });
 
         function loadChartData(strdate){
-            let _date = strdate || new Date().toLocaleDateString('en-ca');
+            const _date = strdate || new Date().toLocaleDateString('en-ca');
             $('.loading').css({ 'display':'block' });
             vis.conn._socket.emit('sendTo', instance, 'getChart', _date,function (data) {
                 setTimeout(() => newChart(),500);
-                $('.loading').css({ 'display':'none' });		
+                $('.loading').css({ 'display':'none' });
             });
         }
 
         function newChart(){
-			var charts = createChart(strChart,strChartType);
+            const charts = createChart(strChart,strChartType);
             myChart1.clear();
             myChart2.clear();
-            if(strChartType == "OverviewChart"){
-                $chart1.removeClass("lg-ess-home-one-charts").addClass("lg-ess-home-two-charts");
-                $chart2.removeClass("lg-ess-home-hide-chart");
+            if(strChartType == 'OverviewChart'){
+                $chart1.removeClass('lg-ess-home-one-charts').addClass('lg-ess-home-two-charts');
+                $chart2.removeClass('lg-ess-home-hide-chart');
                 if (strChart == 'day')
                     $chart2.css({'width':`${$chart1.width()-40}px`});
                 else
                     $chart2.css({'width':`100%`});
 
                 myChart2.resize();
-            } 
-            else if((strChartType == "PvChart") || (strChartType == "EssChart") || (strChartType == "LoadChart")){
-                $chart1.removeClass("lg-ess-home-two-charts").addClass("lg-ess-home-one-charts");
-                $chart2.addClass("lg-ess-home-hide-chart");
+            }
+            else if((strChartType == 'PvChart') || (strChartType == 'EssChart') || (strChartType == 'LoadChart')){
+                $chart1.removeClass('lg-ess-home-two-charts').addClass('lg-ess-home-one-charts');
+                $chart2.addClass('lg-ess-home-hide-chart');
             }
 
             if (charts && charts.chart1) myChart1.setOption(charts.chart1);
@@ -715,64 +715,64 @@ vis.binds['lg-ess-home'] = {
             myChart1.resize();
 
             /* Change Header text */
-            if (strChartType == "OverviewChart")
+            if (strChartType == 'OverviewChart')
                 $strHeader.text(translate('energy_view'));
-            else if (strChartType == "PvChart")
+            else if (strChartType == 'PvChart')
                 $strHeader.text(translate('PV_diagram'));
-            else if (strChartType == "EssChart")
+            else if (strChartType == 'EssChart')
                 $strHeader.text(translate('ESS_diagram'));
-            else if (strChartType == "LoadChart")
+            else if (strChartType == 'LoadChart')
                 $strHeader.text(translate('Load_diagram'));
         }
 
         // Change size of chart 2 when second yAxis is not shown at chart 1
         myChart1.on('legendselectchanged', function(params) {
             // State if legend is selected.
-            var isSelected = params.selected[params.name];
-            
-            if (translate("Soc") == params.name){
-                if ((strChartType == "OverviewChart") && (strChart == 'day') && (isSelected == true)  ){
+            const isSelected = params.selected[params.name];
+
+            if (translate('Soc') == params.name){
+                if ((strChartType == 'OverviewChart') && (strChart == 'day') && (isSelected == true)  ){
                     $chart2.css({'width':`${$chart1.width()-40}px`});
                 }
                 else {
                     $chart2.css({'width':`100%`});
-                } 
-                myChart2.resize();       
+                }
+                myChart2.resize();
             }
         });
 
         // subscribe on updates of value, we can use obj, newVal, oldVal
         function onChange(obj, newVal) {
-            //newChart();			
-		}
+            //newChart();
+        }
 
-		const onresize = (dom_elem, callback) => {
-			const resizeObserver = new ResizeObserver(() => callback() );
-			resizeObserver.observe(dom_elem);
-		};
-						
-		// Using constants to make it easier to read the code
-		const widg = document.getElementById(widgetID);
-			
-		// Finally, register the observer for the dom_elem
-		onresize(widg, function () {
-			myChart1.resize();
-            if ((strChartType == "OverviewChart") && (strChart == 'day')  ){
+        const onresize = (dom_elem, callback) => {
+            const resizeObserver = new ResizeObserver(() => callback() );
+            resizeObserver.observe(dom_elem);
+        };
+
+        // Using constants to make it easier to read the code
+        const widg = document.getElementById(widgetID);
+
+        // Finally, register the observer for the dom_elem
+        onresize(widg, function () {
+            myChart1.resize();
+            if ((strChartType == 'OverviewChart') && (strChart == 'day')  ){
                 $chart2.css({'width':`${$chart1.width()-40}px`});
             }
             else {
                 $chart2.css({'width':`100%`});
-            } 
-			myChart2.resize();
-		});
+            }
+            myChart2.resize();
+        });
 
         const dateStringTxt = document.getElementById(`${widgetID}-strDate`);
 
         onresize(dateStringTxt, function () {
             const width = $(`#${widgetID}-strDate`).width();
-            $( "#date_input" ).width(width);
-            $( "#date_input" ).css({ 'margin-left':`${-width/2}px` })
-		});
+            $( '#date_input' ).width(width);
+            $( '#date_input' ).css({ 'margin-left':`${-width/2}px` });
+        });
     },
 
 };
