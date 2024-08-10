@@ -103,8 +103,7 @@
         "dependencies": [
             {
                 "js-controller": ">=5.0.19"
-            },
-            "vis"
+            }
         ]
     },
     "encryptedNative": [
