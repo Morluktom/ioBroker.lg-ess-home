@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
 * or more contributor license agreements.  See the NOTICE file
@@ -98832,4 +98830,3 @@
 
 })));
 //# sourceMappingURL=echarts.js.map
-/* eslint-enable */

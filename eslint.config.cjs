@@ -12,7 +12,10 @@ const compat = new FlatCompat({
 });
 
 module.exports = [{
-    ignores: ['.dev-server/**'],
+    ignores: [
+        '.dev-server/**',
+        'widgets/**'
+    ],
 }, ...compat.extends('eslint:recommended'), {
     plugins: {},
 
