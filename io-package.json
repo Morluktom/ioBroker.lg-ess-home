@@ -16,19 +16,6 @@
                 "zh-cn": "日期选择器更改为 jquery",
                 "uk": "Datepicker змінено на jquery"
             },
-            "0.2.2": {
-                "en": "Update Chart Widget",
-                "de": "Diagramm-Widget aktualisiert",
-                "ru": "Обновить виджет диаграммы",
-                "pt": "Atualizar widget de gráfico",
-                "nl": "Kaartwidget bijwerken",
-                "fr": "Mettre à jour le widget graphique",
-                "it": "Aggiorna widget grafico",
-                "es": "Actualizar widget de gráfico",
-                "pl": "Aktualizuj widżet wykresu",
-                "zh-cn": "更新图表小部件",
-                "uk": "Оновити віджет діаграми"
-            },
             "0.2.1": {
                 "en": "Update Chart Widget",
                 "de": "Diagramm-Widget aktualisiert",
@@ -54,163 +41,8 @@
                 "pl": "Dodano widżet wykresu",
                 "zh-cn": "添加了图表小部件",
                 "uk": "Додано віджет діаграми"
-            },
-            "0.1.1": {
-                "en": "replaced deprecated library and login as installer only when needed",
-                "de": "veraltete Bibliothek ersetzt und nur bei Bedarf als Installer anmelden",
-                "ru": "заменена устаревшая библиотека и войдите в систему как установщик только при необходимости",
-                "pt": "substituiu a biblioteca obsoleta e faça login como instalador apenas quando necessário",
-                "nl": "verouderde bibliotheek vervangen en alleen inloggen als installatieprogramma als dat nodig is",
-                "fr": "remplacement de la bibliothèque obsolète et connexion en tant qu'installateur uniquement en cas de besoin",
-                "it": "sostituita la libreria deprecata e accedi come installatore solo quando necessario",
-                "es": "reemplazó la biblioteca obsoleta e inicie sesión como instalador solo cuando sea necesario",
-                "pl": "zastąpiono przestarzałą bibliotekę i loguj się jako instalator tylko wtedy, gdy jest to potrzebne",
-                "zh-cn": "替换已弃用的库并仅在需要时以安装程序登录",
-                "uk": "замінено застарілу бібліотеку та ввійдіть як інсталятор лише за потреби"
-            },
-            "0.1.0": {
-                "en": "Read installer and chart data",
-                "de": "Installations- und Diagrammdaten lesen",
-                "ru": "Прочитать установщик и данные диаграммы",
-                "pt": "Leia os dados do instalador e do gráfico",
-                "nl": "Installatie- en kaartgegevens lezen",
-                "fr": "Lire les données du programme d'installation et du graphique",
-                "it": "Leggi i dati del programma di installazione e del grafico",
-                "es": "Leer el instalador y los datos del gráfico",
-                "pl": "Przeczytaj dane instalatora i wykresu",
-                "zh-cn": "读取安装程序和图表数据",
-                "uk": "Прочитайте дані інсталятора та діаграми"
-            },
-            "0.0.10": {
-                "en": "Bugfix boolean value",
-                "de": "Bugfix boolescher Wert",
-                "ru": "Исправление логического значения",
-                "pt": "Valor booleano de correção de bug",
-                "nl": "Bugfix booleaanse waarde",
-                "fr": "Correction de bug valeur booléenne",
-                "it": "Valore booleano di Bugfix",
-                "es": "Valor booleano de corrección de errores",
-                "pl": "Wartość logiczna poprawki błędu",
-                "zh-cn": "错误修正布尔值",
-                "uk": "Виправлено логічне значення"
-            },
-            "0.0.9": {
-                "en": "Bugfix boolean value",
-                "de": "Bugfix boolescher Wert",
-                "ru": "Исправление логического значения",
-                "pt": "Valor booleano de correção de bug",
-                "nl": "Bugfix booleaanse waarde",
-                "fr": "Correction de bug valeur booléenne",
-                "it": "Valore booleano di Bugfix",
-                "es": "Valor booleano de corrección de errores",
-                "pl": "Wartość logiczna poprawki błędu",
-                "zh-cn": "错误修正布尔值",
-                "uk": "Виправлено логічне значення"
-            },
-            "0.0.8": {
-                "en": "code clean up",
-                "de": "Code bereinigen",
-                "ru": "очистка кода",
-                "pt": "limpeza de código",
-                "nl": "code opschonen",
-                "fr": "nettoyage du code",
-                "it": "pulizia del codice",
-                "es": "limpieza de código",
-                "pl": "czyszczenie kodu",
-                "zh-cn": "代码清理",
-                "uk": "очищення коду"
-            },
-            "0.0.7": {
-                "en": "code clean up",
-                "de": "Code bereinigen",
-                "ru": "очистка кода",
-                "pt": "limpeza de código",
-                "nl": "code opschonen",
-                "fr": "nettoyage du code",
-                "it": "pulizia del codice",
-                "es": "limpieza de código",
-                "pl": "czyszczenie kodu",
-                "zh-cn": "代码清理",
-                "uk": "очищення коду"
-            },
-            "0.0.6": {
-                "en": "Data type recognition fixed",
-                "de": "Datentyperkennung behoben",
-                "ru": "Исправлено распознавание типа данных",
-                "pt": "Reconhecimento de tipo de dados corrigido",
-                "nl": "Datatypeherkenning opgelost",
-                "fr": "Reconnaissance du type de données corrigée",
-                "it": "Riconoscimento del tipo di dati corretto",
-                "es": "Reconocimiento de tipo de datos fijo",
-                "pl": "Naprawiono rozpoznawanie typu danych",
-                "zh-cn": "数据类型识别已修复",
-                "uk": "Виправлено розпізнавання типів даних"
-            },
-            "0.0.5": {
-                "en": "auto password encryption ",
-                "de": "automatische Passwortverschlüsselung",
-                "ru": "автоматическое шифрование пароля",
-                "pt": "criptografia automática de senha",
-                "nl": "automatische wachtwoordversleuteling",
-                "fr": "cryptage automatique du mot de passe",
-                "it": "crittografia automatica della password",
-                "es": "cifrado automático de contraseña",
-                "pl": "automatyczne szyfrowanie hasła",
-                "zh-cn": "自动密码加密",
-                "uk": "автоматичне шифрування пароля"
-            },
-            "0.0.4": {
-                "en": "W => kW, values confirmed",
-                "de": "W => kW, Werte bestätigt",
-                "ru": "W => кВт, значения подтверждены",
-                "pt": "W => kW, valores confirmados",
-                "nl": "W => kW, waarden bevestigd",
-                "fr": "W => kW, valeurs confirmées",
-                "it": "W => kW, valori confermati",
-                "es": "W => kW, valores confirmados",
-                "pl": "W => kW, wartości potwierdzone",
-                "zh-cn": "W => kW，值已确认",
-                "uk": "Вт => кВт, значення підтверджені"
-            },
-            "0.0.3": {
-                "en": "Structure of the channel and states changed",
-                "de": "Struktur der Channel und States geändert",
-                "ru": "Изменена структура канала и состояния.",
-                "pt": "Estrutura do canal e estados alterados",
-                "nl": "De structuur van het kanaal en de statussen zijn gewijzigd",
-                "fr": "Modification de la structure du canal et des états",
-                "it": "La struttura del canale e gli stati sono cambiati",
-                "es": "La estructura del canal y los estados cambiaron",
-                "pl": "Zmieniła się struktura kanału i stany",
-                "zh-cn": "通道的结构和状态已更改",
-                "uk": "Змінено структуру каналу та штати"
-            },
-            "0.0.2": {
-                "en": "Separate Intervall for Common and Home",
-                "de": "Separates Intervall für Common und Home",
-                "ru": "Раздельное интервью для общего и домашнего",
-                "pt": "Intervalo separado para comum e doméstico",
-                "nl": "Afzonderlijke interventie voor algemeen en thuis",
-                "fr": "Intervalle séparé pour le commun et le domicile",
-                "it": "Intervallo separato per comune e domestico",
-                "es": "Intervalo separado para común y hogar",
-                "pl": "Oddzielne interwały dla wspólnych i domowych",
-                "zh-cn": "公共和家庭的独立间隔",
-                "uk": "Окремий інтервал для загального та домашнього"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版",
-                "uk": "початковий випуск"
             }
+
         },
         "titleLang": {
             "en": "LG ESS Home Hybrid Inverter",
@@ -245,9 +77,12 @@
             "LG-ESS",
             "home automation"
         ],
-        "license": "MIT",
+        "tier": 3,
+        "licenseInformation": {
+          "license": "MIT",
+          "type": "free"
+        },
         "platform": "Javascript/Node.js",
-        "main": "main.js",
         "icon": "lg-ess-home.png",
         "enabled": true,
         "adminUI": {
@@ -265,10 +100,9 @@
         "connectionType": "local",
         "dataSource": "poll",
         "messagebox": true,
-        "materialize": true,
         "dependencies": [
             {
-                "js-controller": ">=2.0.0"
+                "js-controller": ">=5.0.19"
             },
             "vis"
         ]
