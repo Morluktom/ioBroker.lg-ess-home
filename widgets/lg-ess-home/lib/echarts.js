@@ -1,4 +1,4 @@
-/* eslint-disable */
+
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
 * or more contributor license agreements.  See the NOTICE file
@@ -20,7 +20,9 @@
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    // @ts-ignore
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    // @ts-ignore
     (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.echarts = {}));
 }(this, (function (exports) { 'use strict';
 
@@ -82,6 +84,7 @@
         return Env;
     }());
     var env = new Env();
+    // @ts-ignore
     if (typeof wx === 'object' && typeof wx.getSystemInfoSync === 'function') {
         env.wxa = true;
         env.touchEventsSupported = true;
@@ -176,6 +179,7 @@
                     text = text || '';
                     font = font || DEFAULT_FONT;
                     var res = /^([0-9]*?)px$/.exec(font);
+                    // @ts-ignore
                     var fontSize = +(res && res[1]) || DEFAULT_FONT_SIZE;
                     var width = 0;
                     if (font.indexOf('mono') >= 0) {
@@ -515,6 +519,7 @@
             args[_i - 1] = arguments[_i];
         }
         return function () {
+            // @ts-ignore
             return func.apply(this, args.concat(nativeSlice.call(arguments)));
         };
     }
@@ -591,6 +596,7 @@
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
+        // @ts-ignore
         return nativeSlice.apply(arr, args);
     }
     function normalizeCssArray(val) {
@@ -1270,6 +1276,7 @@
     var MOUSE_EVENT_REG = /^(?:mouse|pointer|contextmenu|drag|drop)|click/;
     var _calcOut$1 = [];
     var firefoxNotSupportOffsetXY = env.browser.firefox
+        // @ts-ignore
         && +env.browser.version.split('.')[0] < 39;
     function clientToLocal(el, e, out, calculate) {
         out = out || {};
@@ -1397,7 +1404,9 @@
             for (var i = 0, len = touches.length; i < len; i++) {
                 var touch = touches[i];
                 var pos = clientToLocal(root, touch, {});
+                // @ts-ignore
                 trackItem.points.push([pos.zrX, pos.zrY]);
+                // @ts-ignore
                 trackItem.touches.push(touch);
             }
             this._track.push(trackItem);
@@ -1473,12 +1482,15 @@
         };
     }
     function stopEvent() {
+        // @ts-ignore
         stop(this.event);
     }
     var EmptyProxy = (function (_super) {
         __extends(EmptyProxy, _super);
         function EmptyProxy() {
+            // @ts-ignore
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            // @ts-ignore
             _this.handler = null;
             return _this;
         }
@@ -1500,14 +1512,17 @@
     var Handler = (function (_super) {
         __extends(Handler, _super);
         function Handler(storage, painter, proxy, painterRoot) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
             _this._hovered = new HoveredResult(0, 0);
             _this.storage = storage;
             _this.painter = painter;
+            // @ts-ignore
             _this.painterRoot = painterRoot;
             proxy = proxy || new EmptyProxy();
             _this.proxy = null;
             _this.setHandlerProxy(proxy);
+            // @ts-ignore
             _this._draggingMgr = new Draggable(_this);
             return _this;
         }
@@ -1517,6 +1532,7 @@
             }
             if (proxy) {
                 each(handlerNames, function (name) {
+                    // @ts-ignore
                     proxy.on && proxy.on(name, this[name], this);
                 }, this);
                 proxy.handler = this;
@@ -1528,12 +1544,16 @@
             var y = event.zrY;
             var isOutside = isOutsideBoundary(this, x, y);
             var lastHovered = this._hovered;
+            // @ts-ignore
             var lastHoveredTarget = lastHovered.target;
             if (lastHoveredTarget && !lastHoveredTarget.__zr) {
+                // @ts-ignore
                 lastHovered = this.findHover(lastHovered.x, lastHovered.y);
+                // @ts-ignore
                 lastHoveredTarget = lastHovered.target;
             }
             var hovered = this._hovered = isOutside ? new HoveredResult(x, y) : this.findHover(x, y);
+            // @ts-ignore
             var hoveredTarget = hovered.target;
             var proxy = this.proxy;
             proxy.setCursor && proxy.setCursor(hoveredTarget ? hoveredTarget.cursor : 'default');
@@ -1551,6 +1571,7 @@
                 this.dispatchToElement(this._hovered, 'mouseout', event);
             }
             if (eventControl !== 'no_globalout') {
+                // @ts-ignore
                 this.trigger('globalout', { type: 'globalout', event: event });
             }
         };
@@ -1589,6 +1610,7 @@
                 }
             }
             if (!eventPacket.cancelBubble) {
+                // @ts-ignore
                 this.trigger(eventName, eventPacket);
                 if (this.painter && this.painter.eachOtherLayer) {
                     this.painter.eachOtherLayer(function (layer) {
@@ -1609,9 +1631,12 @@
                 var hoverCheckResult = void 0;
                 if (list[i] !== exclude
                     && !list[i].ignore
+                    // @ts-ignore
                     && (hoverCheckResult = isHover(list[i], x, y))) {
+                    // @ts-ignore
                     !out.topTarget && (out.topTarget = list[i]);
                     if (hoverCheckResult !== SILENT) {
+                        // @ts-ignore
                         out.target = list[i];
                         break;
                     }
@@ -1625,12 +1650,14 @@
             }
             var gestureMgr = this._gestureMgr;
             stage === 'start' && gestureMgr.clear();
+            // @ts-ignore
             var gestureInfo = gestureMgr.recognize(event, this.findHover(event.zrX, event.zrY, null).target, this.proxy.dom);
             stage === 'end' && gestureMgr.clear();
             if (gestureInfo) {
                 var type = gestureInfo.type;
                 event.gestureEvent = type;
                 var res = new HoveredResult();
+                // @ts-ignore
                 res.target = gestureInfo.target;
                 this.dispatchToElement(res, type, gestureInfo.event);
             }
@@ -1646,22 +1673,31 @@
             var hoveredTarget;
             if (name !== 'mouseup' || !isOutside) {
                 hovered = this.findHover(x, y);
+                // @ts-ignore
                 hoveredTarget = hovered.target;
             }
             if (name === 'mousedown') {
+                // @ts-ignore
                 this._downEl = hoveredTarget;
+                // @ts-ignore
                 this._downPoint = [event.zrX, event.zrY];
+                // @ts-ignore
                 this._upEl = hoveredTarget;
             }
             else if (name === 'mouseup') {
+                // @ts-ignore
                 this._upEl = hoveredTarget;
             }
             else if (name === 'click') {
+                // @ts-ignore
                 if (this._downEl !== this._upEl
+                    // @ts-ignore
                     || !this._downPoint
+                    // @ts-ignore
                     || dist(this._downPoint, [event.zrX, event.zrY]) > 4) {
                     return;
                 }
+                // @ts-ignore
                 this._downPoint = null;
             }
             this.dispatchToElement(hovered, name, event);
@@ -1682,6 +1718,7 @@
                         return false;
                     }
                     if (el.silent) {
+                        // @ts-ignore
                         isSilent = true;
                     }
                 }
@@ -1865,6 +1902,7 @@
     }
     function TimSort(array, compare) {
         var minGallop = DEFAULT_MIN_GALLOPING;
+        // @ts-ignore
         var length = 0;
         var runStart;
         var runLength;
@@ -2375,7 +2413,9 @@
             return this._roots;
         };
         Storage.prototype.dispose = function () {
+            // @ts-ignore
             this._displayList = null;
+            // @ts-ignore
             this._roots = null;
         };
         return Storage;
@@ -2384,8 +2424,11 @@
     var requestAnimationFrame;
     requestAnimationFrame = (env.hasGlobalWindow
         && ((window.requestAnimationFrame && window.requestAnimationFrame.bind(window))
+            // @ts-ignore
             || (window.msRequestAnimationFrame && window.msRequestAnimationFrame.bind(window))
+            // @ts-ignore
             || window.mozRequestAnimationFrame
+            // @ts-ignore
             || window.webkitRequestAnimationFrame)) || function (func) {
         return setTimeout(func, 16);
     };
@@ -2758,7 +2801,9 @@
             if (interval < EPSILON_NUMERIC) {
                 break;
             }
+            // @ts-ignore
             prev = t - interval;
+            // @ts-ignore
             next = t + interval;
             _v1[0] = cubicAt(x0, x1, x2, x3, prev);
             _v1[1] = cubicAt(y0, y1, y2, y3, prev);
@@ -3401,13 +3446,18 @@
             else if (B === vMax) {
                 H = (2 / 3) + deltaG - deltaR;
             }
+            // @ts-ignore
             if (H < 0) {
+                // @ts-ignore
                 H += 1;
             }
+            // @ts-ignore
             if (H > 1) {
+                // @ts-ignore
                 H -= 1;
             }
         }
+        // @ts-ignore
         var hsla = [H * 360, S, L];
         if (rgba[3] != null) {
             hsla.push(rgba[3]);
@@ -3674,7 +3724,9 @@
                 return Buffer.from(str).toString('base64');
             };
         }
+        // @ts-ignore
         return function (str) {
+            // @ts-ignore
             if ("development" !== 'production') {
                 logError('Base64 isn\'t natively supported in the current environment.');
             }
@@ -3759,6 +3811,7 @@
             }
         }
         var len2 = arr0[0] && arr0[0].length;
+        // @ts-ignore
         for (var i = 0; i < arr0.length; i++) {
             if (arrDim === 1) {
                 if (isNaN(arr0[i])) {
@@ -4006,6 +4059,7 @@
             if (!(frame && nextFrame)) {
                 return;
             }
+            // @ts-ignore
             this._lastFr = frameIdx;
             this._lastFrP = percent;
             var interval = (nextFrame.percent - frame.percent);
@@ -4139,6 +4193,7 @@
                         var lastFinalKf = addtiveTrackKfs[addtiveTrackKfs.length - 1];
                         initialValue = lastFinalKf && lastFinalKf.value;
                         if (additiveTrack.valType === VALUE_TYPE_COLOR && initialValue) {
+                            // @ts-ignore
                             initialValue = rgba2String(initialValue);
                         }
                     }
@@ -4159,10 +4214,12 @@
             return this;
         };
         Animator.prototype.pause = function () {
+            // @ts-ignore
             this._clip.pause();
             this._paused = true;
         };
         Animator.prototype.resume = function () {
+            // @ts-ignore
             this._clip.resume();
             this._paused = false;
         };
@@ -4187,6 +4244,7 @@
         };
         Animator.prototype._abortedCallback = function () {
             this._setTracksFinished();
+            // @ts-ignore
             var animation = this.animation;
             var abortedList = this._abortedCbs;
             if (animation) {
@@ -4282,7 +4340,9 @@
                     }
                 });
                 this._clip = clip;
+                // @ts-ignore
                 if (this.animation) {
+                    // @ts-ignore
                     this.animation.addClip(clip);
                 }
                 if (easing) {
@@ -4418,6 +4478,7 @@
     var Animation = (function (_super) {
         __extends(Animation, _super);
         function Animation(opts) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
             _this._running = false;
             _this._time = 0;
@@ -4425,6 +4486,7 @@
             _this._pauseStart = 0;
             _this._paused = false;
             opts = opts || {};
+            // @ts-ignore
             _this.stage = opts.stage || {};
             return _this;
         }
@@ -4478,7 +4540,9 @@
             animator.animation = null;
         };
         Animation.prototype.update = function (notTriggerFrameAndStageUpdate) {
+            // @ts-ignore
             var time = getTime() - this._pausedTime;
+            // @ts-ignore
             var delta = time - this._time;
             var clip = this._head;
             while (clip) {
@@ -4495,7 +4559,9 @@
             }
             this._time = time;
             if (!notTriggerFrameAndStageUpdate) {
+                // @ts-ignore
                 this.trigger('frame', delta);
+                // @ts-ignore
                 this.stage.update && this.stage.update();
             }
         };
@@ -4529,6 +4595,7 @@
         };
         Animation.prototype.resume = function () {
             if (this._paused) {
+                // @ts-ignore
                 this._pausedTime += getTime() - this._pauseStart;
                 this._paused = false;
             }
@@ -4809,24 +4876,33 @@
     var HandlerDomProxy = (function (_super) {
         __extends(HandlerDomProxy, _super);
         function HandlerDomProxy(dom, painterRoot) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
             _this.__pointerCapturing = false;
+            // @ts-ignore
             _this.dom = dom;
+            // @ts-ignore
             _this.painterRoot = painterRoot;
+            // @ts-ignore
             _this._localHandlerScope = new DOMHandlerScope(dom, localDOMHandlers);
             if (globalEventSupported) {
+                // @ts-ignore
                 _this._globalHandlerScope = new DOMHandlerScope(document, globalDOMHandlers);
             }
+            // @ts-ignore
             mountLocalDOMEventListeners(_this, _this._localHandlerScope);
             return _this;
         }
         HandlerDomProxy.prototype.dispose = function () {
+            // @ts-ignore
             unmountDOMEventListeners(this._localHandlerScope);
             if (globalEventSupported) {
+                // @ts-ignore
                 unmountDOMEventListeners(this._globalHandlerScope);
             }
         };
         HandlerDomProxy.prototype.setCursor = function (cursorStyle) {
+            // @ts-ignore
             this.dom.style && (this.dom.style.cursor = cursorStyle || 'default');
         };
         HandlerDomProxy.prototype.__togglePointerCapture = function (isPointerCapturing) {
@@ -4834,6 +4910,7 @@
             if (globalEventSupported
                 && ((+this.__pointerCapturing) ^ (+isPointerCapturing))) {
                 this.__pointerCapturing = isPointerCapturing;
+                // @ts-ignore
                 var globalHandlerScope = this._globalHandlerScope;
                 isPointerCapturing
                     ? mountGlobalDOMEventListeners(this, globalHandlerScope)
@@ -4846,6 +4923,7 @@
     var dpr = 1;
     if (env.hasGlobalWindow) {
         dpr = Math.max(window.devicePixelRatio
+            // @ts-ignore
             || (window.screen && window.screen.deviceXDPI / window.screen.logicalXDPI)
             || 1, 1);
     }
@@ -5008,6 +5086,7 @@
                 || isNotAroundZero$1(this.skewY);
         };
         Transformable.prototype.updateTransform = function () {
+            // @ts-ignore
             var parentTransform = this.parent && this.parent.transform;
             var needLocalTransform = this.needLocalTransform();
             var m = this.transform;
@@ -5034,6 +5113,7 @@
             this._resolveGlobalScaleRatio(m);
         };
         Transformable.prototype._resolveGlobalScaleRatio = function (m) {
+            // @ts-ignore
             var globalScaleRatio = this.globalScaleRatio;
             if (globalScaleRatio != null && globalScaleRatio !== 1) {
                 this.getGlobalScale(scaleTmp);
@@ -5054,8 +5134,10 @@
             var ancestors = [];
             while (transformNode) {
                 ancestors.push(transformNode);
+                // @ts-ignore
                 transformNode = transformNode.parent;
             }
+            // @ts-ignore
             while (transformNode = ancestors.pop()) {
                 transformNode.updateTransform();
             }
@@ -5085,6 +5167,7 @@
             if (!this.transform) {
                 return;
             }
+            // @ts-ignore
             var parent = this.parent;
             var m = this.transform;
             if (parent && parent.transform) {
@@ -5626,7 +5709,9 @@
         if (textPosition instanceof Array) {
             x += parsePercent(textPosition[0], rect.width);
             y += parsePercent(textPosition[1], rect.height);
+            // @ts-ignore
             textAlign = null;
+            // @ts-ignore
             textVerticalAlign = null;
         }
         else {
@@ -5730,7 +5815,9 @@
         Element.prototype._init = function (props) {
             this.attr(props);
         };
+        // @ts-ignore
         Element.prototype.drift = function (dx, dy, e) {
+            // @ts-ignore
             switch (this.draggable) {
                 case 'horizontal':
                     dy = 0;
@@ -5745,13 +5832,16 @@
             }
             m[4] += dx;
             m[5] += dy;
+            // @ts-ignore
             this.decomposeTransform();
             this.markRedraw();
         };
         Element.prototype.beforeUpdate = function () { };
         Element.prototype.afterUpdate = function () { };
         Element.prototype.update = function () {
+            // @ts-ignore
             this.updateTransform();
+            // @ts-ignore
             if (this.__dirty) {
                 this.updateInnerText();
             }
@@ -5782,7 +5872,9 @@
                     if (!isLocal) {
                         layoutRect.applyTransform(this.transform);
                     }
+                    // @ts-ignore
                     if (this.calculateTextPosition) {
+                        // @ts-ignore
                         this.calculateTextPosition(tmpTextPosCalcRes, textConfig, layoutRect);
                     }
                     else {
@@ -5797,7 +5889,9 @@
                         var relOriginX = void 0;
                         var relOriginY = void 0;
                         if (textOrigin === 'center') {
+                            // @ts-ignore
                             relOriginX = layoutRect.width * 0.5;
+                            // @ts-ignore
                             relOriginY = layoutRect.height * 0.5;
                         }
                         else {
@@ -5805,7 +5899,9 @@
                             relOriginY = parsePercent(textOrigin[1], layoutRect.height);
                         }
                         innerOrigin = true;
+                        // @ts-ignore
                         innerTransformable.originX = -innerTransformable.x + relOriginX + (isLocal ? 0 : layoutRect.x);
+                        // @ts-ignore
                         innerTransformable.originY = -innerTransformable.y + relOriginY + (isLocal ? 0 : layoutRect.y);
                     }
                 }
@@ -5832,10 +5928,13 @@
                     textFill = textConfig.insideFill;
                     textStroke = textConfig.insideStroke;
                     if (textFill == null || textFill === 'auto') {
+                        // @ts-ignore
                         textFill = this.getInsideTextFill();
                     }
                     if (textStroke == null || textStroke === 'auto') {
+                        // @ts-ignore
                         textStroke = this.getInsideTextStroke(textFill);
+                        // @ts-ignore
                         autoStroke = true;
                     }
                 }
@@ -5843,13 +5942,17 @@
                     textFill = textConfig.outsideFill;
                     textStroke = textConfig.outsideStroke;
                     if (textFill == null || textFill === 'auto') {
+                        // @ts-ignore
                         textFill = this.getOutsideFill();
                     }
                     if (textStroke == null || textStroke === 'auto') {
+                        // @ts-ignore
                         textStroke = this.getOutsideStroke(textFill);
+                        // @ts-ignore
                         autoStroke = true;
                     }
                 }
+                // @ts-ignore
                 textFill = textFill || '#000';
                 if (textFill !== innerTextDefaultStyle.fill
                     || textStroke !== innerTextDefaultStyle.stroke
@@ -5876,12 +5979,14 @@
         Element.prototype.getInsideTextFill = function () {
             return '#fff';
         };
+        // @ts-ignore
         Element.prototype.getInsideTextStroke = function (textFill) {
             return '#000';
         };
         Element.prototype.getOutsideFill = function () {
             return this.__zr && this.__zr.isDarkMode() ? LIGHT_LABEL_COLOR : DARK_LABEL_COLOR;
         };
+        // @ts-ignore
         Element.prototype.getOutsideStroke = function (textFill) {
             var backgroundColor = this.__zr && this.__zr.getBackgroundColor();
             var colorArr = typeof backgroundColor === 'string' && parse(backgroundColor);
@@ -5896,6 +6001,7 @@
             colorArr[3] = 1;
             return stringify(colorArr, 'rgba');
         };
+        // @ts-ignore
         Element.prototype.traverse = function (cb, context) { };
         Element.prototype.attrKV = function (key, value) {
             if (key === 'textConfig') {
@@ -5949,6 +6055,7 @@
                 }
                 var targetName = animator.targetName;
                 var target = targetName
+                    // @ts-ignore
                     ? normalState[targetName] : normalState;
                 animator.saveTo(target);
             }
@@ -5994,12 +6101,15 @@
                 return;
             }
             var currentStates = this.currentStates;
+            // @ts-ignore
             var animationCfg = this.stateTransition;
             if (indexOf(currentStates, stateName) >= 0 && (keepCurrentStates || currentStates.length === 1)) {
                 return;
             }
             var state;
+            // @ts-ignore
             if (this.stateProxy && !toNormalState) {
+                // @ts-ignore
                 state = this.stateProxy(stateName);
             }
             if (!state) {
@@ -6041,6 +6151,7 @@
             this.markRedraw();
             if (!useHoverLayer && this.__inHover) {
                 this._toggleHoverLayerFlag(false);
+                // @ts-ignore
                 this.__dirty &= ~REDRAW_BIT;
             }
             return state;
@@ -6068,7 +6179,9 @@
                 for (var i = 0; i < len; i++) {
                     var stateName = states[i];
                     var stateObj = void 0;
+                    // @ts-ignore
                     if (this.stateProxy) {
+                        // @ts-ignore
                         stateObj = this.stateProxy(stateName, states);
                     }
                     if (!stateObj) {
@@ -6084,6 +6197,7 @@
                     this._toggleHoverLayerFlag(true);
                 }
                 var mergedState = this._mergeStates(stateObjects);
+                // @ts-ignore
                 var animationCfg = this.stateTransition;
                 this.saveCurrentToNormalState(mergedState);
                 this._applyStateObj(states.join(','), mergedState, this._normalState, false, !noAnimation && !this.__inHover && animationCfg && animationCfg.duration > 0, animationCfg);
@@ -6100,6 +6214,7 @@
                 this.markRedraw();
                 if (!useHoverLayer && this.__inHover) {
                     this._toggleHoverLayerFlag(false);
+                    // @ts-ignore
                     this.__dirty &= ~REDRAW_BIT;
                 }
             }
@@ -6215,12 +6330,14 @@
         };
         Element.prototype._attachComponent = function (componentEl) {
             if (componentEl.__zr && !componentEl.__hostTarget) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                     throw new Error('Text element has been added to zrender.');
                 }
                 return;
             }
             if (componentEl === this) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                     throw new Error('Recursive component attachment.');
                 }
@@ -6270,6 +6387,7 @@
             if (previousTextContent && previousTextContent !== textEl) {
                 this.removeTextContent();
             }
+            // @ts-ignore
             if ("development" !== 'production') {
                 if (textEl.__zr && !textEl.__hostTarget) {
                     throw new Error('Text element has been added to zrender.');
@@ -6321,6 +6439,7 @@
             }
         };
         Element.prototype.markRedraw = function () {
+            // @ts-ignore
             this.__dirty |= REDRAW_BIT;
             var zr = this.__zr;
             if (zr) {
@@ -6331,7 +6450,9 @@
                     zr.refresh();
                 }
             }
+            // @ts-ignore
             if (this.__hostTarget) {
+                // @ts-ignore
                 this.__hostTarget.markRedraw();
             }
         };
@@ -6393,6 +6514,7 @@
         };
         Element.prototype.animate = function (key, loop, allowDiscreteAnimation) {
             var target = key ? this[key] : this;
+            // @ts-ignore
             if ("development" !== 'production') {
                 if (!target) {
                     logError('Property "'
@@ -6403,6 +6525,7 @@
                 }
             }
             var animator = new Animator(target, loop, allowDiscreteAnimation);
+            // @ts-ignore
             key && (animator.targetName = key);
             this.addAnimator(animator, key);
             return animator;
@@ -6425,6 +6548,7 @@
             }
             zr && zr.wakeUp();
         };
+        // @ts-ignore
         Element.prototype.updateDuringAnimation = function (key) {
             this.markRedraw();
         };
@@ -6484,6 +6608,7 @@
             function createLegacyProperty(key, privateKey, xKey, yKey) {
                 Object.defineProperty(elProto, key, {
                     get: function () {
+                        // @ts-ignore
                         if ("development" !== 'production') {
                             logDeprecatedError(key, xKey, yKey);
                         }
@@ -6494,6 +6619,7 @@
                         return this[privateKey];
                     },
                     set: function (pos) {
+                        // @ts-ignore
                         if ("development" !== 'production') {
                             logDeprecatedError(key, xKey, yKey);
                         }
@@ -6522,6 +6648,7 @@
                     });
                 }
             }
+            // @ts-ignore
             if (Object.defineProperty) {
                 createLegacyProperty('position', '_legacyPos', 'x', 'y');
                 createLegacyProperty('scale', '_legacyScale', 'scaleX', 'scaleY');
@@ -6561,6 +6688,7 @@
             cfgDone && cfgDone();
         }
         if (animators.length > 0 && cfg.during) {
+            // @ts-ignore
             animators[0].during(function (target, percent) {
                 cfg.during(percent);
             });
@@ -6700,14 +6828,19 @@
             var reversedTarget = void 0;
             var sourceClone = void 0;
             if (reverse) {
+                // @ts-ignore
                 reversedTarget = {};
                 if (setToFinal) {
+                    // @ts-ignore
                     revertedSource = {};
                 }
                 for (var i = 0; i < keyLen; i++) {
+                    // @ts-ignore
                     var innerKey = animationKeys[i];
+                    // @ts-ignore
                     reversedTarget[innerKey] = animateObj[innerKey];
                     if (setToFinal) {
+                        // @ts-ignore
                         revertedSource[innerKey] = target[innerKey];
                     }
                     else {
@@ -6716,13 +6849,17 @@
                 }
             }
             else if (setToFinal) {
+                // @ts-ignore
                 sourceClone = {};
                 for (var i = 0; i < keyLen; i++) {
+                    // @ts-ignore
                     var innerKey = animationKeys[i];
+                    // @ts-ignore
                     sourceClone[innerKey] = cloneValue(animateObj[innerKey]);
                     copyValue(animateObj, target, innerKey);
                 }
             }
+            // @ts-ignore
             var animator = new Animator(animateObj, false, false, additive ? filter(existsAnimators, function (animator) { return animator.targetName === topKey; }) : null);
             animator.targetName = topKey;
             if (cfg.scope) {
@@ -6743,22 +6880,30 @@
     var Group = (function (_super) {
         __extends(Group, _super);
         function Group(opts) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
+            // @ts-ignore
             _this.isGroup = true;
+            // @ts-ignore
             _this._children = [];
+            // @ts-ignore
             _this.attr(opts);
             return _this;
         }
         Group.prototype.childrenRef = function () {
+            // @ts-ignore
             return this._children;
         };
         Group.prototype.children = function () {
+            // @ts-ignore
             return this._children.slice();
         };
         Group.prototype.childAt = function (idx) {
+            // @ts-ignore
             return this._children[idx];
         };
         Group.prototype.childOfName = function (name) {
+            // @ts-ignore
             var children = this._children;
             for (var i = 0; i < children.length; i++) {
                 if (children[i].name === name) {
@@ -6767,14 +6912,17 @@
             }
         };
         Group.prototype.childCount = function () {
+            // @ts-ignore
             return this._children.length;
         };
         Group.prototype.add = function (child) {
             if (child) {
                 if (child !== this && child.parent !== this) {
+                    // @ts-ignore
                     this._children.push(child);
                     this._doAdd(child);
                 }
+                // @ts-ignore
                 if ("development" !== 'production') {
                     if (child.__hostTarget) {
                         throw 'This elemenet has been used as an attachment';
@@ -6786,6 +6934,7 @@
         Group.prototype.addBefore = function (child, nextSibling) {
             if (child && child !== this && child.parent !== this
                 && nextSibling && nextSibling.parent === this) {
+                // @ts-ignore
                 var children = this._children;
                 var idx = children.indexOf(nextSibling);
                 if (idx >= 0) {
@@ -6796,6 +6945,7 @@
             return this;
         };
         Group.prototype.replace = function (oldChild, newChild) {
+            // @ts-ignore
             var idx = indexOf(this._children, oldChild);
             if (idx >= 0) {
                 this.replaceAt(newChild, idx);
@@ -6803,11 +6953,13 @@
             return this;
         };
         Group.prototype.replaceAt = function (child, index) {
+            // @ts-ignore
             var children = this._children;
             var old = children[index];
             if (child && child !== this && child.parent !== this && child !== old) {
                 children[index] = child;
                 old.parent = null;
+                // @ts-ignore
                 var zr = this.__zr;
                 if (zr) {
                     old.removeSelfFromZr(zr);
@@ -6821,6 +6973,7 @@
                 child.parent.remove(child);
             }
             child.parent = this;
+            // @ts-ignore
             var zr = this.__zr;
             if (zr && zr !== child.__zr) {
                 child.addSelfToZr(zr);
@@ -6828,7 +6981,9 @@
             zr && zr.refresh();
         };
         Group.prototype.remove = function (child) {
+            // @ts-ignore
             var zr = this.__zr;
+            // @ts-ignore
             var children = this._children;
             var idx = indexOf(children, child);
             if (idx < 0) {
@@ -6843,7 +6998,9 @@
             return this;
         };
         Group.prototype.removeAll = function () {
+            // @ts-ignore
             var children = this._children;
+            // @ts-ignore
             var zr = this.__zr;
             for (var i = 0; i < children.length; i++) {
                 var child = children[i];
@@ -6856,6 +7013,7 @@
             return this;
         };
         Group.prototype.eachChild = function (cb, context) {
+            // @ts-ignore
             var children = this._children;
             for (var i = 0; i < children.length; i++) {
                 var child = children[i];
@@ -6864,7 +7022,9 @@
             return this;
         };
         Group.prototype.traverse = function (cb, context) {
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 var child = this._children[i];
                 var stopped = cb.call(context, child);
                 if (child.isGroup && !stopped) {
@@ -6875,20 +7035,25 @@
         };
         Group.prototype.addSelfToZr = function (zr) {
             _super.prototype.addSelfToZr.call(this, zr);
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 var child = this._children[i];
                 child.addSelfToZr(zr);
             }
         };
         Group.prototype.removeSelfFromZr = function (zr) {
             _super.prototype.removeSelfFromZr.call(this, zr);
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 var child = this._children[i];
                 child.removeSelfFromZr(zr);
             }
         };
         Group.prototype.getBoundingRect = function (includeChildren) {
             var tmpRect = new BoundingRect(0, 0, 0, 0);
+            // @ts-ignore
             var children = includeChildren || this._children;
             var tmpMat = [];
             var rect = null;
@@ -6964,6 +7129,7 @@
             if (!painterCtors[rendererType]) {
                 rendererType = keys(painterCtors)[0];
             }
+            // @ts-ignore
             if ("development" !== 'production') {
                 if (!painterCtors[rendererType]) {
                     throw new Error("Renderer '" + rendererType + "' is not imported. Please import it first.");
@@ -7105,13 +7271,16 @@
             return this.handler.findHover(x, y);
         };
         ZRender.prototype.on = function (eventName, eventHandler, context) {
+            // @ts-ignore
             this.handler.on(eventName, eventHandler, context);
             return this;
         };
         ZRender.prototype.off = function (eventName, eventHandler) {
+            // @ts-ignore
             this.handler.off(eventName, eventHandler);
         };
         ZRender.prototype.trigger = function (eventName, event) {
+            // @ts-ignore
             this.handler.trigger(eventName, event);
         };
         ZRender.prototype.clear = function () {
@@ -7130,9 +7299,12 @@
             this.storage.dispose();
             this.painter.dispose();
             this.handler.dispose();
+            // @ts-ignore
             this.animation =
+                // @ts-ignore
                 this.storage =
                     this.painter =
+                        // @ts-ignore
                         this.handler = null;
             delInstance(this.id);
         };
@@ -7401,7 +7573,9 @@
         } // Add a vote to max remainder.
 
 
+        // @ts-ignore
         ++seats[maxId];
+        // @ts-ignore
         remainder[maxId] = 0;
         ++currentSum;
       }
@@ -7734,6 +7908,7 @@
     var ECHARTS_PREFIX = '[ECharts] ';
     var storedLogs = {};
     var hasConsole = typeof console !== 'undefined' // eslint-disable-next-line
+    // @ts-ignore
     && console.warn && console.log;
 
     function outputLog(type, str, onlyOnce) {
@@ -7761,12 +7936,14 @@
       outputLog('error', str, onlyOnce);
     }
     function deprecateLog(str) {
+      // @ts-ignore
       if ("development" !== 'production') {
         // Not display duplicate message.
         outputLog('warn', 'DEPRECATED: ' + str, true);
       }
     }
     function deprecateReplaceLog(oldOpt, newOpt, scope) {
+      // @ts-ignore
       if ("development" !== 'production') {
         deprecateLog((scope ? "[" + scope + "]" : '') + (oldOpt + " is deprecated, use " + newOpt + " instead."));
       }
@@ -7790,6 +7967,7 @@
 
       var msg = '';
 
+      // @ts-ignore
       if ("development" !== 'production') {
         // Fuzzy stringify for print.
         // This code only exist in dev environment.
@@ -7808,6 +7986,7 @@
               return printableStr;
             } else if (typeof JSON !== 'undefined' && JSON.stringify) {
               try {
+                // @ts-ignore
                 return JSON.stringify(arg, function (n, val) {
                   var printableStr = makePrintableStringIfPossible_1(val);
                   return printableStr == null ? val : printableStr;
@@ -7951,6 +8130,7 @@
           return;
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           // There is some legacy case that name is set as `false`.
           // But should work normally rather than throw error.
@@ -8189,6 +8369,7 @@
 
 
     function makeComparableKey(val) {
+      // @ts-ignore
       if ("development" !== 'production') {
         if (val == null) {
           throw new Error();
@@ -8207,6 +8388,7 @@
     }
 
     function warnInvalidateIdOrName(idOrName) {
+      // @ts-ignore
       if ("development" !== 'production') {
         warn('`' + idOrName + '` is invalid id or name. Must be a string or number.');
       }
@@ -8382,6 +8564,7 @@
           enableNone: opt && opt.enableNone != null ? opt.enableNone : true
         });
         result[mainType + 'Models'] = queryResult.models;
+        // @ts-ignore
         result[mainType + 'Model'] = queryResult.models[0];
       });
       return result;
@@ -8448,12 +8631,14 @@
       if (!result.specified) {
         // Use the first as default if `useDefault`.
         var firstCmpt = void 0;
+        // @ts-ignore
         result.models = opt.useDefault && (firstCmpt = ecModel.getComponent(mainType)) ? [firstCmpt] : [];
         return result;
       }
 
       if (indexOption === 'none' || indexOption === false) {
         assert(opt.enableNone, '`"none"` or `false` is not a valid value on index option.');
+        // @ts-ignore
         result.models = [];
         return result;
       } // `queryComponents` will return all components if
@@ -8603,6 +8788,7 @@
       rootClz.$constructor = rootClz; // FIXME: not necessary?
 
       rootClz.extend = function (proto) {
+        // @ts-ignore
         if ("development" !== 'production') {
           each(mandatoryMethods, function (method) {
             if (!proto[method]) {
@@ -8617,10 +8803,12 @@
         if (isESClass(superClass)) {
           ExtendedClass =
           /** @class */
+          // @ts-ignore
           function (_super) {
             __extends(class_1, _super);
 
             function class_1() {
+              // @ts-ignore
               return _super.apply(this, arguments) || this;
             }
 
@@ -8635,6 +8823,7 @@
           // If this constructor/$constructor is declared, it is responsible for
           // calling the super constructor.
           ExtendedClass = function () {
+            // @ts-ignore
             (proto.$constructor || superClass).apply(this, arguments);
           };
 
@@ -8693,6 +8882,7 @@
       var classAttr = ['__\0is_clz', classBase++].join('_');
       target.prototype[classAttr] = true;
 
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(!target.isInstance, 'The method "is" can not be defined.');
       }
@@ -8714,10 +8904,12 @@
         args[_i - 2] = arguments[_i];
       }
 
+      // @ts-ignore
       return this.superClass.prototype[methodName].apply(context, args);
     }
 
     function superApply(context, methodName, args) {
+      // @ts-ignore
       return this.superClass.prototype[methodName].apply(context, args);
     }
     /**
@@ -8757,6 +8949,7 @@
           var componentTypeInfo = parseClassType(componentFullType);
 
           if (!componentTypeInfo.sub) {
+            // @ts-ignore
             if ("development" !== 'production') {
               if (storage[componentTypeInfo.main]) {
                 console.warn(componentTypeInfo.main + ' exists.');
@@ -8815,6 +9008,7 @@
 
       target.getAllClassMainTypes = function () {
         var types = [];
+        // @ts-ignore
         each(storage, function (obj, type) {
           types.push(type);
         });
@@ -8899,6 +9093,7 @@
 
     var AreaStyleMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function AreaStyleMixin() {}
 
@@ -8935,7 +9130,9 @@
             }
             else {
                 var image_1 = platformApi.loadImage(newImageOrSrc, imageOnLoad, imageOnLoad);
+                // @ts-ignore
                 image_1.__zrImageSrc = newImageOrSrc;
+                // @ts-ignore
                 globalImageCache.put(newImageOrSrc, image_1.__cachedImgObj = {
                     image: image_1,
                     pending: [pendingWrap]
@@ -8950,12 +9147,15 @@
     function imageOnLoad() {
         var cachedImgObj = this.__cachedImgObj;
         this.onload = this.onerror = this.__cachedImgObj = null;
+        // @ts-ignore
         for (var i = 0; i < cachedImgObj.pending.length; i++) {
+            // @ts-ignore
             var pendingWrap = cachedImgObj.pending[i];
             var cb = pendingWrap.cb;
             cb && cb(this, pendingWrap.cbPayload);
             pendingWrap.hostEl.dirty();
         }
+        // @ts-ignore
         cachedImgObj.pending.length = 0;
     }
     function isImageReady(image) {
@@ -9449,6 +9649,7 @@
     var Displayable = (function (_super) {
         __extends(Displayable, _super);
         function Displayable(props) {
+            // @ts-ignore
             return _super.call(this, props) || this;
         }
         Displayable.prototype._init = function (props) {
@@ -9471,23 +9672,32 @@
         Displayable.prototype.innerBeforeBrush = function () { };
         Displayable.prototype.innerAfterBrush = function () { };
         Displayable.prototype.shouldBePainted = function (viewWidth, viewHeight, considerClipPath, considerAncestors) {
+            // @ts-ignore
             var m = this.transform;
+            // @ts-ignore
             if (this.ignore
+                // @ts-ignore
                 || this.invisible
                 || this.style.opacity === 0
+                // @ts-ignore
                 || (this.culling
                     && isDisplayableCulled(this, viewWidth, viewHeight))
                 || (m && !m[0] && !m[3])) {
                 return false;
             }
+            // @ts-ignore
             if (considerClipPath && this.__clipPaths) {
+                // @ts-ignore
                 for (var i = 0; i < this.__clipPaths.length; ++i) {
+                    // @ts-ignore
                     if (this.__clipPaths[i].isZeroArea()) {
                         return false;
                     }
                 }
             }
+            // @ts-ignore
             if (considerAncestors && this.parent) {
+                // @ts-ignore
                 var parent_1 = this.parent;
                 while (parent_1) {
                     if (parent_1.ignore) {
@@ -9505,14 +9715,19 @@
             cb.call(context, this);
         };
         Displayable.prototype.rectContain = function (x, y) {
+            // @ts-ignore
             var coord = this.transformCoordToLocal(x, y);
+            // @ts-ignore
             var rect = this.getBoundingRect();
             return rect.contain(coord[0], coord[1]);
         };
         Displayable.prototype.getPaintRect = function () {
             var rect = this._paintRect;
+            // @ts-ignore
             if (!this._paintRect || this.__dirty) {
+                // @ts-ignore
                 var transform = this.transform;
+                // @ts-ignore
                 var elRect = this.getBoundingRect();
                 var style = this.style;
                 var shadowSize = style.shadowBlur || 0;
@@ -9531,6 +9746,7 @@
                     rect.x = Math.min(rect.x, rect.x + shadowOffsetX - shadowSize);
                     rect.y = Math.min(rect.y, rect.y + shadowOffsetY - shadowSize);
                 }
+                // @ts-ignore
                 var tolerance = this.dirtyRectTolerance;
                 if (!rect.isZero()) {
                     rect.x = Math.floor(rect.x - tolerance);
@@ -9554,6 +9770,7 @@
             return this._prevPaintRect;
         };
         Displayable.prototype.animateStyle = function (loop) {
+            // @ts-ignore
             return this.animate('style', loop);
         };
         Displayable.prototype.updateDuringAnimation = function (targetKey) {
@@ -9561,6 +9778,7 @@
                 this.dirtyStyle();
             }
             else {
+                // @ts-ignore
                 this.markRedraw();
             }
         };
@@ -9589,8 +9807,10 @@
         };
         Displayable.prototype.dirtyStyle = function (notRedraw) {
             if (!notRedraw) {
+                // @ts-ignore
                 this.markRedraw();
             }
+            // @ts-ignore
             this.__dirty |= STYLE_CHANGED_BIT;
             if (this._rect) {
                 this._rect = null;
@@ -9600,9 +9820,11 @@
             this.dirtyStyle();
         };
         Displayable.prototype.styleChanged = function () {
+            // @ts-ignore
             return !!(this.__dirty & STYLE_CHANGED_BIT);
         };
         Displayable.prototype.styleUpdated = function () {
+            // @ts-ignore
             this.__dirty &= ~STYLE_CHANGED_BIT;
         };
         Displayable.prototype.createStyle = function (obj) {
@@ -9612,6 +9834,7 @@
             if (!obj[STYLE_MAGIC_KEY]) {
                 obj = this.createStyle(obj);
             }
+            // @ts-ignore
             if (this.__inHover) {
                 this.__hoverStyle = obj;
             }
@@ -9625,10 +9848,12 @@
         };
         Displayable.prototype._innerSaveToNormal = function (toState) {
             _super.prototype._innerSaveToNormal.call(this, toState);
+            // @ts-ignore
             var normalState = this._normalState;
             if (toState.style && !normalState.style) {
                 normalState.style = this._mergeStyle(this.createStyle(), this.style);
             }
+            // @ts-ignore
             this._savePrimaryToNormal(toState, normalState, PRIMARY_STATES_KEYS$1);
         };
         Displayable.prototype._applyStateObj = function (stateName, state, normalState, keepCurrentStates, transition, animationCfg) {
@@ -9672,6 +9897,7 @@
                         var key = targetKeys[i];
                         this.style[key] = this.style[key];
                     }
+                    // @ts-ignore
                     this._transitionState(stateName, {
                         style: targetStyle
                     }, animationCfg, this.getAnimationStyleProps());
@@ -9680,6 +9906,7 @@
                     this.useStyle(targetStyle);
                 }
             }
+            // @ts-ignore
             var statesKeys = this.__inHover ? PRIMARY_STATES_KEYS_IN_HOVER_LAYER : PRIMARY_STATES_KEYS$1;
             for (var i = 0; i < statesKeys.length; i++) {
                 var key = statesKeys[i];
@@ -9934,9 +10161,11 @@
             }
         }
         PathProxy.prototype.increaseVersion = function () {
+            // @ts-ignore
             this._version++;
         };
         PathProxy.prototype.getVersion = function () {
+            // @ts-ignore
             return this._version;
         };
         PathProxy.prototype.setScale = function (sx, sy, segmentIgnoreThreshold) {
@@ -9968,6 +10197,7 @@
                 this._pathSegLen = null;
                 this._pathLen = 0;
             }
+            // @ts-ignore
             this._version++;
         };
         PathProxy.prototype.moveTo = function (x, y) {
@@ -9983,6 +10213,7 @@
         PathProxy.prototype.lineTo = function (x, y) {
             var dx = mathAbs(x - this._xi);
             var dy = mathAbs(y - this._yi);
+            // @ts-ignore
             var exceedUnit = dx > this._ux || dy > this._uy;
             this.addData(CMD.L, x, y);
             if (this._ctx && exceedUnit) {
@@ -9995,6 +10226,7 @@
             }
             else {
                 var d2 = dx * dx + dy * dy;
+                // @ts-ignore
                 if (d2 > this._pendingPtDist) {
                     this._pendingPtX = x;
                     this._pendingPtY = y;
@@ -10077,9 +10309,11 @@
         PathProxy.prototype.setData = function (data) {
             var len = data.length;
             if (!(this.data && this.data.length === len) && hasTypedArray) {
+                // @ts-ignore
                 this.data = new Float32Array(len);
             }
             for (var i = 0; i < len; i++) {
+                // @ts-ignore
                 this.data[i] = data[i];
             }
             this._len = len;
@@ -10095,30 +10329,36 @@
                 appendSize += path[i].len();
             }
             if (hasTypedArray && (this.data instanceof Float32Array)) {
+                // @ts-ignore
                 this.data = new Float32Array(offset + appendSize);
             }
             for (var i = 0; i < len; i++) {
                 var appendPathData = path[i].data;
                 for (var k = 0; k < appendPathData.length; k++) {
+                    // @ts-ignore
                     this.data[offset++] = appendPathData[k];
                 }
             }
             this._len = offset;
         };
+        // @ts-ignore
         PathProxy.prototype.addData = function (cmd, a, b, c, d, e, f, g, h) {
             if (!this._saveData) {
                 return;
             }
             var data = this.data;
+            // @ts-ignore
             if (this._len + arguments.length > data.length) {
                 this._expandData();
                 data = this.data;
             }
             for (var i = 0; i < arguments.length; i++) {
+                // @ts-ignore
                 data[this._len++] = arguments[i];
             }
         };
         PathProxy.prototype._drawPendingPt = function () {
+            // @ts-ignore
             if (this._pendingPtDist > 0) {
                 this._ctx && this._ctx.lineTo(this._pendingPtX, this._pendingPtY);
                 this._pendingPtDist = 0;
@@ -10128,6 +10368,7 @@
             if (!(this.data instanceof Array)) {
                 var newData = [];
                 for (var i = 0; i < this._len; i++) {
+                    // @ts-ignore
                     newData[i] = this.data[i];
                 }
                 this.data = newData;
@@ -10142,6 +10383,7 @@
             if (data instanceof Array) {
                 data.length = this._len;
                 if (hasTypedArray && this._len > 11) {
+                    // @ts-ignore
                     this.data = new Float32Array(data);
                 }
             }
@@ -10156,17 +10398,22 @@
             var y0 = 0;
             var i;
             for (i = 0; i < this._len;) {
+                // @ts-ignore
                 var cmd = data[i++];
                 var isFirst = i === 1;
                 if (isFirst) {
+                    // @ts-ignore
                     xi = data[i];
+                    // @ts-ignore
                     yi = data[i + 1];
                     x0 = xi;
                     y0 = yi;
                 }
                 switch (cmd) {
                     case CMD.M:
+                        // @ts-ignore
                         xi = x0 = data[i++];
+                        // @ts-ignore
                         yi = y0 = data[i++];
                         min2[0] = x0;
                         min2[1] = y0;
@@ -10174,28 +10421,44 @@
                         max2[1] = y0;
                         break;
                     case CMD.L:
+                        // @ts-ignore
                         fromLine(xi, yi, data[i], data[i + 1], min2, max2);
+                        // @ts-ignore
                         xi = data[i++];
+                        // @ts-ignore
                         yi = data[i++];
                         break;
                     case CMD.C:
+                        // @ts-ignore
                         fromCubic(xi, yi, data[i++], data[i++], data[i++], data[i++], data[i], data[i + 1], min2, max2);
+                        // @ts-ignore
                         xi = data[i++];
+                        // @ts-ignore
                         yi = data[i++];
                         break;
                     case CMD.Q:
+                        // @ts-ignore
                         fromQuadratic(xi, yi, data[i++], data[i++], data[i], data[i + 1], min2, max2);
+                        // @ts-ignore
                         xi = data[i++];
+                        // @ts-ignore
                         yi = data[i++];
                         break;
                     case CMD.A:
+                        // @ts-ignore
                         var cx = data[i++];
+                        // @ts-ignore
                         var cy = data[i++];
+                        // @ts-ignore
                         var rx = data[i++];
+                        // @ts-ignore
                         var ry = data[i++];
+                        // @ts-ignore
                         var startAngle = data[i++];
+                        // @ts-ignore
                         var endAngle = data[i++] + startAngle;
                         i += 1;
+                        // @ts-ignore
                         var anticlockwise = !data[i++];
                         if (isFirst) {
                             x0 = mathCos$1(startAngle) * rx + cx;
@@ -10206,9 +10469,13 @@
                         yi = mathSin$1(endAngle) * ry + cy;
                         break;
                     case CMD.R:
+                        // @ts-ignore
                         x0 = xi = data[i++];
+                        // @ts-ignore
                         y0 = yi = data[i++];
+                        // @ts-ignore
                         var width = data[i++];
+                        // @ts-ignore
                         var height = data[i++];
                         fromLine(x0, y0, x0 + width, y0 + height, min2, max2);
                         break;
@@ -10241,10 +10508,13 @@
             var pathTotalLen = 0;
             var segCount = 0;
             for (var i = 0; i < len;) {
+                // @ts-ignore
                 var cmd = data[i++];
                 var isFirst = i === 1;
                 if (isFirst) {
+                    // @ts-ignore
                     xi = data[i];
+                    // @ts-ignore
                     yi = data[i + 1];
                     x0 = xi;
                     y0 = yi;
@@ -10252,14 +10522,19 @@
                 var l = -1;
                 switch (cmd) {
                     case CMD.M:
+                        // @ts-ignore
                         xi = x0 = data[i++];
+                        // @ts-ignore
                         yi = y0 = data[i++];
                         break;
                     case CMD.L: {
+                        // @ts-ignore
                         var x2 = data[i++];
+                        // @ts-ignore
                         var y2 = data[i++];
                         var dx = x2 - xi;
                         var dy = y2 - yi;
+                        // @ts-ignore
                         if (mathAbs(dx) > ux || mathAbs(dy) > uy || i === len - 1) {
                             l = Math.sqrt(dx * dx + dy * dy);
                             xi = x2;
@@ -10268,11 +10543,17 @@
                         break;
                     }
                     case CMD.C: {
+                        // @ts-ignore
                         var x1 = data[i++];
+                        // @ts-ignore
                         var y1 = data[i++];
+                        // @ts-ignore
                         var x2 = data[i++];
+                        // @ts-ignore
                         var y2 = data[i++];
+                        // @ts-ignore
                         var x3 = data[i++];
+                        // @ts-ignore
                         var y3 = data[i++];
                         l = cubicLength(xi, yi, x1, y1, x2, y2, x3, y3, 10);
                         xi = x3;
@@ -10280,9 +10561,13 @@
                         break;
                     }
                     case CMD.Q: {
+                        // @ts-ignore
                         var x1 = data[i++];
+                        // @ts-ignore
                         var y1 = data[i++];
+                        // @ts-ignore
                         var x2 = data[i++];
+                        // @ts-ignore
                         var y2 = data[i++];
                         l = quadraticLength(xi, yi, x1, y1, x2, y2, 10);
                         xi = x2;
@@ -10290,14 +10575,21 @@
                         break;
                     }
                     case CMD.A:
+                        // @ts-ignore
                         var cx = data[i++];
+                        // @ts-ignore
                         var cy = data[i++];
+                        // @ts-ignore
                         var rx = data[i++];
+                        // @ts-ignore
                         var ry = data[i++];
+                        // @ts-ignore
                         var startAngle = data[i++];
+                        // @ts-ignore
                         var delta = data[i++];
                         var endAngle = delta + startAngle;
                         i += 1;
+                        // @ts-ignore
                         var anticlockwise = !data[i++];
                         if (isFirst) {
                             x0 = mathCos$1(startAngle) * rx + cx;
@@ -10308,9 +10600,13 @@
                         yi = mathSin$1(endAngle) * ry + cy;
                         break;
                     case CMD.R: {
+                        // @ts-ignore
                         x0 = xi = data[i++];
+                        // @ts-ignore
                         y0 = yi = data[i++];
+                        // @ts-ignore
                         var width = data[i++];
+                        // @ts-ignore
                         var height = data[i++];
                         l = width * 2 + height * 2;
                         break;
@@ -10358,16 +10654,20 @@
                 }
                 pathSegLen = this._pathSegLen;
                 pathTotalLen = this._pathLen;
+                // @ts-ignore
                 displayedLength = percent * pathTotalLen;
                 if (!displayedLength) {
                     return;
                 }
             }
             lo: for (var i = 0; i < len;) {
+                // @ts-ignore
                 var cmd = d[i++];
                 var isFirst = i === 1;
                 if (isFirst) {
+                    // @ts-ignore
                     xi = d[i];
+                    // @ts-ignore
                     yi = d[i + 1];
                     x0 = xi;
                     y0 = yi;
@@ -10378,19 +10678,27 @@
                 }
                 switch (cmd) {
                     case CMD.M:
+                        // @ts-ignore
                         x0 = xi = d[i++];
+                        // @ts-ignore
                         y0 = yi = d[i++];
                         ctx.moveTo(xi, yi);
                         break;
                     case CMD.L: {
+                        // @ts-ignore
                         x = d[i++];
+                        // @ts-ignore
                         y = d[i++];
                         var dx = mathAbs(x - xi);
                         var dy = mathAbs(y - yi);
+                        // @ts-ignore
                         if (dx > ux || dy > uy) {
                             if (drawPart) {
+                                // @ts-ignore
                                 var l = pathSegLen[segCount++];
+                                // @ts-ignore
                                 if (accumLength + l > displayedLength) {
+                                    // @ts-ignore
                                     var t = (displayedLength - accumLength) / l;
                                     ctx.lineTo(xi * (1 - t) + x * t, yi * (1 - t) + y * t);
                                     break lo;
@@ -10413,15 +10721,24 @@
                         break;
                     }
                     case CMD.C: {
+                        // @ts-ignore
                         var x1 = d[i++];
+                        // @ts-ignore
                         var y1 = d[i++];
+                        // @ts-ignore
                         var x2 = d[i++];
+                        // @ts-ignore
                         var y2 = d[i++];
+                        // @ts-ignore
                         var x3 = d[i++];
+                        // @ts-ignore
                         var y3 = d[i++];
                         if (drawPart) {
+                            // @ts-ignore
                             var l = pathSegLen[segCount++];
+                            // @ts-ignore
                             if (accumLength + l > displayedLength) {
+                                // @ts-ignore
                                 var t = (displayedLength - accumLength) / l;
                                 cubicSubdivide(xi, x1, x2, x3, t, tmpOutX);
                                 cubicSubdivide(yi, y1, y2, y3, t, tmpOutY);
@@ -10436,13 +10753,20 @@
                         break;
                     }
                     case CMD.Q: {
+                        // @ts-ignore
                         var x1 = d[i++];
+                        // @ts-ignore
                         var y1 = d[i++];
+                        // @ts-ignore
                         var x2 = d[i++];
+                        // @ts-ignore
                         var y2 = d[i++];
                         if (drawPart) {
+                            // @ts-ignore
                             var l = pathSegLen[segCount++];
+                            // @ts-ignore
                             if (accumLength + l > displayedLength) {
+                                // @ts-ignore
                                 var t = (displayedLength - accumLength) / l;
                                 quadraticSubdivide(xi, x1, x2, t, tmpOutX);
                                 quadraticSubdivide(yi, y1, y2, t, tmpOutY);
@@ -10457,21 +10781,32 @@
                         break;
                     }
                     case CMD.A:
+                        // @ts-ignore
                         var cx = d[i++];
+                        // @ts-ignore
                         var cy = d[i++];
+                        // @ts-ignore
                         var rx = d[i++];
+                        // @ts-ignore
                         var ry = d[i++];
+                        // @ts-ignore
                         var startAngle = d[i++];
+                        // @ts-ignore
                         var delta = d[i++];
+                        // @ts-ignore
                         var psi = d[i++];
+                        // @ts-ignore
                         var anticlockwise = !d[i++];
                         var r = (rx > ry) ? rx : ry;
                         var isEllipse = mathAbs(rx - ry) > 1e-3;
                         var endAngle = startAngle + delta;
                         var breakBuild = false;
                         if (drawPart) {
+                            // @ts-ignore
                             var l = pathSegLen[segCount++];
+                            // @ts-ignore
                             if (accumLength + l > displayedLength) {
+                                // @ts-ignore
                                 endAngle = startAngle + delta * (displayedLength - accumLength) / l;
                                 breakBuild = true;
                             }
@@ -10494,15 +10829,24 @@
                         yi = mathSin$1(endAngle) * ry + cy;
                         break;
                     case CMD.R:
+                        // @ts-ignore
                         x0 = xi = d[i];
+                        // @ts-ignore
                         y0 = yi = d[i + 1];
+                        // @ts-ignore
                         x = d[i++];
+                        // @ts-ignore
                         y = d[i++];
+                        // @ts-ignore
                         var width = d[i++];
+                        // @ts-ignore
                         var height = d[i++];
                         if (drawPart) {
+                            // @ts-ignore
                             var l = pathSegLen[segCount++];
+                            // @ts-ignore
                             if (accumLength + l > displayedLength) {
+                                // @ts-ignore
                                 var d_1 = displayedLength - accumLength;
                                 ctx.moveTo(x, y);
                                 ctx.lineTo(x + mathMin$2(d_1, width), y);
@@ -10526,8 +10870,11 @@
                         break;
                     case CMD.Z:
                         if (drawPart) {
+                            // @ts-ignore
                             var l = pathSegLen[segCount++];
+                            // @ts-ignore
                             if (accumLength + l > displayedLength) {
+                                // @ts-ignore
                                 var t = (displayedLength - accumLength) / l;
                                 ctx.lineTo(xi * (1 - t) + x0 * t, yi * (1 - t) + y0 * t);
                                 break lo;
@@ -10543,6 +10890,7 @@
         PathProxy.prototype.clone = function () {
             var newProxy = new PathProxy();
             var data = this.data;
+            // @ts-ignore
             newProxy.data = data.slice ? data.slice()
                 : Array.prototype.slice.call(data);
             newProxy._len = this._len;
@@ -10714,27 +11062,34 @@
                     if (extrema[1] < extrema[0] && nExtrema > 1) {
                         swapExtrema();
                     }
+                    // @ts-ignore
                     y0_ = cubicAt(y0, y1, y2, y3, extrema[0]);
                     if (nExtrema > 1) {
+                        // @ts-ignore
                         y1_ = cubicAt(y0, y1, y2, y3, extrema[1]);
                     }
                 }
                 if (nExtrema === 2) {
                     if (t < extrema[0]) {
+                        // @ts-ignore
                         w += y0_ < y0 ? unit : -unit;
                     }
                     else if (t < extrema[1]) {
+                        // @ts-ignore
                         w += y1_ < y0_ ? unit : -unit;
                     }
                     else {
+                        // @ts-ignore
                         w += y3 < y1_ ? unit : -unit;
                     }
                 }
                 else {
                     if (t < extrema[0]) {
+                        // @ts-ignore
                         w += y0_ < y0 ? unit : -unit;
                     }
                     else {
+                        // @ts-ignore
                         w += y3 < y0_ ? unit : -unit;
                     }
                 }
@@ -11007,11 +11362,13 @@
     var Path = (function (_super) {
         __extends(Path, _super);
         function Path(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Path.prototype.update = function () {
             var _this = this;
             _super.prototype.update.call(this);
+            // @ts-ignore
             var style = this.style;
             if (style.decal) {
                 var decalEl = this._decalEl = this._decalEl || new Path();
@@ -11048,16 +11405,20 @@
             this.shape = this.getDefaultShape();
             var defaultStyle = this.getDefaultStyle();
             if (defaultStyle) {
+                // @ts-ignore
                 this.useStyle(defaultStyle);
             }
             for (var i = 0; i < keysArr.length; i++) {
                 var key = keysArr[i];
                 var value = props[key];
                 if (key === 'style') {
+                    // @ts-ignore
                     if (!this.style) {
+                        // @ts-ignore
                         this.useStyle(value);
                     }
                     else {
+                        // @ts-ignore
                         extend(this.style, value);
                     }
                 }
@@ -11068,7 +11429,9 @@
                     _super.prototype.attrKV.call(this, key, value);
                 }
             }
+            // @ts-ignore
             if (!this.style) {
+                // @ts-ignore
                 this.useStyle({});
             }
         };
@@ -11082,6 +11445,7 @@
             return this.hasFill();
         };
         Path.prototype.getInsideTextFill = function () {
+            // @ts-ignore
             var pathFill = this.style.fill;
             if (pathFill !== 'none') {
                 if (isString(pathFill)) {
@@ -11101,8 +11465,10 @@
             return DARK_LABEL_COLOR;
         };
         Path.prototype.getInsideTextStroke = function (textFill) {
+            // @ts-ignore
             var pathFill = this.style.fill;
             if (isString(pathFill)) {
+                // @ts-ignore
                 var zr = this.__zr;
                 var isDarkMode = !!(zr && zr.isDarkMode());
                 var isDarkLabel = lum(textFill, 0) < DARK_MODE_THRESHOLD;
@@ -11111,12 +11477,15 @@
                 }
             }
         };
+        // @ts-ignore
         Path.prototype.buildPath = function (ctx, shapeCfg, inBatch) { };
         Path.prototype.pathUpdated = function () {
+            // @ts-ignore
             this.__dirty &= ~SHAPE_CHANGED_BIT;
         };
         Path.prototype.getUpdatedPathProxy = function (inBatch) {
             !this.path && this.createPathProxy();
+            // @ts-ignore
             this.path.beginPath();
             this.buildPath(this.path, this.shape, inBatch);
             return this.path;
@@ -11125,17 +11494,20 @@
             this.path = new PathProxy(false);
         };
         Path.prototype.hasStroke = function () {
+            // @ts-ignore
             var style = this.style;
             var stroke = style.stroke;
             return !(stroke == null || stroke === 'none' || !(style.lineWidth > 0));
         };
         Path.prototype.hasFill = function () {
+            // @ts-ignore
             var style = this.style;
             var fill = style.fill;
             return fill != null && fill !== 'none';
         };
         Path.prototype.getBoundingRect = function () {
             var rect = this._rect;
+            // @ts-ignore
             var style = this.style;
             var needsUpdateRect = !rect;
             if (needsUpdateRect) {
@@ -11145,21 +11517,27 @@
                     this.createPathProxy();
                 }
                 var path = this.path;
+                // @ts-ignore
                 if (firstInvoke || (this.__dirty & SHAPE_CHANGED_BIT)) {
+                    // @ts-ignore
                     path.beginPath();
                     this.buildPath(path, this.shape, false);
                     this.pathUpdated();
                 }
+                // @ts-ignore
                 rect = path.getBoundingRect();
             }
             this._rect = rect;
             if (this.hasStroke() && this.path && this.path.len() > 0) {
                 var rectStroke = this._rectStroke || (this._rectStroke = rect.clone());
+                // @ts-ignore
                 if (this.__dirty || needsUpdateRect) {
                     rectStroke.copy(rect);
+                    // @ts-ignore
                     var lineScale = style.strokeNoScale ? this.getLineScale() : 1;
                     var w = style.lineWidth;
                     if (!this.hasFill()) {
+                        // @ts-ignore
                         var strokeContainThreshold = this.strokeContainThreshold;
                         w = Math.max(w, strokeContainThreshold == null ? 4 : strokeContainThreshold);
                     }
@@ -11175,8 +11553,10 @@
             return rect;
         };
         Path.prototype.contain = function (x, y) {
+            // @ts-ignore
             var localPos = this.transformCoordToLocal(x, y);
             var rect = this.getBoundingRect();
+            // @ts-ignore
             var style = this.style;
             x = localPos[0];
             y = localPos[1];
@@ -11184,9 +11564,11 @@
                 var pathProxy = this.path;
                 if (this.hasStroke()) {
                     var lineWidth = style.lineWidth;
+                    // @ts-ignore
                     var lineScale = style.strokeNoScale ? this.getLineScale() : 1;
                     if (lineScale > 1e-10) {
                         if (!this.hasFill()) {
+                            // @ts-ignore
                             lineWidth = Math.max(lineWidth, this.strokeContainThreshold);
                         }
                         if (containStroke$4(pathProxy, lineWidth / lineScale, x, y)) {
@@ -11201,6 +11583,7 @@
             return false;
         };
         Path.prototype.dirtyShape = function () {
+            // @ts-ignore
             this.__dirty |= SHAPE_CHANGED_BIT;
             if (this._rect) {
                 this._rect = null;
@@ -11208,23 +11591,28 @@
             if (this._decalEl) {
                 this._decalEl.dirtyShape();
             }
+            // @ts-ignore
             this.markRedraw();
         };
         Path.prototype.dirty = function () {
+            // @ts-ignore
             this.dirtyStyle();
             this.dirtyShape();
         };
         Path.prototype.animateShape = function (loop) {
+            // @ts-ignore
             return this.animate('shape', loop);
         };
         Path.prototype.updateDuringAnimation = function (targetKey) {
             if (targetKey === 'style') {
+                // @ts-ignore
                 this.dirtyStyle();
             }
             else if (targetKey === 'shape') {
                 this.dirtyShape();
             }
             else {
+                // @ts-ignore
                 this.markRedraw();
             }
         };
@@ -11251,6 +11639,7 @@
             return this;
         };
         Path.prototype.shapeChanged = function () {
+            // @ts-ignore
             return !!(this.__dirty & SHAPE_CHANGED_BIT);
         };
         Path.prototype.createStyle = function (obj) {
@@ -11258,6 +11647,7 @@
         };
         Path.prototype._innerSaveToNormal = function (toState) {
             _super.prototype._innerSaveToNormal.call(this, toState);
+            // @ts-ignore
             var normalState = this._normalState;
             if (toState.shape && !normalState.shape) {
                 normalState.shape = extend({}, this.shape);
@@ -11299,6 +11689,7 @@
                             targetShapePrimaryProps[key] = targetShape[key];
                         }
                     }
+                    // @ts-ignore
                     this._transitionState(stateName, {
                         shape: targetShapePrimaryProps
                     }, animationCfg);
@@ -11316,6 +11707,7 @@
                 var state = states[i];
                 if (state.shape) {
                     mergedShape = mergedShape || {};
+                    // @ts-ignore
                     this._mergeStyle(mergedShape, state.shape);
                 }
             }
@@ -11334,6 +11726,7 @@
             var Sub = (function (_super) {
                 __extends(Sub, _super);
                 function Sub(opts) {
+                    // @ts-ignore
                     var _this = _super.call(this, opts) || this;
                     defaultProps.init && defaultProps.init.call(_this, opts);
                     return _this;
@@ -11377,14 +11770,17 @@
     var TSpan = (function (_super) {
         __extends(TSpan, _super);
         function TSpan() {
+            // @ts-ignore
             return _super !== null && _super.apply(this, arguments) || this;
         }
         TSpan.prototype.hasStroke = function () {
+            // @ts-ignore
             var style = this.style;
             var stroke = style.stroke;
             return stroke != null && stroke !== 'none' && style.lineWidth > 0;
         };
         TSpan.prototype.hasFill = function () {
+            // @ts-ignore
             var style = this.style;
             var fill = style.fill;
             return fill != null && fill !== 'none';
@@ -11396,6 +11792,7 @@
             this._rect = rect;
         };
         TSpan.prototype.getBoundingRect = function () {
+            // @ts-ignore
             var style = this.style;
             if (!this._rect) {
                 var text = style.text;
@@ -11446,18 +11843,21 @@
     var ZRImage = (function (_super) {
         __extends(ZRImage, _super);
         function ZRImage() {
+            // @ts-ignore
             return _super !== null && _super.apply(this, arguments) || this;
         }
         ZRImage.prototype.createStyle = function (obj) {
             return createObject(DEFAULT_IMAGE_STYLE, obj);
         };
         ZRImage.prototype._getSize = function (dim) {
+            // @ts-ignore
             var style = this.style;
             var size = style[dim];
             if (size != null) {
                 return size;
             }
             var imageSource = isImageLike(style.image)
+                // @ts-ignore
                 ? style.image : this.__image;
             if (!imageSource) {
                 return 0;
@@ -11481,6 +11881,7 @@
             return DEFAULT_IMAGE_ANIMATION_PROPS;
         };
         ZRImage.prototype.getBoundingRect = function () {
+            // @ts-ignore
             var style = this.style;
             if (!this._rect) {
                 this._rect = new BoundingRect(style.x || 0, style.y || 0, this.getWidth(), this.getHeight());
@@ -11637,6 +12038,7 @@
     var Rect = (function (_super) {
         __extends(Rect, _super);
         function Rect(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Rect.prototype.getDefaultShape = function () {
@@ -11647,7 +12049,9 @@
             var y;
             var width;
             var height;
+            // @ts-ignore
             if (this.subPixelOptimize) {
+                // @ts-ignore
                 var optimizedShape = subPixelOptimizeRect(subPixelOptimizeOutputShape, shape, this.style);
                 x = optimizedShape.x;
                 y = optimizedShape.y;
@@ -11670,6 +12074,7 @@
             }
         };
         Rect.prototype.isZeroArea = function () {
+            // @ts-ignore
             return !this.shape.width || !this.shape.height;
         };
         return Rect;
@@ -11705,32 +12110,48 @@
     var ZRText = (function (_super) {
         __extends(ZRText, _super);
         function ZRText(opts) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
+            // @ts-ignore
             _this.type = 'text';
+            // @ts-ignore
             _this._children = [];
+            // @ts-ignore
             _this._defaultStyle = DEFAULT_RICH_TEXT_COLOR;
+            // @ts-ignore
             _this.attr(opts);
             return _this;
         }
         ZRText.prototype.childrenRef = function () {
+            // @ts-ignore
             return this._children;
         };
         ZRText.prototype.update = function () {
             _super.prototype.update.call(this);
+            // @ts-ignore
             if (this.styleChanged()) {
                 this._updateSubTexts();
             }
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 var child = this._children[i];
+                // @ts-ignore
                 child.zlevel = this.zlevel;
+                // @ts-ignore
                 child.z = this.z;
+                // @ts-ignore
                 child.z2 = this.z2;
+                // @ts-ignore
                 child.culling = this.culling;
+                // @ts-ignore
                 child.cursor = this.cursor;
+                // @ts-ignore
                 child.invisible = this.invisible;
             }
         };
         ZRText.prototype.updateTransform = function () {
+            // @ts-ignore
             var innerTransformable = this.innerTransformable;
             if (innerTransformable) {
                 innerTransformable.updateTransform();
@@ -11743,45 +12164,59 @@
             }
         };
         ZRText.prototype.getLocalTransform = function (m) {
+            // @ts-ignore
             var innerTransformable = this.innerTransformable;
             return innerTransformable
                 ? innerTransformable.getLocalTransform(m)
                 : _super.prototype.getLocalTransform.call(this, m);
         };
         ZRText.prototype.getComputedTransform = function () {
+            // @ts-ignore
             if (this.__hostTarget) {
+                // @ts-ignore
                 this.__hostTarget.getComputedTransform();
+                // @ts-ignore
                 this.__hostTarget.updateInnerText(true);
             }
             return _super.prototype.getComputedTransform.call(this);
         };
         ZRText.prototype._updateSubTexts = function () {
             this._childCursor = 0;
+            // @ts-ignore
             normalizeTextStyle(this.style);
+            // @ts-ignore
             this.style.rich
                 ? this._updateRichTexts()
                 : this._updatePlainTexts();
+            // @ts-ignore
             this._children.length = this._childCursor;
+            // @ts-ignore
             this.styleUpdated();
         };
         ZRText.prototype.addSelfToZr = function (zr) {
             _super.prototype.addSelfToZr.call(this, zr);
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 this._children[i].__zr = zr;
             }
         };
         ZRText.prototype.removeSelfFromZr = function (zr) {
             _super.prototype.removeSelfFromZr.call(this, zr);
+            // @ts-ignore
             for (var i = 0; i < this._children.length; i++) {
+                // @ts-ignore
                 this._children[i].__zr = null;
             }
         };
         ZRText.prototype.getBoundingRect = function () {
+            // @ts-ignore
             if (this.styleChanged()) {
                 this._updateSubTexts();
             }
             if (!this._rect) {
                 var tmpRect = new BoundingRect(0, 0, 0, 0);
+                // @ts-ignore
                 var children = this._children;
                 var tmpMat = [];
                 var rect = null;
@@ -11807,7 +12242,9 @@
         ZRText.prototype.setDefaultTextStyle = function (defaultTextStyle) {
             this._defaultStyle = defaultTextStyle || DEFAULT_RICH_TEXT_COLOR;
         };
+        // @ts-ignore
         ZRText.prototype.setTextContent = function (textContent) {
+            // @ts-ignore
             if ("development" !== 'production') {
                 throw new Error('Can\'t attach text on another text');
             }
@@ -11840,16 +12277,20 @@
             return DEFAULT_TEXT_ANIMATION_PROPS;
         };
         ZRText.prototype._getOrCreateChild = function (Ctor) {
+            // @ts-ignore
             var child = this._children[this._childCursor];
             if (!child || !(child instanceof Ctor)) {
                 child = new Ctor();
             }
+            // @ts-ignore
             this._children[this._childCursor++] = child;
+            // @ts-ignore
             child.__zr = this.__zr;
             child.parent = this;
             return child;
         };
         ZRText.prototype._updatePlainTexts = function () {
+            // @ts-ignore
             var style = this.style;
             var textFont = style.font || DEFAULT_FONT;
             var textPadding = style.padding;
@@ -11934,6 +12375,7 @@
             }
         };
         ZRText.prototype._updateRichTexts = function () {
+            // @ts-ignore
             var style = this.style;
             var text = getStyleText(style);
             var contentBlock = parseRichText(text, style);
@@ -11971,23 +12413,31 @@
                 var rightIndex = tokenCount - 1;
                 var token = void 0;
                 while (leftIndex < tokenCount
+                    // @ts-ignore
                     && (token = tokens[leftIndex], !token.align || token.align === 'left')) {
                     this._placeToken(token, style, lineHeight, lineTop, lineXLeft, 'left', bgColorDrawn);
+                    // @ts-ignore
                     remainedWidth -= token.width;
+                    // @ts-ignore
                     lineXLeft += token.width;
                     leftIndex++;
                 }
                 while (rightIndex >= 0
+                    // @ts-ignore
                     && (token = tokens[rightIndex], token.align === 'right')) {
                     this._placeToken(token, style, lineHeight, lineTop, lineXRight, 'right', bgColorDrawn);
+                    // @ts-ignore
                     remainedWidth -= token.width;
+                    // @ts-ignore
                     lineXRight -= token.width;
                     rightIndex--;
                 }
                 lineXLeft += (contentWidth - (lineXLeft - xLeft) - (xRight - lineXRight) - remainedWidth) / 2;
                 while (leftIndex <= rightIndex) {
                     token = tokens[leftIndex];
+                    // @ts-ignore
                     this._placeToken(token, style, lineHeight, lineTop, lineXLeft + token.width / 2, 'center', bgColorDrawn);
+                    // @ts-ignore
                     lineXLeft += token.width;
                     leftIndex++;
                 }
@@ -12091,6 +12541,7 @@
             else if (isImageBg) {
                 imgEl = this._getOrCreateChild(ZRImage);
                 imgEl.onload = function () {
+                    // @ts-ignore
                     self.dirtyStyle();
                 };
                 var imgStyle = imgEl.style;
@@ -12377,6 +12828,7 @@
       return fromState;
     }
 
+    // @ts-ignore
     function createEmphasisDefaultState(el, stateName, targetStates, state) {
       var hasSelect = targetStates && indexOf(targetStates, 'select') >= 0;
       var cloned = false;
@@ -12432,6 +12884,7 @@
       return state;
     }
 
+    // @ts-ignore
     function createSelectDefaultState(el, stateName, state) {
       // const hasSelect = indexOf(el.currentStates, stateName) >= 0;
       if (state) {
@@ -12460,6 +12913,7 @@
         state = extend({}, state);
         blurStyle = extend({
           // Already being applied 'emphasis'. DON'T mul opacity multiple times.
+          // @ts-ignore
           opacity: hasBlur ? currentOpacity : fromState.opacity * 0.1
         }, blurStyle);
         state.style = blurStyle;
@@ -12469,14 +12923,19 @@
     }
 
     function elementStateProxy(stateName, targetStates) {
+      // @ts-ignore
       var state = this.states[stateName];
 
+      // @ts-ignore
       if (this.style) {
         if (stateName === 'emphasis') {
+          // @ts-ignore
           return createEmphasisDefaultState(this, stateName, targetStates, state);
         } else if (stateName === 'blur') {
+          // @ts-ignore
           return createBlurDefaultState(this, stateName, state);
         } else if (stateName === 'select') {
+          // @ts-ignore
           return createSelectDefaultState(this, stateName, state);
         }
       }
@@ -12651,6 +13110,7 @@
       var data = seriesModel.getData(payload.dataType);
 
       if (!data) {
+        // @ts-ignore
         if ("development" !== 'production') {
           error("Unknown dataType " + payload.dataType);
         }
@@ -12714,6 +13174,7 @@
       var focusSelf;
 
       for (var i = 0; i < dispatchers.length; i++) {
+        // @ts-ignore
         if ("development" !== 'production' && !isHighDownDispatcher(dispatchers[i])) {
           error('param should be highDownDispatcher');
         }
@@ -12730,6 +13191,7 @@
       };
     }
     function handleGlobalMouseOverForHighDown(dispatcher, e, api) {
+      // @ts-ignore
       if ("development" !== 'production' && !isHighDownDispatcher(dispatcher)) {
         error('param should be highDownDispatcher');
       }
@@ -12766,6 +13228,7 @@
       }
     }
     function handleGlobalMouseOutForHighDown(dispatcher, e, api) {
+      // @ts-ignore
       if ("development" !== 'production' && !isHighDownDispatcher(dispatcher)) {
         error('param should be highDownDispatcher');
       }
@@ -12782,6 +13245,7 @@
         leaveEmphasisWhenMouseOut(dispatcher, e);
       }
     }
+    // @ts-ignore
     function toggleSelectionFromPayload(seriesModel, payload, api) {
       if (!isSelectChangePayload(payload)) {
         return;
@@ -12812,6 +13276,7 @@
       ecModel.eachSeries(function (seriesModel) {
         var allData = seriesModel.getAllData();
         each(allData, function (_a) {
+          // @ts-ignore
           var data = _a.data,
               type = _a.type;
           var dataIndices = seriesModel.getSelectedDataIndices();
@@ -13036,15 +13501,23 @@
                     j = i;
                     break;
                 case R:
+                    // @ts-ignore
                     p[0] = data[i++];
+                    // @ts-ignore
                     p[1] = data[i++];
                     applyTransform(p, p, m);
+                    // @ts-ignore
                     data[j++] = p[0];
+                    // @ts-ignore
                     data[j++] = p[1];
+                    // @ts-ignore
                     p[0] += data[i++];
+                    // @ts-ignore
                     p[1] += data[i++];
                     applyTransform(p, p, m);
+                    // @ts-ignore
                     data[j++] = p[0];
+                    // @ts-ignore
                     data[j++] = p[1];
             }
             for (k = 0; k < nPoint; k++) {
@@ -13156,18 +13629,21 @@
                     case 'l':
                         cpx += p[off++];
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'L':
                         cpx = p[off++];
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'm':
                         cpx += p[off++];
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.M;
                         path.addData(cmd, cpx, cpy);
                         subpathX = cpx;
@@ -13177,6 +13653,7 @@
                     case 'M':
                         cpx = p[off++];
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.M;
                         path.addData(cmd, cpx, cpy);
                         subpathX = cpx;
@@ -13185,45 +13662,58 @@
                         break;
                     case 'h':
                         cpx += p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'H':
                         cpx = p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'v':
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'V':
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.L;
                         path.addData(cmd, cpx, cpy);
                         break;
                     case 'C':
+                        // @ts-ignore
                         cmd = CMD.C;
                         path.addData(cmd, p[off++], p[off++], p[off++], p[off++], p[off++], p[off++]);
                         cpx = p[off - 2];
                         cpy = p[off - 1];
                         break;
                     case 'c':
+                        // @ts-ignore
                         cmd = CMD.C;
                         path.addData(cmd, p[off++] + cpx, p[off++] + cpy, p[off++] + cpx, p[off++] + cpy, p[off++] + cpx, p[off++] + cpy);
                         cpx += p[off - 2];
                         cpy += p[off - 1];
                         break;
                     case 'S':
+                        // @ts-ignore
                         ctlPtx = cpx;
+                        // @ts-ignore
                         ctlPty = cpy;
+                        // @ts-ignore
                         len = path.len();
+                        // @ts-ignore
                         pathData = path.data;
                         if (prevCmd === CMD.C) {
+                            // @ts-ignore
                             ctlPtx += cpx - pathData[len - 4];
+                            // @ts-ignore
                             ctlPty += cpy - pathData[len - 3];
                         }
+                        // @ts-ignore
                         cmd = CMD.C;
                         x1 = p[off++];
                         y1 = p[off++];
@@ -13232,14 +13722,21 @@
                         path.addData(cmd, ctlPtx, ctlPty, x1, y1, cpx, cpy);
                         break;
                     case 's':
+                        // @ts-ignore
                         ctlPtx = cpx;
+                        // @ts-ignore
                         ctlPty = cpy;
+                        // @ts-ignore
                         len = path.len();
+                        // @ts-ignore
                         pathData = path.data;
                         if (prevCmd === CMD.C) {
+                            // @ts-ignore
                             ctlPtx += cpx - pathData[len - 4];
+                            // @ts-ignore
                             ctlPty += cpy - pathData[len - 3];
                         }
+                        // @ts-ignore
                         cmd = CMD.C;
                         x1 = cpx + p[off++];
                         y1 = cpy + p[off++];
@@ -13252,6 +13749,7 @@
                         y1 = p[off++];
                         cpx = p[off++];
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.Q;
                         path.addData(cmd, x1, y1, cpx, cpy);
                         break;
@@ -13260,34 +13758,49 @@
                         y1 = p[off++] + cpy;
                         cpx += p[off++];
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.Q;
                         path.addData(cmd, x1, y1, cpx, cpy);
                         break;
                     case 'T':
+                        // @ts-ignore
                         ctlPtx = cpx;
+                        // @ts-ignore
                         ctlPty = cpy;
+                        // @ts-ignore
                         len = path.len();
+                        // @ts-ignore
                         pathData = path.data;
                         if (prevCmd === CMD.Q) {
+                            // @ts-ignore
                             ctlPtx += cpx - pathData[len - 4];
+                            // @ts-ignore
                             ctlPty += cpy - pathData[len - 3];
                         }
                         cpx = p[off++];
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.Q;
                         path.addData(cmd, ctlPtx, ctlPty, cpx, cpy);
                         break;
                     case 't':
+                        // @ts-ignore
                         ctlPtx = cpx;
+                        // @ts-ignore
                         ctlPty = cpy;
+                        // @ts-ignore
                         len = path.len();
+                        // @ts-ignore
                         pathData = path.data;
                         if (prevCmd === CMD.Q) {
+                            // @ts-ignore
                             ctlPtx += cpx - pathData[len - 4];
+                            // @ts-ignore
                             ctlPty += cpy - pathData[len - 3];
                         }
                         cpx += p[off++];
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.Q;
                         path.addData(cmd, ctlPtx, ctlPty, cpx, cpy);
                         break;
@@ -13300,6 +13813,7 @@
                         x1 = cpx, y1 = cpy;
                         cpx = p[off++];
                         cpy = p[off++];
+                        // @ts-ignore
                         cmd = CMD.A;
                         processArc(x1, y1, cpx, cpy, fa, fs, rx, ry, psi, cmd, path);
                         break;
@@ -13312,12 +13826,14 @@
                         x1 = cpx, y1 = cpy;
                         cpx += p[off++];
                         cpy += p[off++];
+                        // @ts-ignore
                         cmd = CMD.A;
                         processArc(x1, y1, cpx, cpy, fa, fs, rx, ry, psi, cmd, path);
                         break;
                 }
             }
             if (cmdStr === 'z' || cmdStr === 'Z') {
+                // @ts-ignore
                 cmd = CMD.Z;
                 path.addData(cmd);
                 cpx = subpathX;
@@ -13331,8 +13847,10 @@
     var SVGPath = (function (_super) {
         __extends(SVGPath, _super);
         function SVGPath() {
+            // @ts-ignore
             return _super !== null && _super.apply(this, arguments) || this;
         }
+        // @ts-ignore
         SVGPath.prototype.applyTransform = function (m) { };
         return SVGPath;
     }(Path));
@@ -13369,8 +13887,11 @@
         var Sub = (function (_super) {
             __extends(Sub, _super);
             function Sub(opts) {
+                // @ts-ignore
                 var _this = _super.call(this, opts) || this;
+                // @ts-ignore
                 _this.applyTransform = innerOpts.applyTransform;
+                // @ts-ignore
                 _this.buildPath = innerOpts.buildPath;
                 return _this;
             }
@@ -13404,22 +13925,29 @@
         if (sourcePath.shape) {
             path.setShape(sourcePath.shape);
         }
+        // @ts-ignore
         path.setStyle(sourcePath.style);
         if (opts.bakeTransform) {
             transformPath(path.path, sourcePath.getComputedTransform());
         }
         else {
             if (opts.toLocal) {
+                // @ts-ignore
                 path.setLocalTransform(sourcePath.getComputedTransform());
             }
             else {
+                // @ts-ignore
                 path.copyTransform(sourcePath);
             }
         }
         path.buildPath = sourcePath.buildPath;
+        // @ts-ignore
         path.applyTransform = path.applyTransform;
+        // @ts-ignore
         path.z = sourcePath.z;
+        // @ts-ignore
         path.z2 = sourcePath.z2;
+        // @ts-ignore
         path.zlevel = sourcePath.zlevel;
         return path;
     }
@@ -13435,6 +13963,7 @@
     var Circle = (function (_super) {
         __extends(Circle, _super);
         function Circle(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Circle.prototype.getDefaultShape = function () {
@@ -13460,6 +13989,7 @@
     var Ellipse = (function (_super) {
         __extends(Ellipse, _super);
         function Ellipse(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Ellipse.prototype.getDefaultShape = function () {
@@ -13597,6 +14127,7 @@
         var clockwise = !!shape.clockwise;
         var arc = mathAbs$1(endAngle - startAngle);
         var mod = arc > PI2$5 && arc % PI2$5;
+        // @ts-ignore
         mod > e && (arc = mod);
         if (!(radius > e)) {
             ctx.moveTo(cx, cy);
@@ -13637,27 +14168,42 @@
                     _a = normalizeCornerRadius(cornerRadius), icrStart = _a[0], icrEnd = _a[1], ocrStart = _a[2], ocrEnd = _a[3];
                 }
                 var halfRd = mathAbs$1(radius - innerRadius) / 2;
+                // @ts-ignore
                 ocrs = mathMin$3(halfRd, ocrStart);
+                // @ts-ignore
                 ocre = mathMin$3(halfRd, ocrEnd);
+                // @ts-ignore
                 icrs = mathMin$3(halfRd, icrStart);
+                // @ts-ignore
                 icre = mathMin$3(halfRd, icrEnd);
+                // @ts-ignore
                 limitedOcrMax = ocrMax = mathMax$3(ocrs, ocre);
+                // @ts-ignore
                 limitedIcrMax = icrMax = mathMax$3(icrs, icre);
+                // @ts-ignore
                 if (ocrMax > e || icrMax > e) {
+                    // @ts-ignore
                     xre = radius * mathCos$3(endAngle);
+                    // @ts-ignore
                     yre = radius * mathSin$3(endAngle);
+                    // @ts-ignore
                     xirs = innerRadius * mathCos$3(startAngle);
+                    // @ts-ignore
                     yirs = innerRadius * mathSin$3(startAngle);
                     if (arc < PI$2) {
                         var it_1 = intersect(xrs, yrs, xirs, yirs, xre, yre, xire, yire);
                         if (it_1) {
                             var x0 = xrs - it_1[0];
                             var y0 = yrs - it_1[1];
+                            // @ts-ignore
                             var x1 = xre - it_1[0];
+                            // @ts-ignore
                             var y1 = yre - it_1[1];
                             var a = 1 / mathSin$3(mathACos((x0 * x1 + y0 * y1) / (mathSqrt$3(x0 * x0 + y0 * y0) * mathSqrt$3(x1 * x1 + y1 * y1))) / 2);
                             var b = mathSqrt$3(it_1[0] * it_1[0] + it_1[1] * it_1[1]);
+                            // @ts-ignore
                             limitedOcrMax = mathMin$3(ocrMax, (radius - b) / (a + 1));
+                            // @ts-ignore
                             limitedIcrMax = mathMin$3(icrMax, (innerRadius - b) / (a - 1));
                         }
                     }
@@ -13666,12 +14212,16 @@
             if (!hasArc) {
                 ctx.moveTo(cx + xrs, cy + yrs);
             }
+            // @ts-ignore
             else if (limitedOcrMax > e) {
+                // @ts-ignore
                 var crStart = mathMin$3(ocrStart, limitedOcrMax);
+                // @ts-ignore
                 var crEnd = mathMin$3(ocrEnd, limitedOcrMax);
                 var ct0 = computeCornerTangents(xirs, yirs, xrs, yrs, radius, crStart, clockwise);
                 var ct1 = computeCornerTangents(xre, yre, xire, yire, radius, crEnd, clockwise);
                 ctx.moveTo(cx + ct0.cx + ct0.x0, cy + ct0.cy + ct0.y0);
+                // @ts-ignore
                 if (limitedOcrMax < ocrMax && crStart === crEnd) {
                     ctx.arc(cx + ct0.cx, cy + ct0.cy, limitedOcrMax, mathATan2(ct0.y0, ct0.x0), mathATan2(ct1.y0, ct1.x0), !clockwise);
                 }
@@ -13688,12 +14238,16 @@
             if (!(innerRadius > e) || !hasArc) {
                 ctx.lineTo(cx + xire, cy + yire);
             }
+            // @ts-ignore
             else if (limitedIcrMax > e) {
+                // @ts-ignore
                 var crStart = mathMin$3(icrStart, limitedIcrMax);
+                // @ts-ignore
                 var crEnd = mathMin$3(icrEnd, limitedIcrMax);
                 var ct0 = computeCornerTangents(xire, yire, xre, yre, innerRadius, -crEnd, clockwise);
                 var ct1 = computeCornerTangents(xrs, yrs, xirs, yirs, innerRadius, -crStart, clockwise);
                 ctx.lineTo(cx + ct0.cx + ct0.x0, cy + ct0.cy + ct0.y0);
+                // @ts-ignore
                 if (limitedIcrMax < icrMax && crStart === crEnd) {
                     ctx.arc(cx + ct0.cx, cy + ct0.cy, limitedIcrMax, mathATan2(ct0.y0, ct0.x0), mathATan2(ct1.y0, ct1.x0), !clockwise);
                 }
@@ -13727,6 +14281,7 @@
     var Sector = (function (_super) {
         __extends(Sector, _super);
         function Sector(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Sector.prototype.getDefaultShape = function () {
@@ -13736,7 +14291,9 @@
             buildPath$1(ctx, shape);
         };
         Sector.prototype.isZeroArea = function () {
+            // @ts-ignore
             return this.shape.startAngle === this.shape.endAngle
+                // @ts-ignore
                 || this.shape.r === this.shape.r0;
         };
         return Sector;
@@ -13755,6 +14312,7 @@
     var Ring = (function (_super) {
         __extends(Ring, _super);
         function Ring(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Ring.prototype.getDefaultShape = function () {
@@ -13872,6 +14430,7 @@
     var Polygon = (function (_super) {
         __extends(Polygon, _super);
         function Polygon(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Polygon.prototype.getDefaultShape = function () {
@@ -13896,6 +14455,7 @@
     var Polyline = (function (_super) {
         __extends(Polyline, _super);
         function Polyline(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Polyline.prototype.getDefaultStyle = function () {
@@ -13928,6 +14488,7 @@
     var Line = (function (_super) {
         __extends(Line, _super);
         function Line(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Line.prototype.getDefaultStyle = function () {
@@ -13944,7 +14505,9 @@
             var y1;
             var x2;
             var y2;
+            // @ts-ignore
             if (this.subPixelOptimize) {
+                // @ts-ignore
                 var optimizedShape = subPixelOptimizeLine(subPixelOptimizeOutputShape$1, shape, this.style);
                 x1 = optimizedShape.x1;
                 y1 = optimizedShape.y1;
@@ -13969,6 +14532,7 @@
             ctx.lineTo(x2, y2);
         };
         Line.prototype.pointAt = function (p) {
+            // @ts-ignore
             var shape = this.shape;
             return [
                 shape.x1 * (1 - p) + shape.x2 * p,
@@ -14011,6 +14575,7 @@
     var BezierCurve = (function (_super) {
         __extends(BezierCurve, _super);
         function BezierCurve(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         BezierCurve.prototype.getDefaultStyle = function () {
@@ -14062,9 +14627,11 @@
             }
         };
         BezierCurve.prototype.pointAt = function (t) {
+            // @ts-ignore
             return someVectorAt(this.shape, t, false);
         };
         BezierCurve.prototype.tangentAt = function (t) {
+            // @ts-ignore
             var p = someVectorAt(this.shape, t, true);
             return normalize(p, p);
         };
@@ -14086,6 +14653,7 @@
     var Arc = (function (_super) {
         __extends(Arc, _super);
         function Arc(opts) {
+            // @ts-ignore
             return _super.call(this, opts) || this;
         }
         Arc.prototype.getDefaultStyle = function () {
@@ -14116,23 +14684,30 @@
     var CompoundPath = (function (_super) {
         __extends(CompoundPath, _super);
         function CompoundPath() {
+            // @ts-ignore
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            // @ts-ignore
             _this.type = 'compound';
             return _this;
         }
         CompoundPath.prototype._updatePathDirty = function () {
+            // @ts-ignore
             var paths = this.shape.paths;
+            // @ts-ignore
             var dirtyPath = this.shapeChanged();
             for (var i = 0; i < paths.length; i++) {
                 dirtyPath = dirtyPath || paths[i].shapeChanged();
             }
             if (dirtyPath) {
+                // @ts-ignore
                 this.dirtyShape();
             }
         };
         CompoundPath.prototype.beforeBrush = function () {
             this._updatePathDirty();
+            // @ts-ignore
             var paths = this.shape.paths || [];
+            // @ts-ignore
             var scale = this.getGlobalScale();
             for (var i = 0; i < paths.length; i++) {
                 if (!paths[i].path) {
@@ -14148,6 +14723,7 @@
             }
         };
         CompoundPath.prototype.afterBrush = function () {
+            // @ts-ignore
             var paths = this.shape.paths || [];
             for (var i = 0; i < paths.length; i++) {
                 paths[i].pathUpdated();
@@ -14176,6 +14752,7 @@
     var LinearGradient = (function (_super) {
         __extends(LinearGradient, _super);
         function LinearGradient(x, y, x2, y2, colorStops, globalCoord) {
+            // @ts-ignore
             var _this = _super.call(this, colorStops) || this;
             _this.x = x == null ? 0 : x;
             _this.y = y == null ? 0 : y;
@@ -14191,6 +14768,7 @@
     var RadialGradient = (function (_super) {
         __extends(RadialGradient, _super);
         function RadialGradient(x, y, r, colorStops, globalCoord) {
+            // @ts-ignore
             var _this = _super.call(this, colorStops) || this;
             _this.x = x == null ? 0.5 : x;
             _this.y = y == null ? 0.5 : y;
@@ -14325,11 +14903,17 @@
     var IncrementalDisplayable = (function (_super) {
         __extends(IncrementalDisplayable, _super);
         function IncrementalDisplayable() {
+            // @ts-ignore
             var _this = _super !== null && _super.apply(this, arguments) || this;
+            // @ts-ignore
             _this.notClear = true;
+            // @ts-ignore
             _this.incremental = true;
+            // @ts-ignore
             _this._displayables = [];
+            // @ts-ignore
             _this._temporaryDisplayables = [];
+            // @ts-ignore
             _this._cursor = 0;
             return _this;
         }
@@ -14343,12 +14927,14 @@
             return this._cursor;
         };
         IncrementalDisplayable.prototype.innerAfterBrush = function () {
+            // @ts-ignore
             this._cursor = this._displayables.length;
         };
         IncrementalDisplayable.prototype.clearDisplaybles = function () {
             this._displayables = [];
             this._temporaryDisplayables = [];
             this._cursor = 0;
+            // @ts-ignore
             this.markRedraw();
             this.notClear = false;
         };
@@ -14357,11 +14943,14 @@
         };
         IncrementalDisplayable.prototype.addDisplayable = function (displayable, notPersistent) {
             if (notPersistent) {
+                // @ts-ignore
                 this._temporaryDisplayables.push(displayable);
             }
             else {
+                // @ts-ignore
                 this._displayables.push(displayable);
             }
+            // @ts-ignore
             this.markRedraw();
         };
         IncrementalDisplayable.prototype.addDisplayables = function (displayables, notPersistent) {
@@ -14377,22 +14966,31 @@
             return this._temporaryDisplayables;
         };
         IncrementalDisplayable.prototype.eachPendingDisplayable = function (cb) {
+            // @ts-ignore
             for (var i = this._cursor; i < this._displayables.length; i++) {
+                // @ts-ignore
                 cb && cb(this._displayables[i]);
             }
+            // @ts-ignore
             for (var i = 0; i < this._temporaryDisplayables.length; i++) {
+                // @ts-ignore
                 cb && cb(this._temporaryDisplayables[i]);
             }
         };
         IncrementalDisplayable.prototype.update = function () {
+            // @ts-ignore
             this.updateTransform();
+            // @ts-ignore
             for (var i = this._cursor; i < this._displayables.length; i++) {
+                // @ts-ignore
                 var displayable = this._displayables[i];
                 displayable.parent = this;
                 displayable.update();
                 displayable.parent = null;
             }
+            // @ts-ignore
             for (var i = 0; i < this._temporaryDisplayables.length; i++) {
+                // @ts-ignore
                 var displayable = this._temporaryDisplayables[i];
                 displayable.parent = this;
                 displayable.update();
@@ -14402,7 +15000,9 @@
         IncrementalDisplayable.prototype.getBoundingRect = function () {
             if (!this._rect) {
                 var rect = new BoundingRect(Infinity, Infinity, -Infinity, -Infinity);
+                // @ts-ignore
                 for (var i = 0; i < this._displayables.length; i++) {
+                    // @ts-ignore
                     var displayable = this._displayables[i];
                     var childRect = displayable.getBoundingRect().clone();
                     if (displayable.needLocalTransform()) {
@@ -14415,10 +15015,13 @@
             return this._rect;
         };
         IncrementalDisplayable.prototype.contain = function (x, y) {
+            // @ts-ignore
             var localPos = this.transformCoordToLocal(x, y);
             var rect = this.getBoundingRect();
             if (rect.contain(localPos[0], localPos[1])) {
+                // @ts-ignore
                 for (var i = 0; i < this._displayables.length; i++) {
+                    // @ts-ignore
                     var displayable = this._displayables[i];
                     if (displayable.contain(x, y)) {
                         return true;
@@ -14458,6 +15061,7 @@
         if (extraOpts) {
           duration = retrieve2(extraOpts.duration, 200);
           easing = retrieve2(extraOpts.easing, 'cubicOut');
+          // @ts-ignore
           delay = 0;
         } else {
           duration = animatableModel.getShallow(isUpdate ? 'animationDurationUpdate' : 'animationDuration');
@@ -14473,10 +15077,12 @@
         }
 
         if (isFunction(delay)) {
+          // @ts-ignore
           delay = delay(dataIndex, extraDelayParams);
         }
 
         if (isFunction(duration)) {
+          // @ts-ignore
           duration = duration(dataIndex);
         }
 
@@ -14730,6 +15336,7 @@
 
       if (rect) {
         if (layout === 'center') {
+          // @ts-ignore
           rect = centerGraphic(rect, path.getBoundingRect());
         }
 
@@ -14761,6 +15368,7 @@
               width: img.width,
               height: img.height
             };
+            // @ts-ignore
             zrImg.setStyle(centerGraphic(rect, boundingRect));
           }
         }
@@ -14999,6 +15607,7 @@
       };
 
       if (iconStr) {
+        // @ts-ignore
         return iconStr.indexOf('image://') === 0 ? (style.image = iconStr.slice(8), defaults(style, rect), new ZRImage(innerOpts)) : makePath(iconStr.replace('path://', ''), innerOpts, rect, 'center');
       }
     }
@@ -15521,6 +16130,7 @@
       var opacity = retrieve2(textStyleModel.getShallow('opacity'), globalTextStyle.opacity);
 
       if (fillColor === 'inherit' || fillColor === 'auto') {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (fillColor === 'auto') {
             deprecateReplaceLog('color: \'auto\'', 'color: \'inherit\'');
@@ -15535,6 +16145,7 @@
       }
 
       if (strokeColor === 'inherit' || strokeColor === 'auto') {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (strokeColor === 'auto') {
             deprecateReplaceLog('color: \'auto\'', 'color: \'inherit\'');
@@ -15643,6 +16254,7 @@
         }
 
         if ((textStyle.backgroundColor === 'auto' || textStyle.backgroundColor === 'inherit') && inheritColor) {
+          // @ts-ignore
           if ("development" !== 'production') {
             if (textStyle.backgroundColor === 'auto') {
               deprecateReplaceLog('backgroundColor: \'auto\'', 'backgroundColor: \'inherit\'');
@@ -15653,6 +16265,7 @@
         }
 
         if ((textStyle.borderColor === 'auto' || textStyle.borderColor === 'inherit') && inheritColor) {
+          // @ts-ignore
           if ("development" !== 'production') {
             if (textStyle.borderColor === 'auto') {
               deprecateReplaceLog('borderColor: \'auto\'', 'borderColor: \'inherit\'');
@@ -15726,6 +16339,7 @@
 
     var TextStyleMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function TextStyleMixin() {}
       /**
@@ -15735,7 +16349,9 @@
 
 
       TextStyleMixin.prototype.getTextColor = function (isEmphasis) {
+        // @ts-ignore
         var ecModel = this.ecModel;
+        // @ts-ignore
         return this.getShallow('color') || (!isEmphasis && ecModel ? ecModel.get(PATH_COLOR) : null);
       };
       /**
@@ -15746,23 +16362,31 @@
 
       TextStyleMixin.prototype.getFont = function () {
         return getFont({
+          // @ts-ignore
           fontStyle: this.getShallow('fontStyle'),
+          // @ts-ignore
           fontWeight: this.getShallow('fontWeight'),
+          // @ts-ignore
           fontSize: this.getShallow('fontSize'),
+          // @ts-ignore
           fontFamily: this.getShallow('fontFamily')
+        // @ts-ignore
         }, this.ecModel);
       };
 
       TextStyleMixin.prototype.getTextRect = function (text) {
         var style = {
           text: text,
+          // @ts-ignore
           verticalAlign: this.getShallow('verticalAlign') || this.getShallow('baseline')
         };
 
         for (var i = 0; i < textStyleParams.length; i++) {
+          // @ts-ignore
           style[textStyleParams[i]] = this.getShallow(textStyleParams[i]);
         }
 
+        // @ts-ignore
         tmpText.useStyle(style);
         tmpText.update();
         return tmpText.getBoundingRect();
@@ -15778,6 +16402,7 @@
 
     var LineStyleMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function LineStyleMixin() {}
 
@@ -15795,6 +16420,7 @@
 
     var ItemStyleMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function ItemStyleMixin() {}
 
@@ -15807,6 +16433,7 @@
 
     var Model =
     /** @class */
+    // @ts-ignore
     function () {
       function Model(option, parentModel, ecModel) {
         this.parentModel = parentModel;
@@ -15822,6 +16449,7 @@
         // }
       }
 
+      // @ts-ignore
       Model.prototype.init = function (option, parentModel, ecModel) {
         var rest = [];
 
@@ -15834,6 +16462,7 @@
        */
 
 
+      // @ts-ignore
       Model.prototype.mergeOption = function (option, ecModel) {
         merge(this.option, option, true);
       }; // `path` can be 'xxx.yyy.zzz', so the return value type have to be `ModelOption`
@@ -15889,6 +16518,7 @@
 
       Model.prototype.clone = function () {
         var Ctor = this.constructor;
+        // @ts-ignore
         return new Ctor(clone(this.option));
       }; // setReadOnly(properties): void {
       // clazzUtil.setReadOnly(this, properties);
@@ -16044,6 +16674,7 @@
         each(targetNameSet, function () {
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = makePrintable('Circular dependency may exists: ', targetNameSet, targetNameList, fullNameList);
           }
@@ -16442,6 +17073,7 @@
     var SYSTEM_LANG = !env.domSupported ? DEFAULT_LOCALE : function () {
       var langStr = (
       /* eslint-disable-next-line */
+      // @ts-ignore
       document.documentElement.lang || navigator.language || navigator.browserLanguage).toUpperCase();
       return langStr.indexOf(LOCALE_ZH) > -1 ? LOCALE_ZH : DEFAULT_LOCALE;
     }();
@@ -16753,6 +17385,7 @@
       return parts[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + (parts.length > 1 ? '.' + parts[1] : '');
     }
     function toCamelCase(str, upperCaseFirst) {
+      // @ts-ignore
       str = (str || '').toLowerCase().replace(/-(.)/g, function (match, group1) {
         return group1.toUpperCase();
       });
@@ -16773,6 +17406,7 @@
       '\'': '&#39;'
     };
     function encodeHTML(source) {
+      // @ts-ignore
       return source == null ? '' : (source + '').replace(replaceReg, function (str, c) {
         return replaceMap[c];
       });
@@ -16918,6 +17552,7 @@
      */
 
     function formatTime(tpl, value, isUTC) {
+      // @ts-ignore
       if ("development" !== 'production') {
         deprecateReplaceLog('echarts.format.formatTime', 'echarts.time.format');
       }
@@ -16965,7 +17600,9 @@
       /* global window */
       if (target === '_blank' || target === 'blank') {
         var blank = window.open();
+        // @ts-ignore
         blank.opener = null;
+        // @ts-ignore
         blank.location.href = link;
       } else {
         window.open(link, target);
@@ -17061,6 +17698,7 @@
      * @param {number} [height=Infinity]
      */
 
+    // @ts-ignore
     var vbox = curry(boxLayout, 'vertical');
     /**
      * HBox layouting
@@ -17070,6 +17708,7 @@
      * @param {number} [height=Infinity]
      */
 
+    // @ts-ignore
     var hbox = curry(boxLayout, 'horizontal');
     /**
      * If x or x2 is not specified or 'center' 'left' 'right',
@@ -17193,6 +17832,7 @@
       }
 
       var rect = new BoundingRect(left + margin[3], top + margin[0], width, height);
+      // @ts-ignore
       rect.margin = margin;
       return rect;
     }
@@ -17428,6 +18068,7 @@
 
     var ComponentModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ComponentModel, _super);
 
@@ -17438,6 +18079,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ComponentModel.prototype.init = function (option, parentModel, ecModel) {
         this.mergeDefaultAndTheme(option, ecModel);
       };
@@ -17446,6 +18088,7 @@
         var layoutMode = fetchLayoutMode(this);
         var inputPositionParams = layoutMode ? getLayoutParams(option) : {};
         var themeModel = ecModel.getTheme();
+        // @ts-ignore
         merge(option, themeModel.get(this.mainType));
         merge(option, this.getDefaultOption());
 
@@ -17454,11 +18097,14 @@
         }
       };
 
+      // @ts-ignore
       ComponentModel.prototype.mergeOption = function (option, ecModel) {
+        // @ts-ignore
         merge(this.option, option, true);
         var layoutMode = fetchLayoutMode(this);
 
         if (layoutMode) {
+          // @ts-ignore
           mergeLayoutParam(this.option, option, layoutMode);
         }
       };
@@ -17467,6 +18113,7 @@
        */
 
 
+      // @ts-ignore
       ComponentModel.prototype.optionUpdated = function (newCptOption, isInit) {};
       /**
        * [How to declare defaultOption]:
@@ -17531,6 +18178,7 @@
 
         if (!isExtendedClass(ctor)) {
           // When using ts class, defaultOption must be declared as static.
+          // @ts-ignore
           return ctor.defaultOption;
         } // FIXME: remove this approach?
 
@@ -17544,6 +18192,7 @@
           while (clz) {
             var opt = clz.prototype.defaultOption;
             opt && optList.push(opt);
+            // @ts-ignore
             clz = clz.superClass;
           }
 
@@ -17571,8 +18220,11 @@
       ComponentModel.prototype.getReferringComponents = function (mainType, opt) {
         var indexKey = mainType + 'Index';
         var idKey = mainType + 'Id';
+        // @ts-ignore
         return queryReferringComponents(this.ecModel, mainType, {
+          // @ts-ignore
           index: this.get(indexKey, true),
+          // @ts-ignore
           id: this.get(idKey, true)
         }, opt);
       };
@@ -17581,11 +18233,17 @@
         // Consider itself having box layout configs.
         var boxLayoutModel = this;
         return {
+          // @ts-ignore
           left: boxLayoutModel.get('left'),
+          // @ts-ignore
           top: boxLayoutModel.get('top'),
+          // @ts-ignore
           right: boxLayoutModel.get('right'),
+          // @ts-ignore
           bottom: boxLayoutModel.get('bottom'),
+          // @ts-ignore
           width: boxLayoutModel.get('width'),
+          // @ts-ignore
           height: boxLayoutModel.get('height')
         };
       };
@@ -17601,6 +18259,7 @@
       };
 
       ComponentModel.prototype.setZLevel = function (zlevel) {
+        // @ts-ignore
         this.option.zlevel = zlevel;
       };
 
@@ -17987,6 +18646,7 @@
       var thisData = seriesModel.get('data', true);
 
       if (!thisData) {
+        // @ts-ignore
         return queryReferringComponents(seriesModel.ecModel, 'dataset', {
           index: seriesModel.get('datasetIndex', true),
           id: seriesModel.get('datasetId', true)
@@ -18150,6 +18810,7 @@
         return newCmptOptionList;
       }
 
+      // @ts-ignore
       if ("development" !== 'production') {
         for (var i = 0; i < internalOptions.length; i++) {
           assert(isComponentIdInternal(internalOptions[i]));
@@ -18164,11 +18825,14 @@
 
     var PaletteMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function PaletteMixin() {}
 
       PaletteMixin.prototype.getColorFromPalette = function (name, scope, requestNum) {
+        // @ts-ignore
         var defaultPalette = normalizeToArray(this.get('color', true));
+        // @ts-ignore
         var layeredPalette = this.get('colorLayer', true);
         return getFromPalette(this, innerColor, defaultPalette, layeredPalette, name, scope, requestNum);
       };
@@ -18300,6 +18964,7 @@
     var componetsMissingLogPrinted = {};
 
     function checkMissingComponents(option) {
+      // @ts-ignore
       each(option, function (componentOption, mainType) {
         if (!ComponentModel.hasClass(mainType)) {
           var componentImportName = BUITIN_COMPONENTS_MAP[mainType];
@@ -18314,6 +18979,7 @@
 
     var GlobalModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GlobalModel, _super);
 
@@ -18321,6 +18987,7 @@
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
+      // @ts-ignore
       GlobalModel.prototype.init = function (option, parentModel, ecModel, theme, locale, optionManager) {
         theme = theme || {};
         this.option = null; // Mark as not initialized.
@@ -18331,6 +18998,7 @@
       };
 
       GlobalModel.prototype.setOption = function (option, opts, optionPreprocessorFuncs) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(option != null, 'option is null/undefined');
           assert(option[OPTION_INNER_KEY] !== OPTION_INNER_VALUE, 'please use chart.getOption()');
@@ -18362,6 +19030,7 @@
         if (!type || type === 'recreate') {
           var baseOption = optionManager.mountOption(type === 'recreate');
 
+          // @ts-ignore
           if ("development" !== 'production') {
             checkMissingComponents(baseOption);
           }
@@ -18406,6 +19075,7 @@
             each(mediaOptions, function (mediaOption) {
               optionChanged = true;
 
+              // @ts-ignore
               this._mergeOption(mediaOption, opt);
             }, this);
           }
@@ -18420,7 +19090,9 @@
 
       GlobalModel.prototype._mergeOption = function (newOption, opt) {
         var option = this.option;
+        // @ts-ignore
         var componentsMap = this._componentsMap;
+        // @ts-ignore
         var componentsCount = this._componentsCount;
         var newCmptTypes = [];
         var newCmptTypeMap = createHashMap();
@@ -18447,6 +19119,7 @@
           // we trade it as it is declared in option as `{xxx: []}`. Because:
           // (1) for normal merge, `{xxx: null/undefined}` are the same meaning as `{xxx: []}`.
           // (2) some preprocessor may convert some of `{xxx: null/undefined}` to `{xxx: []}`.
+          // @ts-ignore
           replaceMergeMainTypeMap.each(function (val, mainTypeInReplaceMerge) {
             if (ComponentModel.hasClass(mainTypeInReplaceMerge) && !newCmptTypeMap.get(mainTypeInReplaceMerge)) {
               newCmptTypes.push(mainTypeInReplaceMerge);
@@ -18458,6 +19131,7 @@
         ComponentModel.topologicalTravel(newCmptTypes, ComponentModel.getAllClassMainTypes(), visitComponent, this);
 
         function visitComponent(mainType) {
+          // @ts-ignore
           var newCmptOptionList = concatInternalOptions(this, mainType, normalizeToArray(newOption[mainType]));
           var oldCmptList = componentsMap.get(mainType);
           var mergeMode = // `!oldCmptList` means init. See the comment in `mappingToExists`
@@ -18485,6 +19159,7 @@
                 // Consider where is no new option and should be merged using {},
                 // see removeEdgeAndAdd in topologicalTravel and
                 // ComponentModel.getAllClassMainTypes.
+                // @ts-ignore
                 componentModel.mergeOption({}, this);
                 componentModel.optionUpdated({}, false);
               } // If no both `resultItem.exist` and `resultItem.option`,
@@ -18497,6 +19172,7 @@
               );
 
               if (!ComponentModelClass) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                   var subType = resultItem.keyInfo.subType;
                   var seriesImportName = BUILTIN_CHARTS_MAP[subType];
@@ -18518,6 +19194,7 @@
 
               if (mainType === 'tooltip') {
                 if (tooltipExists) {
+                  // @ts-ignore
                   if ("development" !== 'production') {
                     if (!tooltipWarningLogged) {
                       warn('Currently only one tooltip component is allowed.');
@@ -18534,6 +19211,7 @@
               if (componentModel && componentModel.constructor === ComponentModelClass) {
                 componentModel.name = resultItem.keyInfo.name; // componentModel.settingTask && componentModel.settingTask.dirty();
 
+                // @ts-ignore
                 componentModel.mergeOption(newCmptOption, this);
                 componentModel.optionUpdated(newCmptOption, false);
               } else {
@@ -18541,6 +19219,7 @@
                 var extraOpt = extend({
                   componentIndex: index
                 }, resultItem.keyInfo);
+                // @ts-ignore
                 componentModel = new ComponentModelClass(newCmptOption, this, this, extraOpt); // Assign `keyInfo`
 
                 extend(componentModel, extraOpt);
@@ -18549,6 +19228,7 @@
                   componentModel.__requireNewView = true;
                 }
 
+                // @ts-ignore
                 componentModel.init(newCmptOption, this, this); // Call optionUpdated after init.
                 // newCmptOption has been used as componentModel.option
                 // and may be merged with theme and default, so pass null
@@ -18567,12 +19247,14 @@
               optionsByMainType.push(void 0);
               cmptsByMainType.push(void 0);
             }
+          // @ts-ignore
           }, this);
           option[mainType] = optionsByMainType;
           componentsMap.set(mainType, cmptsByMainType);
           componentsCount.set(mainType, cmptsCountByMainType); // Backup series for filtering.
 
           if (mainType === 'series') {
+            // @ts-ignore
             reCreateSeriesIndices(this);
           }
         } // If no series declared, ensure `_seriesIndices` initialized.
@@ -18637,6 +19319,7 @@
 
 
       GlobalModel.prototype.getComponent = function (mainType, idx) {
+        // @ts-ignore
         var list = this._componentsMap.get(mainType);
 
         if (list) {
@@ -18669,6 +19352,7 @@
         var id = condition.id;
         var name = condition.name;
 
+        // @ts-ignore
         var cmpts = this._componentsMap.get(mainType);
 
         if (!cmpts || !cmpts.length) {
@@ -18719,6 +19403,7 @@
         var mainType = condition.mainType;
         var queryCond = getQueryCond(query);
         var result = queryCond ? this.queryComponents(queryCond) // Retrieve all non-empty components.
+        // @ts-ignore
         : filter(this._componentsMap.get(mainType), function (cmpt) {
           return !!cmpt;
         });
@@ -18743,6 +19428,7 @@
       };
 
       GlobalModel.prototype.eachComponent = function (mainType, cb, context) {
+        // @ts-ignore
         var componentsMap = this._componentsMap;
 
         if (isFunction(mainType)) {
@@ -18770,6 +19456,7 @@
 
       GlobalModel.prototype.getSeriesByName = function (name) {
         var nameStr = convertOptionIdName(name, null);
+        // @ts-ignore
         return filter(this._componentsMap.get('series'), function (oneSeries) {
           return !!oneSeries && nameStr != null && oneSeries.name === nameStr;
         });
@@ -18780,6 +19467,7 @@
 
 
       GlobalModel.prototype.getSeriesByIndex = function (seriesIndex) {
+        // @ts-ignore
         return this._componentsMap.get('series')[seriesIndex];
       };
       /**
@@ -18789,6 +19477,7 @@
 
 
       GlobalModel.prototype.getSeriesByType = function (subType) {
+        // @ts-ignore
         return filter(this._componentsMap.get('series'), function (oneSeries) {
           return !!oneSeries && oneSeries.subType === subType;
         });
@@ -18799,6 +19488,7 @@
 
 
       GlobalModel.prototype.getSeries = function () {
+        // @ts-ignore
         return filter(this._componentsMap.get('series'), function (oneSeries) {
           return !!oneSeries;
         });
@@ -18809,6 +19499,7 @@
 
 
       GlobalModel.prototype.getSeriesCount = function () {
+        // @ts-ignore
         return this._componentsCount.get('series');
       };
       /**
@@ -18820,6 +19511,7 @@
       GlobalModel.prototype.eachSeries = function (cb, context) {
         assertSeriesInitialized(this);
         each(this._seriesIndices, function (rawSeriesIndex) {
+          // @ts-ignore
           var series = this._componentsMap.get('series')[rawSeriesIndex];
 
           cb.call(context, series, rawSeriesIndex);
@@ -18834,6 +19526,7 @@
 
 
       GlobalModel.prototype.eachRawSeries = function (cb, context) {
+        // @ts-ignore
         each(this._componentsMap.get('series'), function (series) {
           series && cb.call(context, series, series.componentIndex);
         });
@@ -18847,6 +19540,7 @@
       GlobalModel.prototype.eachSeriesByType = function (subType, cb, context) {
         assertSeriesInitialized(this);
         each(this._seriesIndices, function (rawSeriesIndex) {
+          // @ts-ignore
           var series = this._componentsMap.get('series')[rawSeriesIndex];
 
           if (series.subType === subType) {
@@ -18865,6 +19559,7 @@
 
       GlobalModel.prototype.isSeriesFiltered = function (seriesModel) {
         assertSeriesInitialized(this);
+        // @ts-ignore
         return this._seriesIndicesMap.get(seriesModel.componentIndex) == null;
       };
 
@@ -18876,6 +19571,7 @@
         assertSeriesInitialized(this);
         var newSeriesIndices = [];
         each(this._seriesIndices, function (seriesRawIdx) {
+          // @ts-ignore
           var series = this._componentsMap.get('series')[seriesRawIdx];
 
           cb.call(context, series, seriesRawIdx) && newSeriesIndices.push(seriesRawIdx);
@@ -18886,8 +19582,10 @@
 
       GlobalModel.prototype.restoreData = function (payload) {
         reCreateSeriesIndices(this);
+        // @ts-ignore
         var componentsMap = this._componentsMap;
         var componentTypes = [];
+        // @ts-ignore
         componentsMap.each(function (components, componentType) {
           if (ComponentModel.hasClass(componentType)) {
             componentTypes.push(componentType);
@@ -18915,6 +19613,7 @@
         assertSeriesInitialized = function (ecModel) {
           // Components that use _seriesIndices should depends on series component,
           // which make sure that their initialization is after series.
+          // @ts-ignore
           if ("development" !== 'production') {
             if (!ecModel._seriesIndices) {
               throw new Error('Option should contains series.');
@@ -19017,6 +19716,7 @@
     function normalizeSetOptionInput(opts) {
       var replaceMergeMainTypeMap = createHashMap();
       opts && each(normalizeToArray(opts.replaceMerge), function (mainType) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(ComponentModel.hasClass(mainType), '"' + mainType + '" is not valid component main type in "replaceMerge"');
         }
@@ -19037,10 +19737,12 @@
 
     var ExtensionAPI =
     /** @class */
+    // @ts-ignore
     function () {
       function ExtensionAPI(ecInstance) {
         each(availableMethods, function (methodName) {
           this[methodName] = bind(ecInstance[methodName], ecInstance);
+        // @ts-ignore
         }, this);
       }
 
@@ -19051,6 +19753,7 @@
 
     var CoordinateSystemManager =
     /** @class */
+    // @ts-ignore
     function () {
       function CoordinateSystemManager() {
         this._coordinateSystems = [];
@@ -19058,6 +19761,7 @@
 
       CoordinateSystemManager.prototype.create = function (ecModel, api) {
         var coordinateSystems = [];
+        // @ts-ignore
         each(coordinateSystemCreators, function (creater, type) {
           var list = creater.create(ecModel, api);
           coordinateSystems = coordinateSystems.concat(list || []);
@@ -19096,6 +19800,7 @@
 
     var OptionManager =
     /** @class */
+    // @ts-ignore
     function () {
       // timeline.notMerge is not supported in ec3. Firstly there is rearly
       // case that notMerge is needed. Secondly supporting 'notMerge' requires
@@ -19117,6 +19822,7 @@
         this._api = api;
       }
 
+      // @ts-ignore
       OptionManager.prototype.setOption = function (rawOption, optionPreprocessorFuncs, opt) {
         if (rawOption) {
           // That set dat primitive is dangerous if user reuse the data when setOption again.
@@ -19174,8 +19880,11 @@
 
       OptionManager.prototype.mountOption = function (isRecreate) {
         var optionBackup = this._optionBackup;
+        // @ts-ignore
         this._timelineOptions = optionBackup.timelineOptions;
+        // @ts-ignore
         this._mediaList = optionBackup.mediaList;
+        // @ts-ignore
         this._mediaDefault = optionBackup.mediaDefault;
         this._currentMediaIndices = [];
         return clone(isRecreate // this._optionBackup.baseOption, which is created at the first `setOption`
@@ -19183,6 +19892,7 @@
         // each time `setOption` called, can be only used in `isRecreate`, because
         // its reliability is under suspicion. In other cases option merge is
         // performed by `model.mergeOption`.
+        // @ts-ignore
         ? optionBackup.baseOption : this._newBaseOption);
       };
 
@@ -19204,6 +19914,7 @@
         return option;
       };
 
+      // @ts-ignore
       OptionManager.prototype.getMediaOption = function (ecModel) {
         var ecWidth = this._api.getWidth();
 
@@ -19340,6 +20051,7 @@
       if (hasMedia) {
         if (isArray(mediaOnRoot)) {
           each(mediaOnRoot, function (singleMedia) {
+            // @ts-ignore
             if ("development" !== 'production') {
               // Real case of wrong config.
               if (singleMedia && !singleMedia.option && isObject(singleMedia.query) && isObject(singleMedia.query.option)) {
@@ -19357,6 +20069,7 @@
             }
           });
         } else {
+          // @ts-ignore
           if ("development" !== 'production') {
             // Real case of wrong config.
             error('Illegal media option. Must be an array. Like { media: [ {...}, {...} ] }');
@@ -19450,6 +20163,7 @@
         var emphasisItemStyleOpt = itemStyleOpt.emphasis;
 
         if (normalItemStyleOpt && normalItemStyleOpt[styleName]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateReplaceLog("itemStyle.normal." + styleName, styleName);
           }
@@ -19466,6 +20180,7 @@
         }
 
         if (emphasisItemStyleOpt && emphasisItemStyleOpt[styleName]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateReplaceLog("itemStyle.emphasis." + styleName, "emphasis." + styleName);
           }
@@ -19489,6 +20204,7 @@
         var emphasisOpt = opt[optType].emphasis;
 
         if (normalOpt) {
+          // @ts-ignore
           if ("development" !== 'production') {
             // eslint-disable-next-line max-len
             deprecateLog("'normal' hierarchy in " + optType + " has been removed since 4.0. All style properties are configured in " + optType + " directly now.");
@@ -19504,6 +20220,7 @@
         }
 
         if (emphasisOpt) {
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateLog(optType + ".emphasis has been changed to emphasis." + optType + " since 4.0");
           }
@@ -19541,6 +20258,7 @@
       var textStyle = isObject$1(labelOptSingle) && labelOptSingle.textStyle;
 
       if (textStyle) {
+        // @ts-ignore
         if ("development" !== 'production') {
           // eslint-disable-next-line max-len
           deprecateLog("textStyle hierarchy in " + propName + " has been removed since 4.0. All textStyle properties are configured in " + propName + " directly now.");
@@ -19713,6 +20431,7 @@
           radarOpt.axisName = radarOpt.name;
           delete radarOpt.name;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateLog('name property in radar component has been changed to axisName');
           }
@@ -19722,11 +20441,13 @@
           radarOpt.axisNameGap = radarOpt.nameGap;
           delete radarOpt.nameGap;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateLog('nameGap property in radar component has been changed to axisNameGap');
           }
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           each$2(radarOpt.indicator, function (indicatorOpt) {
             if (indicatorOpt.text) {
@@ -19826,6 +20547,7 @@
           if (itemStyle[oldName] != null) {
             itemStyle[newName] = itemStyle[oldName];
 
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateReplaceLog(oldName, newName);
             }
@@ -19840,6 +20562,7 @@
       }
 
       if (option.alignTo === 'edge' && option.margin != null && option.edgeDistance == null) {
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateReplaceLog('label.margin', 'label.edgeDistance', 'pie');
         }
@@ -19856,6 +20579,7 @@
       if (option.downplay && !option.blur) {
         option.blur = option.downplay;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateReplaceLog('downplay', 'blur', 'sunburst');
         }
@@ -19871,6 +20595,7 @@
         option.emphasis = option.emphasis || {};
 
         if (option.emphasis.focus == null) {
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateReplaceLog('focusNodeAdjacency', 'emphasis: { focus: \'adjacency\'}', 'graph/sankey');
           }
@@ -19904,6 +20629,7 @@
           if (seriesOpt.clipOverflow != null) {
             seriesOpt.clip = seriesOpt.clipOverflow;
 
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateReplaceLog('clipOverflow', 'clip', 'line');
             }
@@ -19912,6 +20638,7 @@
           if (seriesOpt.clockWise != null) {
             seriesOpt.clockwise = seriesOpt.clockWise;
 
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateReplaceLog('clockWise', 'clockwise');
             }
@@ -19930,6 +20657,7 @@
             seriesOpt.emphasis = seriesOpt.emphasis || {};
 
             if (seriesOpt.emphasis.scaleSize = null) {
+              // @ts-ignore
               if ("development" !== 'production') {
                 deprecateReplaceLog('hoverOffset', 'emphasis.scaleSize');
               }
@@ -19963,6 +20691,7 @@
             if (!seriesOpt.emphasis.focus) {
               seriesOpt.emphasis.focus = highlightPolicy;
 
+              // @ts-ignore
               if ("development" !== 'production') {
                 deprecateReplaceLog('highlightPolicy', 'emphasis.focus', 'sunburst');
               }
@@ -19975,6 +20704,7 @@
           compatGraphFocus(seriesOpt); // TODO nodes, edges?
         } else if (seriesType === 'map') {
           if (seriesOpt.mapType && !seriesOpt.map) {
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateReplaceLog('mapType', 'map', 'map');
             }
@@ -19983,6 +20713,7 @@
           }
 
           if (seriesOpt.mapLocation) {
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateLog('`mapLocation` is not used anymore.');
             }
@@ -19995,6 +20726,7 @@
           seriesOpt.emphasis = seriesOpt.emphasis || {};
 
           if (seriesOpt.emphasis && seriesOpt.emphasis.scale == null) {
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateReplaceLog('hoverAnimation', 'emphasis.scale');
             }
@@ -20070,6 +20802,7 @@
         var isStackedByIndex = targetStackInfo.isStackedByIndex; // Should not write on raw data, because stack series model list changes
         // depending on legend selection.
 
+        // @ts-ignore
         targetData.modify(dims, function (v0, v1, dataIndex) {
           var sum = targetData.get(targetStackInfo.stackedDimension, dataIndex); // Consider `connectNulls` of line area, if value is NaN, stackedOver
           // should also be NaN, to draw a appropriate belt area.
@@ -20122,6 +20855,7 @@
 
     var SourceImpl =
     /** @class */
+    // @ts-ignore
     function () {
       function SourceImpl(fields) {
         this.data = fields.data || (fields.sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS ? {} : []);
@@ -20298,6 +21032,7 @@
       } else if (sourceFormat === SOURCE_FORMAT_KEYED_COLUMNS) {
         if (!dimensionsDefine) {
           dimensionsDefine = [];
+          // @ts-ignore
           each(data, function (colArr, key) {
             dimensionsDefine.push(key);
           });
@@ -20306,6 +21041,7 @@
         var value0 = getDataItemValue(data[0]);
         dimensionsDetectedCount = isArray(value0) && value0.length || 1;
       } else if (sourceFormat === SOURCE_FORMAT_TYPED_ARRAY) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(!!dimensionsDefine, 'dimensions must be given if data is TypedArray.');
         }
@@ -20327,6 +21063,7 @@
 
       if (obj) {
         var dimensions_1 = [];
+        // @ts-ignore
         each(obj, function (value, key) {
           dimensions_1.push(key);
         });
@@ -20344,6 +21081,7 @@
       }
 
       var nameMap = createHashMap();
+      // @ts-ignore
       return map(dimensionsDefine, function (rawItem, index) {
         rawItem = isObject(rawItem) ? rawItem : {
           name: rawItem
@@ -20457,6 +21195,7 @@
 
     var DefaultDataProvider =
     /** @class */
+    // @ts-ignore
     function () {
       function DefaultDataProvider(sourceParam, dimSize) {
         // let source: Source;
@@ -20466,6 +21205,7 @@
         var data = this._data = source.data; // Typed array. TODO IE10+?
 
         if (source.sourceFormat === SOURCE_FORMAT_TYPED_ARRAY) {
+          // @ts-ignore
           if ("development" !== 'production') {
             if (dimSize == null) {
               throw new Error('Typed array data must specify dimension size');
@@ -20488,10 +21228,12 @@
         return 0;
       };
 
+      // @ts-ignore
       DefaultDataProvider.prototype.getItem = function (idx, out) {
         return;
       };
 
+      // @ts-ignore
       DefaultDataProvider.prototype.appendData = function (newData) {};
 
       DefaultDataProvider.prototype.clean = function () {};
@@ -20514,6 +21256,7 @@
           var dimsDef = source.dimensionsDefine;
           var methods = providerMethods[getMethodMapKey(sourceFormat, seriesLayoutBy)];
 
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(methods, 'Invalide sourceFormat: ' + sourceFormat);
           }
@@ -20533,9 +21276,12 @@
         };
 
         var getItemForTypedArray = function (idx, out) {
+          // @ts-ignore
           idx = idx - this._offset;
           out = out || [];
+          // @ts-ignore
           var data = this._data;
+          // @ts-ignore
           var dimSize = this._dimSize;
           var offset = dimSize * idx;
 
@@ -20547,7 +21293,9 @@
         };
 
         var fillStorageForTypedArray = function (start, end, storage, extent) {
+          // @ts-ignore
           var data = this._data;
+          // @ts-ignore
           var dimSize = this._dimSize;
 
           for (var dim = 0; dim < dimSize; dim++) {
@@ -20571,6 +21319,7 @@
         };
 
         var countForTypedArray = function () {
+          // @ts-ignore
           return this._data ? this._data.length / this._dimSize : 0;
         };
 
@@ -20603,6 +21352,7 @@
           persistent: false,
           pure: true,
           appendData: function (newData) {
+            // @ts-ignore
             if ("development" !== 'production') {
               assert(isTypedArray(newData), 'Added data must be TypedArray if data in initialization is TypedArray');
             }
@@ -20619,6 +21369,7 @@
 
         function appendDataSimply(newData) {
           for (var i = 0; i < newData.length; i++) {
+            // @ts-ignore
             this._data.push(newData[i]);
           }
         }
@@ -20627,12 +21378,15 @@
       return DefaultDataProvider;
     }();
 
+    // @ts-ignore
     var getItemSimply = function (rawData, startIndex, dimsDef, idx) {
       return rawData[idx];
     };
 
+    // @ts-ignore
     var rawSourceItemGetterMap = (_a = {}, _a[SOURCE_FORMAT_ARRAY_ROWS + '_' + SERIES_LAYOUT_BY_COLUMN] = function (rawData, startIndex, dimsDef, idx) {
       return rawData[idx + startIndex];
+    // @ts-ignore
     }, _a[SOURCE_FORMAT_ARRAY_ROWS + '_' + SERIES_LAYOUT_BY_ROW] = function (rawData, startIndex, dimsDef, idx, out) {
       idx += startIndex;
       var item = out || [];
@@ -20644,12 +21398,14 @@
       }
 
       return item;
+    // @ts-ignore
     }, _a[SOURCE_FORMAT_OBJECT_ROWS] = getItemSimply, _a[SOURCE_FORMAT_KEYED_COLUMNS] = function (rawData, startIndex, dimsDef, idx, out) {
       var item = out || [];
 
       for (var i = 0; i < dimsDef.length; i++) {
         var dimName = dimsDef[i].name;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (dimName == null) {
             throw new Error();
@@ -20665,6 +21421,7 @@
     function getRawSourceItemGetter(sourceFormat, seriesLayoutBy) {
       var method = rawSourceItemGetterMap[getMethodMapKey(sourceFormat, seriesLayoutBy)];
 
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(method, 'Do not support get item on "' + sourceFormat + '", "' + seriesLayoutBy + '".');
       }
@@ -20672,18 +21429,23 @@
       return method;
     }
 
+    // @ts-ignore
     var countSimply = function (rawData, startIndex, dimsDef) {
       return rawData.length;
     };
 
+    // @ts-ignore
     var rawSourceDataCounterMap = (_b = {}, _b[SOURCE_FORMAT_ARRAY_ROWS + '_' + SERIES_LAYOUT_BY_COLUMN] = function (rawData, startIndex, dimsDef) {
       return Math.max(0, rawData.length - startIndex);
+    // @ts-ignore
     }, _b[SOURCE_FORMAT_ARRAY_ROWS + '_' + SERIES_LAYOUT_BY_ROW] = function (rawData, startIndex, dimsDef) {
       var row = rawData[0];
       return row ? Math.max(0, row.length - startIndex) : 0;
+    // @ts-ignore
     }, _b[SOURCE_FORMAT_OBJECT_ROWS] = countSimply, _b[SOURCE_FORMAT_KEYED_COLUMNS] = function (rawData, startIndex, dimsDef) {
       var dimName = dimsDef[0].name;
 
+      // @ts-ignore
       if ("development" !== 'production') {
         if (dimName == null) {
           throw new Error();
@@ -20696,6 +21458,7 @@
     function getRawSourceDataCounter(sourceFormat, seriesLayoutBy) {
       var method = rawSourceDataCounterMap[getMethodMapKey(sourceFormat, seriesLayoutBy)];
 
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(method, 'Do not suppport count on "' + sourceFormat + '", "' + seriesLayoutBy + '".');
       }
@@ -20703,12 +21466,15 @@
       return method;
     }
 
+    // @ts-ignore
     var getRawValueSimply = function (dataItem, dimIndex, property) {
       return dataItem[dimIndex];
     };
 
+    // @ts-ignore
     var rawSourceValueGetterMap = (_c = {}, _c[SOURCE_FORMAT_ARRAY_ROWS] = getRawValueSimply, _c[SOURCE_FORMAT_OBJECT_ROWS] = function (dataItem, dimIndex, property) {
       return dataItem[property];
+    // @ts-ignore
     }, _c[SOURCE_FORMAT_KEYED_COLUMNS] = getRawValueSimply, _c[SOURCE_FORMAT_ORIGINAL] = function (dataItem, dimIndex, property) {
       // FIXME: In some case (markpoint in geo (geo-map.html)),
       // dataItem is {coord: [...]}
@@ -20718,6 +21484,7 @@
     function getRawSourceValueGetter(sourceFormat) {
       var method = rawSourceValueGetterMap[sourceFormat];
 
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(method, 'Do not suppport get value on "' + sourceFormat + '".');
       }
@@ -20772,6 +21539,7 @@
 
     var DataFormatMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function DataFormatMixin() {}
       /**
@@ -20780,6 +21548,7 @@
 
 
       DataFormatMixin.prototype.getDataParams = function (dataIndex, dataType) {
+        // @ts-ignore
         var data = this.getData(dataType);
         var rawValue = this.getRawValue(dataIndex, dataType);
         var rawDataIndex = data.getRawIndex(dataIndex);
@@ -20788,16 +21557,23 @@
         var style = data.getItemVisual(dataIndex, 'style');
         var color = style && style[data.getItemVisual(dataIndex, 'drawType') || 'fill'];
         var borderColor = style && style.stroke;
+        // @ts-ignore
         var mainType = this.mainType;
         var isSeries = mainType === 'series';
         var userOutput = data.userOutput && data.userOutput.get();
         return {
           componentType: mainType,
+          // @ts-ignore
           componentSubType: this.subType,
+          // @ts-ignore
           componentIndex: this.componentIndex,
+          // @ts-ignore
           seriesType: isSeries ? this.subType : null,
+          // @ts-ignore
           seriesIndex: this.seriesIndex,
+          // @ts-ignore
           seriesId: isSeries ? this.id : null,
+          // @ts-ignore
           seriesName: isSeries ? this.name : null,
           name: name,
           dataIndex: rawDataIndex,
@@ -20826,6 +21602,7 @@
 
       DataFormatMixin.prototype.getFormattedLabel = function (dataIndex, status, dataType, labelDimIndex, formatter, extendParams) {
         status = status || 'normal';
+        // @ts-ignore
         var data = this.getData(dataType);
         var params = this.getDataParams(dataIndex, dataType);
 
@@ -20848,9 +21625,11 @@
           params.dimensionIndex = labelDimIndex;
           return formatter(params);
         } else if (isString(formatter)) {
+          // @ts-ignore
           var str = formatTpl(formatter, params); // Support 'aaa{@[3]}bbb{@product}ccc'.
           // Do not support '}' in dim name util have to.
 
+          // @ts-ignore
           return str.replace(DIMENSION_LABEL_REG, function (origin, dimStr) {
             var len = dimStr.length;
             var dimLoose = dimStr;
@@ -20858,6 +21637,7 @@
             if (dimLoose.charAt(0) === '[' && dimLoose.charAt(len - 1) === ']') {
               dimLoose = +dimLoose.slice(1, len - 1); // Also support: '[]' => 0
 
+              // @ts-ignore
               if ("development" !== 'production') {
                 if (isNaN(dimLoose)) {
                   error("Invalide label formatter: @" + dimStr + ", only support @[0], @[1], @[2], ...");
@@ -20885,6 +21665,7 @@
 
 
       DataFormatMixin.prototype.getRawValue = function (idx, dataType) {
+        // @ts-ignore
         return retrieveRawValue(this.getData(dataType), idx);
       };
       /**
@@ -20895,6 +21676,7 @@
        */
 
 
+      // @ts-ignore
       DataFormatMixin.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         // Empty function
         return;
@@ -20925,6 +21707,7 @@
         if (result.type) {
           markupFragment = result;
         } else {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn('The return type of `formatTooltip` is not supported: ' + makePrintable(result));
           }
@@ -20958,6 +21741,7 @@
 
     var Task =
     /** @class */
+    // @ts-ignore
     function () {
       function Task(define) {
         define = define || {};
@@ -20977,23 +21761,28 @@
 
 
       Task.prototype.perform = function (performArgs) {
+        // @ts-ignore
         var upTask = this._upstream;
         var skip = performArgs && performArgs.skip; // TODO some refactor.
         // Pull data. Must pull data each time, because context.data
         // may be updated by Series.setData.
 
         if (this._dirty && upTask) {
+          // @ts-ignore
           var context = this.context;
           context.data = context.outputData = upTask.context.outputData;
         }
 
+        // @ts-ignore
         if (this.__pipeline) {
+          // @ts-ignore
           this.__pipeline.currentTask = this;
         }
 
         var planResult;
 
         if (this._plan && !skip) {
+          // @ts-ignore
           planResult = this._plan(this.context);
         } // Support sharding by mod, which changes the render sequence and makes the rendered graphic
         // elements uniformed distributed when progress, especially when moving or zooming.
@@ -21026,6 +21815,7 @@
         var step = performArgs && performArgs.step;
 
         if (upTask) {
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(upTask._outputDueEnd != null);
           }
@@ -21033,10 +21823,12 @@
           this._dueEnd = upTask._outputDueEnd;
         } // DataTask or overallTask
         else {
+            // @ts-ignore
             if ("development" !== 'production') {
               assert(!this._progress || this._count);
             }
 
+            // @ts-ignore
             this._dueEnd = this._count ? this._count(this.context) : Infinity;
           } // Note: Stubs, that its host overall task let it has progress, has progress.
         // If no progress, pass index from upstream to downstream each time plan called.
@@ -21063,6 +21855,7 @@
 
           var outputDueEnd = this._settedOutputEnd != null ? this._settedOutputEnd : end;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             // ??? Can not rollback.
             assert(outputDueEnd >= this._outputDueEnd);
@@ -21081,6 +21874,7 @@
 
       Task.prototype.dirty = function () {
         this._dirty = true;
+        // @ts-ignore
         this._onDirty && this._onDirty(this.context);
       };
 
@@ -21093,6 +21887,7 @@
           end: end,
           count: end - start,
           next: iterator.next
+        // @ts-ignore
         }, this.context);
       };
 
@@ -21103,6 +21898,7 @@
         var forceFirstProgress;
 
         if (!skip && this._reset) {
+          // @ts-ignore
           progress = this._reset(this.context);
 
           if (progress && progress.progress) {
@@ -21133,6 +21929,7 @@
 
 
       Task.prototype.pipe = function (downTask) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(downTask && !downTask._disposed && downTask !== this);
         } // If already downstream, do not dirty downTask.
@@ -21150,6 +21947,7 @@
           return;
         }
 
+        // @ts-ignore
         this._upstream && (this._upstream._downstream = null);
         this._downstream && (this._downstream._upstream = null);
         this._dirty = false;
@@ -21157,6 +21955,7 @@
       };
 
       Task.prototype.getUpstream = function () {
+        // @ts-ignore
         return this._upstream;
       };
 
@@ -21359,11 +22158,13 @@
 
     var FilterOrderComparator =
     /** @class */
+    // @ts-ignore
     function () {
       function FilterOrderComparator(op, rval) {
         if (!isNumber(rval)) {
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'rvalue of "<", ">", "<=", ">=" can only be number in filter.';
           }
@@ -21386,6 +22187,7 @@
 
     var SortOrderComparator =
     /** @class */
+    // @ts-ignore
     function () {
       /**
        * @param order by defualt: 'asc'
@@ -21442,6 +22244,7 @@
 
     var FilterEqualityComparator =
     /** @class */
+    // @ts-ignore
     function () {
       function FilterEqualityComparator(isEq, rval) {
         this._rval = rval;
@@ -21521,6 +22324,7 @@
 
     var ExternalSource =
     /** @class */
+    // @ts-ignore
     function () {
       function ExternalSource() {}
 
@@ -21529,6 +22333,7 @@
         throw new Error('not supported');
       };
 
+      // @ts-ignore
       ExternalSource.prototype.getRawDataItem = function (dataIndex) {
         // Only built-in transform available.
         throw new Error('not supported');
@@ -21542,6 +22347,7 @@
        */
 
 
+      // @ts-ignore
       ExternalSource.prototype.getDimensionInfo = function (dim) {
         return;
       };
@@ -21570,10 +22376,12 @@
        */
 
 
+      // @ts-ignore
       ExternalSource.prototype.retrieveValue = function (dataIndex, dimIndex) {
         return;
       };
 
+      // @ts-ignore
       ExternalSource.prototype.retrieveValueFromItem = function (dataItem, dimIndex) {
         return;
       };
@@ -21596,6 +22404,7 @@
         // For the logic simplicity in transformer, only 'culumn' is
         // supported in data transform. Otherwise, the `dimensionsDefine`
         // might be detected by 'row', which probably confuses users.
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = '`seriesLayoutBy` of upstream dataset can only be "column" in data transform.';
         }
@@ -21631,6 +22440,7 @@
             var errMsg_1 = '';
 
             if (hasOwn(dimsByName, name)) {
+              // @ts-ignore
               if ("development" !== 'production') {
                 errMsg_1 = 'dimension name "' + name + '" duplicated.';
               }
@@ -21697,6 +22507,7 @@
       if (!isSupportedSourceFormat(sourceFormat)) {
         var errMsg = '';
 
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = '`getRawData` is not supported in source format ' + sourceFormat;
         }
@@ -21714,6 +22525,7 @@
       if (!isSupportedSourceFormat(sourceFormat)) {
         var errMsg = '';
 
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = '`cloneRawData` is not supported in source format ' + sourceFormat;
         }
@@ -21767,6 +22579,7 @@
       var errMsg = '';
 
       if (!type) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'Must have a `type` when `registerTransform`.';
         }
@@ -21777,6 +22590,7 @@
       var typeParsed = type.split(':');
 
       if (typeParsed.length !== 2) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'Name must include namespace like "ns:regression".';
         }
@@ -21802,6 +22616,7 @@
       var errMsg = '';
 
       if (!pipeLen) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'If `transform` declared, it should at least contain one transform.';
         }
@@ -21827,6 +22642,7 @@
       var errMsg = '';
 
       if (!upSourceList.length) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'Must have at least one upstream dataset.';
         }
@@ -21835,6 +22651,7 @@
       }
 
       if (!isObject(transOption)) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'transform declaration must be an object rather than ' + typeof transOption + '.';
         }
@@ -21846,6 +22663,7 @@
       var externalTransform = externalTransformMap.get(transType);
 
       if (!externalTransform) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = 'Can not find transform on type "' + transType + '".';
         }
@@ -21863,6 +22681,7 @@
         config: clone(transOption.config)
       }));
 
+      // @ts-ignore
       if ("development" !== 'production') {
         if (transOption.print) {
           var printStrArr = map(resultList, function (extSource) {
@@ -21877,6 +22696,7 @@
         var errMsg = '';
 
         if (!isObject(result)) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'A transform should not return some empty results.';
           }
@@ -21885,6 +22705,7 @@
         }
 
         if (!result.data) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'Transform result data should be not be null or undefined';
           }
@@ -21895,6 +22716,7 @@
         var sourceFormat = detectSourceFormat(result.data);
 
         if (!isSupportedSourceFormat(sourceFormat)) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'Transform result data should be array rows or object rows.';
           }
@@ -22027,6 +22849,7 @@
 
     var DataStore =
     /** @class */
+    // @ts-ignore
     function () {
       function DataStore() {
         this._chunks = []; // It will not be calculated util needed.
@@ -22043,6 +22866,7 @@
 
 
       DataStore.prototype.initData = function (provider, inputDimensions, dimValueGetter) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(isFunction(provider.getItem) && isFunction(provider.count), 'Inavlid data provider.');
         }
@@ -22060,6 +22884,7 @@
         this._rawExtent = [];
         var willRetrieveDataByName = shouldRetrieveDataByName(source);
         this._dimensions = map(inputDimensions, function (dim) {
+          // @ts-ignore
           if ("development" !== 'production') {
             if (willRetrieveDataByName) {
               assert(dim.property != null);
@@ -22160,6 +22985,7 @@
 
 
       DataStore.prototype.appendData = function (data) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(!this._indices, 'appendData can only be called on raw data.');
         }
@@ -22287,6 +23113,7 @@
         }
 
         var dimStore = this._chunks[dim];
+        // @ts-ignore
         return dimStore ? dimStore[this.getRawIndex(idx)] : NaN;
       };
 
@@ -22436,6 +23263,7 @@
         var nearestIndicesLen = 0; // Check the test case of `test/ut/spec/data/SeriesData.js`.
 
         for (var i = 0, len = this.count(); i < len; i++) {
+          // @ts-ignore
           var dataIndex = this.getRawIndex(i);
           var diff = value - dimData[dataIndex];
           var dist = Math.abs(diff);
@@ -22481,6 +23309,7 @@
             newIndices = new Ctor(indices.buffer, 0, thisCount);
           }
         } else {
+          // @ts-ignore
           var Ctor = getIndicesCtor(this._rawCount);
           newIndices = new Ctor(this.count());
 
@@ -22501,6 +23330,7 @@
           return this;
         }
 
+        // @ts-ignore
         var newStore = this.clone();
         var count = newStore.count();
         var Ctor = getIndicesCtor(newStore._rawCount);
@@ -22513,6 +23343,7 @@
 
         for (var i = 0; i < count; i++) {
           var keep = void 0;
+          // @ts-ignore
           var rawIdx = newStore.getRawIndex(i); // Simple optimization
 
           if (dimSize === 0) {
@@ -22556,6 +23387,7 @@
 
 
       DataStore.prototype.selectRange = function (range) {
+        // @ts-ignore
         var newStore = this.clone();
         var len = newStore._count;
 
@@ -22626,6 +23458,7 @@
         if (!quickFinished) {
           if (dimSize === 1) {
             for (var i = 0; i < originalCount; i++) {
+              // @ts-ignore
               var rawIndex = newStore.getRawIndex(i);
               var val = storeArr[dims[0]][rawIndex]; // Do not filter NaN, see comment above.
 
@@ -22636,6 +23469,7 @@
           } else {
             for (var i = 0; i < originalCount; i++) {
               var keep = true;
+              // @ts-ignore
               var rawIndex = newStore.getRawIndex(i);
 
               for (var k = 0; k < dimSize; k++) {
@@ -22648,6 +23482,7 @@
               }
 
               if (keep) {
+                // @ts-ignore
                 newIndices[offset++] = newStore.getRawIndex(i);
               }
             }
@@ -22684,6 +23519,7 @@
 
       DataStore.prototype.map = function (dims, cb) {
         // TODO only clone picked chunks.
+        // @ts-ignore
         var target = this.clone(dims);
 
         this._updateDims(target, dims, cb);
@@ -22763,6 +23599,7 @@
         var len = this.count();
         var sampledIndex = 0;
         var frameSize = Math.floor(1 / rate);
+        // @ts-ignore
         var currentRawIndex = this.getRawIndex(0);
         var maxArea;
         var area;
@@ -22778,6 +23615,7 @@
           var avgY = 0;
 
           for (var idx = nextFrameStart; idx < nextFrameEnd; idx++) {
+            // @ts-ignore
             var rawIndex = this.getRawIndex(idx);
             var y = dimStore[rawIndex];
 
@@ -22798,6 +23636,7 @@
           // And the average of next frame.
 
           for (var idx = frameStart; idx < frameEnd; idx++) {
+            // @ts-ignore
             var rawIndex = this.getRawIndex(idx);
             var y = dimStore[rawIndex];
 
@@ -22819,6 +23658,7 @@
         } // First frame use the last data.
 
 
+        // @ts-ignore
         newIndices[sampledIndex++] = this.getRawIndex(len - 1);
         target._count = sampledIndex;
         target._indices = newIndices;
@@ -22850,11 +23690,13 @@
           }
 
           for (var k = 0; k < frameSize; k++) {
+            // @ts-ignore
             var dataIdx = this.getRawIndex(i + k);
             frameValues[k] = dimStore[dataIdx];
           }
 
           var value = sampleValue(frameValues);
+          // @ts-ignore
           var sampleFrameIdx = this.getRawIndex(Math.min(i + sampleIndex(frameValues, value) || 0, len - 1)); // Only write value on the filtered data
 
           dimStore[sampleFrameIdx] = value;
@@ -22896,6 +23738,7 @@
         var chunks = this._chunks;
 
         for (var i = 0, len = this.count(); i < len; i++) {
+          // @ts-ignore
           var rawIdx = this.getRawIndex(i); // Simple optimization
 
           switch (dimSize) {
@@ -22962,6 +23805,7 @@
         var max = dimExtent[1];
 
         for (var i = 0; i < currEnd; i++) {
+          // @ts-ignore
           var rawIdx = this.getRawIndex(i);
           var value = dimData[rawIdx];
           value < min && (min = value);
@@ -22978,6 +23822,7 @@
 
 
       DataStore.prototype.getRawDataItem = function (idx) {
+        // @ts-ignore
         var rawIdx = this.getRawIndex(idx);
 
         if (!this._provider.persistent) {
@@ -23047,6 +23892,7 @@
             indices = new Ctor(thisCount);
 
             for (var i = 0; i < thisCount; i++) {
+              // @ts-ignore
               indices[i] = this._indices[i];
             }
           } else {
@@ -23076,16 +23922,20 @@
       };
 
       DataStore.internalField = function () {
+        // @ts-ignore
         function getDimValueSimply(dataItem, property, dataIndex, dimIndex) {
+          // @ts-ignore
           return parseDataValue(dataItem[dimIndex], this._dimensions[dimIndex]);
         }
 
         defaultDimValueGetters = {
           arrayRows: getDimValueSimply,
+          // @ts-ignore
           objectRows: function (dataItem, property, dataIndex, dimIndex) {
             return parseDataValue(dataItem[property], this._dimensions[dimIndex]);
           },
           keyedColumns: getDimValueSimply,
+          // @ts-ignore
           original: function (dataItem, property, dataIndex, dimIndex) {
             // Performance sensitive, do not use modelUtil.getDataItemValue.
             // If dataItem is an plain object with no value field, the let `value`
@@ -23095,6 +23945,7 @@
             return parseDataValue(value instanceof Array ? value[dimIndex] // If value is a single number or something else not array.
             : value, this._dimensions[dimIndex]);
           },
+          // @ts-ignore
           typedArray: function (dataItem, property, dataIndex, dimIndex) {
             return dataItem[dimIndex];
           }
@@ -23197,6 +24048,7 @@
 
     var SourceManager =
     /** @class */
+    // @ts-ignore
     function () {
       function SourceManager(sourceHost) {
         // Cached source. Do not repeat calculating if not dirty.
@@ -23274,27 +24126,35 @@
             var upSourceMgr = upSourceMgrList[0];
             upSourceMgr.prepareSource();
             upSource = upSourceMgr.getSource();
+            // @ts-ignore
             data = upSource.data;
+            // @ts-ignore
             sourceFormat = upSource.sourceFormat;
             upstreamSignList = [upSourceMgr._getVersionSign()];
           } // Series data is from own.
           else {
               data = seriesModel.get('data', true);
+              // @ts-ignore
               sourceFormat = isTypedArray(data) ? SOURCE_FORMAT_TYPED_ARRAY : SOURCE_FORMAT_ORIGINAL;
               upstreamSignList = [];
             } // See [REQUIREMENT_MEMO], merge settings on series and parent dataset if it is root.
 
 
           var newMetaRawOption = this._getSourceMetaRawOption() || {};
+          // @ts-ignore
           var upMetaRawOption = upSource && upSource.metaRawOption || {};
+          // @ts-ignore
           var seriesLayoutBy = retrieve2(newMetaRawOption.seriesLayoutBy, upMetaRawOption.seriesLayoutBy) || null;
+          // @ts-ignore
           var sourceHeader = retrieve2(newMetaRawOption.sourceHeader, upMetaRawOption.sourceHeader); // Note here we should not use `upSource.dimensionsDefine`. Consider the case:
           // `upSource.dimensionsDefine` is detected by `seriesLayoutBy: 'column'`,
           // but series need `seriesLayoutBy: 'row'`.
 
+          // @ts-ignore
           var dimensions = retrieve2(newMetaRawOption.dimensions, upMetaRawOption.dimensions); // We share source with dataset as much as possible
           // to avoid extra memroy cost of high dimensional data.
 
+          // @ts-ignore
           var needsCreateSource = seriesLayoutBy !== upMetaRawOption.seriesLayoutBy || !!sourceHeader !== !!upMetaRawOption.sourceHeader || dimensions;
           resultSourceList = needsCreateSource ? [createSource(data, {
             seriesLayoutBy: seriesLayoutBy,
@@ -23317,6 +24177,7 @@
             }
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(resultSourceList && upstreamSignList);
         }
@@ -23329,6 +24190,7 @@
         var transformOption = datasetModel.get('transform', true);
         var fromTransformResult = datasetModel.get('fromTransformResult', true);
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(fromTransformResult != null || transformOption != null);
         }
@@ -23337,6 +24199,7 @@
           var errMsg = '';
 
           if (upMgrList.length !== 1) {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = 'When using `fromTransformResult`, there should be only one upstream dataset';
             }
@@ -23354,6 +24217,7 @@
           var errMsg = '';
 
           if (fromTransformResult != null && !upSource) {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = 'Can not retrieve result by `fromTransformResult`: ' + fromTransformResult;
             }
@@ -23427,6 +24291,7 @@
 
 
       SourceManager.prototype.getSharedDataStore = function (seriesDimRequest) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(isSeries(this._sourceHost), 'Can only call getDataStore on series source manager.');
         }
@@ -23770,6 +24635,7 @@
 
     var TooltipMarkupStyleCreator =
     /** @class */
+    // @ts-ignore
     function () {
       function TooltipMarkupStyleCreator() {
         this.richTextStyles = {}; // Notice that "generate a style name" usuall happens repeatly when mouse moving and
@@ -23795,6 +24661,7 @@
         if (isString(marker)) {
           return marker;
         } else {
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(markerId);
           }
@@ -23900,6 +24767,7 @@
     function formatTooltipArrayValue(value, series, dataIndex, tooltipDims, colorStr) {
       // check: category-no-encode-has-axis-data in dataset.html
       var data = series.getData();
+      // @ts-ignore
       var isValueMultipleLine = reduce(value, function (isValueMultipleLine, val, idx) {
         var dimItem = data.getDimensionInfo(idx);
         return isValueMultipleLine = isValueMultipleLine || dimItem && dimItem.tooltip !== false && dimItem.displayName != null;
@@ -23950,6 +24818,7 @@
 
     var SeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SeriesModel, _super);
 
@@ -23972,7 +24841,9 @@
         return _this;
       }
 
+      // @ts-ignore
       SeriesModel.prototype.init = function (option, parentModel, ecModel) {
+        // @ts-ignore
         this.seriesIndex = this.componentIndex;
         this.dataTask = createTask({
           count: dataTaskCount,
@@ -23988,6 +24859,7 @@
         wrapData(data, this);
         this.dataTask.context.data = data;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(data, 'getInitialData returned invalid data.');
         }
@@ -24019,13 +24891,16 @@
         // (for example: parallel) add component mainType,
         // add suffix 'Series'.
 
+        // @ts-ignore
         var themeSubType = this.subType;
 
         if (ComponentModel.hasClass(themeSubType)) {
           themeSubType += 'Series';
         }
 
+        // @ts-ignore
         merge(option, ecModel.getTheme().get(this.subType));
+        // @ts-ignore
         merge(option, this.getDefaultOption()); // Default label emphasis `show`
 
         defaultEmphasis(option, 'label', ['show']);
@@ -24038,11 +24913,13 @@
 
       SeriesModel.prototype.mergeOption = function (newSeriesOption, ecModel) {
         // this.settingTask.dirty();
+        // @ts-ignore
         newSeriesOption = merge(this.option, newSeriesOption, true);
         this.fillDataTextStyle(newSeriesOption.data);
         var layoutMode = fetchLayoutMode(this);
 
         if (layoutMode) {
+          // @ts-ignore
           mergeLayoutParam(this.option, newSeriesOption, layoutMode);
         }
 
@@ -24079,6 +24956,7 @@
        */
 
 
+      // @ts-ignore
       SeriesModel.prototype.getInitialData = function (option, ecModel) {
         return;
       };
@@ -24152,6 +25030,7 @@
       };
 
       SeriesModel.prototype.getEncode = function () {
+        // @ts-ignore
         var encode = this.get('encode', true);
 
         if (encode) {
@@ -24176,6 +25055,7 @@
       };
 
       SeriesModel.prototype.getColorBy = function () {
+        // @ts-ignore
         var colorBy = this.get('colorBy');
         return colorBy || 'series';
       };
@@ -24192,6 +25072,7 @@
 
 
       SeriesModel.prototype.getBaseAxis = function () {
+        // @ts-ignore
         var coordSys = this.coordinateSystem; // @ts-ignore
 
         return coordSys && coordSys.getBaseAxis && coordSys.getBaseAxis();
@@ -24212,6 +25093,7 @@
        */
 
 
+      // @ts-ignore
       SeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         return defaultSeriesFormatTooltip({
           series: this,
@@ -24221,6 +25103,7 @@
       };
 
       SeriesModel.prototype.isAnimationEnabled = function () {
+        // @ts-ignore
         var ecModel = this.ecModel; // Disable animation if using echarts in node but not give ssr flag.
         // In ssr mode, renderToString will generate svg with css animation.
 
@@ -24228,9 +25111,11 @@
           return false;
         }
 
+        // @ts-ignore
         var animationEnabled = this.getShallow('animation');
 
         if (animationEnabled) {
+          // @ts-ignore
           if (this.getData().count() > this.getShallow('animationThreshold')) {
             animationEnabled = false;
           }
@@ -24244,6 +25129,7 @@
       };
 
       SeriesModel.prototype.getColorFromPalette = function (name, scope, requestColorNum) {
+        // @ts-ignore
         var ecModel = this.ecModel; // PENDING
 
         var color = PaletteMixin.prototype.getColorFromPalette.call(this, name, scope, requestColorNum);
@@ -24269,6 +25155,7 @@
 
 
       SeriesModel.prototype.getProgressive = function () {
+        // @ts-ignore
         return this.get('progressive');
       };
       /**
@@ -24277,6 +25164,7 @@
 
 
       SeriesModel.prototype.getProgressiveThreshold = function () {
+        // @ts-ignore
         return this.get('progressiveThreshold');
       }; // PENGING If selectedMode is null ?
 
@@ -24286,16 +25174,19 @@
       };
 
       SeriesModel.prototype.unselect = function (innerDataIndices, dataType) {
+        // @ts-ignore
         var selectedMap = this.option.selectedMap;
 
         if (!selectedMap) {
           return;
         }
 
+        // @ts-ignore
         var selectedMode = this.option.selectedMode;
         var data = this.getData(dataType);
 
         if (selectedMode === 'series' || selectedMap === 'all') {
+          // @ts-ignore
           this.option.selectedMap = {};
           this._selectedDataIndicesMap = {};
           return;
@@ -24305,6 +25196,7 @@
           var dataIndex = innerDataIndices[i];
           var nameOrId = getSelectionKey(data, dataIndex);
           selectedMap[nameOrId] = false;
+          // @ts-ignore
           this._selectedDataIndicesMap[nameOrId] = -1;
         }
       };
@@ -24319,6 +25211,7 @@
       };
 
       SeriesModel.prototype.getSelectedDataIndices = function () {
+        // @ts-ignore
         if (this.option.selectedMap === 'all') {
           return [].slice.call(this.getData().getIndices());
         }
@@ -24328,6 +25221,7 @@
         var dataIndices = [];
 
         for (var i = 0; i < nameOrIds.length; i++) {
+          // @ts-ignore
           var dataIndex = selectedDataIndicesMap[nameOrIds[i]];
 
           if (dataIndex >= 0) {
@@ -24339,6 +25233,7 @@
       };
 
       SeriesModel.prototype.isSelected = function (dataIndex, dataType) {
+        // @ts-ignore
         var selectedMap = this.option.selectedMap;
 
         if (!selectedMap) {
@@ -24354,6 +25249,7 @@
           return true;
         }
 
+        // @ts-ignore
         var universalTransitionOpt = this.option.universalTransition; // Quick reject
 
         if (!universalTransitionOpt) {
@@ -24371,6 +25267,7 @@
       SeriesModel.prototype._innerSelect = function (data, innerDataIndices) {
         var _a, _b;
 
+        // @ts-ignore
         var option = this.option;
         var selectedMode = option.selectedMode;
         var len = innerDataIndices.length;
@@ -24393,6 +25290,7 @@
 
             var nameOrId = getSelectionKey(data, dataIndex);
             selectedMap[nameOrId] = true;
+            // @ts-ignore
             this._selectedDataIndicesMap[nameOrId] = data.getRawIndex(dataIndex);
           }
         } else if (selectedMode === 'single' || selectedMode === true) {
@@ -24406,6 +25304,7 @@
       SeriesModel.prototype._initSelectedMapFromData = function (data) {
         // Ignore select info in data if selectedMap exists.
         // NOTE It's only for legacy usage. edge data is not supported.
+        // @ts-ignore
         if (this.option.selectedMap) {
           return;
         }
@@ -24509,6 +25408,7 @@
 
       if (task) {
         // Consider case: filter, selectRange
+        // @ts-ignore
         task.setOutputEnd((newList || this).count());
       }
 
@@ -24538,24 +25438,31 @@
 
     var ComponentView =
     /** @class */
+    // @ts-ignore
     function () {
       function ComponentView() {
         this.group = new Group();
         this.uid = getUID('viewComponent');
       }
 
+      // @ts-ignore
       ComponentView.prototype.init = function (ecModel, api) {};
 
+      // @ts-ignore
       ComponentView.prototype.render = function (model, ecModel, api, payload) {};
 
+      // @ts-ignore
       ComponentView.prototype.dispose = function (ecModel, api) {};
 
+      // @ts-ignore
       ComponentView.prototype.updateView = function (model, ecModel, api, payload) {// Do nothing;
       };
 
+      // @ts-ignore
       ComponentView.prototype.updateLayout = function (model, ecModel, api, payload) {// Do nothing;
       };
 
+      // @ts-ignore
       ComponentView.prototype.updateVisual = function (model, ecModel, api, payload) {// Do nothing;
       };
       /**
@@ -24564,6 +25471,7 @@
        */
 
 
+      // @ts-ignore
       ComponentView.prototype.blurSeries = function (seriesModels, ecModel) {// Do nothing;
       };
       /**
@@ -24593,6 +25501,7 @@
 
     function createRenderPlanner() {
       var inner = makeInner();
+      // @ts-ignore
       return function (seriesModel) {
         var fields = inner(seriesModel);
         var pipelineContext = seriesModel.pipelineContext;
@@ -24612,6 +25521,7 @@
 
     var ChartView =
     /** @class */
+    // @ts-ignore
     function () {
       function ChartView() {
         this.group = new Group();
@@ -24625,9 +25535,12 @@
         };
       }
 
+      // @ts-ignore
       ChartView.prototype.init = function (ecModel, api) {};
 
+      // @ts-ignore
       ChartView.prototype.render = function (seriesModel, ecModel, api, payload) {
+        // @ts-ignore
         if ("development" !== 'production') {
           throw new Error('render method must been implemented');
         }
@@ -24637,10 +25550,12 @@
        */
 
 
+      // @ts-ignore
       ChartView.prototype.highlight = function (seriesModel, ecModel, api, payload) {
         var data = seriesModel.getData(payload && payload.dataType);
 
         if (!data) {
+          // @ts-ignore
           if ("development" !== 'production') {
             error("Unknown dataType " + payload.dataType);
           }
@@ -24655,10 +25570,12 @@
        */
 
 
+      // @ts-ignore
       ChartView.prototype.downplay = function (seriesModel, ecModel, api, payload) {
         var data = seriesModel.getData(payload && payload.dataType);
 
         if (!data) {
+          // @ts-ignore
           if ("development" !== 'production') {
             error("Unknown dataType " + payload.dataType);
           }
@@ -24673,6 +25590,7 @@
        */
 
 
+      // @ts-ignore
       ChartView.prototype.remove = function (ecModel, api) {
         this.group.removeAll();
       };
@@ -24681,6 +25599,7 @@
        */
 
 
+      // @ts-ignore
       ChartView.prototype.dispose = function (ecModel, api) {};
 
       ChartView.prototype.updateView = function (seriesModel, ecModel, api, payload) {
@@ -24748,6 +25667,7 @@
     enableClassManagement(ChartView);
 
     function renderTaskPlan(context) {
+      // @ts-ignore
       return renderPlanner(context.model);
     }
 
@@ -24783,6 +25703,7 @@
         // twise. Use `forceFirstProgress` to make sure that view.render is called
         // in any cases.
         forceFirstProgress: true,
+        // @ts-ignore
         progress: function (params, context) {
           context.view.render(context.model, context.ecModel, context.api, context.payload);
         }
@@ -24869,6 +25790,7 @@
         }
 
         currCall = new Date().getTime();
+        // @ts-ignore
         scope = this;
         args = cbArgs;
         var thisDelay = debounceNextCall || delay;
@@ -25195,8 +26117,10 @@
       var group = new Group();
       var mask = new Rect({
         style: {
+          // @ts-ignore
           fill: opts.maskColor
         },
+        // @ts-ignore
         zlevel: opts.zlevel,
         z: 10000
       });
@@ -25205,11 +26129,16 @@
         style: {
           text: opts.text,
           fill: opts.textColor,
+          // @ts-ignore
           fontSize: opts.fontSize,
+          // @ts-ignore
           fontWeight: opts.fontWeight,
+          // @ts-ignore
           fontStyle: opts.fontStyle,
+          // @ts-ignore
           fontFamily: opts.fontFamily
         },
+        // @ts-ignore
         zlevel: opts.zlevel,
         z: 10001
       });
@@ -25222,30 +26151,37 @@
           position: 'right',
           distance: 10
         },
+        // @ts-ignore
         zlevel: opts.zlevel,
         z: 10001
       });
       group.add(labelRect);
       var arc;
 
+      // @ts-ignore
       if (opts.showSpinner) {
         arc = new Arc({
           shape: {
             startAngle: -PI$3 / 2,
             endAngle: -PI$3 / 2 + 0.1,
+            // @ts-ignore
             r: opts.spinnerRadius
           },
           style: {
             stroke: opts.color,
             lineCap: 'round',
+            // @ts-ignore
             lineWidth: opts.lineWidth
           },
+          // @ts-ignore
           zlevel: opts.zlevel,
           z: 10001
         });
+        // @ts-ignore
         arc.animateShape(true).when(1000, {
           endAngle: PI$3 * 3 / 2
         }).start('circularInOut');
+        // @ts-ignore
         arc.animateShape(true).when(1000, {
           startAngle: PI$3 * 3 / 2
         }).delay(300).start('circularInOut');
@@ -25253,25 +26189,32 @@
       } // Inject resize
 
 
+      // @ts-ignore
       group.resize = function () {
         var textWidth = textContent.getBoundingRect().width;
+        // @ts-ignore
         var r = opts.showSpinner ? opts.spinnerRadius : 0; // cx = (containerWidth - arcDiameter - textDistance - textWidth) / 2
         // textDistance needs to be calculated when both animation and text exist
 
+        // @ts-ignore
         var cx = (api.getWidth() - r * 2 - (opts.showSpinner && textWidth ? 10 : 0) - textWidth) / 2 - (opts.showSpinner && textWidth ? 0 : 5 + textWidth / 2) // only show the text
+        // @ts-ignore
         + (opts.showSpinner ? 0 : textWidth / 2) // only show the spinner
         + (textWidth ? 0 : r);
         var cy = api.getHeight() / 2;
+        // @ts-ignore
         opts.showSpinner && arc.setShape({
           cx: cx,
           cy: cy
         });
+        // @ts-ignore
         labelRect.setShape({
           x: cx - r,
           y: cy - r,
           width: r * 2,
           height: r * 2
         });
+        // @ts-ignore
         mask.setShape({
           x: 0,
           y: 0,
@@ -25280,12 +26223,14 @@
         });
       };
 
+      // @ts-ignore
       group.resize();
       return group;
     }
 
     var Scheduler =
     /** @class */
+    // @ts-ignore
     function () {
       function Scheduler(ecInstance, api, dataProcessorHandlers, visualHandlers) {
         // key: handlerUID
@@ -25339,6 +26284,7 @@
           return;
         }
 
+        // @ts-ignore
         var pipeline = this._pipelineMap.get(task.__pipeline.id);
 
         var pCtx = pipeline.context;
@@ -25354,6 +26300,7 @@
       };
 
       Scheduler.prototype.getPipeline = function (pipelineId) {
+        // @ts-ignore
         return this._pipelineMap.get(pipelineId);
       };
       /**
@@ -25366,6 +26313,7 @@
 
 
       Scheduler.prototype.updateStreamModes = function (seriesModel, view) {
+        // @ts-ignore
         var pipeline = this._pipelineMap.get(seriesModel.uid);
 
         var data = seriesModel.getData();
@@ -25416,13 +26364,16 @@
           var record = stageTaskMap.get(handler.uid) || stageTaskMap.set(handler.uid, {});
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             // Currently do not need to support to sepecify them both.
             errMsg = '"reset" and "overallReset" must not be both specified.';
           }
 
           assert(!(handler.reset && handler.overallReset), errMsg);
+          // @ts-ignore
           handler.reset && this._createSeriesStageTask(handler, record, ecModel, api);
+          // @ts-ignore
           handler.overallReset && this._createOverallStageTask(handler, record, ecModel, api);
         }, this);
       };
@@ -25453,6 +26404,7 @@
         opt = opt || {};
         var unfinished = false;
         var scheduler = this;
+        // @ts-ignore
         each(stageHandlers, function (stageHandler, idx) {
           if (opt.visualType && opt.visualType !== stageHandler.visualType) {
             return;
@@ -25487,6 +26439,7 @@
               unfinished = true;
             }
           } else if (seriesTaskMap) {
+            // @ts-ignore
             seriesTaskMap.each(function (task, pipelineId) {
               if (needSetDirty(opt, task)) {
                 task.dirty();
@@ -25501,6 +26454,7 @@
               // of providing the config `performRawSeries`. The stream-dependent operaions
               // and stream-independent operations should better not be mixed.
 
+              // @ts-ignore
               performArgs.skip = !stageHandler.performRawSeries && ecModel.isSeriesFiltered(task.context.model);
               scheduler.updatePayload(task, payload);
 
@@ -25529,6 +26483,7 @@
 
       Scheduler.prototype.plan = function () {
         // Travel pipelines, check block.
+        // @ts-ignore
         this._pipelineMap.each(function (pipeline) {
           var task = pipeline.tail;
 
@@ -25618,6 +26573,7 @@
 
         var errMsg = '';
 
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = '"createOnAllSeries" do not supported for "overallReset", ' + 'becuase it will block all streams.';
         }
@@ -25665,6 +26621,7 @@
       Scheduler.prototype._pipe = function (seriesModel, task) {
         var pipelineId = seriesModel.uid;
 
+        // @ts-ignore
         var pipeline = this._pipelineMap.get(pipelineId);
 
         !pipeline.head && (pipeline.head = task);
@@ -25698,11 +26655,14 @@
     }
 
     function stubProgress() {
+      // @ts-ignore
       this.agent.dirty();
+      // @ts-ignore
       this.getDownstream().dirty();
     }
 
     function stubOnDirty() {
+      // @ts-ignore
       this.agent && this.agent.dirty();
     }
 
@@ -25716,6 +26676,7 @@
       }
 
       var resetDefines = context.resetDefines = normalizeToArray(context.reset(context.model, context.ecModel, context.api, context.payload));
+      // @ts-ignore
       return resetDefines.length > 1 ? map(resetDefines, function (v, idx) {
         return makeSeriesTaskProgress(idx);
       }) : singleSeriesTaskProgress;
@@ -26078,6 +27039,7 @@
 
     var ECEventProcessor =
     /** @class */
+    // @ts-ignore
     function () {
       function ECEventProcessor() {}
 
@@ -26324,6 +27286,7 @@
           return data.getItemVisual(dataIndex, key);
 
         default:
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn("Unknown visual type " + key);
           }
@@ -26345,6 +27308,7 @@
           return data.getVisual(key);
 
         default:
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn("Unknown visual type " + key);
           }
@@ -26372,6 +27336,7 @@
           break;
 
         default:
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn("Unknown visual type " + key);
           }
@@ -26398,6 +27363,7 @@
         ecRegisterAction(eventsMap[0], function (payload, ecModel, api) {
           payload = extend({}, payload);
 
+          // @ts-ignore
           if ("development" !== 'production') {
             deprecateReplaceLog(payload.type, eventsMap[1]);
           }
@@ -26414,6 +27380,7 @@
       var legacyEventName = type + eventPostfix;
 
       if (!ecIns.isSilent(legacyEventName)) {
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateLog("event " + legacyEventName + " is deprecated.");
         }
@@ -26791,20 +27758,25 @@
     }); // Provide setColor helper method to avoid determine if set the fill or stroke outside
 
     function symbolPathSetColor(color, innerColor) {
+      // @ts-ignore
       if (this.type !== 'image') {
+        // @ts-ignore
         var symbolStyle = this.style;
 
+        // @ts-ignore
         if (this.__isEmptyBrush) {
           symbolStyle.stroke = color;
           symbolStyle.fill = innerColor || '#fff'; // TODO Same width with lineStyle in LineView
 
           symbolStyle.lineWidth = 2;
+        // @ts-ignore
         } else if (this.shape.symbolType === 'line') {
           symbolStyle.stroke = color;
         } else {
           symbolStyle.fill = color;
         }
 
+        // @ts-ignore
         this.markRedraw();
       }
     }
@@ -26840,11 +27812,14 @@
         });
       }
 
+      // @ts-ignore
       symbolPath.__isEmptyBrush = isEmpty; // TODO Should deprecate setColor
 
+      // @ts-ignore
       symbolPath.setColor = symbolPathSetColor;
 
       if (color) {
+        // @ts-ignore
         symbolPath.setColor(color);
       }
 
@@ -26937,6 +27912,7 @@
         if (opts[wh] != null && opts[wh] !== 'auto') {
             return parseFloat(opts[wh]);
         }
+        // @ts-ignore
         var stl = document.defaultView.getComputedStyle(root);
         return ((root[cwh] || parseInt10(stl[wh]) || parseInt10(root.style[wh]))
             - (parseInt10(stl[plt]) || 0)
@@ -27422,7 +28398,9 @@
             forceSetStyle = forceSetTransform = true;
         }
         var canBatchPath = el instanceof Path
+            // @ts-ignore
             && el.autoBatch
+            // @ts-ignore
             && canPathBatch(el.style);
         if (forceSetTransform || isTransformChanged(m, prevEl.transform)) {
             flushPathDrawn(ctx, scope);
@@ -27664,6 +28642,7 @@
           width *= symbolRepeats;
           var height = lineBlockLengthY * lineBlockLengthsX.length * symbolArray.length;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             var warn = function (attrName) {
               /* eslint-disable-next-line */
@@ -27687,10 +28666,12 @@
 
         function brushDecal() {
           if (ctx) {
+            // @ts-ignore
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             if (decalOpt.backgroundColor) {
               ctx.fillStyle = decalOpt.backgroundColor;
+              // @ts-ignore
               ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
           }
@@ -27774,6 +28755,7 @@
               var symbolVNode = zr.painter.renderOneToVNode(symbol);
 
               if (symbolVNode) {
+                // @ts-ignore
                 svgRoot.children.push(symbolVNode);
               }
             } else {
@@ -27810,6 +28792,7 @@
       }
 
       if (isAllString) {
+        // @ts-ignore
         return normalizeSymbolArray([symbol]);
       }
 
@@ -27823,6 +28806,7 @@
         }
       }
 
+      // @ts-ignore
       return result;
     }
     /**
@@ -27868,13 +28852,16 @@
           var dashValue = Math.ceil(dash[i]);
           result.push([dashValue, dashValue]);
         } else {
+          // @ts-ignore
           var dashValue = map(dash[i], function (n) {
             return Math.ceil(n);
           });
 
+          // @ts-ignore
           if (dashValue.length % 2 === 1) {
             // [4, 2, 1] means |----  -    -- |----  -    -- |
             // so normalize it to be [4, 2, 1, 4, 2, 1]
+            // @ts-ignore
             result.push(dashValue.concat(dashValue));
           } else {
             result.push(dashValue);
@@ -27975,6 +28962,7 @@
     var implsStore = {}; // TODO Type
 
     function registerImpl(name, impl) {
+      // @ts-ignore
       if ("development" !== 'production') {
         if (implsStore[name]) {
           error("Already has an implementation of " + name + ".");
@@ -27984,6 +28972,7 @@
       implsStore[name] = impl;
     }
     function getImpl(name) {
+      // @ts-ignore
       if ("development" !== 'production') {
         if (!implsStore[name]) {
           error("Implementation of " + name + " doesn't exists.");
@@ -28064,11 +29053,14 @@
           args[_i] = arguments[_i];
         }
 
+        // @ts-ignore
         if (this.isDisposed()) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
 
+        // @ts-ignore
         return toLowercaseNameAndCallEventful(this, method, args);
       };
     }
@@ -28081,6 +29073,7 @@
           args[_i] = arguments[_i];
         }
 
+        // @ts-ignore
         return toLowercaseNameAndCallEventful(this, method, args);
       };
     }
@@ -28093,10 +29086,12 @@
 
     var MessageCenter =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MessageCenter, _super);
 
       function MessageCenter() {
+        // @ts-ignore
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
@@ -28130,11 +29125,13 @@
 
     var ECharts =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ECharts, _super);
 
       function ECharts(dom, // Theme name or themeOption.
       theme, opts) {
+        // @ts-ignore
         var _this = _super.call(this, new ECEventProcessor()) || this;
 
         _this._chartsViews = [];
@@ -28142,6 +29139,7 @@
         _this._componentsViews = [];
         _this._componentsMap = {}; // Can't dispatch action during rendering procedure
 
+        // @ts-ignore
         _this._pendingActions = [];
         opts = opts || {}; // Get theme by name
 
@@ -28153,6 +29151,7 @@
         var defaultRenderer = 'canvas';
         var defaultUseDirtyRect = false;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           var root =
           /* eslint-disable-next-line */
@@ -28170,12 +29169,14 @@
           ssr: opts.ssr,
           useDirtyRect: opts.useDirtyRect == null ? defaultUseDirtyRect : opts.useDirtyRect
         });
+        // @ts-ignore
         _this._ssr = opts.ssr; // Expect 60 fps.
 
         _this._throttledZrFlush = throttle(bind(zr.flush, zr), 17);
         theme = clone(theme);
         theme && globalBackwardCompat(theme, true);
         _this._theme = theme;
+        // @ts-ignore
         _this._locale = createLocaleObject(opts.locale || SYSTEM_LANG);
         _this._coordSysMgr = new CoordinateSystemManager();
         var api = _this._api = createExtensionAPI(_this); // Sort on demand
@@ -28193,6 +29194,7 @@
 
 
         _this.resize = bind(_this.resize, _this);
+        // @ts-ignore
         zr.animation.on('frame', _this._onframe, _this);
         bindRenderedEvent(zr, _this);
         bindMouseEvent(zr, _this); // ECharts instance can be used as value.
@@ -28273,6 +29275,7 @@
       };
 
       ECharts.prototype.getId = function () {
+        // @ts-ignore
         return this.id;
       };
 
@@ -28281,6 +29284,7 @@
       };
 
       ECharts.prototype.isSSR = function () {
+        // @ts-ignore
         return this._ssr;
       };
       /* eslint-disable-next-line */
@@ -28288,6 +29292,7 @@
 
       ECharts.prototype.setOption = function (option, notMerge, lazyUpdate) {
         if (this[IN_MAIN_PROCESS_KEY]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             error('`setOption` should not be called during main process.');
           }
@@ -28296,6 +29301,7 @@
         }
 
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28319,7 +29325,9 @@
           var theme = this._theme;
           var ecModel = this._model = new GlobalModel();
           ecModel.scheduler = this._scheduler;
+          // @ts-ignore
           ecModel.ssr = this._ssr;
+          // @ts-ignore
           ecModel.init(null, null, null, theme, this._locale, optionManager);
         }
 
@@ -28353,6 +29361,7 @@
           // fetched after `setOption`.
 
 
+          // @ts-ignore
           if (!this._ssr) {
             // not use flush when using ssr mode.
             this._zr.flush();
@@ -28402,6 +29411,7 @@
 
 
       ECharts.prototype.getRenderedCanvas = function (opts) {
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateReplaceLog('getRenderedCanvas', 'renderToCanvas');
         }
@@ -28413,6 +29423,7 @@
         opts = opts || {};
         var painter = this._zr.painter;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (painter.type !== 'canvas') {
             throw new Error('renderToCanvas can only be used in the canvas renderer.');
@@ -28429,6 +29440,7 @@
         opts = opts || {};
         var painter = this._zr.painter;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (painter.type !== 'svg') {
             throw new Error('renderToSVGString can only be used in the svg renderer.');
@@ -28460,6 +29472,7 @@
 
       ECharts.prototype.getDataURL = function (opts) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28490,11 +29503,13 @@
 
       ECharts.prototype.getConnectedDataURL = function (opts) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
 
         var isSvg = opts.type === 'svg';
+        // @ts-ignore
         var groupId = this.group;
         var mathMin = Math.min;
         var mathMax = Math.max;
@@ -28507,6 +29522,7 @@
           var bottom_1 = -MAX_NUMBER;
           var canvasList_1 = [];
           var dpr_1 = opts && opts.pixelRatio || this.getDevicePixelRatio();
+          // @ts-ignore
           each(instances$1, function (chart, id) {
             if (chart.group === groupId) {
               var canvas = isSvg ? chart.getZr().painter.getSvgDom().innerHTML : chart.renderToCanvas(clone(opts));
@@ -28579,6 +29595,7 @@
               zr_1.add(img);
             });
             zr_1.refreshImmediately();
+            // @ts-ignore
             return targetCanvas.toDataURL('image/' + (opts && opts.type || 'png'));
           }
         } else {
@@ -28602,7 +29619,9 @@
 
       ECharts.prototype.containPixel = function (finder, value) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
+          // @ts-ignore
           return;
         }
 
@@ -28616,20 +29635,24 @@
             if (coordSys && coordSys.containPoint) {
               result = result || !!coordSys.containPoint(value);
             } else if (key === 'seriesModels') {
+              // @ts-ignore
               var view = this._chartsMap[model.__viewId];
 
               if (view && view.containPoint) {
                 result = result || view.containPoint(value, model);
               } else {
+                // @ts-ignore
                 if ("development" !== 'production') {
                   console.warn(key + ': ' + (view ? 'The found component do not support containPoint.' : 'No view mapping to the found component.'));
                 }
               }
             } else {
+              // @ts-ignore
               if ("development" !== 'production') {
                 console.warn(key + ': containPoint is not supported');
               }
             }
+          // @ts-ignore
           }, this);
         }, this);
         return !!result;
@@ -28658,6 +29681,7 @@
         });
         var seriesModel = parsedFinder.seriesModel;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!seriesModel) {
             console.warn('There is no specified seires model');
@@ -28722,7 +29746,9 @@
 
 
             if (params) {
+              // @ts-ignore
               var componentType = params.componentType;
+              // @ts-ignore
               var componentIndex = params.componentIndex; // Special handling for historic reason: when trigger by
               // markLine/markPoint/markArea, the componentType is
               // 'markLine'/'markPoint'/'markArea', but we should better
@@ -28731,12 +29757,14 @@
 
               if (componentType === 'markLine' || componentType === 'markPoint' || componentType === 'markArea') {
                 componentType = 'series';
+                // @ts-ignore
                 componentIndex = params.seriesIndex;
               }
 
               var model = componentType && componentIndex != null && ecModel.getComponent(componentType, componentIndex);
               var view = model && _this[model.mainType === 'series' ? '_chartsMap' : '_componentsMap'][model.__viewId];
 
+              // @ts-ignore
               if ("development" !== 'production') {
                 // `event.componentType` and `event[componentTpype + 'Index']` must not
                 // be missed, otherwise there is no way to distinguish source component.
@@ -28746,8 +29774,11 @@
                 }
               }
 
+              // @ts-ignore
               params.event = e;
+              // @ts-ignore
               params.type = eveName;
+              // @ts-ignore
               _this._$eventProcessor.eventInfo = {
                 targetEl: el,
                 packedEvent: params,
@@ -28755,6 +29786,7 @@
                 view: view
               };
 
+              // @ts-ignore
               _this.trigger(eveName, params);
             }
           }; // Consider that some component (like tooltip, brush, ...)
@@ -28768,8 +29800,10 @@
 
           _this._zr.on(eveName, handler, _this);
         });
+        // @ts-ignore
         each(eventActionMap, function (actionType, eventType) {
           _this._messageCenter.on(eventType, function (event) {
+            // @ts-ignore
             this.trigger(eventType, event);
           }, _this);
         }); // Extra events
@@ -28777,6 +29811,7 @@
 
         each(['selectchanged'], function (eventType) {
           _this._messageCenter.on(eventType, function (event) {
+            // @ts-ignore
             this.trigger(eventType, event);
           }, _this);
         });
@@ -28789,6 +29824,7 @@
 
       ECharts.prototype.clear = function () {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28800,6 +29836,7 @@
 
       ECharts.prototype.dispose = function () {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28826,6 +29863,7 @@
 
 
         chart._dom = chart._model = chart._chartsMap = chart._componentsMap = chart._chartsViews = chart._componentsViews = chart._scheduler = chart._api = chart._zr = chart._throttledZrFlush = chart._theme = chart._coordSysMgr = chart._messageCenter = null;
+        // @ts-ignore
         delete instances$1[chart.id];
       };
       /**
@@ -28835,6 +29873,7 @@
 
       ECharts.prototype.resize = function (opts) {
         if (this[IN_MAIN_PROCESS_KEY]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             error('`resize` should not be called during main process.');
           }
@@ -28843,6 +29882,7 @@
         }
 
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28894,6 +29934,7 @@
 
       ECharts.prototype.showLoading = function (name, cfg) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28907,6 +29948,7 @@
         this.hideLoading();
 
         if (!loadingEffects[name]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn('Loading effects ' + name + ' not exists.');
           }
@@ -28926,6 +29968,7 @@
 
       ECharts.prototype.hideLoading = function () {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28952,6 +29995,7 @@
 
       ECharts.prototype.dispatchAction = function (payload, opt) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -28973,6 +30017,7 @@
 
 
         if (this[IN_MAIN_PROCESS_KEY]) {
+          // @ts-ignore
           this._pendingActions.push(payload);
 
           return;
@@ -29007,6 +30052,7 @@
 
       ECharts.prototype.appendData = function (params) {
         if (this._disposed) {
+          // @ts-ignore
           disposedWarning(this.id);
           return;
         }
@@ -29015,6 +30061,7 @@
         var ecModel = this.getModel();
         var seriesModel = ecModel.getSeriesByIndex(seriesIndex);
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(params.data && seriesModel);
         }
@@ -29086,6 +30133,7 @@
               // But need a base class to make a type series.
               ChartView.getClass(classType.sub);
 
+              // @ts-ignore
               if ("development" !== 'production') {
                 assert(Clazz, classType.sub + ' does not exist.');
               }
@@ -29406,6 +30454,7 @@
             }
           }
 
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn('No coordinate system that supports ' + methodName + ' found by the given finder.');
           }
@@ -29422,6 +30471,7 @@
         doDispatchAction = function (payload, silent) {
           var _this = this;
 
+          // @ts-ignore
           var ecModel = this.getModel();
           var payloadType = payload.type;
           var escapeConnect = payload.escapeConnect;
@@ -29449,11 +30499,13 @@
           var isHighDown = isHighDownPayload(payload); // Only leave blur once if there are multiple batches.
 
           if (isHighDown) {
+            // @ts-ignore
             allLeaveBlur(this._api);
           }
 
           each(payloads, function (batchItem) {
             // Action can specify the event by return it.
+            // @ts-ignore
             eventObj = actionWrap.action(batchItem, _this._model, _this._api); // Emit event outside
 
             eventObj = eventObj || extend({}, batchItem); // Convert type to eventType
@@ -29509,6 +30561,7 @@
           this[IN_MAIN_PROCESS_KEY] = false;
 
           if (!silent) {
+            // @ts-ignore
             var messageCenter = this._messageCenter;
             messageCenter.trigger(eventObj.type, eventObj); // Extra triggered 'selectchanged' event
 
@@ -29527,15 +30580,18 @@
         };
 
         flushPendingActions = function (silent) {
+          // @ts-ignore
           var pendingActions = this._pendingActions;
 
           while (pendingActions.length) {
             var payload = pendingActions.shift();
+            // @ts-ignore
             doDispatchAction.call(this, payload, silent);
           }
         };
 
         triggerUpdatedEvent = function (silent) {
+          // @ts-ignore
           !silent && this.trigger('updated');
         };
         /**
@@ -29687,6 +30743,7 @@
           });
         };
 
+        // @ts-ignore
         renderComponents = function (ecIns, ecModel, api, payload, updateParams, dirtyList) {
           each(dirtyList || ecIns._componentsViews, function (componentView) {
             var componentModel = componentView.__model;
@@ -29897,6 +30954,7 @@
         // TODO States on component.
 
 
+        // @ts-ignore
         function clearStates(model, view) {
           view.eachRendered(function (el) {
             // Not applied on removed elements, it may still in fading.
@@ -29986,6 +31044,7 @@
         createExtensionAPI = function (ecIns) {
           return new (
           /** @class */
+          // @ts-ignore
           function (_super) {
             __extends(class_1, _super);
 
@@ -30063,6 +31122,7 @@
             }
           }
 
+          // @ts-ignore
           each(eventActionMap, function (actionType, eventType) {
             chart._messageCenter.on(eventType, function (event) {
               if (connectedGroups[chart.group] && chart[CONNECT_STATUS_KEY] !== CONNECT_STATUS_PENDING) {
@@ -30112,6 +31172,7 @@
           args2[_i] = arguments[_i];
         }
 
+        // @ts-ignore
         cb && cb.apply && cb.apply(this, args2); // @ts-ignore
 
         self.off(eventName, wrapped);
@@ -30123,6 +31184,7 @@
     var MOUSE_EVENT_NAMES = ['click', 'dblclick', 'mouseover', 'mouseout', 'mousemove', 'mousedown', 'mouseup', 'globalout', 'contextmenu'];
 
     function disposedWarning(id) {
+      // @ts-ignore
       if ("development" !== 'production') {
         console.warn('Instance ' + id + ' has been disposed');
       }
@@ -30159,6 +31221,7 @@
       var isClient = !(opts && opts.ssr);
 
       if (isClient) {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!dom) {
             throw new Error('Initialize failed: invalid dom.');
@@ -30168,6 +31231,7 @@
         var existInstance = getInstanceByDom(dom);
 
         if (existInstance) {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn('There is a chart instance already initialized on the dom.');
           }
@@ -30175,6 +31239,7 @@
           return existInstance;
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (isDom(dom) && dom.nodeName.toUpperCase() !== 'CANVAS' && (!dom.clientWidth && (!opts || opts.width == null) || !dom.clientHeight && (!opts || opts.height == null))) {
             console.warn('Can\'t get DOM width or height. Please check ' + 'dom.clientWidth and dom.clientHeight. They should not be 0.' + 'For example, you may need to call this in the callback ' + 'of window.onload.');
@@ -30362,6 +31427,7 @@
         priority = defaultPriority;
       }
 
+      // @ts-ignore
       if ("development" !== 'production') {
         if (isNaN(priority) || priority == null) {
           throw new Error('Illegal priority');
@@ -30406,6 +31472,7 @@
      */
 
     function setCanvasCreator(creator) {
+      // @ts-ignore
       if ("development" !== 'production') {
         deprecateLog('setCanvasCreator is deprecated. Use setPlatformAPI({ createCanvas }) instead.');
       }
@@ -30601,6 +31668,7 @@
 
     var DataDiffer =
     /** @class */
+    // @ts-ignore
     function () {
       /**
        * @param context Can be visited by this.context in callback.
@@ -30842,6 +31910,7 @@
 
     var DimensionUserOuput =
     /** @class */
+    // @ts-ignore
     function () {
       function DimensionUserOuput(encode, dimRequest) {
         this._encode = encode;
@@ -30876,6 +31945,7 @@
     }();
     function summarizeDimensions(data, schema) {
       var summary = {};
+      // @ts-ignore
       var encode = summary.encode = {};
       var notExtraCoordDimMap = createHashMap();
       var defaultedLabel = [];
@@ -30886,6 +31956,7 @@
         var coordDim = dimItem.coordDim;
 
         if (coordDim) {
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(VISUAL_DIMENSIONS.get(coordDim) == null);
           }
@@ -30913,6 +31984,7 @@
           }
         }
 
+        // @ts-ignore
         VISUAL_DIMENSIONS.each(function (v, otherDim) {
           var encodeArr = getOrCreateEncodeArr(encode, otherDim);
           var dimIndex = dimItem.otherDims[otherDim];
@@ -30924,6 +31996,7 @@
       });
       var dataDimsOnCoord = [];
       var encodeFirstDimNotExtra = {};
+      // @ts-ignore
       notExtraCoordDimMap.each(function (v, coordDim) {
         var dimArr = encode[coordDim];
         encodeFirstDimNotExtra[coordDim] = dimArr[0]; // Not necessary to remove duplicate, because a data
@@ -30989,6 +32062,7 @@
 
     var SeriesDimensionDefine =
     /** @class */
+    // @ts-ignore
     function () {
       /**
        * @param opt All of the fields will be shallow copied.
@@ -31059,6 +32133,7 @@
 
     var SeriesDataSchema =
     /** @class */
+    // @ts-ignore
     function () {
       function SeriesDataSchema(opt) {
         this.dimensions = opt.dimensions;
@@ -31155,6 +32230,7 @@
           // So we do not add property to hash to make sure they can share this store.
           && (!seriesDimDef || !seriesDimDef.isCalculationCoord)) {
             dimHash += makeHashStrict // Use escape character '`' in case that property name contains '$'.
+            // @ts-ignore
             ? property.replace(/\`/g, '`1').replace(/\$/g, '`2') // For better performance, when there are large dimensions, tolerant this defects that hardly meet.
             : property;
           }
@@ -31163,6 +32239,7 @@
           dimHash += dimTypeShort[type] || 'f';
 
           if (ordinalMeta) {
+            // @ts-ignore
             dimHash += ordinalMeta.uid;
           }
 
@@ -31267,6 +32344,7 @@
 
     var SeriesData =
     /** @class */
+    // @ts-ignore
     function () {
       /**
        * @param dimensionsInput.dimensions
@@ -31350,14 +32428,17 @@
             invertedIndicesMap[dimensionName] = [];
           }
 
+          // @ts-ignore
           if (otherDims.itemName === 0) {
             this._nameDimIdx = i;
           }
 
+          // @ts-ignore
           if (otherDims.itemId === 0) {
             this._idDimIdx = i;
           }
 
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(assignStoreDimIdx || dimensionInfo.storeDimIndex >= 0);
           }
@@ -31411,11 +32492,13 @@
         dimIdx = dim;
 
         if (!this._dimOmitted) {
+          // @ts-ignore
           return this.dimensions[dimIdx];
         } // Retrieve from series dimension definition becuase it probably contains
         // generated dimension name (like 'x', 'y').
 
 
+        // @ts-ignore
         var dimName = this._dimIdxToName.get(dimIdx);
 
         if (dimName != null) {
@@ -31445,6 +32528,7 @@
           return -1;
         }
 
+        // @ts-ignore
         var dimInfo = this._getDimInfo(dim);
 
         return dimInfo ? dimInfo.storeDimIndex : this._dimOmitted ? this._schema.getSourceDimensionIndex(dim) : -1;
@@ -31472,6 +32556,7 @@
 
       SeriesData.prototype._recognizeDimIndex = function (dim) {
         if (isNumber(dim) // If being a number-like string but not being defined as a dimension name.
+        // @ts-ignore
         || dim != null && !isNaN(dim) && !this._getDimInfo(dim) && (!this._dimOmitted || this._schema.getSourceDimensionIndex(dim) < 0)) {
           return +dim;
         }
@@ -31480,6 +32565,7 @@
       SeriesData.prototype._getStoreDimIndex = function (dim) {
         var dimIdx = this.getDimensionIndex(dim);
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (dimIdx == null) {
             throw new Error('Unkown dimension ' + dim);
@@ -31498,6 +32584,7 @@
 
       SeriesData.prototype.getDimensionInfo = function (dim) {
         // Do not clone, because there may be categories in dimInfo.
+        // @ts-ignore
         return this._getDimInfo(this.getDimension(dim));
       };
 
@@ -31515,6 +32602,7 @@
 
 
       SeriesData.prototype.getDimensionsOnCoord = function () {
+        // @ts-ignore
         return this._dimSummary.dataDimsOnCoord.slice();
       };
 
@@ -31522,15 +32610,18 @@
         var dimensionsSummary = this._dimSummary;
 
         if (idx == null) {
+          // @ts-ignore
           return dimensionsSummary.encodeFirstDimNotExtra[coordDim];
         }
 
+        // @ts-ignore
         var dims = dimensionsSummary.encode[coordDim];
         return dims ? dims[idx] : null;
       };
 
       SeriesData.prototype.mapDimensionsAll = function (coordDim) {
         var dimensionsSummary = this._dimSummary;
+        // @ts-ignore
         var dims = dimensionsSummary.encode[coordDim];
         return (dims || []).slice();
       };
@@ -31854,6 +32945,7 @@
 
 
       SeriesData.prototype.hasValue = function (idx) {
+        // @ts-ignore
         var dataDimIndicesOnCoord = this._dimSummary.dataDimIndicesOnCoord;
 
         for (var i = 0, len = dataDimIndicesOnCoord.length; i < len; i++) {
@@ -31901,6 +32993,7 @@
       SeriesData.prototype.rawIndexOf = function (dim, value) {
         var invertedIndices = dim && this._invertedIndicesMap[dim];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!invertedIndices) {
             throw new Error('Do not supported yet');
@@ -31993,6 +33086,7 @@
         ctx = ctx || this;
         var result = [];
         this.each(dims, function () {
+          // @ts-ignore
           result.push(cb && cb.apply(this, arguments));
         }, ctx);
         return result;
@@ -32013,6 +33107,7 @@
 
         var fCtx = ctx || ctxCompat || this;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           each(normalizeDimensions(dims), function (dim) {
             var dimInfo = _this.getDimensionInfo(dim);
@@ -32219,6 +33314,7 @@
 
       SeriesData.prototype.setItemGraphicEl = function (idx, el) {
         var seriesIndex = this.hostModel && this.hostModel.seriesIndex;
+        // @ts-ignore
         setCommonECData(seriesIndex, this.dataType, idx, el);
         this._graphicEls[idx] = el;
       };
@@ -32723,6 +33819,7 @@
 
     var CoordSysInfo =
     /** @class */
+    // @ts-ignore
     function () {
       function CoordSysInfo(coordSysName) {
         this.coordSysDims = [];
@@ -32749,6 +33846,7 @@
         var xAxisModel = seriesModel.getReferringComponents('xAxis', SINGLE_REFERRING).models[0];
         var yAxisModel = seriesModel.getReferringComponents('yAxis', SINGLE_REFERRING).models[0];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!xAxisModel) {
             throw new Error('xAxis "' + retrieve(seriesModel.get('xAxisIndex'), seriesModel.get('xAxisId'), 0) + '" not found');
@@ -32776,6 +33874,7 @@
       singleAxis: function (seriesModel, result, axisMap, categoryAxisMap) {
         var singleAxisModel = seriesModel.getReferringComponents('singleAxis', SINGLE_REFERRING).models[0];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!singleAxisModel) {
             throw new Error('singleAxis should be specified.');
@@ -32795,6 +33894,7 @@
         var radiusAxisModel = polarModel.findAxisModel('radiusAxis');
         var angleAxisModel = polarModel.findAxisModel('angleAxis');
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!angleAxisModel) {
             throw new Error('angleAxis option not found');
@@ -32819,6 +33919,7 @@
           result.firstCategoryDimIndex == null && (result.firstCategoryDimIndex = 1);
         }
       },
+      // @ts-ignore
       geo: function (seriesModel, result, axisMap, categoryAxisMap) {
         result.coordSysDims = ['lng', 'lat'];
       },
@@ -32926,10 +34027,13 @@
         stackedOverDimension = '__\0ecstackedover_' + seriesModel.id; // Create inverted index to fast query index by value.
 
         if (stackedByDimInfo) {
+          // @ts-ignore
           stackedByDimInfo.createInvertedIndices = true;
         }
 
+        // @ts-ignore
         var stackedDimCoordDim_1 = stackedDimInfo.coordDim;
+        // @ts-ignore
         var stackedDimType = stackedDimInfo.type;
         var stackedDimCoordIndex_1 = 0;
         each(dimensionDefineList, function (dimensionInfo) {
@@ -32973,7 +34077,9 @@
       }
 
       return {
+        // @ts-ignore
         stackedDimension: stackedDimInfo && stackedDimInfo.name,
+        // @ts-ignore
         stackedByDimension: stackedByDimInfo && stackedByDimInfo.name,
         isStackedByIndex: byIndex,
         stackedOverDimension: stackedOverDimension,
@@ -33088,6 +34194,7 @@
       var schema = prepareSeriesDataSchema(source, createDimensionOptions);
       var firstCategoryDimIndex = injectOrdinalMeta(schema.dimensions, opt.createInvertedIndices, coordSysInfo);
       var store = !isOriginalSource ? sourceManager.getSharedDataStore(schema) : null;
+      // @ts-ignore
       var stackCalculationInfo = enableDataStack(seriesModel, {
         schema: schema,
         store: store
@@ -33096,6 +34203,7 @@
       data.setCalculationInfo(stackCalculationInfo);
       var dimValueGetter = firstCategoryDimIndex != null && isNeedCompleteOrdinalData(source) ? function (itemOpt, dimName, dataIndex, dimIndex) {
         // Use dataIndex as ordinal value in categoryAxis
+        // @ts-ignore
         return dimIndex === firstCategoryDimIndex ? dataIndex : this.defaultDimValueGetter(itemOpt, dimName, dataIndex, dimIndex);
       } : null;
       data.hasItemOption = false;
@@ -33123,6 +34231,7 @@
 
     var Scale =
     /** @class */
+    // @ts-ignore
     function () {
       function Scale(setting) {
         this._setting = setting || {};
@@ -33213,6 +34322,7 @@
 
     var OrdinalMeta =
     /** @class */
+    // @ts-ignore
     function () {
       function OrdinalMeta(opt) {
         this.categories = opt.categories || [];
@@ -33395,6 +34505,7 @@
 
     var OrdinalScale =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(OrdinalScale, _super);
 
@@ -33425,12 +34536,14 @@
       }
 
       OrdinalScale.prototype.parse = function (val) {
+        // @ts-ignore
         return isString(val) ? this._ordinalMeta.getOrdinal(val) // val might be float.
         : Math.round(val);
       };
 
       OrdinalScale.prototype.contain = function (rank) {
         rank = this.parse(rank);
+        // @ts-ignore
         return contain$1(rank, this._extent) && this._ordinalMeta.categories[rank] != null;
       };
       /**
@@ -33442,6 +34555,7 @@
 
       OrdinalScale.prototype.normalize = function (val) {
         val = this._getTickNumber(this.parse(val));
+        // @ts-ignore
         return normalize$1(val, this._extent);
       };
       /**
@@ -33451,12 +34565,14 @@
 
 
       OrdinalScale.prototype.scale = function (val) {
+        // @ts-ignore
         val = Math.round(scale$2(val, this._extent));
         return this.getRawOrdinalNumber(val);
       };
 
       OrdinalScale.prototype.getTicks = function () {
         var ticks = [];
+        // @ts-ignore
         var extent = this._extent;
         var rank = extent[0];
 
@@ -33470,6 +34586,7 @@
         return ticks;
       };
 
+      // @ts-ignore
       OrdinalScale.prototype.getMinorTicks = function (splitNumber) {
         // Not support.
         return;
@@ -33490,6 +34607,7 @@
         var ticksByOrdinal = this._ticksByOrdinalNumber = []; // Unnecessary support negative tick in `realtimeSort`.
 
         var tickNum = 0;
+        // @ts-ignore
         var allCategoryLen = this._ordinalMeta.categories.length;
 
         for (var len = Math.min(allCategoryLen, infoOrdinalNumbers.length); tickNum < len; ++tickNum) {
@@ -33545,8 +34663,10 @@
 
 
       OrdinalScale.prototype.getLabel = function (tick) {
+        // @ts-ignore
         if (!this.isBlank()) {
           var ordinalNumber = this.getRawOrdinalNumber(tick.value);
+          // @ts-ignore
           var cateogry = this._ordinalMeta.categories[ordinalNumber]; // Note that if no data, ordinalMeta.categories is an empty array.
           // Return empty if it's not exist.
 
@@ -33555,10 +34675,12 @@
       };
 
       OrdinalScale.prototype.count = function () {
+        // @ts-ignore
         return this._extent[1] - this._extent[0] + 1;
       };
 
       OrdinalScale.prototype.unionExtentFromData = function (data, dim) {
+        // @ts-ignore
         this.unionExtent(data.getApproximateExtent(dim));
       };
       /**
@@ -33569,10 +34691,12 @@
 
       OrdinalScale.prototype.isInExtentRange = function (value) {
         value = this._getTickNumber(value);
+        // @ts-ignore
         return this._extent[0] <= value && this._extent[1] >= value;
       };
 
       OrdinalScale.prototype.getOrdinalMeta = function () {
+        // @ts-ignore
         return this._ordinalMeta;
       };
 
@@ -33590,6 +34714,7 @@
 
     var IntervalScale =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(IntervalScale, _super);
 
@@ -33608,18 +34733,22 @@
       };
 
       IntervalScale.prototype.contain = function (val) {
+        // @ts-ignore
         return contain$1(val, this._extent);
       };
 
       IntervalScale.prototype.normalize = function (val) {
+        // @ts-ignore
         return normalize$1(val, this._extent);
       };
 
       IntervalScale.prototype.scale = function (val) {
+        // @ts-ignore
         return scale$2(val, this._extent);
       };
 
       IntervalScale.prototype.setExtent = function (start, end) {
+        // @ts-ignore
         var thisExtent = this._extent; // start,end may be a Number like '25',so...
 
         if (!isNaN(start)) {
@@ -33632,6 +34761,7 @@
       };
 
       IntervalScale.prototype.unionExtent = function (other) {
+        // @ts-ignore
         var extent = this._extent;
         other[0] < extent[0] && (extent[0] = other[0]);
         other[1] > extent[1] && (extent[1] = other[1]); // unionExtent may called by it's sub classes
@@ -33647,6 +34777,7 @@
         this._interval = interval; // Dropped auto calculated niceExtent and use user setted extent
         // We assume user wan't to set both interval, min, max to get a better result
 
+        // @ts-ignore
         this._niceExtent = this._extent.slice();
         this._intervalPrecision = getIntervalPrecision(interval);
       };
@@ -33657,6 +34788,7 @@
 
       IntervalScale.prototype.getTicks = function (expandToNicedExtent) {
         var interval = this._interval;
+        // @ts-ignore
         var extent = this._extent;
         var niceTickExtent = this._niceExtent;
         var intervalPrecision = this._intervalPrecision;
@@ -33723,6 +34855,7 @@
       IntervalScale.prototype.getMinorTicks = function (splitNumber) {
         var ticks = this.getTicks(true);
         var minorTicks = [];
+        // @ts-ignore
         var extent = this.getExtent();
 
         for (var i = 1; i < ticks.length; i++) {
@@ -33780,6 +34913,7 @@
 
       IntervalScale.prototype.calcNiceTicks = function (splitNumber, minInterval, maxInterval) {
         splitNumber = splitNumber || 5;
+        // @ts-ignore
         var extent = this._extent;
         var span = extent[1] - extent[0];
 
@@ -33801,6 +34935,7 @@
       };
 
       IntervalScale.prototype.calcNiceExtent = function (opt) {
+        // @ts-ignore
         var extent = this._extent; // If extent start and end are same, expand them
 
         if (extent[0] === extent[1]) {
@@ -34043,6 +35178,7 @@
     function doCalBarWidthAndOffset(seriesInfoList) {
       // Columns info on each category axis. Key is cartesian name
       var columnsMap = {};
+      // @ts-ignore
       each(seriesInfoList, function (seriesInfo, idx) {
         var axisKey = seriesInfo.axisKey;
         var bandWidth = seriesInfo.bandWidth;
@@ -34138,6 +35274,7 @@
             // `barMinWidth/barMaxWidth` has higher priority than `barWidth`, as
             // CSS does. Becuase barWidth can be a percent value, where
             // `barMaxWidth` can be used to restrict the final width.
+            // @ts-ignore
             var finalWidth = column.width;
 
             if (maxWidth) {
@@ -34159,6 +35296,7 @@
         autoWidth = Math.max(autoWidth, 0);
         var widthSum = 0;
         var lastColumn;
+        // @ts-ignore
         each(stacks, function (column, idx) {
           if (!column.width) {
             column.width = autoWidth;
@@ -34169,6 +35307,7 @@
         });
 
         if (lastColumn) {
+          // @ts-ignore
           widthSum -= lastColumn.width * barGapPercent;
         }
 
@@ -34262,6 +35401,7 @@
                 // stackResultDimension directly.
 
                 if (stacked) {
+                  // @ts-ignore
                   startValue = +value - store.get(valueDimIdx, dataIndex);
                 }
 
@@ -34280,10 +35420,13 @@
 
                   x = baseCoord;
                   y = coord[1] + columnOffset;
+                  // @ts-ignore
                   width = coord[0] - baseCoord;
                   height = columnWidth;
 
+                  // @ts-ignore
                   if (Math.abs(width) < barMinHeight) {
+                    // @ts-ignore
                     width = (width < 0 ? -1 : 1) * barMinHeight;
                   }
                 } else {
@@ -34297,10 +35440,13 @@
                   x = coord[0] + columnOffset;
                   y = baseCoord;
                   width = columnWidth;
+                  // @ts-ignore
                   height = coord[1] - baseCoord;
 
+                  // @ts-ignore
                   if (Math.abs(height) < barMinHeight) {
                     // Include zero to has a positive bar
+                    // @ts-ignore
                     height = (height <= 0 ? -1 : 1) * barMinHeight;
                   }
                 }
@@ -34352,6 +35498,7 @@
     } // See cases in `test/bar-start.html` and `#7412`, `#8747`.
 
 
+    // @ts-ignore
     function getValueAxisStart(baseAxis, valueAxis) {
       return valueAxis.toGlobalCoord(valueAxis.dataToCoord(valueAxis.type === 'log' ? 1 : 0));
     }
@@ -34372,6 +35519,7 @@
 
     var TimeScale =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TimeScale, _super);
 
@@ -34387,12 +35535,16 @@
 
 
       TimeScale.prototype.getLabel = function (tick) {
+        // @ts-ignore
         var useUTC = this.getSetting('useUTC');
+        // @ts-ignore
         return format(tick.value, fullLeveledFormatter[getDefaultFormatPrecisionOfInterval(getPrimaryTimeUnit(this._minLevelUnit))] || fullLeveledFormatter.second, useUTC, this.getSetting('locale'));
       };
 
       TimeScale.prototype.getFormattedLabel = function (tick, idx, labelFormatter) {
+        // @ts-ignore
         var isUTC = this.getSetting('useUTC');
+        // @ts-ignore
         var lang = this.getSetting('locale');
         return leveledFormat(tick, idx, labelFormatter, lang, isUTC);
       };
@@ -34403,6 +35555,7 @@
 
       TimeScale.prototype.getTicks = function () {
         var interval = this._interval;
+        // @ts-ignore
         var extent = this._extent;
         var ticks = []; // If interval is 0, return [];
 
@@ -34414,6 +35567,7 @@
           value: extent[0],
           level: 0
         });
+        // @ts-ignore
         var useUTC = this.getSetting('useUTC');
         var innerTicks = getIntervalTicks(this._minLevelUnit, this._approxInterval, useUTC, extent);
         ticks = ticks.concat(innerTicks);
@@ -34425,6 +35579,7 @@
       };
 
       TimeScale.prototype.calcNiceExtent = function (opt) {
+        // @ts-ignore
         var extent = this._extent; // If extent start and end are same, expand them
 
         if (extent[0] === extent[1]) {
@@ -34445,6 +35600,7 @@
 
       TimeScale.prototype.calcNiceTicks = function (approxTickNum, minInterval, maxInterval) {
         approxTickNum = approxTickNum || 10;
+        // @ts-ignore
         var extent = this._extent;
         var span = extent[1] - extent[0];
         this._approxInterval = span / approxTickNum;
@@ -34472,14 +35628,17 @@
       };
 
       TimeScale.prototype.contain = function (val) {
+        // @ts-ignore
         return contain$1(this.parse(val), this._extent);
       };
 
       TimeScale.prototype.normalize = function (val) {
+        // @ts-ignore
         return normalize$1(this.parse(val), this._extent);
       };
 
       TimeScale.prototype.scale = function (val) {
+        // @ts-ignore
         return scale$2(val, this._extent);
       };
 
@@ -34609,6 +35768,7 @@
     // const MINUTES_SECONDS_INTERVALS = [[30, 30], [20, 20], [15, 15], [10, 10], [5, 5], [2, 2]];
 
 
+    // @ts-ignore
     function getDateInterval(approxInterval, daysInMonth) {
       approxInterval /= ONE_DAY;
       return approxInterval > 16 ? 16 // Math.floor(daysInMonth / 2) + 1  // In this case we only want one tick betwen two month.
@@ -34666,6 +35826,7 @@
       var unitNames = timeUnits;
       var iter = 0;
 
+      // @ts-ignore
       function addTicksInSpan(interval, minTimestamp, maxTimestamp, getMethodName, setMethodName, isDate, out) {
         var date = new Date(minTimestamp);
         var dateTime = minTimestamp;
@@ -34721,16 +35882,22 @@
 
           switch (unitName) {
             case 'year':
+              // @ts-ignore
               interval = Math.max(1, Math.round(approxInterval / ONE_DAY / 365));
+              // @ts-ignore
               getterName = fullYearGetterName(isUTC);
+              // @ts-ignore
               setterName = fullYearSetterName(isUTC);
               break;
 
             case 'half-year':
             case 'quarter':
             case 'month':
+              // @ts-ignore
               interval = getMonthInterval(approxInterval);
+              // @ts-ignore
               getterName = monthGetterName(isUTC);
+              // @ts-ignore
               setterName = monthSetterName(isUTC);
               break;
 
@@ -34738,9 +35905,12 @@
 
             case 'half-week':
             case 'day':
+              // @ts-ignore
               interval = getDateInterval(approxInterval); // Use 32 days and let interval been 16
 
+              // @ts-ignore
               getterName = dateGetterName(isUTC);
+              // @ts-ignore
               setterName = dateSetterName(isUTC);
               isDate = true;
               break;
@@ -34748,26 +35918,37 @@
             case 'half-day':
             case 'quarter-day':
             case 'hour':
+              // @ts-ignore
               interval = getHourInterval(approxInterval);
+              // @ts-ignore
               getterName = hoursGetterName(isUTC);
+              // @ts-ignore
               setterName = hoursSetterName(isUTC);
               break;
 
             case 'minute':
+              // @ts-ignore
               interval = getMinutesAndSecondsInterval(approxInterval, true);
+              // @ts-ignore
               getterName = minutesGetterName(isUTC);
+              // @ts-ignore
               setterName = minutesSetterName(isUTC);
               break;
 
             case 'second':
+              // @ts-ignore
               interval = getMinutesAndSecondsInterval(approxInterval, false);
+              // @ts-ignore
               getterName = secondsGetterName(isUTC);
+              // @ts-ignore
               setterName = secondsSetterName(isUTC);
               break;
 
             case 'millisecond':
               interval = getMillisecondsInterval(approxInterval);
+              // @ts-ignore
               getterName = millisecondsGetterName(isUTC);
+              // @ts-ignore
               setterName = millisecondsSetterName(isUTC);
               break;
           }
@@ -34777,6 +35958,7 @@
           if (unitName === 'year' && levelTicks.length > 1 && i === 0) {
             // Add nearest years to the left extent.
             levelTicks.unshift({
+              // @ts-ignore
               value: levelTicks[0].value - interval
             });
           }
@@ -34846,6 +36028,7 @@
         }
       }
 
+      // @ts-ignore
       if ("development" !== 'production') {
         if (iter >= safeLimit) {
           warn('Exceed safe limit.');
@@ -34901,6 +36084,7 @@
 
     var LogScale =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LogScale, _super);
 
@@ -34920,15 +36104,20 @@
 
 
       LogScale.prototype.getTicks = function (expandToNicedExtent) {
+        // @ts-ignore
         var originalScale = this._originalScale;
+        // @ts-ignore
         var extent = this._extent;
         var originalExtent = originalScale.getExtent();
         var ticks = intervalScaleProto.getTicks.call(this, expandToNicedExtent);
         return map(ticks, function (tick) {
           var val = tick.value;
+          // @ts-ignore
           var powVal = round(mathPow$1(this.base, val)); // Fix #4158
 
+          // @ts-ignore
           powVal = val === extent[0] && this._fixMin ? fixRoundingError(powVal, originalExtent[0]) : powVal;
+          // @ts-ignore
           powVal = val === extent[1] && this._fixMax ? fixRoundingError(powVal, originalExtent[1]) : powVal;
           return {
             value: powVal
@@ -34937,6 +36126,7 @@
       };
 
       LogScale.prototype.setExtent = function (start, end) {
+        // @ts-ignore
         var base = this.base;
         start = mathLog(start) / mathLog(base);
         end = mathLog(end) / mathLog(base);
@@ -34948,11 +36138,13 @@
 
 
       LogScale.prototype.getExtent = function () {
+        // @ts-ignore
         var base = this.base;
         var extent = scaleProto.getExtent.call(this);
         extent[0] = mathPow$1(base, extent[0]);
         extent[1] = mathPow$1(base, extent[1]); // Fix #4158
 
+        // @ts-ignore
         var originalScale = this._originalScale;
         var originalExtent = originalScale.getExtent();
         this._fixMin && (extent[0] = fixRoundingError(extent[0], originalExtent[0]));
@@ -34961,8 +36153,10 @@
       };
 
       LogScale.prototype.unionExtent = function (extent) {
+        // @ts-ignore
         this._originalScale.unionExtent(extent);
 
+        // @ts-ignore
         var base = this.base;
         extent[0] = mathLog(extent[0]) / mathLog(base);
         extent[1] = mathLog(extent[1]) / mathLog(base);
@@ -34982,6 +36176,7 @@
 
       LogScale.prototype.calcNiceTicks = function (approxTickNum) {
         approxTickNum = approxTickNum || 10;
+        // @ts-ignore
         var extent = this._extent;
         var span = extent[1] - extent[0];
 
@@ -35017,17 +36212,23 @@
       };
 
       LogScale.prototype.contain = function (val) {
+        // @ts-ignore
         val = mathLog(val) / mathLog(this.base);
+        // @ts-ignore
         return contain$1(val, this._extent);
       };
 
       LogScale.prototype.normalize = function (val) {
+        // @ts-ignore
         val = mathLog(val) / mathLog(this.base);
+        // @ts-ignore
         return normalize$1(val, this._extent);
       };
 
       LogScale.prototype.scale = function (val) {
+        // @ts-ignore
         val = scale$2(val, this._extent);
+        // @ts-ignore
         return mathPow$1(this.base, val);
       };
 
@@ -35047,6 +36248,7 @@
 
     var ScaleRawExtentInfo =
     /** @class */
+    // @ts-ignore
     function () {
       function ScaleRawExtentInfo(scale, model, // Usually: data extent from all series on this axis.
       originalExtent) {
@@ -35102,6 +36304,7 @@
           var boundaryGapArr = isArray(boundaryGap) ? boundaryGap : [boundaryGap || 0, boundaryGap || 0];
 
           if (typeof boundaryGapArr[0] === 'boolean' || typeof boundaryGapArr[1] === 'boolean') {
+            // @ts-ignore
             if ("development" !== 'production') {
               console.warn('Boolean type for boundaryGap is only ' + 'allowed for ordinal axis. Please use string in ' + 'percentage instead, e.g., "20%". Currently, ' + 'boundaryGap is set to be 0.');
             }
@@ -35145,10 +36348,12 @@
         var maxFixed = max != null;
 
         if (min == null) {
+          // @ts-ignore
           min = isOrdinal ? axisDataLen ? 0 : NaN : dataMin - boundaryGapInner[0] * span;
         }
 
         if (max == null) {
+          // @ts-ignore
           max = isOrdinal ? axisDataLen ? axisDataLen - 1 : NaN : dataMax + boundaryGapInner[1] * span;
         }
 
@@ -35172,7 +36377,9 @@
 
         }
 
+        // @ts-ignore
         var determinedMin = this._determinedMin;
+        // @ts-ignore
         var determinedMax = this._determinedMax;
 
         if (determinedMin != null) {
@@ -35197,6 +36404,7 @@
       };
 
       ScaleRawExtentInfo.prototype.modifyDataMinMax = function (minMaxName, val) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(!this.frozen);
         }
@@ -35207,6 +36415,7 @@
       ScaleRawExtentInfo.prototype.setDeterminedMinMax = function (minMaxName, val) {
         var attr = DETERMINED_MIN_MAX_ATTR[minMaxName];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(!this.frozen // Earse them usually means logic flaw.
           && this[attr] == null);
@@ -35634,10 +36843,12 @@
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     var AxisModelCommonMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function AxisModelCommonMixin() {}
 
       AxisModelCommonMixin.prototype.getNeedCrossZero = function () {
+        // @ts-ignore
         var option = this.option;
         return !option.scale;
       };
@@ -35687,6 +36898,7 @@
         // zrUtil.mixin(axisModel, AxisModelCommonMixin);
       }
 
+      // @ts-ignore
       var scale = createScaleByModel(axisModel);
       scale.setExtent(dataExtent[0], dataExtent[1]);
       niceScaleExtent(scale, axisModel);
@@ -35795,6 +37007,7 @@
 
     var Region =
     /** @class */
+    // @ts-ignore
     function () {
       function Region(name) {
         this.name = name;
@@ -35816,6 +37029,7 @@
         if (!center) {
           // In most cases there are no need to calculate this center.
           // So calculate only when called.
+          // @ts-ignore
           center = this._center = this.calcCenter();
         }
 
@@ -35827,6 +37041,7 @@
 
     var GeoJSONPolygonGeometry =
     /** @class */
+    // @ts-ignore
     function () {
       function GeoJSONPolygonGeometry(exterior, interiors) {
         this.type = 'polygon';
@@ -35839,6 +37054,7 @@
 
     var GeoJSONLineStringGeometry =
     /** @class */
+    // @ts-ignore
     function () {
       function GeoJSONLineStringGeometry(points) {
         this.type = 'linestring';
@@ -35850,6 +37066,7 @@
 
     var GeoJSONRegion =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GeoJSONRegion, _super);
 
@@ -35863,6 +37080,7 @@
       }
 
       GeoJSONRegion.prototype.calcCenter = function () {
+        // @ts-ignore
         var geometries = this.geometries;
         var largestGeo;
         var largestGeoSize = 0;
@@ -35898,6 +37116,7 @@
 
         var min = [Infinity, Infinity];
         var max = [-Infinity, -Infinity];
+        // @ts-ignore
         var geometries = this.geometries;
         each(geometries, function (geo) {
           if (geo.type === 'polygon') {
@@ -35925,6 +37144,7 @@
 
       GeoJSONRegion.prototype.contain = function (coord) {
         var rect = this.getBoundingRect();
+        // @ts-ignore
         var geometries = this.geometries;
 
         if (!rect.contain(coord[0], coord[1])) {
@@ -35976,6 +37196,7 @@
 
         var target = new BoundingRect(x, y, width, height);
         var transform = rect.calculateTransform(target);
+        // @ts-ignore
         var geometries = this.geometries;
 
         for (var i = 0; i < geometries.length; i++) {
@@ -36000,9 +37221,12 @@
       };
 
       GeoJSONRegion.prototype.cloneShallow = function (name) {
+        // @ts-ignore
         name == null && (name = this.name);
+        // @ts-ignore
         var newRegion = new GeoJSONRegion(name, this.geometries, this._center);
         newRegion._rect = this._rect;
+        // @ts-ignore
         newRegion.transformTo = null; // Simply avoid to be called.
 
         return newRegion;
@@ -36013,6 +37237,7 @@
 
     var GeoSVGRegion =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GeoSVGRegion, _super);
 
@@ -36025,6 +37250,7 @@
       }
 
       GeoSVGRegion.prototype.calcCenter = function () {
+        // @ts-ignore
         var el = this._elOnlyForCalculate;
         var rect = el.getBoundingRect();
         var center = [rect.x + rect.width / 2, rect.y + rect.height / 2];
@@ -36573,6 +37799,7 @@
 
     var Axis =
     /** @class */
+    // @ts-ignore
     function () {
       function Axis(dim, scale, extent) {
         this.onBand = false;
@@ -36665,6 +37892,7 @@
        */
 
 
+      // @ts-ignore
       Axis.prototype.pointToData = function (point, clamp) {
         // Should be implemented in derived class if necessary.
         return;
@@ -36687,6 +37915,7 @@
         var ticks = result.ticks;
         var ticksCoords = map(ticks, function (tickVal) {
           return {
+            // @ts-ignore
             coord: this.dataToCoord(this.scale.type === 'ordinal' ? this.scale.getRawOrdinalNumber(tickVal) : tickVal),
             tickValue: tickVal
           };
@@ -36702,6 +37931,7 @@
           return [];
         }
 
+        // @ts-ignore
         var minorTickModel = this.model.getModel('minorTick');
         var splitNumber = minorTickModel.get('splitNumber'); // Protection.
 
@@ -36713,9 +37943,11 @@
         var minorTicksCoords = map(minorTicks, function (minorTicksGroup) {
           return map(minorTicksGroup, function (minorTick) {
             return {
+              // @ts-ignore
               coord: this.dataToCoord(minorTick),
               tickValue: minorTick
             };
+          // @ts-ignore
           }, this);
         }, this);
         return minorTicksCoords;
@@ -36726,6 +37958,7 @@
       };
 
       Axis.prototype.getLabelModel = function () {
+        // @ts-ignore
         return this.model.getModel('axisLabel');
       };
       /**
@@ -36738,6 +37971,7 @@
 
 
       Axis.prototype.getTickModel = function () {
+        // @ts-ignore
         return this.model.getModel('axisTick');
       };
       /**
@@ -37431,6 +38665,7 @@
         labelLine.style.fill = null;
         var showAbove = normalModel.get('showAbove');
         var labelLineConfig = targetEl.textGuideLineConfig = targetEl.textGuideLineConfig || {};
+        // @ts-ignore
         labelLineConfig.showAbove = showAbove || false; // Custom the buildPath.
 
         labelLine.buildPath = buildLabelLinePath;
@@ -37534,7 +38769,9 @@
       var maxGap;
       updateMinMaxGap(); // If ends exceed two bounds, squeeze at most 80%, then take the gap of two bounds.
 
+      // @ts-ignore
       minGap < 0 && squeezeGaps(-minGap, 0.8);
+      // @ts-ignore
       maxGap < 0 && squeezeGaps(maxGap, 0.8);
       updateMinMaxGap();
       takeBoundsGap(minGap, maxGap, 1);
@@ -37542,10 +38779,13 @@
 
       updateMinMaxGap();
 
+      // @ts-ignore
       if (minGap < 0) {
+        // @ts-ignore
         squeezeWhenBailout(-minGap);
       }
 
+      // @ts-ignore
       if (maxGap < 0) {
         squeezeWhenBailout(maxGap);
       }
@@ -37797,6 +39037,7 @@
 
     var LabelManager =
     /** @class */
+    // @ts-ignore
     function () {
       function LabelManager() {
         this._labelList = [];
@@ -37932,6 +39173,7 @@
             layoutOption = labelItem.layoutOption;
           }
 
+          // @ts-ignore
           layoutOption = layoutOption || {};
           labelItem.computedLayoutOption = layoutOption;
           var degreeToRadian = Math.PI / 180; // TODO hostEl should always exists.
@@ -37942,17 +39184,22 @@
               // Force to set local false.
               local: false,
               // Ignore position and rotation config on the host el if x or y is changed.
+              // @ts-ignore
               position: layoutOption.x != null || layoutOption.y != null ? null : defaultLabelAttr.attachedPos,
               // Ignore rotation config on the host el if rotation is changed.
+              // @ts-ignore
               rotation: layoutOption.rotate != null ? layoutOption.rotate * degreeToRadian : defaultLabelAttr.attachedRot,
+              // @ts-ignore
               offset: [layoutOption.dx || 0, layoutOption.dy || 0]
             });
           }
 
           var needsUpdateLabelLine = false;
 
+          // @ts-ignore
           if (layoutOption.x != null) {
             // TODO width of chart view.
+            // @ts-ignore
             label.x = parsePercent$1(layoutOption.x, width);
             label.setStyle('x', 0); // Ignore movement in style. TODO: origin.
 
@@ -37962,8 +39209,10 @@
             label.setStyle('x', defaultLabelAttr.style.x);
           }
 
+          // @ts-ignore
           if (layoutOption.y != null) {
             // TODO height of chart view.
+            // @ts-ignore
             label.y = parsePercent$1(layoutOption.y, height);
             label.setStyle('y', 0); // Ignore movement in style.
 
@@ -37973,11 +39222,13 @@
             label.setStyle('y', defaultLabelAttr.style.y);
           }
 
+          // @ts-ignore
           if (layoutOption.labelLinePoints) {
             var guideLine = hostEl.getTextGuideLine();
 
             if (guideLine) {
               guideLine.setShape({
+                // @ts-ignore
                 points: layoutOption.labelLinePoints
               }); // Not update
 
@@ -37987,15 +39238,18 @@
 
           var labelLayoutStore = labelLayoutInnerStore(label);
           labelLayoutStore.needsUpdateLabelLine = needsUpdateLabelLine;
+          // @ts-ignore
           label.rotation = layoutOption.rotate != null ? layoutOption.rotate * degreeToRadian : defaultLabelAttr.rotation;
           label.scaleX = defaultLabelAttr.scaleX;
           label.scaleY = defaultLabelAttr.scaleY;
 
           for (var k = 0; k < LABEL_OPTION_TO_STYLE_KEYS.length; k++) {
             var key = LABEL_OPTION_TO_STYLE_KEYS[k];
+            // @ts-ignore
             label.setStyle(key, layoutOption[key] != null ? layoutOption[key] : defaultLabelAttr.style[key]);
           }
 
+          // @ts-ignore
           if (layoutOption.draggable) {
             label.draggable = true;
             label.cursor = 'move';
@@ -38189,6 +39443,7 @@
 
     var getLabelManager = makeInner();
     function installLabelLayout(registers) {
+      // @ts-ignore
       registers.registerUpdateLifecycle('series:beforeupdate', function (ecModel, api, params) {
         // TODO api provide an namespace that can save stuff per instance
         var labelManager = getLabelManager(api).labelManager;
@@ -38199,6 +39454,7 @@
 
         labelManager.clearLabels();
       });
+      // @ts-ignore
       registers.registerUpdateLifecycle('series:layoutlabels', function (ecModel, api, params) {
         var labelManager = getLabelManager(api).labelManager;
         params.updatedSeries.forEach(function (series) {
@@ -38263,6 +39519,7 @@
             }
             var xRot = Math.round(psi * degree);
             if (isCircle) {
+                // @ts-ignore
                 var p = 1 / this._p;
                 var dTheta_1 = (clockwise ? 1 : -1) * (PI2$7 - p);
                 this._add('A', rx, ry, xRot, 1, +clockwise, cx + rx * mathCos$4(startAngle + dTheta_1), cy + ry * mathSin$4(startAngle + dTheta_1));
@@ -38284,10 +39541,12 @@
             this._add('Z');
         };
         SVGPathRebuilder.prototype.closePath = function () {
+            // @ts-ignore
             if (this._d.length > 0) {
                 this._add('Z');
             }
         };
+        // @ts-ignore
         SVGPathRebuilder.prototype._add = function (cmd, a, b, c, d, e, f, g, h) {
             var vals = [];
             var p = this._p;
@@ -38297,12 +39556,15 @@
                     this._invalid = true;
                     return;
                 }
+                // @ts-ignore
                 vals.push(Math.round(val * p) / p);
             }
+            // @ts-ignore
             this._d.push(cmd + vals.join(' '));
             this._start = cmd === 'Z';
         };
         SVGPathRebuilder.prototype.generateStr = function () {
+            // @ts-ignore
             this._str = this._invalid ? '' : this._d.join('');
             this._d = [];
         };
@@ -38579,6 +39841,7 @@
         }
         attrs.d = false;
         var animationName = addAnimation(composedAnim, scope);
+        // @ts-ignore
         return cssAnimationCfg.replace(cssAnimationName, animationName);
     }
     function getEasingFunc(easing) {
@@ -38693,9 +39956,12 @@
                 if (isFirst) {
                     path = new PathProxy();
                 }
+                // @ts-ignore
                 var len_1 = path.len();
+                // @ts-ignore
                 path.reset();
                 finalKfs[percent].d = buildPathString(el, shapeKfs[percent], path);
+                // @ts-ignore
                 var newLen = path.len();
                 if (!isFirst && len_1 !== newLen) {
                     canAnimateShape = false;
@@ -39046,6 +40312,7 @@
             gradientAttrs.r = retrieve2(val.r, 0.5);
         }
         else {
+            // @ts-ignore
             if ("development" !== 'production') {
                 logError('Illegal gradient type.');
             }
@@ -39090,6 +40357,7 @@
             var imageSrc = void 0;
             var patternImage = val.image;
             if (isString(patternImage)) {
+                // @ts-ignore
                 imageSrc = patternImage;
             }
             else if (isImageLike$1(patternImage)) {
@@ -39203,6 +40471,7 @@
         for (var i = beginIdx; i <= endIdx; ++i) {
             var key = children[i].key;
             if (key !== undefined) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                     if (map[key] != null) {
                         console.error("Duplicate key " + key);
@@ -39359,6 +40628,7 @@
                 if (isUndef(oldKeyToIdx)) {
                     oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
                 }
+                // @ts-ignore
                 idxInOld = oldKeyToIdx[newStartVnode.key];
                 if (isUndef(idxInOld)) {
                     insertBefore(parentElm, createElm(newStartVnode), oldStartVnode.elm);
@@ -39570,16 +40840,20 @@
                     var len = clipPaths && clipPaths.length || 0;
                     var prevLen = prevClipPaths && prevClipPaths.length || 0;
                     var lca = void 0;
+                    // @ts-ignore
                     for (lca = Math.max(len - 1, prevLen - 1); lca >= 0; lca--) {
                         if (clipPaths && prevClipPaths
+                            // @ts-ignore
                             && clipPaths[lca] === prevClipPaths[lca]) {
                             break;
                         }
                     }
+                    // @ts-ignore
                     for (var i_1 = prevLen - 1; i_1 > lca; i_1--) {
                         clipPathsGroupsStackDepth--;
                         currentClipPathGroup = clipPathsGroupsStack[clipPathsGroupsStackDepth - 1];
                     }
+                    // @ts-ignore
                     for (var i_2 = lca + 1; i_2 < len; i_2++) {
                         var groupAttrs = {};
                         setClipPath(clipPaths[i_2], groupAttrs, scope);
@@ -39633,23 +40907,29 @@
             if (this.root) {
                 this.root.innerHTML = '';
             }
+            // @ts-ignore
             this._svgDom =
+                // @ts-ignore
                 this._viewport =
                     this.storage =
+                        // @ts-ignore
                         this._oldVNode =
                             this._bgVNode =
                                 this._mainVNode = null;
         };
         SVGPainter.prototype.clear = function () {
             if (this._svgDom) {
+                // @ts-ignore
                 this._svgDom.innerHTML = null;
             }
+            // @ts-ignore
             this._oldVNode = null;
         };
         SVGPainter.prototype.toDataURL = function (base64) {
             var str = encodeURIComponent(this.renderToString());
             var prefix = 'data:image/svg+xml;';
             if (base64) {
+                // @ts-ignore
                 str = encodeBase64(str);
                 return str && prefix + 'base64,' + str;
             }
@@ -39659,6 +40939,7 @@
     }());
     function createMethodNotSupport(method) {
         return function () {
+            // @ts-ignore
             if ("development" !== 'production') {
                 logError('In SVG mode painter not support method "' + method + '"');
             }
@@ -39673,6 +40954,7 @@
         var newDom = platformApi.createCanvas();
         var width = painter.getWidth();
         var height = painter.getHeight();
+        // @ts-ignore
         var newDomStyle = newDom.style;
         if (newDomStyle) {
             newDomStyle.position = 'absolute';
@@ -39680,29 +40962,46 @@
             newDomStyle.top = '0';
             newDomStyle.width = width + 'px';
             newDomStyle.height = height + 'px';
+            // @ts-ignore
             newDom.setAttribute('data-zr-dom-id', id);
         }
+        // @ts-ignore
         newDom.width = width * dpr;
+        // @ts-ignore
         newDom.height = height * dpr;
         return newDom;
     }
     var Layer = (function (_super) {
         __extends(Layer, _super);
         function Layer(id, painter, dpr) {
+            // @ts-ignore
             var _this = _super.call(this) || this;
+            // @ts-ignore
             _this.motionBlur = false;
+            // @ts-ignore
             _this.lastFrameAlpha = 0.7;
+            // @ts-ignore
             _this.dpr = 1;
+            // @ts-ignore
             _this.virtual = false;
+            // @ts-ignore
             _this.config = {};
+            // @ts-ignore
             _this.incremental = false;
+            // @ts-ignore
             _this.zlevel = 0;
+            // @ts-ignore
             _this.maxRepaintRectCount = 5;
+            // @ts-ignore
             _this.__dirty = true;
             _this.__firstTimePaint = true;
+            // @ts-ignore
             _this.__used = false;
+            // @ts-ignore
             _this.__drawIndex = 0;
+            // @ts-ignore
             _this.__startIndex = 0;
+            // @ts-ignore
             _this.__endIndex = 0;
             _this.__prevStartIndex = null;
             _this.__prevEndIndex = null;
@@ -39715,7 +41014,9 @@
                 dom = id;
                 id = dom.id;
             }
+            // @ts-ignore
             _this.id = id;
+            // @ts-ignore
             _this.dom = dom;
             var domStyle = dom.style;
             if (domStyle) {
@@ -39725,27 +41026,37 @@
                 domStyle.margin = '0';
                 domStyle.borderWidth = '0';
             }
+            // @ts-ignore
             _this.painter = painter;
+            // @ts-ignore
             _this.dpr = dpr;
             return _this;
         }
         Layer.prototype.getElementCount = function () {
+            // @ts-ignore
             return this.__endIndex - this.__startIndex;
         };
         Layer.prototype.afterBrush = function () {
+            // @ts-ignore
             this.__prevStartIndex = this.__startIndex;
+            // @ts-ignore
             this.__prevEndIndex = this.__endIndex;
         };
         Layer.prototype.initContext = function () {
+            // @ts-ignore
             this.ctx = this.dom.getContext('2d');
+            // @ts-ignore
             this.ctx.dpr = this.dpr;
         };
         Layer.prototype.setUnpainted = function () {
             this.__firstTimePaint = true;
         };
         Layer.prototype.createBackBuffer = function () {
+            // @ts-ignore
             var dpr = this.dpr;
+            // @ts-ignore
             this.domBack = createDom('back-' + this.id, this.painter, dpr);
+            // @ts-ignore
             this.ctxBack = this.domBack.getContext('2d');
             if (dpr !== 1) {
                 this.ctxBack.scale(dpr, dpr);
@@ -39757,6 +41068,7 @@
                 return null;
             }
             var mergedRepaintRects = [];
+            // @ts-ignore
             var maxRepaintRectCount = this.maxRepaintRectCount;
             var full = false;
             var pendingRect = new BoundingRect(0, 0, 0, 0);
@@ -39810,6 +41122,7 @@
                     }
                 }
             }
+            // @ts-ignore
             for (var i = this.__startIndex; i < this.__endIndex; ++i) {
                 var el = displayList[i];
                 if (el) {
@@ -39866,7 +41179,9 @@
             return (this._paintRects || []).slice();
         };
         Layer.prototype.resize = function (width, height) {
+            // @ts-ignore
             var dpr = this.dpr;
+            // @ts-ignore
             var dom = this.dom;
             var domStyle = dom.style;
             var domBack = this.domBack;
@@ -39885,13 +41200,18 @@
             }
         };
         Layer.prototype.clear = function (clearAll, clearColor, repaintRects) {
+            // @ts-ignore
             var dom = this.dom;
             var ctx = this.ctx;
             var width = dom.width;
             var height = dom.height;
+            // @ts-ignore
             clearColor = clearColor || this.clearColor;
+            // @ts-ignore
             var haveMotionBLur = this.motionBlur && !clearAll;
+            // @ts-ignore
             var lastFrameAlpha = this.lastFrameAlpha;
+            // @ts-ignore
             var dpr = this.dpr;
             var self = this;
             if (haveMotionBLur) {
@@ -39920,6 +41240,7 @@
                         clearColorGradientOrPattern = createCanvasPattern(ctx, clearColor, {
                             dirty: function () {
                                 self.setUnpainted();
+                                // @ts-ignore
                                 self.__painter.refresh();
                             }
                         });
@@ -39978,6 +41299,7 @@
         return domRoot;
     }
     var CanvasPainter = (function () {
+        // @ts-ignore
         function CanvasPainter(root, storage, opts, id) {
             this.type = 'canvas';
             this._zlevelList = [];
@@ -40023,9 +41345,11 @@
                 this._width = width;
                 this._height = height;
                 var mainLayer = new Layer(rootCanvas, this, this.dpr);
+                // @ts-ignore
                 mainLayer.__builtin__ = true;
                 mainLayer.initContext();
                 layers[CANVAS_ZLEVEL] = mainLayer;
+                // @ts-ignore
                 mainLayer.zlevel = CANVAS_ZLEVEL;
                 zlevelList.push(CANVAS_ZLEVEL);
                 this._domRoot = root;
@@ -40294,12 +41618,14 @@
             var prevLayer = null;
             var i = -1;
             if (layersMap[zlevel]) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                     logError('ZLevel ' + zlevel + ' has been used already');
                 }
                 return;
             }
             if (!isLayerValid(layer)) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                     logError('Layer of zlevel ' + zlevel + ' is not valid');
                 }
@@ -40368,6 +41694,7 @@
             return this._layers;
         };
         CanvasPainter.prototype._updateLayerStatus = function (list) {
+            // @ts-ignore
             this.eachBuiltinLayer(function (layer, z) {
                 layer.__dirty = layer.__used = false;
             });
@@ -40402,38 +41729,52 @@
                 }
                 if (el.incremental) {
                     layer = this.getLayer(zlevel + INCREMENTAL_INC, this._needsManuallyCompositing);
+                    // @ts-ignore
                     layer.incremental = true;
                     incrementalLayerCount = 1;
                 }
                 else {
                     layer = this.getLayer(zlevel + (incrementalLayerCount > 0 ? EL_AFTER_INCREMENTAL_INC : 0), this._needsManuallyCompositing);
                 }
+                // @ts-ignore
                 if (!layer.__builtin__) {
+                    // @ts-ignore
                     logError('ZLevel ' + zlevel + ' has been used by unkown layer ' + layer.id);
                 }
                 if (layer !== prevLayer) {
+                    // @ts-ignore
                     layer.__used = true;
+                    // @ts-ignore
                     if (layer.__startIndex !== i) {
+                        // @ts-ignore
                         layer.__dirty = true;
                     }
+                    // @ts-ignore
                     layer.__startIndex = i;
+                    // @ts-ignore
                     if (!layer.incremental) {
+                        // @ts-ignore
                         layer.__drawIndex = i;
                     }
                     else {
+                        // @ts-ignore
                         layer.__drawIndex = -1;
                     }
                     updatePrevLayer(i);
                     prevLayer = layer;
                 }
                 if ((el.__dirty & REDRAW_BIT) && !el.__inHover) {
+                    // @ts-ignore
                     layer.__dirty = true;
+                    // @ts-ignore
                     if (layer.incremental && layer.__drawIndex < 0) {
+                        // @ts-ignore
                         layer.__drawIndex = i;
                     }
                 }
             }
             updatePrevLayer(i);
+            // @ts-ignore
             this.eachBuiltinLayer(function (layer, z) {
                 if (!layer.__used && layer.getElementCount() > 0) {
                     layer.__dirty = true;
@@ -40531,6 +41872,7 @@
             this.root =
                 this.storage =
                     this._domRoot =
+                        // @ts-ignore
                         this._layers = null;
         };
         CanvasPainter.prototype.getRenderedCanvas = function (opts) {
@@ -40544,7 +41886,9 @@
             var ctx = imageLayer.ctx;
             if (opts.pixelRatio <= this.dpr) {
                 this.refresh();
+                // @ts-ignore
                 var width_1 = imageLayer.dom.width;
+                // @ts-ignore
                 var height_1 = imageLayer.dom.height;
                 this.eachLayer(function (layer) {
                     if (layer.__builtin__) {
@@ -40569,6 +41913,7 @@
                     brush(ctx, el, scope, i === len - 1);
                 }
             }
+            // @ts-ignore
             return imageLayer.dom;
         };
         CanvasPainter.prototype.getWidth = function () {
@@ -40586,6 +41931,7 @@
 
     var LineSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LineSeriesModel, _super);
 
@@ -40598,6 +41944,7 @@
       }
 
       LineSeriesModel.prototype.getInitialData = function (option) {
+        // @ts-ignore
         if ("development" !== 'production') {
           var coordSys = option.coordinateSystem;
 
@@ -40615,22 +41962,31 @@
         var group = new Group();
         var line = createSymbol('line', 0, opt.itemHeight / 2, opt.itemWidth, 0, opt.lineStyle.stroke, false);
         group.add(line);
+        // @ts-ignore
         line.setStyle(opt.lineStyle);
+        // @ts-ignore
         var visualType = this.getData().getVisual('symbol');
+        // @ts-ignore
         var visualRotate = this.getData().getVisual('symbolRotate');
         var symbolType = visualType === 'none' ? 'circle' : visualType; // Symbol size is 80% when there is a line
 
         var size = opt.itemHeight * 0.8;
         var symbol = createSymbol(symbolType, (opt.itemWidth - size) / 2, (opt.itemHeight - size) / 2, size, size, opt.itemStyle.fill);
         group.add(symbol);
+        // @ts-ignore
         symbol.setStyle(opt.itemStyle);
         var symbolRotate = opt.iconRotate === 'inherit' ? visualRotate : opt.iconRotate || 0;
+        // @ts-ignore
         symbol.rotation = symbolRotate * Math.PI / 180;
+        // @ts-ignore
         symbol.setOrigin([opt.itemWidth / 2, opt.itemHeight / 2]);
 
         if (symbolType.indexOf('empty') > -1) {
+          // @ts-ignore
           symbol.style.stroke = symbol.style.fill;
+          // @ts-ignore
           symbol.style.fill = '#fff';
+          // @ts-ignore
           symbol.style.lineWidth = 2;
         }
 
@@ -40742,19 +42098,24 @@
 
     var Symbol =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Symbol, _super);
 
       function Symbol(data, idx, seriesScope, opts) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this.updateData(data, idx, seriesScope, opts);
 
         return _this;
       }
 
+      // @ts-ignore
       Symbol.prototype._createSymbol = function (symbolType, data, idx, symbolSize, keepAspect) {
         // Remove paths created before
+        // @ts-ignore
         this.removeAll(); // let symbolPath = createSymbol(
         //     symbolType, -0.5, -0.5, 1, 1, color
         // );
@@ -40763,6 +42124,7 @@
         // the scale is set. So we set width/height as 2. See #4150.
 
         var symbolPath = createSymbol(symbolType, -1, -1, 2, 2, null, keepAspect);
+        // @ts-ignore
         symbolPath.attr({
           z2: 100,
           culling: true,
@@ -40770,8 +42132,10 @@
           scaleY: symbolSize[1] / 2
         }); // Rewrite drift method
 
+        // @ts-ignore
         symbolPath.drift = driftSymbol;
         this._symbolType = symbolType;
+        // @ts-ignore
         this.add(symbolPath);
       };
       /**
@@ -40781,6 +42145,7 @@
 
 
       Symbol.prototype.stopSymbolAnimation = function (toLastFrame) {
+        // @ts-ignore
         this.childAt(0).stopAnimation(null, toLastFrame);
       };
 
@@ -40799,6 +42164,7 @@
 
 
       Symbol.prototype.getSymbolPath = function () {
+        // @ts-ignore
         return this.childAt(0);
       };
       /**
@@ -40807,6 +42173,7 @@
 
 
       Symbol.prototype.highlight = function () {
+        // @ts-ignore
         enterEmphasis(this.childAt(0));
       };
       /**
@@ -40815,6 +42182,7 @@
 
 
       Symbol.prototype.downplay = function () {
+        // @ts-ignore
         leaveEmphasis(this.childAt(0));
       };
       /**
@@ -40824,12 +42192,14 @@
 
 
       Symbol.prototype.setZ = function (zlevel, z) {
+        // @ts-ignore
         var symbolPath = this.childAt(0);
         symbolPath.zlevel = zlevel;
         symbolPath.z = z;
       };
 
       Symbol.prototype.setDraggable = function (draggable) {
+        // @ts-ignore
         var symbolPath = this.childAt(0);
         symbolPath.draggable = draggable;
         symbolPath.cursor = draggable ? 'move' : symbolPath.cursor;
@@ -40852,6 +42222,7 @@
 
           this._createSymbol(symbolType, data, idx, symbolSize, keepAspect);
         } else {
+          // @ts-ignore
           var symbolPath = this.childAt(0);
           symbolPath.silent = false;
           var target = {
@@ -40865,9 +42236,11 @@
         this._updateCommon(data, idx, symbolSize, seriesScope, opts);
 
         if (isInit) {
+          // @ts-ignore
           var symbolPath = this.childAt(0);
 
           if (!disableAnimation) {
+            // @ts-ignore
             var target = {
               scaleX: this._sizeX,
               scaleY: this._sizeY,
@@ -40884,6 +42257,7 @@
 
         if (disableAnimation) {
           // Must stop leave transition manually if don't call initProps or updateProps.
+          // @ts-ignore
           this.childAt(0).stopAnimation('leave');
         }
 
@@ -40891,6 +42265,7 @@
       };
 
       Symbol.prototype._updateCommon = function (data, idx, symbolSize, seriesScope, opts) {
+        // @ts-ignore
         var symbolPath = this.childAt(0);
         var seriesModel = data.hostModel;
         var emphasisItemStyle;
@@ -40943,7 +42318,9 @@
         var visualColor = symbolStyle.fill;
 
         if (symbolPath instanceof ZRImage) {
+          // @ts-ignore
           var pathStyle = symbolPath.style;
+          // @ts-ignore
           symbolPath.useStyle(extend({
             // TODO other properties like x, y ?
             image: pathStyle.image,
@@ -41016,6 +42393,7 @@
       };
 
       Symbol.prototype.fadeOut = function (cb, opt) {
+        // @ts-ignore
         var symbolPath = this.childAt(0);
         var seriesModel = this._seriesModel;
         var dataIndex = getECData(this).dataIndex;
@@ -41064,6 +42442,7 @@
     }(Group);
 
     function driftSymbol(dx, dy) {
+      // @ts-ignore
       this.parent.drift(dx, dy);
     }
 
@@ -41102,6 +42481,7 @@
 
     var SymbolDraw =
     /** @class */
+    // @ts-ignore
     function () {
       function SymbolDraw(SymbolCtor) {
         this.group = new Group();
@@ -41364,6 +42744,7 @@
       return diffResult;
     }
 
+    // @ts-ignore
     function lineAnimationDiff(oldData, newData, oldStackedOnPoints, newStackedOnPoints, oldCoordSys, newCoordSys, oldValueOrigin, newValueOrigin) {
       var diff = diffData(oldData, newData); // let newIdList = newData.mapArray(newData.getId);
       // let oldIdList = oldData.mapArray(oldData.getId);
@@ -41393,11 +42774,17 @@
 
         switch (diffItem.cmd) {
           case '=':
+            // @ts-ignore
             oldIdx2 = diffItem.idx * 2;
+            // @ts-ignore
             newIdx2 = diffItem.idx1 * 2;
+            // @ts-ignore
             var currentX = oldPoints[oldIdx2];
+            // @ts-ignore
             var currentY = oldPoints[oldIdx2 + 1];
+            // @ts-ignore
             var nextX = newPoints[newIdx2];
+            // @ts-ignore
             var nextY = newPoints[newIdx2 + 1]; // If previous data is NaN, use next point directly
 
             if (isNaN(currentX) || isNaN(currentY)) {
@@ -41407,7 +42794,9 @@
 
             currPoints.push(currentX, currentY);
             nextPoints.push(nextX, nextY);
+            // @ts-ignore
             currStackedPoints.push(oldStackedOnPoints[oldIdx2], oldStackedOnPoints[oldIdx2 + 1]);
+            // @ts-ignore
             nextStackedPoints.push(newStackedOnPoints[newIdx2], newStackedOnPoints[newIdx2 + 1]);
             rawIndices.push(newData.getRawIndex(diffItem.idx1));
             break;
@@ -41416,11 +42805,14 @@
             var newIdx = diffItem.idx;
             var newDataDimsForPoint = newDataOldCoordInfo.dataDimsForPoint;
             var oldPt = oldCoordSys.dataToPoint([newData.get(newDataDimsForPoint[0], newIdx), newData.get(newDataDimsForPoint[1], newIdx)]);
+            // @ts-ignore
             newIdx2 = newIdx * 2;
             currPoints.push(oldPt[0], oldPt[1]);
+            // @ts-ignore
             nextPoints.push(newPoints[newIdx2], newPoints[newIdx2 + 1]);
             var stackedOnPoint = getStackedOnPoint(newDataOldCoordInfo, oldCoordSys, newData, newIdx);
             currStackedPoints.push(stackedOnPoint[0], stackedOnPoint[1]);
+            // @ts-ignore
             nextStackedPoints.push(newStackedOnPoints[newIdx2], newStackedOnPoints[newIdx2 + 1]);
             rawIndices.push(newData.getRawIndex(newIdx));
             break;
@@ -41574,25 +42966,36 @@
               var lenNextSeg = void 0;
 
               if (smoothMonotone === 'x') {
+                // @ts-ignore
                 lenPrevSeg = Math.abs(dx0);
+                // @ts-ignore
                 lenNextSeg = Math.abs(dx1);
                 var dir_1 = vx > 0 ? 1 : -1;
+                // @ts-ignore
                 cpx1 = x - dir_1 * lenPrevSeg * smooth;
                 cpy1 = y;
+                // @ts-ignore
                 nextCpx0 = x + dir_1 * lenNextSeg * smooth;
                 nextCpy0 = y;
               } else if (smoothMonotone === 'y') {
+                // @ts-ignore
                 lenPrevSeg = Math.abs(dy0);
+                // @ts-ignore
                 lenNextSeg = Math.abs(dy1);
                 var dir_2 = vy > 0 ? 1 : -1;
                 cpx1 = x;
+                // @ts-ignore
                 cpy1 = y - dir_2 * lenPrevSeg * smooth;
                 nextCpx0 = x;
+                // @ts-ignore
                 nextCpy0 = y + dir_2 * lenNextSeg * smooth;
               } else {
+                // @ts-ignore
                 lenPrevSeg = Math.sqrt(dx0 * dx0 + dy0 * dy0);
+                // @ts-ignore
                 lenNextSeg = Math.sqrt(dx1 * dx1 + dy1 * dy1); // Use ratio of seg length
 
+                // @ts-ignore
                 ratioNextSeg = lenNextSeg / (lenNextSeg + lenPrevSeg);
                 cpx1 = x - vx * smooth * (1 - ratioNextSeg);
                 cpy1 = y - vy * smooth * (1 - ratioNextSeg); // cp0 of next segment
@@ -41601,14 +43004,22 @@
                 nextCpy0 = y + vy * smooth * ratioNextSeg; // Smooth constraint between point and next point.
                 // Avoid exceeding extreme after smoothing.
 
+                // @ts-ignore
                 nextCpx0 = mathMin$5(nextCpx0, mathMax$5(nextX, x));
+                // @ts-ignore
                 nextCpy0 = mathMin$5(nextCpy0, mathMax$5(nextY, y));
+                // @ts-ignore
                 nextCpx0 = mathMax$5(nextCpx0, mathMin$5(nextX, x));
+                // @ts-ignore
                 nextCpy0 = mathMax$5(nextCpy0, mathMin$5(nextY, y)); // Reclaculate cp1 based on the adjusted cp0 of next seg.
 
+                // @ts-ignore
                 vx = nextCpx0 - x;
+                // @ts-ignore
                 vy = nextCpy0 - y;
+                // @ts-ignore
                 cpx1 = x - vx * lenPrevSeg / lenNextSeg;
+                // @ts-ignore
                 cpy1 = y - vy * lenPrevSeg / lenNextSeg; // Smooth constraint between point and prev point.
                 // Avoid exceeding extreme after smoothing.
 
@@ -41619,7 +43030,9 @@
 
                 vx = x - cpx1;
                 vy = y - cpy1;
+                // @ts-ignore
                 nextCpx0 = x + vx * lenNextSeg / lenPrevSeg;
+                // @ts-ignore
                 nextCpy0 = y + vy * lenNextSeg / lenPrevSeg;
               }
             }
@@ -41642,6 +43055,7 @@
 
     var ECPolylineShape =
     /** @class */
+    // @ts-ignore
     function () {
       function ECPolylineShape() {
         this.smooth = 0;
@@ -41653,12 +43067,15 @@
 
     var ECPolyline =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ECPolyline, _super);
 
       function ECPolyline(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'ec-polyline';
         return _this;
       }
@@ -41700,11 +43117,15 @@
       };
 
       ECPolyline.prototype.getPointOn = function (xOrY, dim) {
+        // @ts-ignore
         if (!this.path) {
+          // @ts-ignore
           this.createPathProxy();
+          // @ts-ignore
           this.buildPath(this.path, this.shape);
         }
 
+        // @ts-ignore
         var path = this.path;
         var data = path.data;
         var CMD = PathProxy.CMD;
@@ -41732,9 +43153,12 @@
             case CMD.L:
               x = data[i++];
               y = data[i++];
+              // @ts-ignore
               t = isDimX ? (xOrY - x0) / (x - x0) : (xOrY - y0) / (y - y0);
 
+              // @ts-ignore
               if (t <= 1 && t >= 0) {
+                // @ts-ignore
                 var val = isDimX ? (y - y0) * t + y0 : (x - x0) * t + x0;
                 return isDimX ? [xOrY, val] : [val, xOrY];
               }
@@ -41775,10 +43199,12 @@
 
     var ECPolygonShape =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ECPolygonShape, _super);
 
       function ECPolygonShape() {
+        // @ts-ignore
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
@@ -41787,12 +43213,15 @@
 
     var ECPolygon =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ECPolygon, _super);
 
       function ECPolygon(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'ec-polygon';
         return _this;
       }
@@ -41865,15 +43294,19 @@
 
         if (isHorizontal) {
           if (isAxisInversed) {
+            // @ts-ignore
             clipPath.shape.x += width;
           }
 
+          // @ts-ignore
           clipPath.shape.width = 0;
         } else {
           if (!isAxisInversed) {
+            // @ts-ignore
             clipPath.shape.y += height;
           }
 
+          // @ts-ignore
           clipPath.shape.height = 0;
         }
 
@@ -41914,8 +43347,10 @@
         var isRadial = polar.getBaseAxis().dim === 'angle';
 
         if (isRadial) {
+          // @ts-ignore
           clipPath.shape.endAngle = sectorArea.startAngle;
         } else {
+          // @ts-ignore
           clipPath.shape.r = r0;
         }
 
@@ -42170,6 +43605,7 @@
       }
 
       if (coordSys.type !== 'cartesian2d') {
+        // @ts-ignore
         if ("development" !== 'production') {
           console.warn('Visual map on line style is only supported on cartesian2d.');
         }
@@ -42191,6 +43627,7 @@
       }
 
       if (!visualMeta) {
+        // @ts-ignore
         if ("development" !== 'production') {
           console.warn('Visual map on line style only support x or y dimension.');
         }
@@ -42251,6 +43688,7 @@
         offset: inRangeStopLen ? colorStopsInRange[0].offset : 0.5,
         color: outerColors[0] || 'transparent'
       });
+      // @ts-ignore
       var gradient = new LinearGradient(0, 0, 0, 0, colorStopsInRange, true);
       gradient[coordDim] = minCoord;
       gradient[coordDim + '2'] = maxCoord;
@@ -42410,6 +43848,7 @@
         }, during); // Expand clip shape to avoid clipping when line value exceeds axis
 
         if (!seriesModel.get('clip', true)) {
+          // @ts-ignore
           var rectShape = clipPath.shape;
           var expandSize = Math.max(rectShape.width, rectShape.height);
 
@@ -42429,6 +43868,7 @@
 
         return clipPath;
       } else {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (seriesModel.get(['endLabel', 'show'])) {
             console.warn('endLabel is not supported for lines in polar systems.');
@@ -42455,6 +43895,7 @@
 
     var LineView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LineView, _super);
 
@@ -42465,15 +43906,18 @@
       LineView.prototype.init = function () {
         var lineGroup = new Group();
         var symbolDraw = new SymbolDraw();
+        // @ts-ignore
         this.group.add(symbolDraw.group);
         this._symbolDraw = symbolDraw;
         this._lineGroup = lineGroup;
       };
 
+      // @ts-ignore
       LineView.prototype.render = function (seriesModel, ecModel, api) {
         var _this = this;
 
         var coordSys = seriesModel.coordinateSystem;
+        // @ts-ignore
         var group = this.group;
         var data = seriesModel.getData();
         var lineStyleModel = seriesModel.getModel('lineStyle');
@@ -42559,6 +44003,7 @@
             this._initOrUpdateEndLabel(seriesModel, coordSys, convertToColorString(visualColor));
           }
 
+          // @ts-ignore
           lineGroup.setClipPath(createLineClipPath(this, coordSys, true, seriesModel));
         } else {
           if (isAreaChart && !polygon) {
@@ -42566,6 +44011,7 @@
             polygon = this._newPolygon(points, stackedOnPoints);
           } else if (polygon && !isAreaChart) {
             // If areaStyle is removed
+            // @ts-ignore
             lineGroup.remove(polygon);
             polygon = this._polygon = null;
           } // NOTE: Must update _endLabel before setClipPath.
@@ -42576,14 +44022,17 @@
           } // Update clipPath
 
 
+          // @ts-ignore
           var oldClipPath = lineGroup.getClipPath();
 
           if (oldClipPath) {
             var newClipPath = createLineClipPath(this, coordSys, false, seriesModel);
             initProps(oldClipPath, {
+              // @ts-ignore
               shape: newClipPath.shape
             }, seriesModel);
           } else {
+            // @ts-ignore
             lineGroup.setClipPath(createLineClipPath(this, coordSys, true, seriesModel));
           } // Always update, or it is wrong in the case turning on legend
           // because points are not changed
@@ -42601,6 +44050,7 @@
 
           if (!isPointsSame(this._stackedOnPoints, stackedOnPoints) || !isPointsSame(this._points, points)) {
             if (hasAnimation) {
+              // @ts-ignore
               this._doUpdateAnimation(data, stackedOnPoints, coordSys, api, step, valueOrigin);
             } else {
               // Not do it in update with animation
@@ -42757,6 +44207,7 @@
             data.setItemGraphicEl(dataIndex, symbol); // Stop scale animation
 
             symbol.stopSymbolAnimation(true);
+            // @ts-ignore
             this.group.add(symbol);
           }
 
@@ -42779,6 +44230,7 @@
           if (symbol) {
             if (symbol.__temp) {
               data.setItemGraphicEl(dataIndex, null);
+              // @ts-ignore
               this.group.remove(symbol);
             } else {
               symbol.downplay();
@@ -42802,6 +44254,7 @@
         var polyline = this._polyline; // Remove previous created polyline
 
         if (polyline) {
+          // @ts-ignore
           this._lineGroup.remove(polyline);
         }
 
@@ -42813,6 +44266,7 @@
           z2: 10
         });
 
+        // @ts-ignore
         this._lineGroup.add(polyline);
 
         this._polyline = polyline;
@@ -42823,6 +44277,7 @@
         var polygon = this._polygon; // Remove previous created polygon
 
         if (polygon) {
+          // @ts-ignore
           this._lineGroup.remove(polygon);
         }
 
@@ -42834,6 +44289,7 @@
           segmentIgnoreThreshold: 2
         });
 
+        // @ts-ignore
         this._lineGroup.add(polygon);
 
         this._polygon = polygon;
@@ -42880,6 +44336,7 @@
                 if (isHorizontalOrRadial) {
                   start = polarClip.startAngle;
                   end = polarClip.endAngle;
+                  // @ts-ignore
                   current = -coord[1] / 180 * Math.PI;
                 } else {
                   start = polarClip.r0;
@@ -42901,6 +44358,7 @@
               }
             }
 
+            // @ts-ignore
             var ratio = end === start ? 0 : (current - start) / (end - start);
 
             if (isAxisInverse) {
@@ -42961,6 +44419,7 @@
               z2: 200 // should be higher than item symbol
 
             });
+            // @ts-ignore
             endLabel.ignoreClip = true;
             polyline.setTextContent(this._endLabel);
             polyline.disableLabelAnimation = true;
@@ -42974,6 +44433,7 @@
               inheritColor: inheritColor,
               labelFetcher: seriesModel,
               labelDataIndex: dataIndex,
+              // @ts-ignore
               defaultText: function (dataIndex, opt, interpolatedValue) {
                 return interpolatedValue != null ? getDefaultInterpolatedLabel(data_2, interpolatedValue) : getDefaultLabel(data_2, dataIndex);
               },
@@ -42996,7 +44456,9 @@
           // NOTE: Don't remove percent < 1. percent === 1 means the first frame during render.
           // The label is not prepared at this time.
           if (percent < 1 && animationRecord.originalX == null) {
+            // @ts-ignore
             animationRecord.originalX = endLabel.x;
+            // @ts-ignore
             animationRecord.originalY = endLabel.y;
           }
 
@@ -43022,13 +44484,16 @@
             // diff > 1 && connectNulls, which is on the null data.
             if (diff > 1 && !connectNulls) {
               var pt = getPointAtIndex(points, indices[0]);
+              // @ts-ignore
               endLabel.attr({
                 x: pt[0] + distanceX,
                 y: pt[1] + distanceY
               });
               valueAnimation && (value = seriesModel.getRawValue(indices[0]));
             } else {
+              // @ts-ignore
               var pt = polyline.getPointOn(xOrY, dim);
+              // @ts-ignore
               pt && endLabel.attr({
                 x: pt[0] + distanceX,
                 y: pt[1] + distanceY
@@ -43045,6 +44510,7 @@
             var idx = percent === 1 || animationRecord.lastFrameIndex > 0 ? indices[0] : 0;
             var pt = getPointAtIndex(points, idx);
             valueAnimation && (value = seriesModel.getRawValue(idx));
+            // @ts-ignore
             endLabel.attr({
               x: pt[0] + distanceX,
               y: pt[1] + distanceY
@@ -43062,6 +44528,7 @@
       // FIXME Two value axis
 
 
+      // @ts-ignore
       LineView.prototype._doUpdateAnimation = function (data, stackedOnPoints, coordSys, api, step, valueOrigin) {
         var polyline = this._polyline;
         var polygon = this._polygon;
@@ -43170,10 +44637,13 @@
         }
       };
 
+      // @ts-ignore
       LineView.prototype.remove = function (ecModel) {
+        // @ts-ignore
         var group = this.group;
         var oldData = this._data;
 
+        // @ts-ignore
         this._lineGroup.removeAll();
 
         this._symbolDraw.remove(true); // Remove temporary created elements when highlighting
@@ -43245,9 +44715,12 @@
                 }
 
                 if (useTypedArray) {
+                  // @ts-ignore
                   points[offset++] = point[0];
+                  // @ts-ignore
                   points[offset++] = point[1];
                 } else {
+                  // @ts-ignore
                   data.setItemLayout(i, point.slice());
                 }
               }
@@ -43320,6 +44793,7 @@
         seriesType: seriesType,
         // FIXME:TS never used, so comment it
         // modifyOutputEnd: true,
+        // @ts-ignore
         reset: function (seriesModel, ecModel, api) {
           var data = seriesModel.getData();
           var sampling = seriesModel.get('sampling');
@@ -43384,6 +44858,7 @@
 
     var BaseBarSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BaseBarSeriesModel, _super);
 
@@ -43394,6 +44869,7 @@
         return _this;
       }
 
+      // @ts-ignore
       BaseBarSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this, {
           useEncodeDefaulter: true
@@ -43401,11 +44877,13 @@
       };
 
       BaseBarSeriesModel.prototype.getMarkerPosition = function (value) {
+        // @ts-ignore
         var coordSys = this.coordinateSystem;
 
         if (coordSys && coordSys.clampData) {
           // PENDING if clamp ?
           var pt = coordSys.dataToPoint(coordSys.clampData(value));
+          // @ts-ignore
           var data = this.getData();
           var offset = data.getLayout('offset');
           var size = data.getLayout('size');
@@ -43442,6 +44920,7 @@
 
     var BarSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BarSeriesModel, _super);
 
@@ -43455,6 +44934,7 @@
       BarSeriesModel.prototype.getInitialData = function () {
         return createSeriesData(null, this, {
           useEncodeDefaulter: true,
+          // @ts-ignore
           createInvertedIndices: !!this.get('realtimeSort', true) || null
         });
       };
@@ -43465,6 +44945,7 @@
 
       BarSeriesModel.prototype.getProgressive = function () {
         // Do not support progressive in normal mode.
+        // @ts-ignore
         return this.get('large') ? this.get('progressive') : false;
       };
       /**
@@ -43474,7 +44955,9 @@
 
       BarSeriesModel.prototype.getProgressiveThreshold = function () {
         // Do not support progressive in normal mode.
+        // @ts-ignore
         var progressiveThreshold = this.get('progressiveThreshold');
+        // @ts-ignore
         var largeThreshold = this.get('largeThreshold');
 
         if (largeThreshold > progressiveThreshold) {
@@ -43524,6 +45007,7 @@
 
     var SausageShape =
     /** @class */
+    // @ts-ignore
     function () {
       function SausageShape() {
         this.cx = 0;
@@ -43540,12 +45024,15 @@
 
     var SausagePath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SausagePath, _super);
 
       function SausagePath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'sausage';
         return _this;
       }
@@ -43608,6 +45095,7 @@
 
         var mappedSectorPosition = positionMapping(textPosition);
         var distance = opts.distance != null ? opts.distance : 5;
+        // @ts-ignore
         var sector = this.shape;
         var cx = sector.cx;
         var cy = sector.cy;
@@ -43805,6 +45293,7 @@
 
     var BarView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BarView, _super);
 
@@ -43829,6 +45318,7 @@
           // Clear previously rendered progressive elements.
           this._progressiveEls = null;
           this._isLargeDraw ? this._renderLarge(seriesModel, ecModel, api) : this._renderNormal(seriesModel, ecModel, api, payload);
+        // @ts-ignore
         } else if ("development" !== 'production') {
           warn('Only cartesian2d and polar supported for bar.');
         }
@@ -43852,6 +45342,7 @@
       };
 
       BarView.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         traverseElements(this._progressiveEls || this.group, cb);
       };
 
@@ -43865,7 +45356,9 @@
         }
       };
 
+      // @ts-ignore
       BarView.prototype._renderNormal = function (seriesModel, ecModel, api, payload) {
+        // @ts-ignore
         var group = this.group;
         var data = seriesModel.getData();
         var oldData = this._data;
@@ -43904,9 +45397,11 @@
         function createBackground(dataIndex) {
           var bgLayout = getLayout[coord.type](data, dataIndex);
           var bgEl = createBackgroundEl(coord, isHorizontalOrRadial, bgLayout);
+          // @ts-ignore
           bgEl.useStyle(backgroundModel.getItemStyle()); // Only cartesian2d support borderRadius.
 
           if (coord.type === 'cartesian2d') {
+            // @ts-ignore
             bgEl.setShape('r', barBorderRadius);
           }
 
@@ -43972,13 +45467,18 @@
           if (drawBackground) {
             var bgEl = void 0;
 
+            // @ts-ignore
             if (oldBgEls.length === 0) {
+              // @ts-ignore
               bgEl = createBackground(oldIndex);
             } else {
+              // @ts-ignore
               bgEl = oldBgEls[oldIndex];
+              // @ts-ignore
               bgEl.useStyle(backgroundModel.getItemStyle()); // Only cartesian2d support borderRadius.
 
               if (coord.type === 'cartesian2d') {
+                // @ts-ignore
                 bgEl.setShape('r', barBorderRadius);
               }
 
@@ -44072,23 +45572,28 @@
         this._data = data;
       };
 
+      // @ts-ignore
       BarView.prototype._renderLarge = function (seriesModel, ecModel, api) {
         this._clear();
 
+        // @ts-ignore
         createLarge(seriesModel, this.group);
 
         this._updateLargeClip(seriesModel);
       };
 
+      // @ts-ignore
       BarView.prototype._incrementalRenderLarge = function (params, seriesModel) {
         this._removeBackground();
 
+        // @ts-ignore
         createLarge(seriesModel, this.group, this._progressiveEls, true);
       };
 
       BarView.prototype._updateLargeClip = function (seriesModel) {
         // Use clipPath in large mode.
         var clipPath = seriesModel.get('clip', true) && createClipPath(seriesModel.coordinateSystem, false, seriesModel);
+        // @ts-ignore
         var group = this.group;
 
         if (clipPath) {
@@ -44227,12 +45732,14 @@
         });
       };
 
+      // @ts-ignore
       BarView.prototype.remove = function (ecModel, api) {
         this._clear(this._model);
 
         this._removeOnRenderedListener(api);
       };
 
+      // @ts-ignore
       BarView.prototype.dispose = function (ecModel, api) {
         this._removeOnRenderedListener(api);
       };
@@ -44245,6 +45752,7 @@
       };
 
       BarView.prototype._clear = function (model) {
+        // @ts-ignore
         var group = this.group;
         var data = this._data;
 
@@ -44264,6 +45772,7 @@
       };
 
       BarView.prototype._removeBackground = function () {
+        // @ts-ignore
         this.group.remove(this._backgroundGroup);
         this._backgroundGroup = null;
       };
@@ -44341,15 +45850,19 @@
       }
     };
     var elementCreator = {
+      // @ts-ignore
       cartesian2d: function (seriesModel, data, newIndex, layout, isHorizontal, animationModel, axisModel, isUpdate, roundCap) {
         var rect = new Rect({
           shape: extend({}, layout),
           z2: 1
         });
+        // @ts-ignore
         rect.__dataIndex = newIndex;
+        // @ts-ignore
         rect.name = 'item';
 
         if (animationModel) {
+          // @ts-ignore
           var rectShape = rect.shape;
           var animateProperty = isHorizontal ? 'height' : 'width';
           rectShape[animateProperty] = 0;
@@ -44357,6 +45870,7 @@
 
         return rect;
       },
+      // @ts-ignore
       polar: function (seriesModel, data, newIndex, layout, isRadial, animationModel, axisModel, isUpdate, roundCap) {
         var ShapeClass = !isRadial && roundCap ? SausagePath : Sector;
         var sector = new ShapeClass({
@@ -44389,6 +45903,7 @@
       var realtimeSortOption = seriesModel.get('realtimeSort', true);
       var baseAxis = coordSys.getBaseAxis();
 
+      // @ts-ignore
       if ("development" !== 'production') {
         if (realtimeSortOption) {
           if (baseAxis.type !== 'category') {
@@ -44483,6 +45998,7 @@
           height: layout.height - signY * fixedLineWidth
         };
       },
+      // @ts-ignore
       polar: function (data, dataIndex, itemModel) {
         var layout = data.getItemLayout(dataIndex);
         return {
@@ -44583,6 +46099,7 @@
 
     var LagePathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function LagePathShape() {}
 
@@ -44591,12 +46108,15 @@
 
     var LargePath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LargePath, _super);
 
       function LargePath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'largeBar';
         return _this;
       }
@@ -44609,10 +46129,13 @@
         // Drawing lines is more efficient than drawing
         // a whole line or drawing rects.
         var points = shape.points;
+        // @ts-ignore
         var baseDimIdx = this.baseDimIdx;
+        // @ts-ignore
         var valueDimIdx = 1 - this.baseDimIdx;
         var startPoint = [];
         var size = [];
+        // @ts-ignore
         var barWidth = this.barWidth;
 
         for (var i = 0; i < points.length; i += 3) {
@@ -44678,6 +46201,7 @@
 
 
     var largePathUpdateDataIndex = throttle(function (event) {
+      // @ts-ignore
       var largePath = this;
       var dataIndex = largePathFindDataIndex(largePath, event.offsetX, event.offsetY);
       getECData(largePath).dataIndex = dataIndex >= 0 ? dataIndex : null;
@@ -44893,6 +46417,7 @@
             cx: cx,
             cy: cy,
             r0: r0,
+            // @ts-ignore
             r: roseType ? linearMap(value, extent, [r0, r]) : r
           });
           currentAngle = endAngle;
@@ -45002,6 +46527,7 @@
 
     var RADIAN$1 = Math.PI / 180;
 
+    // @ts-ignore
     function adjustSingleSide(list, cx, cy, r, dir, viewWidth, viewHeight, viewLeft, viewTop, farthestX) {
       if (list.length < 2) {
         return;
@@ -45059,6 +46585,7 @@
             semi.maxY = dy;
           }
 
+          // @ts-ignore
           semi.list.push(item);
         }
 
@@ -45117,25 +46644,32 @@
 
           if (layout.labelAlignTo === 'edge') {
             if (label.x < cx) {
+              // @ts-ignore
               targetTextWidth = linePoints[2][0] - layout.labelDistance - viewLeft - layout.edgeDistance;
             } else {
+              // @ts-ignore
               targetTextWidth = viewLeft + viewWidth - layout.edgeDistance - linePoints[2][0] - layout.labelDistance;
             }
           } else if (layout.labelAlignTo === 'labelLine') {
             if (label.x < cx) {
+              // @ts-ignore
               targetTextWidth = leftmostX - viewLeft - layout.bleedMargin;
             } else {
+              // @ts-ignore
               targetTextWidth = viewLeft + viewWidth - rightmostX - layout.bleedMargin;
             }
           } else {
             if (label.x < cx) {
+              // @ts-ignore
               targetTextWidth = label.x - viewLeft - layout.bleedMargin;
             } else {
+              // @ts-ignore
               targetTextWidth = viewLeft + viewWidth - label.x - layout.bleedMargin;
             }
           }
 
           layout.targetTextWidth = targetTextWidth;
+          // @ts-ignore
           constrainTextWidth(layout, targetTextWidth);
         }
       }
@@ -45509,17 +47043,22 @@
 
     var PiePiece =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PiePiece, _super);
 
       function PiePiece(data, idx, startAngle) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this.z2 = 2;
         var text = new ZRText();
 
+        // @ts-ignore
         _this.setTextContent(text);
 
+        // @ts-ignore
         _this.updateData(data, idx, startAngle, true);
 
         return _this;
@@ -45537,11 +47076,13 @@
 
         if (isNaN(sectorShape.startAngle)) {
           // Use NaN shape to avoid drawing shape.
+          // @ts-ignore
           sector.setShape(sectorShape);
           return;
         }
 
         if (firstCreate) {
+          // @ts-ignore
           sector.setShape(sectorShape);
           var animationType = seriesModel.getShallow('animationType');
 
@@ -45555,9 +47096,12 @@
               dataIndex: idx,
               isFrom: true
             });
+            // @ts-ignore
             sector.originX = sectorShape.cx;
+            // @ts-ignore
             sector.originY = sectorShape.cy;
           } else if (animationType === 'scale') {
+            // @ts-ignore
             sector.shape.r = layout.r0;
             initProps(sector, {
               shape: {
@@ -45567,6 +47111,7 @@
           } // Expansion
           else {
               if (startAngle != null) {
+                // @ts-ignore
                 sector.setShape({
                   startAngle: startAngle,
                   endAngle: startAngle
@@ -45578,6 +47123,7 @@
                   }
                 }, seriesModel, idx);
               } else {
+                // @ts-ignore
                 sector.shape.endAngle = layout.startAngle;
                 updateProps(sector, {
                   shape: {
@@ -45594,6 +47140,7 @@
           }, seriesModel, idx);
         }
 
+        // @ts-ignore
         sector.useStyle(data.getItemVisual(idx, 'style'));
         setStatesStylesFromModel(sector, itemModel);
         var midAngle = (layout.startAngle + layout.endAngle) / 2;
@@ -45601,22 +47148,28 @@
         var dx = Math.cos(midAngle) * offset;
         var dy = Math.sin(midAngle) * offset;
         var cursorStyle = itemModel.getShallow('cursor');
+        // @ts-ignore
         cursorStyle && sector.attr('cursor', cursorStyle);
 
         this._updateLabel(seriesModel, data, idx);
 
+        // @ts-ignore
         sector.ensureState('emphasis').shape = extend({
           r: layout.r + (emphasisModel.get('scale') ? emphasisModel.get('scaleSize') || 0 : 0)
         }, getSectorCornerRadius(emphasisModel.getModel('itemStyle'), layout));
+        // @ts-ignore
         extend(sector.ensureState('select'), {
           x: dx,
           y: dy,
           shape: getSectorCornerRadius(itemModel.getModel(['select', 'itemStyle']), layout)
         });
+        // @ts-ignore
         extend(sector.ensureState('blur'), {
           shape: getSectorCornerRadius(itemModel.getModel(['blur', 'itemStyle']), layout)
         });
+        // @ts-ignore
         var labelLine = sector.getTextGuideLine();
+        // @ts-ignore
         var labelText = sector.getTextContent();
         labelLine && extend(labelLine.ensureState('select'), {
           x: dx,
@@ -45644,8 +47197,10 @@
           defaultOpacity: visualOpacity,
           defaultText: seriesModel.getFormattedLabel(idx, 'normal') || data.getName(idx)
         });
+        // @ts-ignore
         var labelText = sector.getTextContent(); // Set textConfig on sector.
 
+        // @ts-ignore
         sector.setTextConfig({
           // reset position, rotation
           position: null,
@@ -45659,12 +47214,15 @@
         var labelPosition = seriesModel.get(['label', 'position']);
 
         if (labelPosition !== 'outside' && labelPosition !== 'outer') {
+          // @ts-ignore
           sector.removeTextGuideLine();
         } else {
+          // @ts-ignore
           var polyline = this.getTextGuideLine();
 
           if (!polyline) {
             polyline = new Polyline();
+            // @ts-ignore
             this.setTextGuideLine(polyline);
           } // Default use item visual color
 
@@ -45682,6 +47240,7 @@
 
     var PieView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PieView, _super);
 
@@ -45697,9 +47256,11 @@
         this._sectorGroup = sectorGroup;
       };
 
+      // @ts-ignore
       PieView.prototype.render = function (seriesModel, ecModel, api, payload) {
         var data = seriesModel.getData();
         var oldData = this._data;
+        // @ts-ignore
         var group = this.group;
         var startAngle; // First render
 
@@ -45725,6 +47286,7 @@
           var sector = new Sector({
             shape: getBasicPieLayout(seriesModel, api)
           });
+          // @ts-ignore
           sector.useStyle(seriesModel.getModel('emptyCircleStyle').getItemStyle());
           this._emptyCircleSector = sector;
           group.add(sector);
@@ -45842,6 +47404,7 @@
      */
     var LegendVisualProvider =
     /** @class */
+    // @ts-ignore
     function () {
       function LegendVisualProvider( // Function to get data after filtered. It stores all the encoding info
       getDataWithEncodedVisual, // Function to get raw data before filtered.
@@ -45885,6 +47448,7 @@
 
     var PieSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PieSeriesModel, _super);
 
@@ -45901,6 +47465,7 @@
         // Use a function instead of direct access because data reference may changed
 
 
+        // @ts-ignore
         this.legendVisualProvider = new LegendVisualProvider(bind(this.getData, this), bind(this.getRawData, this));
 
         this._defaultLabelLine(option);
@@ -45930,6 +47495,7 @@
 
 
       PieSeriesModel.prototype.getDataParams = function (dataIndex) {
+        // @ts-ignore
         var data = this.getData();
 
         var params = _super.prototype.getDataParams.call(this, dataIndex); // FIXME toFixed?
@@ -46058,6 +47624,7 @@
     function negativeDataFilter(seriesType) {
       return {
         seriesType: seriesType,
+        // @ts-ignore
         reset: function (seriesModel, ecModel) {
           var data = seriesModel.getData();
           data.filterSelf(function (idx) {
@@ -46086,6 +47653,7 @@
 
     var ScatterSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ScatterSeriesModel, _super);
 
@@ -46097,6 +47665,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ScatterSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this, {
           useEncodeDefaulter: true
@@ -46104,10 +47673,12 @@
       };
 
       ScatterSeriesModel.prototype.getProgressive = function () {
+        // @ts-ignore
         var progressive = this.option.progressive;
 
         if (progressive == null) {
           // PENDING
+          // @ts-ignore
           return this.option.large ? 5e3 : this.get('progressive');
         }
 
@@ -46115,10 +47686,12 @@
       };
 
       ScatterSeriesModel.prototype.getProgressiveThreshold = function () {
+        // @ts-ignore
         var progressiveThreshold = this.option.progressiveThreshold;
 
         if (progressiveThreshold == null) {
           // PENDING
+          // @ts-ignore
           return this.option.large ? 1e4 : this.get('progressiveThreshold');
         }
 
@@ -46131,6 +47704,7 @@
 
       ScatterSeriesModel.prototype.getZLevelKey = function () {
         // Each progressive series has individual key.
+        // @ts-ignore
         return this.getData().count() > this.getProgressiveThreshold() ? this.id : '';
       };
 
@@ -46174,6 +47748,7 @@
 
     var LargeSymbolPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function LargeSymbolPathShape() {}
 
@@ -46182,13 +47757,17 @@
 
     var LargeSymbolPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LargeSymbolPath, _super);
 
       function LargeSymbolPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this._off = 0;
+        // @ts-ignore
         _this.hoverDataIdx = -1;
         return _this;
       }
@@ -46205,10 +47784,12 @@
       LargeSymbolPath.prototype.buildPath = function (path, shape) {
         var points = shape.points;
         var size = shape.size;
+        // @ts-ignore
         var symbolProxy = this.symbolProxy;
         var symbolProxyShape = symbolProxy.shape;
         var ctx = path.getContext ? path.getContext() : path;
         var canBoost = ctx && size[0] < BOOST_SIZE_THRESHOLD;
+        // @ts-ignore
         var softClipShape = this.softClipShape;
         var i; // Do draw in afterBrush.
 
@@ -46238,6 +47819,7 @@
           symbolProxy.buildPath(path, symbolProxyShape, true);
         }
 
+        // @ts-ignore
         if (this.incremental) {
           this._off = i;
           this.notClear = true;
@@ -46245,10 +47827,12 @@
       };
 
       LargeSymbolPath.prototype.afterBrush = function () {
+        // @ts-ignore
         var shape = this.shape;
         var points = shape.points;
         var size = shape.size;
         var ctx = this._ctx;
+        // @ts-ignore
         var softClipShape = this.softClipShape;
         var i;
 
@@ -46274,6 +47858,7 @@
           ctx.fillRect(x - size[0] / 2, y - size[1] / 2, size[0], size[1]);
         }
 
+        // @ts-ignore
         if (this.incremental) {
           this._off = i;
           this.notClear = true;
@@ -46283,6 +47868,7 @@
       LargeSymbolPath.prototype.findDataIndex = function (x, y) {
         // TODO ???
         // Consider transform
+        // @ts-ignore
         var shape = this.shape;
         var points = shape.points;
         var size = shape.size;
@@ -46305,6 +47891,7 @@
       };
 
       LargeSymbolPath.prototype.contain = function (x, y) {
+        // @ts-ignore
         var localPos = this.transformCoordToLocal(x, y);
         var rect = this.getBoundingRect();
         x = localPos[0];
@@ -46325,6 +47912,7 @@
         var rect = this._rect;
 
         if (!rect) {
+          // @ts-ignore
           var shape = this.shape;
           var points = shape.points;
           var size = shape.size;
@@ -46355,6 +47943,7 @@
 
     var LargeSymbolDraw =
     /** @class */
+    // @ts-ignore
     function () {
       function LargeSymbolDraw() {
         this.group = new Group();
@@ -46391,11 +47980,13 @@
         });
       };
 
+      // @ts-ignore
       LargeSymbolDraw.prototype.incrementalPrepareUpdate = function (data) {
         this._clear();
       };
 
       LargeSymbolDraw.prototype.incrementalUpdate = function (taskParams, data, opt) {
+        // @ts-ignore
         var lastAdded = this._newAdded[0];
         var points = data.getLayout('points');
         var oldPoints = lastAdded && lastAdded.shape.points; // Merging the exists. Each element has 1e4 points.
@@ -46430,6 +48021,7 @@
       };
 
       LargeSymbolDraw.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         this._newAdded[0] && cb(this._newAdded[0]);
       };
 
@@ -46439,6 +48031,7 @@
         });
         this.group.add(symbolEl);
 
+        // @ts-ignore
         this._newAdded.push(symbolEl);
 
         return symbolEl;
@@ -46468,6 +48061,7 @@
         // PENDING May have performance issue when path is extremely large
 
         ecData.seriesIndex = hostModel.seriesIndex;
+        // @ts-ignore
         symbolEl.on('mousemove', function (e) {
           ecData.dataIndex = null;
           var dataIndex = symbolEl.hoverDataIdx;
@@ -46493,6 +48087,7 @@
 
     var ScatterView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ScatterView, _super);
 
@@ -46503,6 +48098,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ScatterView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
 
@@ -46518,6 +48114,7 @@
         this._finished = true;
       };
 
+      // @ts-ignore
       ScatterView.prototype.incrementalPrepareRender = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
 
@@ -46527,6 +48124,7 @@
         this._finished = false;
       };
 
+      // @ts-ignore
       ScatterView.prototype.incrementalRender = function (taskParams, seriesModel, ecModel) {
         this._symbolDraw.incrementalUpdate(taskParams, seriesModel.getData(), {
           clipShape: this._getClipShape(seriesModel)
@@ -46539,6 +48137,7 @@
         var data = seriesModel.getData(); // Must mark group dirty and make sure the incremental layer will be cleared
         // PENDING
 
+        // @ts-ignore
         this.group.dirty();
 
         if (!this._finished || data.count() > 1e4) {
@@ -46546,6 +48145,7 @@
             update: true
           };
         } else {
+          // @ts-ignore
           var res = pointsLayout('').reset(seriesModel, ecModel, api);
 
           if (res.progress) {
@@ -46570,6 +48170,7 @@
         return seriesModel.get('clip', true) ? clipArea : null;
       };
 
+      // @ts-ignore
       ScatterView.prototype._updateSymbolDraw = function (data, seriesModel) {
         var symbolDraw = this._symbolDraw;
         var pipelineContext = seriesModel.pipelineContext;
@@ -46579,13 +48180,16 @@
           symbolDraw && symbolDraw.remove();
           symbolDraw = this._symbolDraw = isLargeDraw ? new LargeSymbolDraw() : new SymbolDraw();
           this._isLargeDraw = isLargeDraw;
+          // @ts-ignore
           this.group.removeAll();
         }
 
+        // @ts-ignore
         this.group.add(symbolDraw.group);
         return symbolDraw;
       };
 
+      // @ts-ignore
       ScatterView.prototype.remove = function (ecModel, api) {
         this._symbolDraw && this._symbolDraw.remove(true);
         this._symbolDraw = null;
@@ -46599,10 +48203,12 @@
 
     var GridModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GridModel, _super);
 
       function GridModel() {
+        // @ts-ignore
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
@@ -46630,6 +48236,7 @@
 
     var CartesianAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CartesianAxisModel, _super);
 
@@ -46638,6 +48245,7 @@
       }
 
       CartesianAxisModel.prototype.getCoordSysModel = function () {
+        // @ts-ignore
         return this.getReferringComponents('grid', SINGLE_REFERRING).models[0];
       };
 
@@ -46859,11 +48467,13 @@
      */
 
     function axisModelCreator(registers, axisName, BaseAxisModelClass, extraDefaultOption) {
+      // @ts-ignore
       each(AXIS_TYPES, function (v, axisType) {
         var defaultOption = merge(merge({}, axisDefault[axisType], true), extraDefaultOption, true);
 
         var AxisModel =
         /** @class */
+        // @ts-ignore
         function (_super) {
           __extends(AxisModel, _super);
 
@@ -46879,6 +48489,7 @@
             var inputPositionParams = layoutMode ? getLayoutParams(option) : {};
             var themeModel = ecModel.getTheme();
             merge(option, themeModel.get(axisType + 'Axis'));
+            // @ts-ignore
             merge(option, this.getDefaultOption());
             option.type = getAxisType(option);
 
@@ -46888,6 +48499,7 @@
           };
 
           AxisModel.prototype.optionUpdated = function () {
+            // @ts-ignore
             var thisOption = this.option;
 
             if (thisOption.type === 'category') {
@@ -46901,6 +48513,7 @@
 
 
           AxisModel.prototype.getCategories = function (rawData) {
+            // @ts-ignore
             var option = this.option; // FIXME
             // warning if called before all of 'getInitailData' finished.
 
@@ -46934,6 +48547,7 @@
 
     var Cartesian =
     /** @class */
+    // @ts-ignore
     function () {
       function Cartesian(name) {
         this.type = 'cartesian';
@@ -46948,6 +48562,7 @@
 
       Cartesian.prototype.getAxes = function () {
         return map(this._dimList, function (dim) {
+          // @ts-ignore
           return this._axes[dim];
         }, this);
       };
@@ -46977,6 +48592,7 @@
 
     var Cartesian2D =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Cartesian2D, _super);
 
@@ -46995,7 +48611,9 @@
 
       Cartesian2D.prototype.calcAffineTransform = function () {
         this._transform = this._invTransform = null;
+        // @ts-ignore
         var xAxisScale = this.getAxis('x').scale;
+        // @ts-ignore
         var yAxisScale = this.getAxis('y').scale;
 
         if (!canCalculateAffineTransform(xAxisScale) || !canCalculateAffineTransform(yAxisScale)) {
@@ -47027,16 +48645,20 @@
 
 
       Cartesian2D.prototype.getBaseAxis = function () {
+        // @ts-ignore
         return this.getAxesByScale('ordinal')[0] || this.getAxesByScale('time')[0] || this.getAxis('x');
       };
 
       Cartesian2D.prototype.containPoint = function (point) {
+        // @ts-ignore
         var axisX = this.getAxis('x');
+        // @ts-ignore
         var axisY = this.getAxis('y');
         return axisX.contain(axisX.toLocalCoord(point[0])) && axisY.contain(axisY.toLocalCoord(point[1]));
       };
 
       Cartesian2D.prototype.containData = function (data) {
+        // @ts-ignore
         return this.getAxis('x').containData(data[0]) && this.getAxis('y').containData(data[1]);
       };
 
@@ -47050,7 +48672,9 @@
           return applyTransform(out, data, this._transform);
         }
 
+        // @ts-ignore
         var xAxis = this.getAxis('x');
+        // @ts-ignore
         var yAxis = this.getAxis('y');
         out[0] = xAxis.toGlobalCoord(xAxis.dataToCoord(xVal, clamp));
         out[1] = yAxis.toGlobalCoord(yAxis.dataToCoord(yVal, clamp));
@@ -47058,7 +48682,9 @@
       };
 
       Cartesian2D.prototype.clampData = function (data, out) {
+        // @ts-ignore
         var xScale = this.getAxis('x').scale;
+        // @ts-ignore
         var yScale = this.getAxis('y').scale;
         var xAxisExtent = xScale.getExtent();
         var yAxisExtent = yScale.getExtent();
@@ -47077,7 +48703,9 @@
           return applyTransform(out, point, this._invTransform);
         }
 
+        // @ts-ignore
         var xAxis = this.getAxis('x');
+        // @ts-ignore
         var yAxis = this.getAxis('y');
         out[0] = xAxis.coordToData(xAxis.toLocalCoord(point[0]), clamp);
         out[1] = yAxis.coordToData(yAxis.toLocalCoord(point[1]), clamp);
@@ -47085,6 +48713,7 @@
       };
 
       Cartesian2D.prototype.getOtherAxis = function (axis) {
+        // @ts-ignore
         return this.getAxis(axis.dim === 'x' ? 'y' : 'x');
       };
       /**
@@ -47094,7 +48723,9 @@
 
 
       Cartesian2D.prototype.getArea = function () {
+        // @ts-ignore
         var xExtent = this.getAxis('x').getGlobalExtent();
+        // @ts-ignore
         var yExtent = this.getAxis('y').getGlobalExtent();
         var x = Math.min(xExtent[0], xExtent[1]);
         var y = Math.min(yExtent[0], yExtent[1]);
@@ -47108,6 +48739,7 @@
 
     var Axis2D =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Axis2D, _super);
 
@@ -47126,6 +48758,7 @@
       }
 
       Axis2D.prototype.isHorizontal = function () {
+        // @ts-ignore
         var position = this.position;
         return position === 'top' || position === 'bottom';
       };
@@ -47140,14 +48773,18 @@
 
 
       Axis2D.prototype.getGlobalExtent = function (asc) {
+        // @ts-ignore
         var ret = this.getExtent();
+        // @ts-ignore
         ret[0] = this.toGlobalCoord(ret[0]);
+        // @ts-ignore
         ret[1] = this.toGlobalCoord(ret[1]);
         asc && ret[0] > ret[1] && ret.reverse();
         return ret;
       };
 
       Axis2D.prototype.pointToData = function (point, clamp) {
+        // @ts-ignore
         return this.coordToData(this.toLocalCoord(point[this.dim === 'x' ? 0 : 1]), clamp);
       };
       /**
@@ -47157,11 +48794,14 @@
 
 
       Axis2D.prototype.setCategorySortInfo = function (info) {
+        // @ts-ignore
         if (this.type !== 'category') {
           return false;
         }
 
+        // @ts-ignore
         this.model.option.categorySortInfo = info;
+        // @ts-ignore
         this.scale.setSortInfo(info);
       };
 
@@ -47236,10 +48876,12 @@
         xAxisModel: null,
         yAxisModel: null
       };
+      // @ts-ignore
       each(axisModelMap, function (v, key) {
         var axisType = key.replace(/Model$/, '');
         var axisModel = seriesModel.getReferringComponents(axisType, SINGLE_REFERRING).models[0];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!axisModel) {
             throw new Error(axisType + ' "' + retrieve3(seriesModel.get(axisType + 'Index'), seriesModel.get(axisType + 'Id'), 0) + '" not found');
@@ -47342,6 +48984,7 @@
         intervalScaleProto.setNiceExtent.call(scale, min + interval, max - interval);
       }
 
+      // @ts-ignore
       if ("development" !== 'production') {
         var ticks = intervalScaleProto.getTicks.call(scale);
 
@@ -47354,6 +48997,7 @@
 
     var Grid =
     /** @class */
+    // @ts-ignore
     function () {
       function Grid(gridModel, ecModel, api) {
         // FIXME:TS where used (different from registered type 'cartesian2d')?
@@ -47530,6 +49174,7 @@
        */
 
 
+      // @ts-ignore
       Grid.prototype.convertToPixel = function (ecModel, finder, value) {
         var target = this._findConvertTarget(finder);
 
@@ -47540,6 +49185,7 @@
        */
 
 
+      // @ts-ignore
       Grid.prototype.convertFromPixel = function (ecModel, finder, value) {
         var target = this._findConvertTarget(finder);
 
@@ -47583,6 +49229,7 @@
        */
 
 
+      // @ts-ignore
       Grid.prototype.containPoint = function (point) {
         var coord = this._coordsList[0];
 
@@ -47595,6 +49242,7 @@
        */
 
 
+      // @ts-ignore
       Grid.prototype._initCartesian = function (gridModel, ecModel, api) {
         var _this = this;
 
@@ -47664,6 +49312,7 @@
             }
 
             axisPositionUsed[axisPosition] = true;
+            // @ts-ignore
             var axis = new Axis2D(dimName, createScaleByModel(axisModel), [0, 0], axisModel.get('type'), axisPosition);
             var isCategory = axis.type === 'category';
             axis.onBand = isCategory && axisModel.get('boundaryGap');
@@ -47709,6 +49358,7 @@
               return;
             }
 
+            // @ts-ignore
             var cartesian = this.getCartesian(xAxisModel.componentIndex, yAxisModel.componentIndex);
             var data = seriesModel.getData();
             var xAxis = cartesian.getAxis('x');
@@ -47748,6 +49398,7 @@
         var grids = [];
         ecModel.eachComponent('grid', function (gridModel, idx) {
           var grid = new Grid(gridModel, ecModel, api);
+          // @ts-ignore
           grid.name = 'grid_' + idx; // dataSampling requires axis extent, so resize
           // should be performed in create stage.
 
@@ -47764,19 +49415,24 @@
           var axesModelMap = findAxisModels(seriesModel);
           var xAxisModel = axesModelMap.xAxisModel;
           var yAxisModel = axesModelMap.yAxisModel;
+          // @ts-ignore
           var gridModel = xAxisModel.getCoordSysModel();
 
+          // @ts-ignore
           if ("development" !== 'production') {
             if (!gridModel) {
+              // @ts-ignore
               throw new Error('Grid "' + retrieve3(xAxisModel.get('gridIndex'), xAxisModel.get('gridId'), 0) + '" not found');
             }
 
+            // @ts-ignore
             if (xAxisModel.getCoordSysModel() !== yAxisModel.getCoordSysModel()) {
               throw new Error('xAxis and yAxis must use the same grid');
             }
           }
 
           var grid = gridModel.coordinateSystem;
+          // @ts-ignore
           seriesModel.coordinateSystem = grid.getCartesian(xAxisModel.componentIndex, yAxisModel.componentIndex);
         });
         return grids;
@@ -47887,6 +49543,7 @@
 
     var AxisBuilder =
     /** @class */
+    // @ts-ignore
     function () {
       function AxisBuilder(axisModel, opt) {
         this.group = new Group();
@@ -47911,6 +49568,7 @@
         }); // this.group.add(transformGroup);
         // this._transformGroup = transformGroup;
 
+        // @ts-ignore
         transformGroup.updateTransform();
         this._transformGroup = transformGroup;
       }
@@ -48013,6 +49671,7 @@
           silent: true,
           z2: 1
         });
+        // @ts-ignore
         line.anid = 'line';
         group.add(line);
         var arrows = axisModel.get(['axisLine', 'symbol']);
@@ -48035,10 +49694,12 @@
           var symbolHeight_1 = arrowSize[1];
           each([{
             rotate: opt.rotation + Math.PI / 2,
+            // @ts-ignore
             offset: arrowOffset[0],
             r: 0
           }, {
             rotate: opt.rotation - Math.PI / 2,
+            // @ts-ignore
             offset: arrowOffset[1],
             r: Math.sqrt((pt1[0] - pt2[0]) * (pt1[0] - pt2[0]) + (pt1[1] - pt2[1]) * (pt1[1] - pt2[1]))
           }], function (point, index) {
@@ -48046,6 +49707,7 @@
               var symbol = createSymbol(arrows[index], -symbolWidth_1 / 2, -symbolHeight_1 / 2, symbolWidth_1, symbolHeight_1, lineStyle.stroke, true); // Calculate arrow position with offset
 
               var r = point.r + point.offset;
+              // @ts-ignore
               symbol.attr({
                 rotation: point.rotate,
                 x: pt1[0] + r * Math.cos(opt.rotation),
@@ -48141,8 +49803,10 @@
           componentModel: axisModel,
           itemName: name
         });
+        // @ts-ignore
         textEl.__fullText = name; // Id for animation
 
+        // @ts-ignore
         textEl.anid = 'name';
 
         if (axisModel.get('triggerEvent')) {
@@ -48156,6 +49820,7 @@
         transformGroup.add(textEl);
         textEl.updateTransform();
         group.add(textEl);
+        // @ts-ignore
         textEl.decomposeTransform();
       }
     };
@@ -48297,6 +49962,7 @@
           autoBatch: true,
           silent: true
         });
+        // @ts-ignore
         tickEl.anid = anidPrefix + '_' + ticksCoords[i].tickValue;
         tickEls.push(tickEl);
       }
@@ -48414,6 +50080,7 @@
             axis.type === 'category' ? rawLabel : axis.type === 'value' ? tickValue + '' : tickValue, index) : textColor
           })
         });
+        // @ts-ignore
         textEl.anid = 'label_' + tickValue; // Pack data for mouse event
 
         if (triggerEvent) {
@@ -48428,6 +50095,7 @@
         textEl.updateTransform();
         labelEls.push(textEl);
         group.add(textEl);
+        // @ts-ignore
         textEl.decomposeTransform();
       });
       return labelEls;
@@ -48720,6 +50388,7 @@
 
     var AxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AxisView, _super);
 
@@ -48734,12 +50403,14 @@
        */
 
 
+      // @ts-ignore
       AxisView.prototype.render = function (axisModel, ecModel, api, payload) {
         // FIXME
         // This process should proformed after coordinate systems updated
         // (axis scale updated), and should be performed each time update.
         // So put it here temporarily, although it is not appropriate to
         // put a model-writing procedure in `view`.
+        // @ts-ignore
         this.axisPointerClass && fixValue(axisModel);
 
         _super.prototype.render.apply(this, arguments);
@@ -48751,6 +50422,7 @@
        */
 
 
+      // @ts-ignore
       AxisView.prototype.updateAxisPointer = function (axisModel, ecModel, api, payload) {
         this._doUpdateAxisPointerClass(axisModel, api, false);
       };
@@ -48759,6 +50431,7 @@
        */
 
 
+      // @ts-ignore
       AxisView.prototype.remove = function (ecModel, api) {
         var axisPointer = this._axisPointer;
         axisPointer && axisPointer.remove(api);
@@ -48768,6 +50441,7 @@
        */
 
 
+      // @ts-ignore
       AxisView.prototype.dispose = function (ecModel, api) {
         this._disposeAxisPointer(api);
 
@@ -48775,6 +50449,7 @@
       };
 
       AxisView.prototype._doUpdateAxisPointerClass = function (axisModel, api, forceRender) {
+        // @ts-ignore
         var Clazz = AxisView.getAxisPointerClass(this.axisPointerClass);
 
         if (!Clazz) {
@@ -48791,6 +50466,7 @@
       };
 
       AxisView.registerAxisPointerClass = function (type, clazz) {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (axisPointerClazz[type]) {
             throw new Error('axisPointer ' + type + ' exists');
@@ -48861,14 +50537,18 @@
         if (axis.isHorizontal()) {
           x = prev;
           y = gridRect.y;
+          // @ts-ignore
           width = tickCoord - x;
           height = gridRect.height;
+          // @ts-ignore
           prev = x + width;
         } else {
           x = gridRect.x;
           y = prev;
           width = gridRect.width;
+          // @ts-ignore
           height = tickCoord - y;
+          // @ts-ignore
           prev = y + height;
         }
 
@@ -48902,6 +50582,7 @@
 
     var CartesianAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CartesianAxisView, _super);
 
@@ -48918,9 +50599,11 @@
 
 
       CartesianAxisView.prototype.render = function (axisModel, ecModel, api, payload) {
+        // @ts-ignore
         this.group.removeAll();
         var oldAxisGroup = this._axisGroup;
         this._axisGroup = new Group();
+        // @ts-ignore
         this.group.add(this._axisGroup);
 
         if (!axisModel.get('show')) {
@@ -48930,6 +50613,7 @@
         var gridModel = axisModel.getCoordSysModel();
         var layout = layout$1(gridModel, axisModel);
         var axisBuilder = new AxisBuilder(axisModel, extend({
+          // @ts-ignore
           handleAutoShown: function (elementType) {
             var cartesians = gridModel.coordinateSystem.getCartesians();
 
@@ -48950,6 +50634,7 @@
 
         each(selfBuilderAttrs, function (name) {
           if (axisModel.get([name, 'show'])) {
+            // @ts-ignore
             axisElementBuilders[name](this, this._axisGroup, axisModel, gridModel);
           }
         }, this); // THIS is a special case for bar racing chart.
@@ -48974,6 +50659,7 @@
     }(AxisView);
 
     var axisElementBuilders = {
+      // @ts-ignore
       splitLine: function (axisView, axisGroup, axisModel, gridModel) {
         var axis = axisModel.axis;
 
@@ -49029,6 +50715,7 @@
           }));
         }
       },
+      // @ts-ignore
       minorSplitLine: function (axisView, axisGroup, axisModel, gridModel) {
         var axis = axisModel.axis;
         var minorSplitLineModel = axisModel.getModel('minorSplitLine');
@@ -49084,10 +50771,12 @@
 
     var CartesianXAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CartesianXAxisView, _super);
 
       function CartesianXAxisView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = CartesianXAxisView.type;
@@ -49100,10 +50789,12 @@
 
     var CartesianYAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CartesianYAxisView, _super);
 
       function CartesianYAxisView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = CartesianXAxisView.type;
@@ -49116,6 +50807,7 @@
 
     var GridView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GridView, _super);
 
@@ -49126,10 +50818,13 @@
         return _this;
       }
 
+      // @ts-ignore
       GridView.prototype.render = function (gridModel, ecModel) {
+        // @ts-ignore
         this.group.removeAll();
 
         if (gridModel.get('show')) {
+          // @ts-ignore
           this.group.add(new Rect({
             shape: gridModel.coordinateSystem.getRect(),
             style: defaults({
@@ -49185,6 +50880,7 @@
         }
 
         var axes = coordSys.getIndicatorAxes();
+        // @ts-ignore
         each(axes, function (axis, axisIndex) {
           data.each(data.mapDimension(axes[axisIndex].dim), function (val, dataIndex) {
             points[dataIndex] = points[dataIndex] || [];
@@ -49226,6 +50922,7 @@
         }
 
         var polarNotRadar_1 = [];
+        // @ts-ignore
         each(polarOptArr, function (polarOpt, idx) {
           if (polarOpt.indicator) {
             if (polarOpt.type && !polarOpt.shape) {
@@ -49255,6 +50952,7 @@
 
     var RadarView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadarView, _super);
 
@@ -49265,8 +50963,10 @@
         return _this;
       }
 
+      // @ts-ignore
       RadarView.prototype.render = function (seriesModel, ecModel, api) {
         var polar = seriesModel.coordinateSystem;
+        // @ts-ignore
         var group = this.group;
         var data = seriesModel.getData();
         var oldData = this._data;
@@ -49281,6 +50981,7 @@
           var symbolSize = normalizeSymbolSize(data.getItemVisual(idx, 'symbolSize'));
           var symbolPath = createSymbol(symbolType, -1, -1, 2, 2);
           var symbolRotate = data.getItemVisual(idx, 'symbolRotate') || 0;
+          // @ts-ignore
           symbolPath.attr({
             style: {
               strokeNoScale: true
@@ -49301,15 +51002,18 @@
             var symbolPath = createSymbol$1(data, idx);
 
             if (symbolPath) {
+              // @ts-ignore
               symbolPath.__dimIdx = i;
 
               if (oldPoints[i]) {
+                // @ts-ignore
                 symbolPath.setPosition(oldPoints[i]);
                 graphic[isInit ? 'initProps' : 'updateProps'](symbolPath, {
                   x: newPoints[i][0],
                   y: newPoints[i][1]
                 }, seriesModel, idx);
               } else {
+                // @ts-ignore
                 symbolPath.setPosition(newPoints[i]);
               }
 
@@ -49319,6 +51023,7 @@
         }
 
         function getInitialPoints(points) {
+          // @ts-ignore
           return map(points, function (pt) {
             return [polar.cx, polar.cy];
           });
@@ -49338,7 +51043,9 @@
               points: points
             }
           };
+          // @ts-ignore
           polygon.shape.points = getInitialPoints(points);
+          // @ts-ignore
           polyline.shape.points = getInitialPoints(points);
           initProps(polygon, target, seriesModel, idx);
           initProps(polyline, target, seriesModel, idx);
@@ -49347,6 +51054,7 @@
           itemGroup.add(polyline);
           itemGroup.add(polygon);
           itemGroup.add(symbolGroup);
+          // @ts-ignore
           updateSymbols(polyline.shape.points, points, symbolGroup, data, idx, true);
           data.setItemGraphicEl(idx, itemGroup);
         }).update(function (newIdx, oldIdx) {
@@ -49406,7 +51114,9 @@
           var itemHoverStyle = emphasisModel.getModel('itemStyle').getItemStyle();
           symbolGroup.eachChild(function (symbolPath) {
             if (symbolPath instanceof ZRImage) {
+              // @ts-ignore
               var pathStyle = symbolPath.style;
+              // @ts-ignore
               symbolPath.useStyle(extend({
                 // TODO other properties like x, y ?
                 image: pathStyle.image,
@@ -49440,6 +51150,7 @@
       };
 
       RadarView.prototype.remove = function () {
+        // @ts-ignore
         this.group.removeAll();
         this._data = null;
       };
@@ -49450,6 +51161,7 @@
 
     var RadarSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadarSeriesModel, _super);
 
@@ -49462,14 +51174,17 @@
       } // Overwrite
 
 
+      // @ts-ignore
       RadarSeriesModel.prototype.init = function (option) {
         _super.prototype.init.apply(this, arguments); // Enable legend selection for each data item
         // Use a function instead of direct access because data reference may changed
 
 
+        // @ts-ignore
         this.legendVisualProvider = new LegendVisualProvider(bind(this.getData, this), bind(this.getRawData, this));
       };
 
+      // @ts-ignore
       RadarSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesDataSimply(this, {
           generateCoord: 'indicator_',
@@ -49477,11 +51192,16 @@
         });
       };
 
+      // @ts-ignore
       RadarSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
+        // @ts-ignore
         var data = this.getData();
+        // @ts-ignore
         var coordSys = this.coordinateSystem;
         var indicatorAxes = coordSys.getIndicatorAxes();
+        // @ts-ignore
         var name = this.getData().getName(dataIndex);
+        // @ts-ignore
         var nameToDisplay = name === '' ? this.name : name;
         var markerColor = retrieveVisualColorForTooltipMarker(this, dataIndex);
         return createTooltipMarkup('section', {
@@ -49502,7 +51222,9 @@
 
       RadarSeriesModel.prototype.getTooltipPosition = function (dataIndex) {
         if (dataIndex != null) {
+          // @ts-ignore
           var data_1 = this.getData();
+          // @ts-ignore
           var coordSys = this.coordinateSystem;
           var values = data_1.getValues(map(coordSys.dimensions, function (dim) {
             return data_1.mapDimension(dim);
@@ -49553,6 +51275,7 @@
 
     var RadarModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadarModel, _super);
 
@@ -49564,18 +51287,30 @@
       }
 
       RadarModel.prototype.optionUpdated = function () {
+        // @ts-ignore
         var boundaryGap = this.get('boundaryGap');
+        // @ts-ignore
         var splitNumber = this.get('splitNumber');
+        // @ts-ignore
         var scale = this.get('scale');
+        // @ts-ignore
         var axisLine = this.get('axisLine');
+        // @ts-ignore
         var axisTick = this.get('axisTick'); // let axisType = this.get('axisType');
 
+        // @ts-ignore
         var axisLabel = this.get('axisLabel');
+        // @ts-ignore
         var nameTextStyle = this.get('axisName');
+        // @ts-ignore
         var showName = this.get(['axisName', 'show']);
+        // @ts-ignore
         var nameFormatter = this.get(['axisName', 'formatter']);
+        // @ts-ignore
         var nameGap = this.get('axisNameGap');
+        // @ts-ignore
         var triggerEvent = this.get('triggerEvent');
+        // @ts-ignore
         var indicatorModels = map(this.get('indicator') || [], function (indicatorOpt) {
           // PENDING
           if (indicatorOpt.max != null && indicatorOpt.max > 0 && !indicatorOpt.min) {
@@ -49622,10 +51357,12 @@
             innerIndicatorOpt.name = nameFormatter(innerIndicatorOpt.name, innerIndicatorOpt);
           }
 
+          // @ts-ignore
           var model = new Model(innerIndicatorOpt, null, this.ecModel);
           mixin(model, AxisModelCommonMixin.prototype); // For triggerEvent.
 
           model.mainType = 'radar';
+          // @ts-ignore
           model.componentIndex = this.componentIndex;
           return model;
         }, this);
@@ -49674,6 +51411,7 @@
 
     var RadarView$1 =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadarView, _super);
 
@@ -49684,7 +51422,9 @@
         return _this;
       }
 
+      // @ts-ignore
       RadarView.prototype.render = function (radarModel, ecModel, api) {
+        // @ts-ignore
         var group = this.group;
         group.removeAll();
 
@@ -49711,6 +51451,7 @@
         });
         each(axisBuilders, function (axisBuilder) {
           each(axisBuilderAttrs$1, axisBuilder.add, axisBuilder);
+          // @ts-ignore
           this.group.add(axisBuilder.getGroup());
         }, this);
       };
@@ -49784,6 +51525,7 @@
             });
             var prevPoints = [];
 
+            // @ts-ignore
             for (var i = 0; i <= realSplitNumber_1; i++) {
               var points = [];
 
@@ -49795,6 +51537,7 @@
               if (points[0]) {
                 points.push(points[0].slice());
               } else {
+                // @ts-ignore
                 if ("development" !== 'production') {
                   console.error('Can\'t draw value axis ' + i);
                 }
@@ -49826,6 +51569,7 @@
         var areaStyle = areaStyleModel.getAreaStyle(); // Add splitArea before splitLine
 
         each(splitAreas, function (splitAreas, idx) {
+          // @ts-ignore
           this.group.add(mergePath$1(splitAreas, {
             style: defaults({
               stroke: 'none',
@@ -49835,6 +51579,7 @@
           }));
         }, this);
         each(splitLines, function (splitLines, idx) {
+          // @ts-ignore
           this.group.add(mergePath$1(splitLines, {
             style: defaults({
               fill: 'none',
@@ -49851,10 +51596,12 @@
 
     var IndicatorAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(IndicatorAxis, _super);
 
       function IndicatorAxis(dim, scale, radiusExtent) {
+        // @ts-ignore
         var _this = _super.call(this, dim, scale, radiusExtent) || this;
 
         _this.type = 'value';
@@ -49868,7 +51615,9 @@
 
     var Radar =
     /** @class */
+    // @ts-ignore
     function () {
+      // @ts-ignore
       function Radar(radarModel, ecModel, api) {
         /**
          *
@@ -49884,6 +51633,7 @@
 
           indicatorAxis.model = indicatorModel;
           indicatorModel.axis = indicatorAxis;
+          // @ts-ignore
           this.dimensions.push(dim);
           return indicatorAxis;
         }, this);
@@ -49903,13 +51653,17 @@
       Radar.prototype.coordToPoint = function (coord, indicatorIndex) {
         var indicatorAxis = this._indicatorAxes[indicatorIndex];
         var angle = indicatorAxis.angle;
+        // @ts-ignore
         var x = this.cx + coord * Math.cos(angle);
+        // @ts-ignore
         var y = this.cy - coord * Math.sin(angle);
         return [x, y];
       };
 
       Radar.prototype.pointToData = function (pt) {
+        // @ts-ignore
         var dx = pt[0] - this.cx;
+        // @ts-ignore
         var dy = pt[1] - this.cy;
         var radius = Math.sqrt(dx * dx + dy * dy);
         dx /= radius;
@@ -49953,7 +51707,9 @@
         this.r0 = parsePercent$1(radius[0], viewSize);
         this.r = parsePercent$1(radius[1], viewSize);
         each(this._indicatorAxes, function (indicatorAxis, idx) {
+          // @ts-ignore
           indicatorAxis.setExtent(this.r0, this.r);
+          // @ts-ignore
           var angle = this.startAngle + idx * Math.PI * 2 / this._indicatorAxes.length; // Normalize to [-PI, PI]
 
           angle = Math.atan2(Math.sin(angle), Math.cos(angle));
@@ -49961,12 +51717,14 @@
         }, this);
       };
 
+      // @ts-ignore
       Radar.prototype.update = function (ecModel, api) {
         var indicatorAxes = this._indicatorAxes;
         var radarModel = this._model;
         each(indicatorAxes, function (indicatorAxis) {
           indicatorAxis.scale.setExtent(Infinity, -Infinity);
         });
+        // @ts-ignore
         ecModel.eachSeriesByType('radar', function (radarSeries, idx) {
           if (radarSeries.get('coordinateSystem') !== 'radar' // @ts-ignore
           || ecModel.getComponent('radar', radarSeries.get('radarIndex')) !== radarModel) {
@@ -49983,21 +51741,25 @@
         dummyScale.setExtent(0, splitNumber);
         dummyScale.setInterval(1); // Force all the axis fixing the maxSplitNumber.
 
+        // @ts-ignore
         each(indicatorAxes, function (indicatorAxis, idx) {
           alignScaleTicks(indicatorAxis.scale, indicatorAxis.model, dummyScale);
         });
       };
 
+      // @ts-ignore
       Radar.prototype.convertToPixel = function (ecModel, finder, value) {
         console.warn('Not implemented.');
         return null;
       };
 
+      // @ts-ignore
       Radar.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         console.warn('Not implemented.');
         return null;
       };
 
+      // @ts-ignore
       Radar.prototype.containPoint = function (point) {
         console.warn('Not implemented.');
         return false;
@@ -50093,12 +51855,15 @@
 
     var RoamController =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RoamController, _super);
 
       function RoamController(zr) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this._zr = zr; // Avoid two roamController bind the same handler
 
         var mousedownHandler = bind(_this._mousedownHandler, _this);
@@ -50112,8 +51877,10 @@
          * default mousewheel behaviour (scroll page) will be disabled.
          */
 
+        // @ts-ignore
         _this.enable = function (controlType, opt) {
           // Disable previous first
+          // @ts-ignore
           this.disable();
           this._opt = defaults(clone(opt) || {}, {
             zoomOnMouseWheel: true,
@@ -50139,6 +51906,7 @@
           }
         };
 
+        // @ts-ignore
         _this.disable = function () {
           zr.off('mousedown', mousedownHandler);
           zr.off('mousemove', mousemoveHandler);
@@ -50155,6 +51923,7 @@
       };
 
       RoamController.prototype.isPinching = function () {
+        // @ts-ignore
         return this._pinching;
       };
 
@@ -50163,6 +51932,7 @@
       };
 
       RoamController.prototype.dispose = function () {
+        // @ts-ignore
         this.disable();
       };
 
@@ -50183,6 +51953,7 @@
       };
 
       RoamController.prototype._mousemoveHandler = function (e) {
+        // @ts-ignore
         if (!this._dragging || !isAvailableBehavior('moveOnMouseMove', e, this._opt) || e.gestureEvent === 'pinch' || isTaken(this._zr, 'globalPan')) {
           return;
         }
@@ -50195,6 +51966,7 @@
         var dy = y - oldY;
         this._x = x;
         this._y = y;
+        // @ts-ignore
         this._opt.preventDefaultMouseMove && stop(e.event);
         trigger(this, 'pan', 'moveOnMouseMove', e, {
           dx: dx,
@@ -50214,7 +51986,9 @@
       };
 
       RoamController.prototype._mousewheelHandler = function (e) {
+        // @ts-ignore
         var shouldZoom = isAvailableBehavior('zoomOnMouseWheel', e, this._opt);
+        // @ts-ignore
         var shouldMove = isAvailableBehavior('moveOnMouseWheel', e, this._opt);
         var wheelDelta = e.wheelDelta;
         var absWheelDeltaDelta = Math.abs(wheelDelta);
@@ -50262,6 +52036,7 @@
       };
 
       RoamController.prototype._pinchHandler = function (e) {
+        // @ts-ignore
         if (isTaken(this._zr, 'globalPan')) {
           return;
         }
@@ -50494,6 +52269,7 @@
         SVGParser.prototype.parse = function (xml, opt) {
             opt = opt || {};
             var svg = parseXML(xml);
+            // @ts-ignore
             if ("development" !== 'production') {
                 if (!svg) {
                     throw new Error('Illegal svg');
@@ -50506,7 +52282,9 @@
             var viewBox = svg.getAttribute('viewBox') || '';
             var width = parseFloat((svg.getAttribute('width') || opt.width));
             var height = parseFloat((svg.getAttribute('height') || opt.height));
+            // @ts-ignore
             isNaN(width) && (width = null);
+            // @ts-ignore
             isNaN(height) && (height = null);
             parseAttributes(svg, root, null, true, false);
             var child = svg.firstChild;
@@ -50535,12 +52313,16 @@
                     var elRoot = root;
                     root = new Group();
                     root.add(elRoot);
+                    // @ts-ignore
                     elRoot.scaleX = elRoot.scaleY = viewBoxTransform.scale;
+                    // @ts-ignore
                     elRoot.x = viewBoxTransform.x;
+                    // @ts-ignore
                     elRoot.y = viewBoxTransform.y;
                 }
             }
             if (!opt.ignoreRootClip && width != null && height != null) {
+                // @ts-ignore
                 root.setClipPath(new Rect({
                     shape: { x: 0, y: 0, width: width, height: height }
                 }));
@@ -50624,17 +52406,22 @@
                     text: xmlNode.textContent
                 },
                 silent: true,
+                // @ts-ignore
                 x: this._textX || 0,
+                // @ts-ignore
                 y: this._textY || 0
             });
             inheritStyle(parentGroup, text);
             parseAttributes(xmlNode, text, this._defsUsePending, false, false);
             applyTextAlignment(text, parentGroup);
+            // @ts-ignore
             var textStyle = text.style;
             var fontSize = textStyle.fontSize;
             if (fontSize && fontSize < 9) {
                 textStyle.fontSize = 9;
+                // @ts-ignore
                 text.scaleX *= fontSize / 9;
+                // @ts-ignore
                 text.scaleY *= fontSize / 9;
             }
             var font = (textStyle.fontSize || textStyle.fontFamily) && [
@@ -50645,6 +52432,7 @@
             ].join(' ');
             textStyle.font = font;
             var rect = text.getBoundingRect();
+            // @ts-ignore
             this._textX += rect.width;
             parentGroup.add(text);
             return text;
@@ -50661,12 +52449,14 @@
                     var rect = new Rect();
                     inheritStyle(parentGroup, rect);
                     parseAttributes(xmlNode, rect, this._defsUsePending, false, false);
+                    // @ts-ignore
                     rect.setShape({
                         x: parseFloat(xmlNode.getAttribute('x') || '0'),
                         y: parseFloat(xmlNode.getAttribute('y') || '0'),
                         width: parseFloat(xmlNode.getAttribute('width') || '0'),
                         height: parseFloat(xmlNode.getAttribute('height') || '0')
                     });
+                    // @ts-ignore
                     rect.silent = true;
                     return rect;
                 },
@@ -50674,11 +52464,13 @@
                     var circle = new Circle();
                     inheritStyle(parentGroup, circle);
                     parseAttributes(xmlNode, circle, this._defsUsePending, false, false);
+                    // @ts-ignore
                     circle.setShape({
                         cx: parseFloat(xmlNode.getAttribute('cx') || '0'),
                         cy: parseFloat(xmlNode.getAttribute('cy') || '0'),
                         r: parseFloat(xmlNode.getAttribute('r') || '0')
                     });
+                    // @ts-ignore
                     circle.silent = true;
                     return circle;
                 },
@@ -50686,12 +52478,14 @@
                     var line = new Line();
                     inheritStyle(parentGroup, line);
                     parseAttributes(xmlNode, line, this._defsUsePending, false, false);
+                    // @ts-ignore
                     line.setShape({
                         x1: parseFloat(xmlNode.getAttribute('x1') || '0'),
                         y1: parseFloat(xmlNode.getAttribute('y1') || '0'),
                         x2: parseFloat(xmlNode.getAttribute('x2') || '0'),
                         y2: parseFloat(xmlNode.getAttribute('y2') || '0')
                     });
+                    // @ts-ignore
                     line.silent = true;
                     return line;
                 },
@@ -50699,12 +52493,14 @@
                     var ellipse = new Ellipse();
                     inheritStyle(parentGroup, ellipse);
                     parseAttributes(xmlNode, ellipse, this._defsUsePending, false, false);
+                    // @ts-ignore
                     ellipse.setShape({
                         cx: parseFloat(xmlNode.getAttribute('cx') || '0'),
                         cy: parseFloat(xmlNode.getAttribute('cy') || '0'),
                         rx: parseFloat(xmlNode.getAttribute('rx') || '0'),
                         ry: parseFloat(xmlNode.getAttribute('ry') || '0')
                     });
+                    // @ts-ignore
                     ellipse.silent = true;
                     return ellipse;
                 },
@@ -50744,6 +52540,7 @@
                     var img = new ZRImage();
                     inheritStyle(parentGroup, img);
                     parseAttributes(xmlNode, img, this._defsUsePending, false, false);
+                    // @ts-ignore
                     img.setStyle({
                         image: xmlNode.getAttribute('xlink:href') || xmlNode.getAttribute('href'),
                         x: +xmlNode.getAttribute('x'),
@@ -50751,6 +52548,7 @@
                         width: +xmlNode.getAttribute('width'),
                         height: +xmlNode.getAttribute('height')
                     });
+                    // @ts-ignore
                     img.silent = true;
                     return img;
                 },
@@ -50789,6 +52587,7 @@
                     var path = createFromString(d);
                     inheritStyle(parentGroup, path);
                     parseAttributes(xmlNode, path, this._defsUsePending, false, false);
+                    // @ts-ignore
                     path.silent = true;
                     return path;
                 }
@@ -50802,6 +52601,7 @@
             var y1 = parseInt(xmlNode.getAttribute('y1') || '0', 10);
             var x2 = parseInt(xmlNode.getAttribute('x2') || '10', 10);
             var y2 = parseInt(xmlNode.getAttribute('y2') || '0', 10);
+            // @ts-ignore
             var gradient = new LinearGradient(x1, y1, x2, y2);
             parsePaintServerUnit(xmlNode, gradient);
             parseGradientColorStops(xmlNode, gradient);
@@ -50811,6 +52611,7 @@
             var cx = parseInt(xmlNode.getAttribute('cx') || '0', 10);
             var cy = parseInt(xmlNode.getAttribute('cy') || '0', 10);
             var r = parseInt(xmlNode.getAttribute('r') || '0', 10);
+            // @ts-ignore
             var gradient = new RadialGradient(cx, cy, r);
             parsePaintServerUnit(xmlNode, gradient);
             parseGradientColorStops(xmlNode, gradient);
@@ -50831,12 +52632,15 @@
                 var offsetStr = stop.getAttribute('offset');
                 var offset = void 0;
                 if (offsetStr && offsetStr.indexOf('%') > 0) {
+                    // @ts-ignore
                     offset = parseInt(offsetStr, 10) / 100;
                 }
                 else if (offsetStr) {
+                    // @ts-ignore
                     offset = parseFloat(offsetStr);
                 }
                 else {
+                    // @ts-ignore
                     offset = 0;
                 }
                 var styleVals = {};
@@ -50882,10 +52686,14 @@
             }
         }
         disp.style = disp.style || {};
+        // @ts-ignore
         if (inheritedStyle.fill != null) {
+            // @ts-ignore
             disp.style.fill = getFillStrokeStyle(disp, 'fill', inheritedStyle.fill, defsUsePending);
         }
+        // @ts-ignore
         if (inheritedStyle.stroke != null) {
+            // @ts-ignore
             disp.style.stroke = getFillStrokeStyle(disp, 'stroke', inheritedStyle.stroke, defsUsePending);
         }
         each([
@@ -50905,14 +52713,18 @@
         if (isTextGroup) {
             disp.__selfStyle = selfStyle;
         }
+        // @ts-ignore
         if (inheritedStyle.lineDash) {
+            // @ts-ignore
             disp.style.lineDash = map(splitNumberSequence(inheritedStyle.lineDash), function (str) {
                 return parseFloat(str);
             });
         }
+        // @ts-ignore
         if (inheritedStyle.visibility === 'hidden' || inheritedStyle.visibility === 'collapse') {
             disp.invisible = true;
         }
+        // @ts-ignore
         if (inheritedStyle.display === 'none') {
             disp.ignore = true;
         }
@@ -50982,6 +52794,7 @@
             transform = transform.replace(/,/g, ' ');
             var transformOps_1 = [];
             var mt = null;
+            // @ts-ignore
             transform.replace(transformRegex, function (str, type, value) {
                 transformOps_1.push(type, value);
                 return '';
@@ -51108,6 +52921,7 @@
 
     var GeoSVGResource =
     /** @class */
+    // @ts-ignore
     function () {
       function GeoSVGResource(mapName, svg) {
         this.type = 'geoSVG'; // All used graphics. key: hostKey, value: root
@@ -51179,6 +52993,7 @@
 
         var root = new Group();
         root.add(rootFromParse);
+        // @ts-ignore
         root.isGeoSVGGraphicRoot = true; // [THE_RULE_OF_VIEWPORT_AND_VIEWBOX]
         //
         // Consider: `<svg width="..." height="..." viewBox="...">`
@@ -51219,6 +53034,7 @@
           var bRectHeight = void 0;
 
           if (svgWidth != null) {
+            // @ts-ignore
             bRectX = 0;
             bRectWidth = svgWidth;
           } else if (viewBoxRect) {
@@ -51227,6 +53043,7 @@
           }
 
           if (svgHeight != null) {
+            // @ts-ignore
             bRectY = 0;
             bRectHeight = svgHeight;
           } else if (viewBoxRect) {
@@ -51267,6 +53084,7 @@
         // edge might also be clipped, because region labels are put as `textContent` of the SVG path.
 
 
+        // @ts-ignore
         root.setClipPath(new Rect({
           shape: boundingRect.plain()
         }));
@@ -51546,6 +53364,7 @@
 
     var GeoJSONResource =
     /** @class */
+    // @ts-ignore
     function () {
       function GeoJSONResource(mapName, geoJSON, specialAreas) {
         this.type = 'geoJSON';
@@ -51612,6 +53431,7 @@
           fixDiaoyuIsland(mapName, region); // Some area like Alaska in USA map needs to be tansformed
           // to look better
 
+          // @ts-ignore
           var specialArea = this._specialAreas && this._specialAreas[regionName];
 
           if (specialArea) {
@@ -51727,6 +53547,7 @@
         var resource = storage.get(mapName);
 
         if (!resource) {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.error('Map ' + mapName + ' not exists. The GeoJSON of the map must be provided.');
           }
@@ -51776,6 +53597,7 @@
 
     var MapDraw =
     /** @class */
+    // @ts-ignore
     function () {
       function MapDraw(api) {
         var group = new Group();
@@ -51812,10 +53634,15 @@
         var isFirstDraw = !regionsGroup.childAt(0) || payload;
 
         if (isFirstDraw) {
+          // @ts-ignore
           group.x = transformInfoRoam.x;
+          // @ts-ignore
           group.y = transformInfoRoam.y;
+          // @ts-ignore
           group.scaleX = transformInfoRoam.scaleX;
+          // @ts-ignore
           group.scaleY = transformInfoRoam.scaleY;
+          // @ts-ignore
           group.dirty();
         } else {
           updateProps(group, transformInfoRoam, mapOrGeoModel);
@@ -51956,6 +53783,7 @@
 
             if (isLine) {
               fixLineStyle(compoundPath);
+              // @ts-ignore
               each(compoundPath.states, fixLineStyle);
             }
           }
@@ -51978,9 +53806,13 @@
       MapDraw.prototype._buildSVG = function (viewBuildCtx) {
         var mapName = viewBuildCtx.geo.map;
         var transformInfoRaw = viewBuildCtx.transformInfoRaw;
+        // @ts-ignore
         this._svgGroup.x = transformInfoRaw.x;
+        // @ts-ignore
         this._svgGroup.y = transformInfoRaw.y;
+        // @ts-ignore
         this._svgGroup.scaleX = transformInfoRaw.scaleX;
+        // @ts-ignore
         this._svgGroup.scaleY = transformInfoRaw.scaleY;
 
         if (this._svgResourceChanged(mapName)) {
@@ -52009,6 +53841,7 @@
           }
 
           if (el instanceof Displayable) {
+            // @ts-ignore
             el.culling = true;
           } // We do not know how the SVG like so we'd better not to change z2.
           // Otherwise it might bring some unexpected result. For example,
@@ -52083,6 +53916,7 @@
 
         this._controller.dispose();
 
+        // @ts-ignore
         this._controllerHost = null;
       };
 
@@ -52143,6 +53977,7 @@
         this._svgMapName = null;
       };
 
+      // @ts-ignore
       MapDraw.prototype._updateController = function (mapOrGeoModel, ecModel, api) {
         var geo = mapOrGeoModel.coordinateSystem;
         var controller = this._controller;
@@ -52214,6 +54049,7 @@
         });
       };
 
+      // @ts-ignore
       MapDraw.prototype._updateMapSelectHandler = function (mapOrGeoModel, regionsGroup, api, fromView) {
         var mapDraw = this;
         regionsGroup.off('mousedown');
@@ -52221,13 +54057,17 @@
 
         if (mapOrGeoModel.get('selectedMode')) {
           regionsGroup.on('mousedown', function () {
+            // @ts-ignore
             mapDraw._mouseDownFlag = true;
           });
+          // @ts-ignore
           regionsGroup.on('click', function (e) {
+            // @ts-ignore
             if (!mapDraw._mouseDownFlag) {
               return;
             }
 
+            // @ts-ignore
             mapDraw._mouseDownFlag = false;
           });
         }
@@ -52450,6 +54290,7 @@
 
     var MapView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MapView, _super);
 
@@ -52462,10 +54303,12 @@
 
       MapView.prototype.render = function (mapModel, ecModel, api, payload) {
         // Not render if it is an toggleSelect action from self
+        // @ts-ignore
         if (payload && payload.type === 'mapToggleSelect' && payload.from === this.uid) {
           return;
         }
 
+        // @ts-ignore
         var group = this.group;
         group.removeAll();
 
@@ -52500,6 +54343,7 @@
       MapView.prototype.remove = function () {
         this._mapDraw && this._mapDraw.remove();
         this._mapDraw = null;
+        // @ts-ignore
         this.group.removeAll();
       };
 
@@ -52508,8 +54352,10 @@
         this._mapDraw = null;
       };
 
+      // @ts-ignore
       MapView.prototype._renderSymbols = function (mapModel, ecModel, api) {
         var originalData = mapModel.originalData;
+        // @ts-ignore
         var group = this.group;
         originalData.each(originalData.mapDimension('value'), function (value, originalDataIndex) {
           if (isNaN(value)) {
@@ -52569,15 +54415,18 @@
 
             setLabelStyle(circle, getLabelStatesModels(itemModel), {
               labelFetcher: {
+                // @ts-ignore
                 getFormattedLabel: function (idx, state) {
                   return mapModel.getFormattedLabel(fullIndex_1, state);
                 }
               },
               defaultText: name_1
             });
+            // @ts-ignore
             circle.disableLabelAnimation = true;
 
             if (!labelModel.get('position')) {
+              // @ts-ignore
               circle.setTextConfig({
                 position: 'bottom'
               });
@@ -52598,6 +54447,7 @@
 
     var MapSeries =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MapSeries, _super);
 
@@ -52622,6 +54472,7 @@
         return _this;
       }
 
+      // @ts-ignore
       MapSeries.prototype.getInitialData = function (option) {
         var data = createSeriesDataSimply(this, {
           coordDimensions: ['value'],
@@ -52635,6 +54486,7 @@
           dataNameMap.set(name_2, true);
         }
 
+        // @ts-ignore
         var geoSource = geoSourceManager.load(this.getMapType(), this.option.nameMap, this.option.nameProperty);
         each(geoSource.regions, function (region) {
           var name = region.name;
@@ -52656,7 +54508,9 @@
 
 
       MapSeries.prototype.getHostGeoModel = function () {
+        // @ts-ignore
         var geoIndex = this.option.geoIndex;
+        // @ts-ignore
         return geoIndex != null ? this.ecModel.getComponent('geo', geoIndex) : null;
       };
 
@@ -52673,6 +54527,7 @@
       MapSeries.prototype.getRawValue = function (dataIndex) {
         // Use value stored in data instead because it is calculated from multiple series
         // FIXME Provide all value of multiple series ?
+        // @ts-ignore
         var data = this.getData();
         return data.get(data.mapDimension('value'), dataIndex);
       };
@@ -52682,6 +54537,7 @@
 
 
       MapSeries.prototype.getRegionModel = function (regionName) {
+        // @ts-ignore
         var data = this.getData();
         return data.getItemModel(data.indexOfName(regionName));
       };
@@ -52690,11 +54546,14 @@
        */
 
 
+      // @ts-ignore
       MapSeries.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         // FIXME orignalData and data is a bit confusing
+        // @ts-ignore
         var data = this.getData();
         var value = this.getRawValue(dataIndex);
         var name = data.getName(dataIndex);
+        // @ts-ignore
         var seriesGroup = this.seriesGroup;
         var seriesNames = [];
 
@@ -52718,23 +54577,30 @@
       };
 
       MapSeries.prototype.setZoom = function (zoom) {
+        // @ts-ignore
         this.option.zoom = zoom;
       };
 
       MapSeries.prototype.setCenter = function (center) {
+        // @ts-ignore
         this.option.center = center;
       };
 
       MapSeries.prototype.getLegendIcon = function (opt) {
         var iconType = opt.icon || 'roundRect';
         var icon = createSymbol(iconType, 0, 0, opt.itemWidth, opt.itemHeight, opt.itemStyle.fill);
+        // @ts-ignore
         icon.setStyle(opt.itemStyle); // Map do not use itemStyle.borderWidth as border width
 
+        // @ts-ignore
         icon.style.stroke = 'none'; // No rotation because no series visual symbol for map
 
         if (iconType.indexOf('empty') > -1) {
+          // @ts-ignore
           icon.style.stroke = icon.style.fill;
+          // @ts-ignore
           icon.style.fill = '#fff';
+          // @ts-ignore
           icon.style.lineWidth = 2;
         }
 
@@ -52831,6 +54697,7 @@
           }
         });
       });
+      // @ts-ignore
       return datas[0].map(datas[0].mapDimension('value'), function (value, idx) {
         var mapKey = 'ec-' + datas[0].getName(idx);
         var sum = 0;
@@ -52867,6 +54734,7 @@
         var key = hostGeoModel ? 'o' + hostGeoModel.id : 'i' + seriesModel.getMapType();
         (seriesGroups[key] = seriesGroups[key] || []).push(seriesModel);
       });
+      // @ts-ignore
       each(seriesGroups, function (seriesList, key) {
         var data = dataStatistics(map(seriesList, function (seriesModel) {
           return seriesModel.getData();
@@ -52937,13 +54805,17 @@
 
     var View =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(View, _super);
 
       function View(name) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this.type = 'view';
+        // @ts-ignore
         _this.dimensions = ['x', 'y'];
         /**
          * Represents the transform brought by roam/zoom.
@@ -52951,12 +54823,15 @@
          * we can get the final displayed rect.
          */
 
+        // @ts-ignore
         _this._roamTransformable = new Transformable();
         /**
          * Represents the transform from `View['_rect']` to `View['_viewRect']`.
          */
 
+        // @ts-ignore
         _this._rawTransformable = new Transformable();
+        // @ts-ignore
         _this.name = name;
         return _this;
       }
@@ -52986,6 +54861,7 @@
 
       View.prototype._transformTo = function (x, y, width, height) {
         var rect = this.getBoundingRect();
+        // @ts-ignore
         var rawTransform = this._rawTransformable;
         rawTransform.transform = rect.calculateTransform(new BoundingRect(x, y, width, height));
         var rawParent = rawTransform.parent;
@@ -53012,6 +54888,7 @@
 
       View.prototype.setZoom = function (zoom) {
         zoom = zoom || 1;
+        // @ts-ignore
         var zoomLimit = this.zoomLimit;
 
         if (zoomLimit) {
@@ -53050,6 +54927,7 @@
       };
 
       View.prototype.getRoamTransform = function () {
+        // @ts-ignore
         return this._roamTransformable.getLocalTransform();
       };
       /**
@@ -53059,8 +54937,10 @@
 
       View.prototype._updateCenterAndZoom = function () {
         // Must update after view transform updated
+        // @ts-ignore
         var rawTransformMatrix = this._rawTransformable.getLocalTransform();
 
+        // @ts-ignore
         var roamTransform = this._roamTransformable;
         var defaultCenter = this.getDefaultCenter();
         var center = this.getCenter();
@@ -53082,7 +54962,9 @@
 
 
       View.prototype._updateTransform = function () {
+        // @ts-ignore
         var roamTransformable = this._roamTransformable;
+        // @ts-ignore
         var rawTransformable = this._rawTransformable;
         rawTransformable.parent = roamTransformable;
         roamTransformable.updateTransform();
@@ -53091,11 +54973,14 @@
         this._rawTransform = rawTransformable.getLocalTransform();
         this.invTransform = this.invTransform || [];
         invert(this.invTransform, this.transform);
+        // @ts-ignore
         this.decomposeTransform();
       };
 
       View.prototype.getTransformInfo = function () {
+        // @ts-ignore
         var rawTransformable = this._rawTransformable;
+        // @ts-ignore
         var roamTransformable = this._roamTransformable; // Becuase roamTransformabel has `originX/originY` modified,
         // but the caller of `getTransformInfo` can not handle `originX/originY`,
         // so need to recalcualte them.
@@ -53152,11 +55037,13 @@
         return invTransform ? v2ApplyTransform([], point, invTransform) : [point[0], point[1]];
       };
 
+      // @ts-ignore
       View.prototype.convertToPixel = function (ecModel, finder, value) {
         var coordSys = getCoordSys(finder);
         return coordSys === this ? coordSys.dataToPoint(value) : null;
       };
 
+      // @ts-ignore
       View.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         var coordSys = getCoordSys(finder);
         return coordSys === this ? coordSys.pointToData(pixel) : null;
@@ -53166,6 +55053,7 @@
        */
 
 
+      // @ts-ignore
       View.prototype.containPoint = function (point) {
         return this.getViewRectAfterRoam().contain(point[0], point[1]);
       };
@@ -53193,6 +55081,7 @@
 
     var Geo =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Geo, _super);
 
@@ -53213,9 +55102,11 @@
         _this._regionsMap = source.regionsMap;
         _this.regions = source.regions;
 
+        // @ts-ignore
         if ("development" !== 'production' && projection) {
           // Do some check
           if (resourceType === 'geoSVG') {
+            // @ts-ignore
             if ("development" !== 'production') {
               warn("Map " + map + " with SVG source can't use projection. Only GeoJSON source supports projection.");
             }
@@ -53224,6 +55115,7 @@
           }
 
           if (!(projection.project && projection.unproject)) {
+            // @ts-ignore
             if ("development" !== 'production') {
               warn('project and unproject must be both provided in the projeciton.');
             }
@@ -53258,7 +55150,9 @@
       }
 
       Geo.prototype._transformTo = function (x, y, width, height) {
+        // @ts-ignore
         var rect = this.getBoundingRect();
+        // @ts-ignore
         var invertLongitute = this._invertLongitute;
         rect = rect.clone();
 
@@ -53267,6 +55161,7 @@
           rect.y = -rect.y - rect.height;
         }
 
+        // @ts-ignore
         var rawTransformable = this._rawTransformable;
         rawTransformable.transform = rect.calculateTransform(new BoundingRect(x, y, width, height));
         var rawParent = rawTransformable.parent;
@@ -53278,14 +55173,17 @@
           rawTransformable.scaleY = -rawTransformable.scaleY;
         }
 
+        // @ts-ignore
         this._updateTransform();
       };
 
       Geo.prototype.getRegion = function (name) {
+        // @ts-ignore
         return this._regionsMap.get(name);
       };
 
       Geo.prototype.getRegionByCoord = function (coord) {
+        // @ts-ignore
         var regions = this.regions;
 
         for (var i = 0; i < regions.length; i++) {
@@ -53302,6 +55200,7 @@
 
 
       Geo.prototype.addGeoCoord = function (name, geoCoord) {
+        // @ts-ignore
         this._nameCoordMap.set(name, geoCoord);
       };
       /**
@@ -53310,12 +55209,15 @@
 
 
       Geo.prototype.getGeoCoord = function (name) {
+        // @ts-ignore
         var region = this._regionsMap.get(name); // calcualte center only on demand.
 
 
+        // @ts-ignore
         return this._nameCoordMap.get(name) || region && region.getCenter();
       };
 
+      // @ts-ignore
       Geo.prototype.dataToPoint = function (data, noRoam, out) {
         if (isString(data)) {
           // Map area name to geoCoord
@@ -53323,6 +55225,7 @@
         }
 
         if (data) {
+          // @ts-ignore
           var projection = this.projection;
 
           if (projection) {
@@ -53335,6 +55238,7 @@
       };
 
       Geo.prototype.pointToData = function (point) {
+        // @ts-ignore
         var projection = this.projection;
 
         if (projection) {
@@ -53357,11 +55261,13 @@
         return _super.prototype.dataToPoint.call(this, projected, noRoam, out);
       };
 
+      // @ts-ignore
       Geo.prototype.convertToPixel = function (ecModel, finder, value) {
         var coordSys = getCoordSys$1(finder);
         return coordSys === this ? coordSys.dataToPoint(value) : null;
       };
 
+      // @ts-ignore
       Geo.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         var coordSys = getCoordSys$1(finder);
         return coordSys === this ? coordSys.pointToData(pixel) : null;
@@ -53390,11 +55296,13 @@
         var rightBottom_1 = boundingCoords[1];
 
         if (!(isFinite(leftTop_1[0]) && isFinite(leftTop_1[1]) && isFinite(rightBottom_1[0]) && isFinite(rightBottom_1[1]))) {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.error('Invalid boundingCoords');
           }
         } else {
           // Sample around the lng/lat rect and use projection to calculate actual bounding rect.
+          // @ts-ignore
           var projection_1 = this.projection;
 
           if (projection_1) {
@@ -53427,15 +55335,18 @@
             sampleLine(xMin, yMax, xMax, yMin);
           }
 
+          // @ts-ignore
           this.setBoundingRect(leftTop_1[0], leftTop_1[1], rightBottom_1[0] - leftTop_1[0], rightBottom_1[1] - leftTop_1[1]);
         }
       }
 
+      // @ts-ignore
       var rect = this.getBoundingRect();
       var centerOption = geoModel.get('layoutCenter');
       var sizeOption = geoModel.get('layoutSize');
       var viewWidth = api.getWidth();
       var viewHeight = api.getHeight();
+      // @ts-ignore
       var aspect = rect.width / rect.height * this.aspectScale;
       var useCenterAndSize = false;
       var center;
@@ -53448,6 +55359,7 @@
         if (!isNaN(center[0]) && !isNaN(center[1]) && !isNaN(size)) {
           useCenterAndSize = true;
         } else {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.warn('Given layoutCenter or layoutSize data are invalid. Use left/top/width/height instead.');
           }
@@ -53461,14 +55373,20 @@
 
         if (aspect > 1) {
           // Width is same with size
+          // @ts-ignore
           viewRect.width = size;
+          // @ts-ignore
           viewRect.height = size / aspect;
         } else {
+          // @ts-ignore
           viewRect.height = size;
+          // @ts-ignore
           viewRect.width = size * aspect;
         }
 
+        // @ts-ignore
         viewRect.y = center[1] - viewRect.height / 2;
+        // @ts-ignore
         viewRect.x = center[0] - viewRect.width / 2;
       } else {
         // Use left/top/width/height
@@ -53480,8 +55398,11 @@
         });
       }
 
+      // @ts-ignore
       this.setViewRect(viewRect.x, viewRect.y, viewRect.width, viewRect.height);
+      // @ts-ignore
       this.setCenter(geoModel.get('center'));
+      // @ts-ignore
       this.setZoom(geoModel.get('zoom'));
     } // Back compat for ECharts2, where the coord map is set on map series:
     // {type: 'map', geoCoord: {'cityA': [116.46,39.92], 'cityA': [119.12,24.61]}},
@@ -53495,6 +55416,7 @@
 
     var GeoCreator =
     /** @class */
+    // @ts-ignore
     function () {
       function GeoCreator() {
         // For deciding which dimensions to use when creating list data
@@ -53596,6 +55518,7 @@
 
     var GeoModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GeoModel, _super);
 
@@ -53606,6 +55529,7 @@
         return _this;
       }
 
+      // @ts-ignore
       GeoModel.prototype.init = function (option, parentModel, ecModel) {
         var source = geoSourceManager.getGeoResource(option.map);
 
@@ -53613,10 +55537,12 @@
           var itemStyle = option.itemStyle = option.itemStyle || {};
 
           if (!('color' in itemStyle)) {
+            // @ts-ignore
             itemStyle.color = '#eee';
           }
         }
 
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel); // Default label emphasis `show`
 
         defaultEmphasis(option, 'label', ['show']);
@@ -53625,6 +55551,7 @@
       GeoModel.prototype.optionUpdated = function () {
         var _this = this;
 
+        // @ts-ignore
         var option = this.option;
         option.regions = geoCreator.getFilledRegions(option.regions, option.map, option.nameMap, option.nameProperty);
         var selectedMap = {};
@@ -53632,6 +55559,7 @@
           var regionName = regionOpt.name;
 
           if (regionName) {
+            // @ts-ignore
             optionModelMap.set(regionName, new Model(regionOpt, _this, _this.ecModel));
 
             if (regionOpt.selected) {
@@ -53652,6 +55580,7 @@
 
 
       GeoModel.prototype.getRegionModel = function (name) {
+        // @ts-ignore
         return this._optionModelMap.get(name) || new Model(null, this, this.ecModel);
       };
       /**
@@ -53676,15 +55605,18 @@
       };
 
       GeoModel.prototype.setZoom = function (zoom) {
+        // @ts-ignore
         this.option.zoom = zoom;
       };
 
       GeoModel.prototype.setCenter = function (center) {
+        // @ts-ignore
         this.option.center = center;
       }; // PENGING If selectedMode is null ?
 
 
       GeoModel.prototype.select = function (name) {
+        // @ts-ignore
         var option = this.option;
         var selectedMode = option.selectedMode;
 
@@ -53701,6 +55633,7 @@
       };
 
       GeoModel.prototype.unSelect = function (name) {
+        // @ts-ignore
         var selectedMap = this.option.selectedMap;
 
         if (selectedMap) {
@@ -53713,6 +55646,7 @@
       };
 
       GeoModel.prototype.isSelected = function (name) {
+        // @ts-ignore
         var selectedMap = this.option.selectedMap;
         return !!(selectedMap && selectedMap[name]);
       };
@@ -53870,6 +55804,7 @@
 
     var GeoView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GeoView, _super);
 
@@ -53881,6 +55816,7 @@
         return _this;
       }
 
+      // @ts-ignore
       GeoView.prototype.init = function (ecModel, api) {
         this._api = api;
       };
@@ -53902,6 +55838,7 @@
         mapDraw.draw(geoModel, ecModel, api, this, payload);
         mapDraw.group.on('click', this._handleRegionClick, this);
         mapDraw.group.silent = geoModel.get('silent');
+        // @ts-ignore
         this.group.add(mapDraw.group);
         this.updateSelectStatus(geoModel, ecModel, api);
       };
@@ -53916,11 +55853,13 @@
           this._api.dispatchAction({
             type: 'geoToggleSelect',
             geoId: this._model.id,
+            // @ts-ignore
             name: eventData.name
           });
         }
       };
 
+      // @ts-ignore
       GeoView.prototype.updateSelectStatus = function (model, ecModel, api) {
         var _this = this;
 
@@ -53976,6 +55915,7 @@
             }); // Notice: there might be duplicated name in different regions.
 
             var names = [];
+            // @ts-ignore
             each(selected, function (v, name) {
               selected[name] && names.push(name);
             });
@@ -54319,6 +56259,7 @@
 
     var TreeEdgeShape =
     /** @class */
+    // @ts-ignore
     function () {
       function TreeEdgeShape() {
         this.parentPoint = [];
@@ -54330,10 +56271,12 @@
 
     var TreePath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TreePath, _super);
 
       function TreePath(opts) {
+        // @ts-ignore
         return _super.call(this, opts) || this;
       }
 
@@ -54390,6 +56333,7 @@
 
     var TreeView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TreeView, _super);
 
@@ -54401,17 +56345,21 @@
         return _this;
       }
 
+      // @ts-ignore
       TreeView.prototype.init = function (ecModel, api) {
         this._controller = new RoamController(api.getZr());
         this._controllerHost = {
+          // @ts-ignore
           target: this.group
         };
+        // @ts-ignore
         this.group.add(this._mainGroup);
       };
 
       TreeView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
         var layoutInfo = seriesModel.layoutInfo;
+        // @ts-ignore
         var group = this._mainGroup;
         var layout = seriesModel.get('layout');
 
@@ -54507,6 +56455,7 @@
         viewCoordSys.setCenter(seriesModel.get('center'));
         viewCoordSys.setZoom(seriesModel.get('zoom')); // Here we use viewCoordSys just for computing the 'position' and 'scale' of the group
 
+        // @ts-ignore
         this.group.attr({
           x: viewCoordSys.x,
           y: viewCoordSys.y,
@@ -54517,11 +56466,13 @@
         this._max = max;
       };
 
+      // @ts-ignore
       TreeView.prototype._updateController = function (seriesModel, ecModel, api) {
         var _this = this;
 
         var controller = this._controller;
         var controllerHost = this._controllerHost;
+        // @ts-ignore
         var group = this.group;
         controller.setPointerChecker(function (e, x, y) {
           var rect = group.getBoundingRect();
@@ -54529,7 +56480,9 @@
           return rect.contain(x, y) && !onIrrelevantElement(e, api, seriesModel);
         });
         controller.enable(seriesModel.get('roam'));
+        // @ts-ignore
         controllerHost.zoomLimit = seriesModel.get('scaleLimit');
+        // @ts-ignore
         controllerHost.zoom = seriesModel.coordinateSystem.getZoom();
         controller.off('pan').off('zoom').on('pan', function (e) {
           updateViewOnPan(controllerHost, e.dx, e.dy);
@@ -54561,6 +56514,7 @@
 
         var nodeScale = this._getNodeGlobalScale(seriesModel);
 
+        // @ts-ignore
         data.eachItemGraphicEl(function (el, idx) {
           el.setSymbolScale(nodeScale);
         });
@@ -54587,6 +56541,7 @@
       };
 
       TreeView.prototype.remove = function () {
+        // @ts-ignore
         this._mainGroup.removeAll();
 
         this._data = null;
@@ -54659,34 +56614,46 @@
             x: (realRoot.children[0].getLayout().x + realRoot.children[length_1 - 1].getLayout().x) / 2,
             y: (realRoot.children[0].getLayout().y + realRoot.children[length_1 - 1].getLayout().y) / 2
           };
+          // @ts-ignore
           rad = Math.atan2(center.y - rootLayout.y, center.x - rootLayout.x);
 
+          // @ts-ignore
           if (rad < 0) {
+            // @ts-ignore
             rad = Math.PI * 2 + rad;
           }
 
+          // @ts-ignore
           isLeft = center.x < rootLayout.x;
 
           if (isLeft) {
+            // @ts-ignore
             rad = rad - Math.PI;
           }
         } else {
+          // @ts-ignore
           rad = Math.atan2(targetLayout.y - rootLayout.y, targetLayout.x - rootLayout.x);
 
+          // @ts-ignore
           if (rad < 0) {
+            // @ts-ignore
             rad = Math.PI * 2 + rad;
           }
 
           if (node.children.length === 0 || node.children.length !== 0 && node.isExpand === false) {
+            // @ts-ignore
             isLeft = targetLayout.x < rootLayout.x;
 
             if (isLeft) {
+              // @ts-ignore
               rad = rad - Math.PI;
             }
           } else {
+            // @ts-ignore
             isLeft = targetLayout.x > rootLayout.x;
 
             if (!isLeft) {
+              // @ts-ignore
               rad = rad - Math.PI;
             }
           }
@@ -54701,6 +56668,7 @@
         if (textContent) {
           symbolPath.setTextConfig({
             position: normalLabelModel.get('position') || textPosition,
+            // @ts-ignore
             rotation: rotate == null ? -rad : labelRotateRadian,
             origin: 'center'
           });
@@ -54787,6 +56755,7 @@
             }, seriesModel);
           }
         } else {
+          // @ts-ignore
           if ("development" !== 'production') {
             throw new Error('The polyline edgeShape can only be used in orthogonal layout');
           }
@@ -55003,13 +56972,17 @@
     }
 
     function transferInjection(opt, res) {
+      // @ts-ignore
       if (isMainData(this)) {
         // Transfer datas to new main data.
+        // @ts-ignore
         var datas = extend({}, inner$7(this).datas);
+        // @ts-ignore
         datas[this.dataType] = res;
         linkAll(res, datas, opt);
       } else {
         // Modify the reference in main data to point newData.
+        // @ts-ignore
         linkSingle(res, this.dataType, inner$7(this).mainData, opt);
       }
 
@@ -55040,6 +57013,7 @@
 
 
     function getLinkedData(dataType) {
+      // @ts-ignore
       var mainData = inner$7(this).mainData;
       return dataType == null || mainData == null ? mainData : inner$7(mainData).datas[dataType];
     }
@@ -55049,6 +57023,7 @@
 
 
     function getLinkedDataAll() {
+      // @ts-ignore
       var mainData = inner$7(this).mainData;
       return mainData == null ? [{
         data: mainData
@@ -55088,6 +57063,7 @@
 
     var TreeNode =
     /** @class */
+    // @ts-ignore
     function () {
       function TreeNode(name, hostTree) {
         this.depth = 0;
@@ -55198,6 +57174,7 @@
 
       TreeNode.prototype.getAncestors = function (includeSelf) {
         var ancestors = [];
+        // @ts-ignore
         var node = includeSelf ? this : this.parentNode;
 
         while (node) {
@@ -55215,6 +57192,7 @@
 
         while (currNode) {
           indices.push(currNode.dataIndex);
+          // @ts-ignore
           currNode = currNode.parentNode;
         }
 
@@ -55291,7 +57269,9 @@
 
 
       TreeNode.prototype.getChildIndex = function () {
+        // @ts-ignore
         if (this.parentNode) {
+          // @ts-ignore
           var children = this.parentNode.children;
 
           for (var i = 0; i < children.length; ++i) {
@@ -55343,6 +57323,7 @@
 
     var Tree =
     /** @class */
+    // @ts-ignore
     function () {
       function Tree(hostModel) {
         this.type = 'tree';
@@ -55351,15 +57332,18 @@
       }
 
       Tree.prototype.eachNode = function (options, cb, context) {
+        // @ts-ignore
         this.root.eachNode(options, cb, context);
       };
 
       Tree.prototype.getNodeByDataIndex = function (dataIndex) {
+        // @ts-ignore
         var rawIndex = this.data.getRawIndex(dataIndex);
         return this._nodes[rawIndex];
       };
 
       Tree.prototype.getNodeById = function (name) {
+        // @ts-ignore
         return this.root.getNodeById(name);
       };
       /**
@@ -55369,6 +57353,7 @@
 
 
       Tree.prototype.update = function () {
+        // @ts-ignore
         var data = this.data;
         var nodes = this._nodes;
 
@@ -55386,6 +57371,7 @@
 
 
       Tree.prototype.clearLayouts = function () {
+        // @ts-ignore
         this.data.clearItemLayouts();
       };
       /**
@@ -55416,6 +57402,7 @@
           dimMax = Math.max(dimMax, isArray(value) ? value.length : 1);
           listData.push(dataNode);
           var node = new TreeNode(convertOptionIdName(dataNode.name, ''), tree);
+          // @ts-ignore
           parentNode ? addChild(node, parentNode) : tree.root = node;
 
           tree._nodes.push(node);
@@ -55429,6 +57416,7 @@
           }
         }
 
+        // @ts-ignore
         tree.root.updateDepthAndHeight(0);
         var dimensions = prepareSeriesDataSchema(listData, {
           coordDimensions: ['value'],
@@ -55524,6 +57512,7 @@
 
     var TreeSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TreeSeriesModel, _super);
 
@@ -55547,6 +57536,7 @@
           children: option.data
         };
         var leaves = option.leaves || {};
+        // @ts-ignore
         var leavesModel = new Model(leaves, this, this.ecModel);
         var tree = Tree.createTree(root, this, beforeLink);
 
@@ -55584,6 +57574,7 @@
 
 
       TreeSeriesModel.prototype.getOrient = function () {
+        // @ts-ignore
         var orient = this.get('orient');
 
         if (orient === 'horizontal') {
@@ -55596,14 +57587,18 @@
       };
 
       TreeSeriesModel.prototype.setZoom = function (zoom) {
+        // @ts-ignore
         this.option.zoom = zoom;
       };
 
       TreeSeriesModel.prototype.setCenter = function (center) {
+        // @ts-ignore
         this.option.center = center;
       };
 
+      // @ts-ignore
       TreeSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
+        // @ts-ignore
         var tree = this.getData().tree;
         var realRoot = tree.root.children[0];
         var node = tree.getNodeByDataIndex(dataIndex);
@@ -55626,6 +57621,7 @@
       TreeSeriesModel.prototype.getDataParams = function (dataIndex) {
         var params = _super.prototype.getDataParams.apply(this, arguments);
 
+        // @ts-ignore
         var node = this.getData().tree.getNodeByDataIndex(dataIndex);
         params.treeAncestors = wrapTreePathInfo(node, this);
         return params;
@@ -55961,6 +57957,7 @@
           query: payload
         }, handleRootToNode);
 
+        // @ts-ignore
         function handleRootToNode(model, index) {
           var types = ['treemapZoomToNode', 'treemapRootToNode'];
           var targetInfo = retrieveTargetInfo(payload, types, model);
@@ -55997,6 +57994,7 @@
 
     var TreemapSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TreemapSeriesModel, _super);
 
@@ -56060,8 +58058,11 @@
        */
 
 
+      // @ts-ignore
       TreemapSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
+        // @ts-ignore
         var data = this.getData();
+        // @ts-ignore
         var value = this.getRawValue(dataIndex);
         var name = data.getName(dataIndex);
         return createTooltipMarkup('nameValue', {
@@ -56081,6 +58082,7 @@
       TreemapSeriesModel.prototype.getDataParams = function (dataIndex) {
         var params = _super.prototype.getDataParams.apply(this, arguments);
 
+        // @ts-ignore
         var node = this.getData().tree.getNodeByDataIndex(dataIndex);
         params.treeAncestors = wrapTreePathInfo(node, this); // compatitable the previous code.
 
@@ -56134,12 +58136,14 @@
            * @type {number}
            */
 
+          // @ts-ignore
           this._idIndexMapCount = 0;
         }
 
         var index = idIndexMap.get(id);
 
         if (index == null) {
+          // @ts-ignore
           idIndexMap.set(id, index = this._idIndexMapCount++);
         }
 
@@ -56152,6 +58156,7 @@
 
       TreemapSeriesModel.prototype.resetViewRoot = function (viewRoot) {
         viewRoot ? this._viewRoot = viewRoot : viewRoot = this._viewRoot;
+        // @ts-ignore
         var root = this.getRawData().tree.root;
 
         if (!viewRoot || viewRoot !== root && !root.contains(viewRoot)) {
@@ -56359,6 +58364,7 @@
 
     var Breadcrumb =
     /** @class */
+    // @ts-ignore
     function () {
       function Breadcrumb(containerGroup) {
         this.group = new Group();
@@ -56393,10 +58399,13 @@
           renderList: []
         };
 
+        // @ts-ignore
         this._prepare(targetNode, layoutParam, textStyleModel);
 
+        // @ts-ignore
         this._renderContent(seriesModel, layoutParam, normalStyleModel, textStyleModel, onSelect);
 
+        // @ts-ignore
         positionElement(thisGroup, layoutParam.pos, layoutParam.box);
       };
       /**
@@ -56464,6 +58473,7 @@
             z2: Z2_EMPHASIS_LIFT * 1e4,
             onclick: curry(onSelect, itemNode)
           });
+          // @ts-ignore
           el.disableLabelAnimation = true;
           this.group.add(el);
           packEventData(el, seriesModel, itemNode);
@@ -56559,6 +58569,7 @@
      */
     var AnimationWrap =
     /** @class */
+    // @ts-ignore
     function () {
       function AnimationWrap() {
         this._storage = [];
@@ -56670,6 +58681,7 @@
 
     var TreemapView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TreemapView, _super);
 
@@ -56735,10 +58747,13 @@
 
           this._initEvents(containerGroup);
 
+          // @ts-ignore
           this.group.add(containerGroup);
         }
 
+        // @ts-ignore
         containerGroup.x = layoutInfo.x;
+        // @ts-ignore
         containerGroup.y = layoutInfo.y;
         return containerGroup;
       };
@@ -56825,6 +58840,7 @@
         }
       };
 
+      // @ts-ignore
       TreemapView.prototype._doAnimation = function (containerGroup, renderResult, seriesModel, reRoot) {
         var durationOption = seriesModel.get('animationDurationUpdate');
         var easingOption = seriesModel.get('animationEasing'); // TODO: do not support function until necessary.
@@ -56834,6 +58850,7 @@
         var animationWrap = createWrap(); // Make delete animations.
 
         each(renderResult.willDeleteEls, function (store, storageName) {
+          // @ts-ignore
           each(store, function (el, rawIndex) {
             if (el.invisible) {
               return;
@@ -56911,9 +58928,13 @@
 
             if (el instanceof Group) {
               if (last.oldX != null) {
+                // @ts-ignore
                 target.x = el.x;
+                // @ts-ignore
                 target.y = el.y;
+                // @ts-ignore
                 el.x = last.oldX;
+                // @ts-ignore
                 el.y = last.oldY;
               }
             } else {
@@ -56957,6 +58978,7 @@
         }
 
         var rect = new BoundingRect(0, 0, api.getWidth(), api.getHeight());
+        // @ts-ignore
         controller.setPointerChecker(function (e, x, y) {
           return rect.contain(x, y);
         });
@@ -56988,6 +59010,7 @@
 
           this.api.dispatchAction({
             type: 'treemapMove',
+            // @ts-ignore
             from: this.uid,
             seriesId: this.seriesModel.id,
             rootRect: {
@@ -57031,6 +59054,7 @@
           rect.applyTransform(m);
           this.api.dispatchAction({
             type: 'treemapRender',
+            // @ts-ignore
             from: this.uid,
             seriesId: this.seriesModel.id,
             rootRect: {
@@ -57098,6 +59122,7 @@
           }
         }
 
+        // @ts-ignore
         (this._breadcrumb || (this._breadcrumb = new Breadcrumb(this.group))).render(seriesModel, api, targetInfo.node, function (node) {
           if (_this._state !== 'animating') {
             aboveViewRoot(seriesModel.getViewRoot(), node) ? _this._rootToNode({
@@ -57129,6 +59154,7 @@
       TreemapView.prototype._zoomToNode = function (targetInfo) {
         this.api.dispatchAction({
           type: 'treemapZoomToNode',
+          // @ts-ignore
           from: this.uid,
           seriesId: this.seriesModel.id,
           targetNode: targetInfo.node
@@ -57138,6 +59164,7 @@
       TreemapView.prototype._rootToNode = function (targetInfo) {
         this.api.dispatchAction({
           type: 'treemapRootToNode',
+          // @ts-ignore
           from: this.uid,
           seriesId: this.seriesModel.id,
           targetNode: targetInfo.node
@@ -57161,6 +59188,7 @@
           attr: 'viewChildren',
           order: 'preorder'
         }, function (node) {
+          // @ts-ignore
           var bgEl = this._storage.background[node.getRawIndex()]; // If invisible, there might be no element.
 
 
@@ -57475,6 +59503,7 @@
             element = new Ctor();
 
             if (element instanceof Displayable) {
+              // @ts-ignore
               element.z2 = calculateZ2(depth, z);
             }
 
@@ -57489,9 +59518,12 @@
         var lastCfg = lasts[thisRawIndex] = {};
 
         if (element instanceof Group$1) {
+          // @ts-ignore
           lastCfg.oldX = element.x;
+          // @ts-ignore
           lastCfg.oldY = element.y;
         } else {
+          // @ts-ignore
           lastCfg.oldShape = extend({}, element.shape);
         }
       } // If a element is new, we need to find the animation start point carefully,
@@ -57518,9 +59550,12 @@
 
 
           if (isGroup) {
+            // @ts-ignore
             lastCfg.oldX = 0;
+            // @ts-ignore
             lastCfg.oldY = parentOldY;
           } else {
+            // @ts-ignore
             lastCfg.oldShape = {
               x: parentOldX,
               y: parentOldY,
@@ -57531,6 +59566,7 @@
         } // Fade in, user can be aware that these nodes are new.
 
 
+        // @ts-ignore
         lastCfg.fadein = !isGroup;
       }
     } // We can not set all backgroud with the same z, Because the behaviour of
@@ -57551,6 +59587,7 @@
 
     var VisualMapping =
     /** @class */
+    // @ts-ignore
     function () {
       function VisualMapping(option) {
         var mappingMethod = option.mappingMethod;
@@ -57631,6 +59668,7 @@
         var newVisual = isArray(visual) ? [] : isObject(visual) ? {} : (isPrimary = true, null);
         VisualMapping.eachVisual(visual, function (v, key) {
           var newVal = callback.call(context, v, key);
+          // @ts-ignore
           isPrimary ? newVisual = newVal : newVisual[key] = newVal;
         });
         return newVisual;
@@ -57643,6 +59681,7 @@
       VisualMapping.retrieveVisuals = function (obj) {
         var ret = {};
         var hasVisual;
+        // @ts-ignore
         obj && each$3(VisualMapping.visualHandlers, function (h, visualType) {
           if (obj.hasOwnProperty(visualType)) {
             ret[visualType] = obj[visualType];
@@ -57666,6 +59705,7 @@
           visualTypes = visualTypes.slice();
         } else if (isObject$3(visualTypes)) {
           var types_1 = [];
+          // @ts-ignore
           each$3(visualTypes, function (item, type) {
             types_1.push(type);
           });
@@ -57763,12 +59803,15 @@
           getColorMapper: function () {
             var thisOption = this.option;
             return bind(thisOption.mappingMethod === 'category' ? function (value, isNormalized) {
+              // @ts-ignore
               !isNormalized && (value = this._normalizeData(value));
+              // @ts-ignore
               return doMapCategory.call(this, value);
             } : function (value, isNormalized, out) {
               // If output rgb array
               // which will be much faster and useful in pixel manipulation
               var returnRGBArray = !!out;
+              // @ts-ignore
               !isNormalized && (value = this._normalizeData(value));
               out = fastLerp(value, thisOption.parsedVisual, out);
               return returnRGBArray ? out : stringify(out, 'rgba');
@@ -57826,6 +59869,7 @@
           }
         },
         symbol: {
+          // @ts-ignore
           applyVisual: function (value, getter, setter) {
             var symbolCfg = this.mapValueToVisual(value);
             setter('symbol', symbolCfg);
@@ -57939,23 +59983,29 @@
     }
 
     function doMapToArray(normalized) {
+      // @ts-ignore
       var visual = this.option.visual;
       return visual[Math.round(linearMap(normalized, [0, 1], [0, visual.length - 1], true))] || {}; // TODO {}?
     }
 
     function makeApplyVisual(visualType) {
+      // @ts-ignore
       return function (value, getter, setter) {
+        // @ts-ignore
         setter(visualType, this.mapValueToVisual(value));
       };
     }
 
     function doMapCategory(normalized) {
+      // @ts-ignore
       var visual = this.option.visual;
+      // @ts-ignore
       return visual[this.option.loop && normalized !== CATEGORY_DEFAULT_VISUAL_INDEX ? normalized % visual.length : normalized];
     }
 
     function doMapFixed() {
       // visual will be convert to array.
+      // @ts-ignore
       return this.option.visual[0];
     }
     /**
@@ -57983,6 +60033,7 @@
     }
 
     function getSpecifiedVisual(value) {
+      // @ts-ignore
       var thisOption = this.option;
       var pieceList = thisOption.pieceList;
 
@@ -57991,6 +60042,7 @@
         var piece = pieceList[pieceIndex];
 
         if (piece && piece.visual) {
+          // @ts-ignore
           return piece.visual[this.type];
         }
       }
@@ -58141,6 +60193,7 @@
       }
     }
 
+    // @ts-ignore
     function buildVisualMapping(node, nodeModel, nodeLayout, nodeItemStyleModel, visuals, viewChildren) {
       if (!viewChildren || !viewChildren.length) {
         return;
@@ -58221,6 +60274,7 @@
 
     var treemapLayout = {
       seriesType: 'treemap',
+      // @ts-ignore
       reset: function (seriesModel, ecModel, api, payload) {
         // Layout result in each node:
         // {x, y, width, height, area, borderWidth}
@@ -58355,11 +60409,13 @@
       var best = Infinity; // the best row score so far
 
       var row = [];
+      // @ts-ignore
       row.area = 0;
 
       for (var i = 0, len = viewChildren.length; i < len;) {
         var child = viewChildren[i];
         row.push(child);
+        // @ts-ignore
         row.area += child.getLayout().area;
         var score = worst(row, rowFixedLength, options.squareRatio); // continue with this orientation
 
@@ -58368,9 +60424,11 @@
           best = score;
         } // abort, and try a different orientation
         else {
+            // @ts-ignore
             row.area -= row.pop().getLayout().area;
             position(row, rowFixedLength, rect, halfGapWidth, false);
             rowFixedLength = mathMin$7(rect.width, rect.height);
+            // @ts-ignore
             row.length = row.area = 0;
             best = Infinity;
           }
@@ -58987,6 +61045,7 @@
       seriesModel.__curvenessList = [];
       seriesModel.__edgeMap = {}; // calc the array of curveness List
 
+      // @ts-ignore
       createCurveness(seriesModel);
     }
     /**
@@ -59110,6 +61169,7 @@
       });
     }
 
+    // @ts-ignore
     function graphSimpleLayout(ecModel, api) {
       ecModel.eachSeriesByType('graph', function (seriesModel) {
         var layout = seriesModel.get('layout');
@@ -59265,6 +61325,7 @@
       _layoutNodesBasedOn[basedOn](seriesModel, graph, nodeData, r, cx, cy, count);
 
       graph.eachEdge(function (edge, index) {
+        // @ts-ignore
         var curveness = retrieve3(edge.getModel().get(['lineStyle', 'curveness']), getCurvenessForEdge(edge, seriesModel, index), 0);
         var p1 = clone$1(edge.node1.getLayout());
         var p2 = clone$1(edge.node2.getLayout());
@@ -59281,6 +61342,7 @@
       });
     }
     var _layoutNodesBasedOn = {
+      // @ts-ignore
       value: function (seriesModel, graph, nodeData, r, cx, cy, count) {
         var angle = 0;
         var sum = nodeData.getSum('value');
@@ -59293,6 +61355,7 @@
           angle += radianHalf;
         });
       },
+      // @ts-ignore
       symbolSize: function (seriesModel, graph, nodeData, r, cx, cy, count) {
         var sumRadian = 0;
         _symbolRadiansHalf.length = count;
@@ -59521,6 +61584,7 @@
           edgeLengthArr_1 = [edgeLengthArr_1[1], edgeLengthArr_1[0]];
           var nodes_1 = nodeData_1.mapArray('value', function (value, idx) {
             var point = nodeData_1.getItemLayout(idx);
+            // @ts-ignore
             var rep = linearMap(value, nodeDataExtent_1, repulsionArr_1);
 
             if (isNaN(rep)) {
@@ -59536,6 +61600,7 @@
           });
           var edges = edgeData.mapArray('value', function (value, idx) {
             var edge = graph_1.getEdgeByIndex(idx);
+            // @ts-ignore
             var d = linearMap(value, edgeDataExtent_1, edgeLengthArr_1);
 
             if (isNaN(d)) {
@@ -59559,6 +61624,7 @@
             gravity: forceModel.get('gravity'),
             friction: forceModel.get('friction')
           });
+          // @ts-ignore
           forceInstance.beforeStep(function (nodes, edges) {
             for (var i = 0, l = nodes.length; i < l; i++) {
               if (nodes[i].fixed) {
@@ -59567,6 +61633,7 @@
               }
             }
           });
+          // @ts-ignore
           forceInstance.afterStep(function (nodes, edges, stopped) {
             for (var i = 0, l = nodes.length; i < l; i++) {
               if (!nodes[i].fixed) {
@@ -59672,6 +61739,7 @@
 
     var StraightLineShape =
     /** @class */
+    // @ts-ignore
     function () {
       function StraightLineShape() {
         // Start point
@@ -59686,12 +61754,15 @@
       return StraightLineShape;
     }();
 
+    // @ts-ignore
     var CurveShape =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CurveShape, _super);
 
       function CurveShape() {
+        // @ts-ignore
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
@@ -59704,12 +61775,15 @@
 
     var ECLinePath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ECLinePath, _super);
 
       function ECLinePath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'ec-line';
         return _this;
       }
@@ -59734,6 +61808,7 @@
       };
 
       ECLinePath.prototype.pointAt = function (t) {
+        // @ts-ignore
         if (isStraightLine(this.shape)) {
           return straightLineProto.pointAt.call(this, t);
         } else {
@@ -59742,6 +61817,7 @@
       };
 
       ECLinePath.prototype.tangentAt = function (t) {
+        // @ts-ignore
         var shape = this.shape;
         var p = isStraightLine(shape) ? [shape.x2 - shape.x1, shape.y2 - shape.y1] : bezierCurveProto.tangentAt.call(this, t);
         return normalize(p, p);
@@ -59773,8 +61849,11 @@
       var symbolKeepAspect = lineData.getItemVisual(idx, name + 'KeepAspect');
       var symbolSizeArr = normalizeSymbolSize(symbolSize);
       var symbolOffsetArr = normalizeSymbolOffset(symbolOffset || 0, symbolSizeArr);
+      // @ts-ignore
       var symbolPath = createSymbol(symbolType, -symbolSizeArr[0] / 2 + symbolOffsetArr[0], -symbolSizeArr[1] / 2 + symbolOffsetArr[1], symbolSizeArr[0], symbolSizeArr[1], null, symbolKeepAspect);
+      // @ts-ignore
       symbolPath.__specifiedRotation = symbolRotate == null || isNaN(symbolRotate) ? void 0 : +symbolRotate * Math.PI / 180 || 0;
+      // @ts-ignore
       symbolPath.name = name;
       return symbolPath;
     }
@@ -59807,12 +61886,15 @@
 
     var Line$1 =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Line, _super);
 
       function Line(lineData, idx, seriesScope) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this._createLine(lineData, idx, seriesScope);
 
         return _this;
@@ -59828,12 +61910,14 @@
             percent: 1
           }
         }, seriesModel, idx);
+        // @ts-ignore
         this.add(line);
         each(SYMBOL_CATEGORIES, function (symbolCategory) {
           var symbol = createSymbol$1(symbolCategory, lineData, idx); // symbols must added after line to make sure
           // it will be updated after line#update.
           // Or symbol position and rotation update in line#beforeUpdate will be one frame slow
 
+          // @ts-ignore
           this.add(symbol);
           this[makeSymbolTypeKey(symbolCategory)] = lineData.getItemVisual(idx, symbolCategory);
         }, this);
@@ -59844,6 +61928,7 @@
 
       Line.prototype.updateData = function (lineData, idx, seriesScope) {
         var seriesModel = lineData.hostModel;
+        // @ts-ignore
         var line = this.childOfName('line');
         var linePoints = lineData.getItemLayout(idx);
         var target = {
@@ -59856,8 +61941,10 @@
           var key = makeSymbolTypeKey(symbolCategory); // Symbol changed
 
           if (this[key] !== symbolType) {
+            // @ts-ignore
             this.remove(this.childOfName(symbolCategory));
             var symbol = createSymbol$1(symbolCategory, lineData, idx);
+            // @ts-ignore
             this.add(symbol);
           }
 
@@ -59868,11 +61955,13 @@
       };
 
       Line.prototype.getLinePath = function () {
+        // @ts-ignore
         return this.childAt(0);
       };
 
       Line.prototype._updateCommonStl = function (lineData, idx, seriesScope) {
         var seriesModel = lineData.hostModel;
+        // @ts-ignore
         var line = this.childOfName('line');
         var emphasisLineStyle = seriesScope && seriesScope.emphasisLineStyle;
         var blurLineStyle = seriesScope && seriesScope.blurLineStyle;
@@ -59904,6 +61993,7 @@
         line.ensureState('select').style = selectLineStyle; // Update symbol
 
         each(SYMBOL_CATEGORIES, function (symbolCategory) {
+          // @ts-ignore
           var symbol = this.childOfName(symbolCategory);
 
           if (symbol) {
@@ -59945,6 +62035,7 @@
           defaultOpacity: lineStyle.opacity,
           defaultText: (rawVal == null ? lineData.getName(idx) : isFinite(rawVal) ? round(rawVal) : rawVal) + ''
         });
+        // @ts-ignore
         var label = this.getTextContent(); // Always set `textStyle` even if `normalStyle.text` is null, because default
         // values have to be set on `normalStyle`.
 
@@ -59963,6 +62054,7 @@
           label.__labelDistance = distance;
         }
 
+        // @ts-ignore
         this.setTextConfig({
           position: null,
           local: true,
@@ -59985,6 +62077,7 @@
       };
 
       Line.prototype.setLinePoints = function (points) {
+        // @ts-ignore
         var linePath = this.childOfName('line');
         setLinePoints(linePath.shape, points);
         linePath.dirty();
@@ -59992,8 +62085,11 @@
 
       Line.prototype.beforeUpdate = function () {
         var lineGroup = this;
+        // @ts-ignore
         var symbolFrom = lineGroup.childOfName('fromSymbol');
+        // @ts-ignore
         var symbolTo = lineGroup.childOfName('toSymbol');
+        // @ts-ignore
         var label = lineGroup.getTextContent(); // Quick reject
 
         if (!symbolFrom && !symbolTo && (!label || label.ignore)) {
@@ -60001,6 +62097,7 @@
         }
 
         var invScale = 1;
+        // @ts-ignore
         var parentNode = this.parent;
 
         while (parentNode) {
@@ -60011,9 +62108,11 @@
           parentNode = parentNode.parent;
         }
 
+        // @ts-ignore
         var line = lineGroup.childOfName('line'); // If line not changed
         // FIXME Parent scale changed
 
+        // @ts-ignore
         if (!this.__dirty && !line.__dirty) {
           return;
         }
@@ -60090,19 +62189,25 @@
             case 'insideMiddleTop':
             case 'insideEndTop':
             case 'middle':
+              // @ts-ignore
               dy = -distanceY;
+              // @ts-ignore
               textVerticalAlign = 'bottom';
               break;
 
             case 'insideStartBottom':
             case 'insideMiddleBottom':
             case 'insideEndBottom':
+              // @ts-ignore
               dy = distanceY;
+              // @ts-ignore
               textVerticalAlign = 'top';
               break;
 
             default:
+              // @ts-ignore
               dy = 0;
+              // @ts-ignore
               textVerticalAlign = 'middle';
           }
 
@@ -60110,14 +62215,18 @@
             case 'end':
               label.x = d[0] * distanceX + toPos[0];
               label.y = d[1] * distanceY + toPos[1];
+              // @ts-ignore
               textAlign = d[0] > 0.8 ? 'left' : d[0] < -0.8 ? 'right' : 'center';
+              // @ts-ignore
               textVerticalAlign = d[1] > 0.8 ? 'top' : d[1] < -0.8 ? 'bottom' : 'middle';
               break;
 
             case 'start':
               label.x = -d[0] * distanceX + fromPos[0];
               label.y = -d[1] * distanceY + fromPos[1];
+              // @ts-ignore
               textAlign = d[0] > 0.8 ? 'right' : d[0] < -0.8 ? 'left' : 'center';
+              // @ts-ignore
               textVerticalAlign = d[1] > 0.8 ? 'bottom' : d[1] < -0.8 ? 'top' : 'middle';
               break;
 
@@ -60126,8 +62235,10 @@
             case 'insideStartBottom':
               label.x = distanceX * dir + fromPos[0];
               label.y = fromPos[1] + dy;
+              // @ts-ignore
               textAlign = tangent[0] < 0 ? 'right' : 'left';
               label.originX = -distanceX * dir;
+              // @ts-ignore
               label.originY = -dy;
               break;
 
@@ -60137,7 +62248,9 @@
             case 'middle':
               label.x = cp[0];
               label.y = cp[1] + dy;
+              // @ts-ignore
               textAlign = 'center';
+              // @ts-ignore
               label.originY = -dy;
               break;
 
@@ -60146,8 +62259,10 @@
             case 'insideEndBottom':
               label.x = -distanceX * dir + toPos[0];
               label.y = toPos[1] + dy;
+              // @ts-ignore
               textAlign = tangent[0] >= 0 ? 'right' : 'left';
               label.originX = distanceX * dir;
+              // @ts-ignore
               label.originY = -dy;
               break;
           }
@@ -60166,6 +62281,7 @@
 
     var LineDraw =
     /** @class */
+    // @ts-ignore
     function () {
       function LineDraw(LineCtor) {
         this.group = new Group();
@@ -60338,6 +62454,7 @@
 
       for (var i = 0; i < 32; i++) {
         // let prev = t - interval;
+        // @ts-ignore
         var next = t + interval; // v1[0] = quadraticAt(p0[0], p1[0], p2[0], prev);
         // v1[1] = quadraticAt(p0[1], p1[1], p2[1], prev);
 
@@ -60357,14 +62474,18 @@
 
         if (diff < 0) {
           if (nextDiff >= 0) {
+            // @ts-ignore
             t = t + interval;
           } else {
+            // @ts-ignore
             t = t - interval;
           }
         } else {
           if (nextDiff >= 0) {
+            // @ts-ignore
             t = t - interval;
           } else {
+            // @ts-ignore
             t = t + interval;
           }
         }
@@ -60381,6 +62502,7 @@
       var pts2 = [[], []];
       var v = [];
       scale /= 2;
+      // @ts-ignore
       graph.eachEdge(function (edge, idx) {
         var linePoints = edge.getLayout();
         var fromSymbol = edge.getVisual('fromSymbol');
@@ -60406,10 +62528,14 @@
             var t = intersectCurveCircle(pts, originalPoints[0], symbolSize * scale); // Subdivide and get the second
 
             quadraticSubdivide$1(pts[0][0], pts[1][0], pts[2][0], t, tmp0);
+            // @ts-ignore
             pts[0][0] = tmp0[3];
+            // @ts-ignore
             pts[1][0] = tmp0[4];
             quadraticSubdivide$1(pts[0][1], pts[1][1], pts[2][1], t, tmp0);
+            // @ts-ignore
             pts[0][1] = tmp0[3];
+            // @ts-ignore
             pts[1][1] = tmp0[4];
           }
 
@@ -60418,10 +62544,14 @@
             var t = intersectCurveCircle(pts, originalPoints[1], symbolSize * scale); // Subdivide and get the first
 
             quadraticSubdivide$1(pts[0][0], pts[1][0], pts[2][0], t, tmp0);
+            // @ts-ignore
             pts[1][0] = tmp0[1];
+            // @ts-ignore
             pts[2][0] = tmp0[2];
             quadraticSubdivide$1(pts[0][1], pts[1][1], pts[2][1], t, tmp0);
+            // @ts-ignore
             pts[1][1] = tmp0[1];
+            // @ts-ignore
             pts[2][1] = tmp0[2];
           } // Copy back to layout
 
@@ -60458,6 +62588,7 @@
 
     var GraphView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GraphView, _super);
 
@@ -60468,9 +62599,11 @@
         return _this;
       }
 
+      // @ts-ignore
       GraphView.prototype.init = function (ecModel, api) {
         var symbolDraw = new SymbolDraw();
         var lineDraw = new LineDraw();
+        // @ts-ignore
         var group = this.group;
         this._controller = new RoamController(api.getZr());
         this._controllerHost = {
@@ -60490,6 +62623,7 @@
         this._model = seriesModel;
         var symbolDraw = this._symbolDraw;
         var lineDraw = this._lineDraw;
+        // @ts-ignore
         var group = this.group;
 
         if (isViewCoordSys(coordSys)) {
@@ -60519,6 +62653,7 @@
 
         this._updateController(seriesModel, ecModel, api);
 
+        // @ts-ignore
         clearTimeout(this._layoutTimeout);
         var forceLayout = seriesModel.forceLayout;
         var layoutAnimation = seriesModel.get(['force', 'layoutAnimation']);
@@ -60544,6 +62679,7 @@
             el.on('drag', function () {
               if (forceLayout) {
                 forceLayout.warmUp();
+                // @ts-ignore
                 !_this._layouting && _this._startForceLayoutIteration(forceLayout, layoutAnimation);
                 forceLayout.setFixed(idx); // Write position back to layout
 
@@ -60630,16 +62766,19 @@
         (function step() {
           forceLayout.step(function (stopped) {
             self.updateLayout(self._model);
+            // @ts-ignore
             (self._layouting = !stopped) && (layoutAnimation ? self._layoutTimeout = setTimeout(step, 16) : step());
           });
         })();
       };
 
+      // @ts-ignore
       GraphView.prototype._updateController = function (seriesModel, ecModel, api) {
         var _this = this;
 
         var controller = this._controller;
         var controllerHost = this._controllerHost;
+        // @ts-ignore
         var group = this.group;
         controller.setPointerChecker(function (e, x, y) {
           var rect = group.getBoundingRect();
@@ -60653,7 +62792,9 @@
         }
 
         controller.enable(seriesModel.get('roam'));
+        // @ts-ignore
         controllerHost.zoomLimit = seriesModel.get('scaleLimit');
+        // @ts-ignore
         controllerHost.zoom = seriesModel.coordinateSystem.getZoom();
         controller.off('pan').off('zoom').on('pan', function (e) {
           updateViewOnPan(controllerHost, e.dx, e.dy);
@@ -60688,6 +62829,7 @@
         var seriesModel = this._model;
         var data = seriesModel.getData();
         var nodeScale = getNodeGlobalScale(seriesModel);
+        // @ts-ignore
         data.eachItemGraphicEl(function (el, idx) {
           el && el.setSymbolScale(nodeScale);
         });
@@ -60701,6 +62843,7 @@
         this._lineDraw.updateLayout();
       };
 
+      // @ts-ignore
       GraphView.prototype.remove = function (ecModel, api) {
         this._symbolDraw && this._symbolDraw.remove();
         this._lineDraw && this._lineDraw.remove();
@@ -60716,6 +62859,7 @@
 
     var Graph =
     /** @class */
+    // @ts-ignore
     function () {
       function Graph(directed) {
         this.type = 'graph';
@@ -60727,6 +62871,7 @@
          * @private
          */
 
+        // @ts-ignore
         this._edgesMap = {};
         this._directed = directed || false;
       }
@@ -60747,6 +62892,7 @@
         var nodesMap = this._nodesMap;
 
         if (nodesMap[generateNodeKey(id)]) {
+          // @ts-ignore
           if ("development" !== 'production') {
             console.error('Graph nodes have duplicate name or id');
           }
@@ -60765,6 +62911,7 @@
        */
 
       Graph.prototype.getNodeByIndex = function (dataIndex) {
+        // @ts-ignore
         var rawIdx = this.data.getRawIndex(dataIndex);
         return this.nodes[rawIdx];
       };
@@ -60781,6 +62928,7 @@
 
       Graph.prototype.addEdge = function (n1, n2, dataIndex) {
         var nodesMap = this._nodesMap;
+        // @ts-ignore
         var edgesMap = this._edgesMap; // PNEDING
 
         if (isNumber(n1)) {
@@ -60827,6 +62975,7 @@
        */
 
       Graph.prototype.getEdgeByIndex = function (dataIndex) {
+        // @ts-ignore
         var rawIdx = this.edgeData.getRawIndex(dataIndex);
         return this.edges[rawIdx];
       };
@@ -60843,6 +62992,7 @@
           n2 = n2.id;
         }
 
+        // @ts-ignore
         var edgesMap = this._edgesMap;
 
         if (this._directed) {
@@ -60932,7 +63082,9 @@
       // Filter update
 
       Graph.prototype.update = function () {
+        // @ts-ignore
         var data = this.data;
+        // @ts-ignore
         var edgeData = this.edgeData;
         var nodes = this.nodes;
         var edges = this.edges;
@@ -60983,6 +63135,7 @@
 
     var GraphNode =
     /** @class */
+    // @ts-ignore
     function () {
       function GraphNode(id, dataIndex) {
         this.inEdges = [];
@@ -61022,6 +63175,7 @@
           return;
         }
 
+        // @ts-ignore
         var graph = this.hostGraph;
         var itemModel = graph.data.getItemModel(this.dataIndex);
         return itemModel.getModel(path);
@@ -61040,7 +63194,9 @@
             continue;
           }
 
+          // @ts-ignore
           dataIndices.edge.push(adjacentEdge.dataIndex);
+          // @ts-ignore
           dataIndices.node.push(adjacentEdge.node1.dataIndex, adjacentEdge.node2.dataIndex);
         }
 
@@ -61052,6 +63208,7 @@
 
     var GraphEdge =
     /** @class */
+    // @ts-ignore
     function () {
       function GraphEdge(n1, n2, dataIndex) {
         this.dataIndex = -1;
@@ -61066,6 +63223,7 @@
           return;
         }
 
+        // @ts-ignore
         var graph = this.hostGraph;
         var itemModel = graph.edgeData.getItemModel(this.dataIndex);
         return itemModel.getModel(path);
@@ -61186,6 +63344,7 @@
 
     var GraphSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GraphSeriesModel, _super);
 
@@ -61208,6 +63367,7 @@
 
 
         this.legendVisualProvider = new LegendVisualProvider(getCategoriesData, getCategoriesData);
+        // @ts-ignore
         this.fillDataTextStyle(option.edges || option.links);
 
         this._updateCategoriesData();
@@ -61216,6 +63376,7 @@
       GraphSeriesModel.prototype.mergeOption = function (option) {
         _super.prototype.mergeOption.apply(this, arguments);
 
+        // @ts-ignore
         this.fillDataTextStyle(option.edges || option.links);
 
         this._updateCategoriesData();
@@ -61227,6 +63388,7 @@
         defaultEmphasis(option, 'edgeLabel', ['show']);
       };
 
+      // @ts-ignore
       GraphSeriesModel.prototype.getInitialData = function (option, ecModel) {
         var edges = option.edges || option.links || [];
         var nodes = option.data || option.nodes || [];
@@ -61237,6 +63399,7 @@
           initCurvenessList(this);
           var graph = createGraphFromNodeEdge(nodes, edges, this, true, beforeLink);
           each(graph.edges, function (edge) {
+            // @ts-ignore
             createEdgeMapForCurveness(edge.node1, edge.node2, this, edge.dataIndex);
           }, this);
           return graph.data;
@@ -61260,6 +63423,7 @@
           var oldGetModel = Model.prototype.getModel;
 
           function newGetModel(path, parentModel) {
+            // @ts-ignore
             var model = oldGetModel.call(this, path, parentModel);
             model.resolveParentPath = resolveParentPath;
             return model;
@@ -61290,6 +63454,7 @@
       };
 
       GraphSeriesModel.prototype.getGraph = function () {
+        // @ts-ignore
         return this.getData().graph;
       };
 
@@ -61303,7 +63468,9 @@
 
       GraphSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         if (dataType === 'edge') {
+          // @ts-ignore
           var nodeData = this.getData();
+          // @ts-ignore
           var params = this.getDataParams(dataIndex, dataType);
           var edge = nodeData.graph.getEdgeByIndex(dataIndex);
           var sourceName = nodeData.getName(edge.node1.dataIndex);
@@ -61328,6 +63495,7 @@
       };
 
       GraphSeriesModel.prototype._updateCategoriesData = function () {
+        // @ts-ignore
         var categories = map(this.option.categories || [], function (category) {
           // Data must has value
           return category.value != null ? category : extend({
@@ -61343,15 +63511,18 @@
       };
 
       GraphSeriesModel.prototype.setZoom = function (zoom) {
+        // @ts-ignore
         this.option.zoom = zoom;
       };
 
       GraphSeriesModel.prototype.setCenter = function (center) {
+        // @ts-ignore
         this.option.center = center;
       };
 
       GraphSeriesModel.prototype.isAnimationEnabled = function () {
         return _super.prototype.isAnimationEnabled.call(this) // Not enable animation when do force layout
+        // @ts-ignore
         && !(this.get('layout') === 'force' && this.get(['force', 'layoutAnimation']));
       };
 
@@ -61484,6 +63655,7 @@
 
     var PointerShape =
     /** @class */
+    // @ts-ignore
     function () {
       function PointerShape() {
         this.angle = 0;
@@ -61498,12 +63670,15 @@
 
     var PointerPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PointerPath, _super);
 
       function PointerPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'pointer';
         return _this;
       }
@@ -61564,6 +63739,7 @@
 
     var GaugeView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GaugeView, _super);
 
@@ -61575,6 +63751,7 @@
       }
 
       GaugeView.prototype.render = function (seriesModel, ecModel, api) {
+        // @ts-ignore
         this.group.removeAll();
         var colorList = seriesModel.get(['axisLine', 'lineStyle', 'color']);
         var posInfo = parsePosition(seriesModel, api);
@@ -61587,6 +63764,7 @@
       GaugeView.prototype.dispose = function () {};
 
       GaugeView.prototype._renderMain = function (seriesModel, ecModel, api, colorList, posInfo) {
+        // @ts-ignore
         var group = this.group;
         var clockwise = seriesModel.get('clockwise');
         var startAngle = -seriesModel.get('startAngle') / 180 * Math.PI;
@@ -61659,7 +63837,9 @@
         this._renderPointer(seriesModel, ecModel, api, getColor, posInfo, startAngle, endAngle, clockwise, axisLineWidth);
       };
 
+      // @ts-ignore
       GaugeView.prototype._renderTicks = function (seriesModel, ecModel, api, getColor, posInfo, startAngle, endAngle, clockwise, axisLineWidth) {
+        // @ts-ignore
         var group = this.group;
         var cx = posInfo.cx;
         var cy = posInfo.cy;
@@ -61700,6 +63880,7 @@
             });
 
             if (splitLineStyle.stroke === 'auto') {
+              // @ts-ignore
               splitLine.setStyle({
                 stroke: getColor(i / splitNumber)
               });
@@ -61747,6 +63928,7 @@
               });
 
               if (tickLineStyle.stroke === 'auto') {
+                // @ts-ignore
                 tickLine.setStyle({
                   stroke: getColor((i + j / subSplitNumber) / splitNumber)
                 });
@@ -61763,7 +63945,9 @@
         }
       };
 
+      // @ts-ignore
       GaugeView.prototype._renderPointer = function (seriesModel, ecModel, api, getColor, posInfo, startAngle, endAngle, clockwise, axisLineWidth) {
+        // @ts-ignore
         var group = this.group;
         var oldData = this._data;
         var oldProgressData = this._progressEls;
@@ -61876,6 +64060,7 @@
             }
 
             if (showProgress) {
+              // @ts-ignore
               var previousProgress = oldProgressData[oldIdx];
               var previousEndAngle = previousProgress ? previousProgress.shape.endAngle : startAngle;
               var progress = createProgress(newIdx, previousEndAngle);
@@ -61905,7 +64090,9 @@
               var visualColor = symbolStyle.fill;
 
               if (pointer instanceof ZRImage) {
+                // @ts-ignore
                 var pathStyle = pointer.style;
+                // @ts-ignore
                 pointer.useStyle(extend({
                   image: pathStyle.image,
                   x: pathStyle.x,
@@ -61952,12 +64139,16 @@
           var offsetCenter = anchorModel.get('offsetCenter');
           var anchorKeepAspect = anchorModel.get('keepAspect');
           var anchor = createSymbol(anchorType, posInfo.cx - anchorSize / 2 + parsePercent$1(offsetCenter[0], posInfo.r), posInfo.cy - anchorSize / 2 + parsePercent$1(offsetCenter[1], posInfo.r), anchorSize, anchorSize, null, anchorKeepAspect);
+          // @ts-ignore
           anchor.z2 = anchorModel.get('showAbove') ? 1 : 0;
+          // @ts-ignore
           anchor.setStyle(anchorModel.getModel('itemStyle').getItemStyle());
+          // @ts-ignore
           this.group.add(anchor);
         }
       };
 
+      // @ts-ignore
       GaugeView.prototype._renderTitleAndDetail = function (seriesModel, ecModel, api, getColor, posInfo) {
         var _this = this;
 
@@ -61978,7 +64169,9 @@
             silent: true
           });
         }).update(function (idx, oldIdx) {
+          // @ts-ignore
           newTitleEls[idx] = _this._titleEls[oldIdx];
+          // @ts-ignore
           newDetailEls[idx] = _this._detailEls[oldIdx];
         }).execute();
         data.each(function (idx) {
@@ -62039,6 +64232,7 @@
               return formatLabel(value, formatter_1);
             });
             hasAnimation && animateLabelValue(labelEl, idx, data, seriesModel, {
+              // @ts-ignore
               getFormattedLabel: function (labelDataIndex, status, dataType, labelDimIndex, fmt, extendParams) {
                 return formatLabel(extendParams ? extendParams.interpolatedValue : value, formatter_1);
               }
@@ -62048,6 +64242,7 @@
 
           contentGroup.add(itemGroup);
         });
+        // @ts-ignore
         this.group.add(contentGroup);
         this._titleEls = newTitleEls;
         this._detailEls = newDetailEls;
@@ -62059,6 +64254,7 @@
 
     var GaugeSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GaugeSeriesModel, _super);
 
@@ -62070,6 +64266,7 @@
         return _this;
       }
 
+      // @ts-ignore
       GaugeSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesDataSimply(this, ['value']);
       };
@@ -62213,19 +64410,24 @@
 
     var FunnelPiece =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(FunnelPiece, _super);
 
       function FunnelPiece(data, idx) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
         var polygon = _this;
         var labelLine = new Polyline();
         var text = new ZRText();
+        // @ts-ignore
         polygon.setTextContent(text);
 
+        // @ts-ignore
         _this.setTextGuideLine(labelLine);
 
+        // @ts-ignore
         _this.updateData(data, idx, true);
 
         return _this;
@@ -62245,13 +64447,17 @@
         } // Update common style
 
 
+        // @ts-ignore
         polygon.useStyle(data.getItemVisual(idx, 'style'));
+        // @ts-ignore
         polygon.style.lineJoin = 'round';
 
         if (firstCreate) {
+          // @ts-ignore
           polygon.setShape({
             points: layout.points
           });
+          // @ts-ignore
           polygon.style.opacity = 0;
           initProps(polygon, {
             style: {
@@ -62278,7 +64484,9 @@
 
       FunnelPiece.prototype._updateLabel = function (data, idx) {
         var polygon = this;
+        // @ts-ignore
         var labelLine = this.getTextGuideLine();
+        // @ts-ignore
         var labelText = polygon.getTextContent();
         var seriesModel = data.hostModel;
         var itemModel = data.getItemModel(idx);
@@ -62298,6 +64506,7 @@
             verticalAlign: labelLayout.verticalAlign
           }
         });
+        // @ts-ignore
         polygon.setTextConfig({
           local: true,
           inside: !!labelLayout.inside,
@@ -62337,6 +64546,7 @@
 
     var FunnelView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(FunnelView, _super);
 
@@ -62348,9 +64558,11 @@
         return _this;
       }
 
+      // @ts-ignore
       FunnelView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
         var oldData = this._data;
+        // @ts-ignore
         var group = this.group;
         data.diff(oldData).add(function (idx) {
           var funnelPiece = new FunnelPiece(data, idx);
@@ -62369,6 +64581,7 @@
       };
 
       FunnelView.prototype.remove = function () {
+        // @ts-ignore
         this.group.removeAll();
         this._data = null;
       };
@@ -62381,6 +64594,7 @@
 
     var FunnelSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(FunnelSeriesModel, _super);
 
@@ -62396,11 +64610,13 @@
         // Use a function instead of direct access because data reference may changed
 
 
+        // @ts-ignore
         this.legendVisualProvider = new LegendVisualProvider(bind(this.getData, this), bind(this.getRawData, this)); // Extend labelLine emphasis
 
         this._defaultLabelLine(option);
       };
 
+      // @ts-ignore
       FunnelSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesDataSimply(this, {
           coordDimensions: ['value'],
@@ -62420,6 +64636,7 @@
 
 
       FunnelSeriesModel.prototype.getDataParams = function (dataIndex) {
+        // @ts-ignore
         var data = this.getData();
 
         var params = _super.prototype.getDataParams.call(this, dataIndex);
@@ -62555,6 +64772,7 @@
           var y2 = void 0;
           var labelLineLen = labelLineModel.get('length');
 
+          // @ts-ignore
           if ("development" !== 'production') {
             if (orient === 'vertical' && ['top', 'bottom'].indexOf(labelPosition) > -1) {
               labelPosition = 'left';
@@ -62569,30 +64787,44 @@
 
           if (labelPosition === 'left') {
             // Left side
+            // @ts-ignore
             x1 = (points[3][0] + points[0][0]) / 2;
+            // @ts-ignore
             y1 = (points[3][1] + points[0][1]) / 2;
+            // @ts-ignore
             x2 = x1 - labelLineLen;
+            // @ts-ignore
             textX = x2 - 5;
             textAlign = 'right';
           } else if (labelPosition === 'right') {
             // Right side
+            // @ts-ignore
             x1 = (points[1][0] + points[2][0]) / 2;
+            // @ts-ignore
             y1 = (points[1][1] + points[2][1]) / 2;
             x2 = x1 + labelLineLen;
+            // @ts-ignore
             textX = x2 + 5;
             textAlign = 'left';
           } else if (labelPosition === 'top') {
             // Top side
+            // @ts-ignore
             x1 = (points[3][0] + points[0][0]) / 2;
+            // @ts-ignore
             y1 = (points[3][1] + points[0][1]) / 2;
+            // @ts-ignore
             y2 = y1 - labelLineLen;
+            // @ts-ignore
             textY = y2 - 5;
             textAlign = 'center';
           } else if (labelPosition === 'bottom') {
             // Bottom side
+            // @ts-ignore
             x1 = (points[1][0] + points[2][0]) / 2;
+            // @ts-ignore
             y1 = (points[1][1] + points[2][1]) / 2;
             y2 = y1 + labelLineLen;
+            // @ts-ignore
             textY = y2 + 5;
             textAlign = 'center';
           } else if (labelPosition === 'rightTop') {
@@ -62601,11 +64833,14 @@
             y1 = orient === 'horizontal' ? points[3][1] : points[1][1];
 
             if (orient === 'horizontal') {
+              // @ts-ignore
               y2 = y1 - labelLineLen;
+              // @ts-ignore
               textY = y2 - 5;
               textAlign = 'center';
             } else {
               x2 = x1 + labelLineLen;
+              // @ts-ignore
               textX = x2 + 5;
               textAlign = 'top';
             }
@@ -62616,10 +64851,12 @@
 
             if (orient === 'horizontal') {
               y2 = y1 + labelLineLen;
+              // @ts-ignore
               textY = y2 + 5;
               textAlign = 'center';
             } else {
               x2 = x1 + labelLineLen;
+              // @ts-ignore
               textX = x2 + 5;
               textAlign = 'bottom';
             }
@@ -62629,11 +64866,15 @@
             y1 = orient === 'horizontal' ? points[0][1] : points[1][1];
 
             if (orient === 'horizontal') {
+              // @ts-ignore
               y2 = y1 - labelLineLen;
+              // @ts-ignore
               textY = y2 - 5;
               textAlign = 'center';
             } else {
+              // @ts-ignore
               x2 = x1 - labelLineLen;
+              // @ts-ignore
               textX = x2 - 5;
               textAlign = 'right';
             }
@@ -62644,24 +64885,31 @@
 
             if (orient === 'horizontal') {
               y2 = y1 + labelLineLen;
+              // @ts-ignore
               textY = y2 + 5;
               textAlign = 'center';
             } else {
+              // @ts-ignore
               x2 = x1 - labelLineLen;
+              // @ts-ignore
               textX = x2 - 5;
               textAlign = 'right';
             }
           } else {
             // Right side or Bottom side
+            // @ts-ignore
             x1 = (points[1][0] + points[2][0]) / 2;
+            // @ts-ignore
             y1 = (points[1][1] + points[2][1]) / 2;
 
             if (orient === 'horizontal') {
               y2 = y1 + labelLineLen;
+              // @ts-ignore
               textY = y2 + 5;
               textAlign = 'center';
             } else {
               x2 = x1 + labelLineLen;
+              // @ts-ignore
               textX = x2 + 5;
               textAlign = 'left';
             }
@@ -62839,6 +65087,7 @@
 
     var ParallelView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelView, _super);
 
@@ -62852,6 +65101,7 @@
       }
 
       ParallelView.prototype.init = function () {
+        // @ts-ignore
         this.group.add(this._dataGroup);
       };
       /**
@@ -62859,9 +65109,11 @@
        */
 
 
+      // @ts-ignore
       ParallelView.prototype.render = function (seriesModel, ecModel, api, payload) {
         // Clear previously rendered progressive elements.
         this._progressiveEls = null;
+        // @ts-ignore
         var dataGroup = this._dataGroup;
         var data = seriesModel.getData();
         var oldData = this._data;
@@ -62908,13 +65160,16 @@
         this._data = data;
       };
 
+      // @ts-ignore
       ParallelView.prototype.incrementalPrepareRender = function (seriesModel, ecModel, api) {
         this._initialized = true;
         this._data = null;
 
+        // @ts-ignore
         this._dataGroup.removeAll();
       };
 
+      // @ts-ignore
       ParallelView.prototype.incrementalRender = function (taskParams, seriesModel, ecModel) {
         var data = seriesModel.getData();
         var coordSys = seriesModel.coordinateSystem;
@@ -62923,7 +65178,9 @@
         var progressiveEls = this._progressiveEls = [];
 
         for (var dataIndex = taskParams.start; dataIndex < taskParams.end; dataIndex++) {
+          // @ts-ignore
           var line = addEl(data, this._dataGroup, dataIndex, dimensions, coordSys);
+          // @ts-ignore
           line.incremental = true;
           updateElCommon(line, data, dataIndex, seriesScope);
           progressiveEls.push(line);
@@ -62931,6 +65188,7 @@
       };
 
       ParallelView.prototype.remove = function () {
+        // @ts-ignore
         this._dataGroup && this._dataGroup.removeAll();
         this._data = null;
       };
@@ -62951,6 +65209,7 @@
         }
       });
       var dim = parallelModel.get('layout') === 'horizontal' ? 'width' : 'height';
+      // @ts-ignore
       rectEl.setShape(dim, 0);
       initProps(rectEl, {
         shape: {
@@ -63035,6 +65294,7 @@
 
     var ParallelSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelSeriesModel, _super);
 
@@ -63047,6 +65307,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ParallelSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this, {
           useEncodeDefaulter: bind(makeDefaultEncode, null, this)
@@ -63060,7 +65321,9 @@
 
 
       ParallelSeriesModel.prototype.getRawIndicesByActiveState = function (activeState) {
+        // @ts-ignore
         var coordSys = this.coordinateSystem;
+        // @ts-ignore
         var data = this.getData();
         var indices = [];
         coordSys.eachActiveState(data, function (theActiveState, dataIndex) {
@@ -63170,6 +65433,7 @@
     var opacityAccessPath$1 = ['lineStyle', 'opacity'];
     var parallelVisual = {
       seriesType: 'parallel',
+      // @ts-ignore
       reset: function (seriesModel, ecModel) {
         var coordSys = seriesModel.coordinateSystem;
         var opacityMap = {
@@ -63246,6 +65510,7 @@
 
     var ParallelView$1 =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelView, _super);
 
@@ -63256,6 +65521,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ParallelView.prototype.render = function (parallelModel, ecModel, api) {
         this._model = parallelModel;
         this._api = api;
@@ -63263,6 +65529,7 @@
         if (!this._handlers) {
           this._handlers = {};
           each(handlers, function (handler, eventName) {
+            // @ts-ignore
             api.getZr().on(eventName, this._handlers[eventName] = bind(handler, this));
           }, this);
         }
@@ -63270,6 +65537,7 @@
         createOrUpdate(this, '_throttledDispatchExpand', parallelModel.get('axisExpandRate'), 'fixRate');
       };
 
+      // @ts-ignore
       ParallelView.prototype.dispose = function (ecModel, api) {
         clear(this, '_throttledDispatchExpand');
         each(this._handlers, function (handler, eventName) {
@@ -63357,6 +65625,7 @@
 
     var ParallelModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelModel, _super);
 
@@ -63374,6 +65643,7 @@
       };
 
       ParallelModel.prototype.mergeOption = function (newOption) {
+        // @ts-ignore
         var thisOption = this.option;
         newOption && merge(thisOption, newOption, true);
 
@@ -63401,11 +65671,13 @@
       ParallelModel.prototype._initDimensions = function () {
         var dimensions = this.dimensions = [];
         var parallelAxisIndex = this.parallelAxisIndex = [];
+        // @ts-ignore
         var axisModels = filter(this.ecModel.queryComponents({
           mainType: 'parallelAxis'
         }), function (axisModel) {
           // Can not use this.contains here, because
           // initialization has not been completed yet.
+          // @ts-ignore
           return (axisModel.get('parallelIndex') || 0) === this.componentIndex;
         }, this);
         each(axisModels, function (axisModel) {
@@ -63446,6 +65718,7 @@
 
     var ParallelAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelAxis, _super);
 
@@ -63458,6 +65731,7 @@
       }
 
       ParallelAxis.prototype.isHorizontal = function () {
+        // @ts-ignore
         return this.coordinateSystem.getModel().get('layout') !== 'horizontal';
       };
 
@@ -63598,6 +65872,7 @@
 
     var Parallel =
     /** @class */
+    // @ts-ignore
     function () {
       function Parallel(parallelModel, ecModel, api) {
         this.type = 'parallel';
@@ -63618,6 +65893,7 @@
         this._init(parallelModel, ecModel, api);
       }
 
+      // @ts-ignore
       Parallel.prototype._init = function (parallelModel, ecModel, api) {
         var dimensions = parallelModel.dimensions;
         var parallelAxisIndex = parallelModel.parallelAxisIndex;
@@ -63625,6 +65901,7 @@
           var axisIndex = parallelAxisIndex[idx];
           var axisModel = ecModel.getComponent('parallelAxis', axisIndex);
 
+          // @ts-ignore
           var axis = this._axesMap.set(dim, new ParallelAxis(dim, createScaleByModel(axisModel), [0, 0], axisModel.get('type'), axisIndex));
 
           var isCategory = axis.type === 'category';
@@ -63633,6 +65910,7 @@
 
           axisModel.axis = axis;
           axis.model = axisModel;
+          // @ts-ignore
           axis.coordinateSystem = axisModel.coordinateSystem = this;
         }, this);
       };
@@ -63641,6 +65919,7 @@
        */
 
 
+      // @ts-ignore
       Parallel.prototype.update = function (ecModel, api) {
         this._updateAxesFromSeries(this._model, ecModel);
       };
@@ -63671,11 +65950,14 @@
           }
 
           var data = seriesModel.getData();
+          // @ts-ignore
           each$5(this.dimensions, function (dim) {
+            // @ts-ignore
             var axis = this._axesMap.get(dim);
 
             axis.scale.unionExtentFromData(data, data.mapDimension(dim));
             niceScaleExtent(axis.scale, axis.model);
+          // @ts-ignore
           }, this);
         }, this);
       };
@@ -63704,6 +65986,7 @@
         var wh = ['width', 'height'];
         var layout = parallelModel.get('layout');
         var pixelDimIndex = layout === 'horizontal' ? 0 : 1;
+        // @ts-ignore
         var layoutLength = rect[wh[pixelDimIndex]];
         var layoutExtent = [0, layoutLength];
         var axisCount = this.dimensions.length;
@@ -63736,9 +66019,12 @@
         return {
           layout: layout,
           pixelDimIndex: pixelDimIndex,
+          // @ts-ignore
           layoutBase: rect[xy[pixelDimIndex]],
           layoutLength: layoutLength,
+          // @ts-ignore
           axisBase: rect[xy[1 - pixelDimIndex]],
+          // @ts-ignore
           axisLength: rect[wh[1 - pixelDimIndex]],
           axisExpandable: axisExpandable,
           axisExpandWidth: axisExpandWidth,
@@ -63779,6 +66065,7 @@
             horizontal: PI$7 / 2,
             vertical: 0
           };
+          // @ts-ignore
           var position = [positionTable[layout].x + rect.x, positionTable[layout].y + rect.y];
           var rotation = rotationTable[layout];
           var transform = create$1();
@@ -63788,6 +66075,7 @@
           // TODO
           // update dimensions info based on axis order.
 
+          // @ts-ignore
           this._axesLayout[dim] = {
             position: position,
             rotation: rotation,
@@ -63840,8 +66128,10 @@
           var activeState = void 0;
 
           if (!hasActiveSet) {
+            // @ts-ignore
             activeState = 'normal';
           } else {
+            // @ts-ignore
             activeState = 'active';
             var values = data.getValues(dataDimensions, dataIndex);
 
@@ -63849,6 +66139,7 @@
               var state = axisModels[j].getActiveState(values[j]);
 
               if (state === 'inactive') {
+                // @ts-ignore
                 activeState = 'inactive';
                 break;
               }
@@ -63884,6 +66175,7 @@
 
       Parallel.prototype.axisCoordToPoint = function (coord, dim) {
         var axisLayout = this._axesLayout[dim];
+        // @ts-ignore
         return applyTransform$1([coord, 0], axisLayout.transform);
       };
       /**
@@ -63939,6 +66231,7 @@
           }
 
           delta *= layoutInfo.axisExpandWidth / axisCollapseWidth;
+          // @ts-ignore
           delta ? sliderMove(delta, axisExpandWindow, extent, 'all') // Avoid nonsense triger on mousemove.
           : behavior = 'none';
         } // When screen is too narrow, make it visible and slidable, although it is hard to interact.
@@ -64029,12 +66322,14 @@
 
     var ParallelAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelAxisModel, _super);
 
       function ParallelAxisModel() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
+        // @ts-ignore
         _this.type = ParallelAxisModel.type;
         /**
          * @readOnly
@@ -64047,6 +66342,7 @@
       ParallelAxisModel.prototype.getAreaSelectStyle = function () {
         return makeStyleMapper([['fill', 'color'], ['lineWidth', 'borderWidth'], ['stroke', 'borderColor'], ['width', 'width'], ['opacity', 'opacity'] // Option decal is in `DecalObject` but style.decal is in `PatternObject`.
         // So do not transfer decal directly.
+        // @ts-ignore
         ])(this.getModel('areaSelectStyle'));
       };
       /**
@@ -64155,32 +66451,41 @@
 
     var BrushController =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BrushController, _super);
 
       function BrushController(zr) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
         /**
          * @internal
          */
 
 
+        // @ts-ignore
         _this._track = [];
         /**
          * @internal
          */
 
         _this._covers = [];
+        // @ts-ignore
         _this._handlers = {};
 
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(zr);
         }
 
+        // @ts-ignore
         _this._zr = zr;
+        // @ts-ignore
         _this.group = new Group();
+        // @ts-ignore
         _this._uid = 'brushController_' + baseUID++;
         each(pointerHandlers, function (handler, eventName) {
+          // @ts-ignore
           this._handlers[eventName] = bind(handler, this);
         }, _this);
         return _this;
@@ -64191,6 +66496,7 @@
 
 
       BrushController.prototype.enableBrush = function (brushOption) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(this._mounted);
         }
@@ -64201,12 +66507,15 @@
       };
 
       BrushController.prototype._doEnableBrush = function (brushOption) {
+        // @ts-ignore
         var zr = this._zr; // Consider roam, which takes globalPan too.
 
         if (!this._enableGlobalPan) {
+          // @ts-ignore
           take(zr, MUTEX_RESOURCE_KEY, this._uid);
         }
 
+        // @ts-ignore
         each(this._handlers, function (handler, eventName) {
           zr.on(eventName, handler);
         });
@@ -64215,8 +66524,11 @@
       };
 
       BrushController.prototype._doDisableBrush = function () {
+        // @ts-ignore
         var zr = this._zr;
+        // @ts-ignore
         release(zr, MUTEX_RESOURCE_KEY, this._uid);
+        // @ts-ignore
         each(this._handlers, function (handler, eventName) {
           zr.off(eventName, handler);
         });
@@ -64243,13 +66555,16 @@
       BrushController.prototype.mount = function (opt) {
         opt = opt || {};
 
+        // @ts-ignore
         if ("development" !== 'production') {
           this._mounted = true; // should be at first.
         }
 
         this._enableGlobalPan = opt.enableGlobalPan;
+        // @ts-ignore
         var thisGroup = this.group;
 
+        // @ts-ignore
         this._zr.add(thisGroup);
 
         thisGroup.attr({
@@ -64273,6 +66588,7 @@
 
 
       BrushController.prototype.updateCovers = function (coverConfigList) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(this._mounted);
         }
@@ -64284,6 +66600,7 @@
         var oldCovers = this._covers;
         var newCovers = this._covers = [];
         var controller = this;
+        // @ts-ignore
         var creatingCover = this._creatingCover;
         new DataDiffer(oldCovers, coverConfigList, oldGetKey, getKey).add(addOrUpdate).update(addOrUpdate).remove(remove).execute();
         return this;
@@ -64300,22 +66617,28 @@
           var newBrushInternal = coverConfigList[newIndex]; // Consider setOption in event listener of brushSelect,
           // where updating cover when creating should be forbiden.
 
+          // @ts-ignore
           if (oldIndex != null && oldCovers[oldIndex] === creatingCover) {
+            // @ts-ignore
             newCovers[newIndex] = oldCovers[oldIndex];
           } else {
+            // @ts-ignore
             var cover = newCovers[newIndex] = oldIndex != null ? (oldCovers[oldIndex].__brushOption = newBrushInternal, oldCovers[oldIndex]) : endCreating(controller, createCover(controller, newBrushInternal));
             updateCoverAfterCreation(controller, cover);
           }
         }
 
         function remove(oldIndex) {
+          // @ts-ignore
           if (oldCovers[oldIndex] !== creatingCover) {
+            // @ts-ignore
             controller.group.remove(oldCovers[oldIndex]);
           }
         }
       };
 
       BrushController.prototype.unmount = function () {
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!this._mounted) {
             return;
@@ -64326,8 +66649,10 @@
 
         clearCovers(this);
 
+        // @ts-ignore
         this._zr.remove(this.group);
 
+        // @ts-ignore
         if ("development" !== 'production') {
           this._mounted = false; // should be at last.
         }
@@ -64337,6 +66662,7 @@
 
       BrushController.prototype.dispose = function () {
         this.unmount();
+        // @ts-ignore
         this.off();
       };
 
@@ -64578,6 +66904,7 @@
         top: 'n',
         bottom: 's'
       };
+      // @ts-ignore
       var dir = transformDirection(map[localDirName], getTransform$1(controller));
       return inverseMap[dir];
     }
@@ -64658,6 +66985,7 @@
         for (var i = 0; i < covers.length; i++) {
           var brushOption = covers[i].__brushOption;
 
+          // @ts-ignore
           if (currPanel && (currPanel === BRUSH_PANEL_GLOBAL || brushOption.panelId === currPanel.panelId) && coverRenderers[brushOption.brushType].contain(covers[i], localCursorPoint[0], localCursorPoint[1])) {
             // Use cursor style set on cover.
             return;
@@ -64730,6 +67058,7 @@
 
     function determineBrushType(brushType, panel) {
       if (brushType === 'auto') {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(panel && panel.defaultBrushType, 'MUST have defaultBrushType when brushType is "atuo"');
         }
@@ -64824,6 +67153,7 @@
         contain: mainShapeContain
       },
       polygon: {
+        // @ts-ignore
         createCover: function (controller, brushOption) {
           var cover = new Group(); // Do not use graphic.Polygon because graphic.Polyline do not close the
           // border of the shape when drawing, which is a better experience for user.
@@ -64850,6 +67180,7 @@
             })
           }));
         },
+        // @ts-ignore
         updateCoverShape: function (controller, cover, localRange, brushOption) {
           cover.childAt(0).setShape({
             points: clipByPanel(controller, cover, localRange)
@@ -64931,6 +67262,7 @@
 
     var ParallelAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ParallelAxisView, _super);
 
@@ -64941,6 +67273,7 @@
         return _this;
       }
 
+      // @ts-ignore
       ParallelAxisView.prototype.init = function (ecModel, api) {
         _super.prototype.init.apply(this, arguments);
 
@@ -64954,9 +67287,11 @@
 
         this.axisModel = axisModel;
         this.api = api;
+        // @ts-ignore
         this.group.removeAll();
         var oldAxisGroup = this._axisGroup;
         this._axisGroup = new Group();
+        // @ts-ignore
         this.group.add(this._axisGroup);
 
         if (!axisModel.get('show')) {
@@ -65176,6 +67511,7 @@
 
     var SankeyPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function SankeyPathShape() {
         this.x1 = 0;
@@ -65194,10 +67530,12 @@
 
     var SankeyPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SankeyPath, _super);
 
       function SankeyPath(opts) {
+        // @ts-ignore
         return _super.call(this, opts) || this;
       }
 
@@ -65234,6 +67572,7 @@
 
     var SankeyView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SankeyView, _super);
 
@@ -65245,9 +67584,11 @@
         return _this;
       }
 
+      // @ts-ignore
       SankeyView.prototype.render = function (seriesModel, ecModel, api) {
         var sankeyView = this;
         var graph = seriesModel.getGraph();
+        // @ts-ignore
         var group = this.group;
         var layoutInfo = seriesModel.layoutInfo; // view width
 
@@ -65339,6 +67680,7 @@
               var targetColor = edge.node2.getVisual('color');
 
               if (isString(sourceColor) && isString(targetColor)) {
+                // @ts-ignore
                 curve.style.fill = new LinearGradient(0, 0, +(orient === 'horizontal'), +(orient === 'vertical'), [{
                   color: sourceColor,
                   offset: 0
@@ -65382,8 +67724,11 @@
             labelDataIndex: node.dataIndex,
             defaultText: node.id
           });
+          // @ts-ignore
           rect.disableLabelAnimation = true;
+          // @ts-ignore
           rect.setStyle('fill', node.getVisual('color'));
+          // @ts-ignore
           rect.setStyle('decal', node.getVisual('style').decal);
           setStatesStylesFromModel(rect, itemModel);
           group.add(rect);
@@ -65397,6 +67742,7 @@
 
           if (itemModel.get('draggable')) {
             el.drift = function (dx, dy) {
+              // @ts-ignore
               sankeyView._focusAdjacencyDisabled = true;
               this.shape.x += dx;
               this.shape.y += dy;
@@ -65411,6 +67757,7 @@
             };
 
             el.ondragend = function () {
+              // @ts-ignore
               sankeyView._focusAdjacencyDisabled = false;
             };
 
@@ -65454,6 +67801,7 @@
 
     var SankeySeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SankeySeriesModel, _super);
 
@@ -65479,6 +67827,7 @@
           if (levels[i].depth != null && levels[i].depth >= 0) {
             levelModels[levels[i].depth] = new Model(levels[i], this, ecModel);
           } else {
+            // @ts-ignore
             if ("development" !== 'production') {
               throw new Error('levels[i].depth is mandatory and should be natural number');
             }
@@ -65526,6 +67875,7 @@
       };
 
       SankeySeriesModel.prototype.setNodePosition = function (dataIndex, localPosition) {
+        // @ts-ignore
         var nodes = this.option.data || this.option.nodes;
         var dataItem = nodes[dataIndex];
         dataItem.localX = localPosition[0];
@@ -65539,6 +67889,7 @@
 
 
       SankeySeriesModel.prototype.getGraph = function () {
+        // @ts-ignore
         return this.getData().graph;
       };
       /**
@@ -65552,6 +67903,7 @@
         return this.getGraph().edgeData;
       };
 
+      // @ts-ignore
       SankeySeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         function noValue(val) {
           return isNaN(val) || val == null;
@@ -65787,6 +68139,7 @@
       return item.depth != null && item.depth >= 0;
     }
 
+    // @ts-ignore
     function adjustNodeWithNodeAlign(nodes, nodeAlign, orient, maxDepth) {
       if (nodeAlign === 'right') {
         var nextSourceNode = [];
@@ -66220,6 +68573,7 @@
 
     var WhiskerBoxCommonMixin =
     /** @class */
+    // @ts-ignore
     function () {
       function WhiskerBoxCommonMixin() {}
       /**
@@ -66232,7 +68586,9 @@
         // needed to be specified by user. Otherwise, layout can be
         // judged by which axis is category.
         var ordinalMeta;
+        // @ts-ignore
         var xAxisModel = ecModel.getComponent('xAxis', this.get('xAxisIndex'));
+        // @ts-ignore
         var yAxisModel = ecModel.getComponent('yAxis', this.get('yAxisIndex'));
         var xAxisType = xAxisModel.get('type');
         var yAxisType = yAxisModel.get('type');
@@ -66284,6 +68640,7 @@
           option.data = newOptionData_1;
         }
 
+        // @ts-ignore
         var defaultValueDimensions = this.defaultValueDimensions;
         var coordDimensions = [{
           name: baseAxisDim,
@@ -66313,6 +68670,7 @@
 
       WhiskerBoxCommonMixin.prototype.getBaseAxis = function () {
         var dim = this._baseAxisDim;
+        // @ts-ignore
         return this.ecModel.getComponent(dim + 'Axis', this.get(dim + 'AxisIndex')).axis;
       };
 
@@ -66321,10 +68679,12 @@
 
     var BoxplotSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BoxplotSeriesModel, _super);
 
       function BoxplotSeriesModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = BoxplotSeriesModel.type; // TODO
@@ -66389,6 +68749,7 @@
 
     var BoxplotView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BoxplotView, _super);
 
@@ -66399,8 +68760,10 @@
         return _this;
       }
 
+      // @ts-ignore
       BoxplotView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
+        // @ts-ignore
         var group = this.group;
         var oldData = this._data; // There is no old data only when first rendering or switching from
         // stream mode to normal mode, where previous elements should be removed.
@@ -66443,7 +68806,9 @@
         this._data = data;
       };
 
+      // @ts-ignore
       BoxplotView.prototype.remove = function (ecModel) {
+        // @ts-ignore
         var group = this.group;
         var data = this._data;
         this._data = null;
@@ -66458,6 +68823,7 @@
 
     var BoxPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function BoxPathShape() {}
 
@@ -66466,12 +68832,15 @@
 
     var BoxPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BoxPath, _super);
 
       function BoxPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'boxplotBoxPath';
         return _this;
       }
@@ -66580,6 +68949,7 @@
     * specific language governing permissions and limitations
     * under the License.
     */
+    // @ts-ignore
     function boxplotVisual(ecModel, api) {}
 
     var each$6 = each;
@@ -66660,6 +69030,7 @@
       var boxGap = availableWidth / seriesCount * 0.3;
       var boxWidth = (availableWidth - boxGap * (seriesCount - 1)) / seriesCount;
       var base = boxWidth / 2 - availableWidth / 2;
+      // @ts-ignore
       each$6(seriesModels, function (seriesModel, idx) {
         boxOffsetList.push(base);
         base += boxGap + boxWidth;
@@ -66804,6 +69175,7 @@
         if (upstream.sourceFormat !== SOURCE_FORMAT_ARRAY_ROWS) {
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = makePrintable('source data is not applicable for this boxplot transform. Expect number[][].');
           }
@@ -66833,6 +69205,7 @@
 
     var CandlestickView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CandlestickView, _super);
 
@@ -66843,8 +69216,10 @@
         return _this;
       }
 
+      // @ts-ignore
       CandlestickView.prototype.render = function (seriesModel, ecModel, api) {
         // If there is clipPath created in large mode. Remove it.
+        // @ts-ignore
         this.group.removeClipPath(); // Clear previously rendered progressive elements.
 
         this._progressiveEls = null;
@@ -66854,18 +69229,21 @@
         this._isLargeDraw ? this._renderLarge(seriesModel) : this._renderNormal(seriesModel);
       };
 
+      // @ts-ignore
       CandlestickView.prototype.incrementalPrepareRender = function (seriesModel, ecModel, api) {
         this._clear();
 
         this._updateDrawMode(seriesModel);
       };
 
+      // @ts-ignore
       CandlestickView.prototype.incrementalRender = function (params, seriesModel, ecModel, api) {
         this._progressiveEls = [];
         this._isLargeDraw ? this._incrementalRenderLarge(params, seriesModel) : this._incrementalRenderNormal(params, seriesModel);
       };
 
       CandlestickView.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         traverseElements(this._progressiveEls || this.group, cb);
       };
 
@@ -66882,6 +69260,7 @@
       CandlestickView.prototype._renderNormal = function (seriesModel) {
         var data = seriesModel.getData();
         var oldData = this._data;
+        // @ts-ignore
         var group = this.group;
         var isSimpleBox = data.getLayout('isSimpleBox');
         var needsClip = seriesModel.get('clip', true);
@@ -66950,12 +69329,15 @@
       CandlestickView.prototype._renderLarge = function (seriesModel) {
         this._clear();
 
+        // @ts-ignore
         createLarge$1(seriesModel, this.group);
         var clipPath = seriesModel.get('clip', true) ? createClipPath(seriesModel.coordinateSystem, false, seriesModel) : null;
 
         if (clipPath) {
+          // @ts-ignore
           this.group.setClipPath(clipPath);
         } else {
+          // @ts-ignore
           this.group.removeClipPath();
         }
       };
@@ -66970,21 +69352,27 @@
           var el = createNormalBox$1(itemLayout);
           setBoxCommon(el, data, dataIndex, isSimpleBox);
           el.incremental = true;
+          // @ts-ignore
           this.group.add(el);
 
+          // @ts-ignore
           this._progressiveEls.push(el);
         }
       };
 
+      // @ts-ignore
       CandlestickView.prototype._incrementalRenderLarge = function (params, seriesModel) {
+        // @ts-ignore
         createLarge$1(seriesModel, this.group, this._progressiveEls, true);
       };
 
+      // @ts-ignore
       CandlestickView.prototype.remove = function (ecModel) {
         this._clear();
       };
 
       CandlestickView.prototype._clear = function () {
+        // @ts-ignore
         this.group.removeAll();
         this._data = null;
       };
@@ -66995,6 +69383,7 @@
 
     var NormalBoxPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function NormalBoxPathShape() {}
 
@@ -67003,12 +69392,15 @@
 
     var NormalBoxPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(NormalBoxPath, _super);
 
       function NormalBoxPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'normalCandlestickBox';
         return _this;
       }
@@ -67020,6 +69412,7 @@
       NormalBoxPath.prototype.buildPath = function (ctx, shape) {
         var ends = shape.points;
 
+        // @ts-ignore
         if (this.__simpleBox) {
           ctx.moveTo(ends[4][0], ends[4][1]);
           ctx.lineTo(ends[6][0], ends[6][1]);
@@ -67039,6 +69432,7 @@
       return NormalBoxPath;
     }(Path);
 
+    // @ts-ignore
     function createNormalBox$1(itemLayout, dataIndex, isInit) {
       var ends = itemLayout.ends;
       return new NormalBoxPath({
@@ -67081,6 +69475,7 @@
 
     var LargeBoxPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function LargeBoxPathShape() {}
 
@@ -67089,12 +69484,15 @@
 
     var LargeBoxPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LargeBoxPath, _super);
 
       function LargeBoxPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this.type = 'largeCandlestickBox';
         return _this;
       }
@@ -67109,6 +69507,7 @@
         var points = shape.points;
 
         for (var i = 0; i < points.length;) {
+          // @ts-ignore
           if (this.__sign === points[i++]) {
             var x = points[i++];
             ctx.moveTo(x, points[i++]);
@@ -67152,6 +69551,7 @@
       }
     }
 
+    // @ts-ignore
     function setLargeStyle(sign, el, seriesModel, data) {
       // TODO put in visual?
       var borderColor = seriesModel.get(['itemStyle', sign > 0 ? 'borderColor' : 'borderColor0']) || seriesModel.get(['itemStyle', sign > 0 ? 'color' : 'color0']); // Color must be excluded.
@@ -67165,6 +69565,7 @@
 
     var CandlestickSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CandlestickSeriesModel, _super);
 
@@ -67481,10 +69882,12 @@
 
     var EffectSymbol =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(EffectSymbol, _super);
 
       function EffectSymbol(data, idx) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
         var symbol = new Symbol(data, idx);
@@ -67494,12 +69897,14 @@
 
         _this.add(rippleGroup);
 
+        // @ts-ignore
         _this.updateData(data, idx);
 
         return _this;
       }
 
       EffectSymbol.prototype.stopEffectAnimation = function () {
+        // @ts-ignore
         this.childAt(1).removeAll();
       };
 
@@ -67507,6 +69912,7 @@
         var symbolType = effectCfg.symbolType;
         var color = effectCfg.color;
         var rippleNumber = effectCfg.rippleNumber;
+        // @ts-ignore
         var rippleGroup = this.childAt(1);
 
         for (var i = 0; i < rippleNumber; i++) {
@@ -67514,6 +69920,7 @@
           // and macOS Sierra, a circle stroke become a rect, no matter what
           // the scale is set. So we set width/height as 2. See #4136.
           var ripplePath = createSymbol(symbolType, -1, -1, 2, 2, color);
+          // @ts-ignore
           ripplePath.attr({
             style: {
               strokeNoScale: true
@@ -67524,10 +69931,12 @@
             scaleY: 0.5
           });
           var delay = -i / rippleNumber * effectCfg.period + effectCfg.effectOffset;
+          // @ts-ignore
           ripplePath.animate('', true).when(effectCfg.period, {
             scaleX: effectCfg.rippleScale / 2,
             scaleY: effectCfg.rippleScale / 2
           }).delay(delay).start();
+          // @ts-ignore
           ripplePath.animateStyle(true).when(effectCfg.period, {
             opacity: 0
           }).delay(delay).start();
@@ -67543,6 +69952,7 @@
 
       EffectSymbol.prototype.updateEffectAnimation = function (effectCfg) {
         var oldEffectCfg = this._effectCfg;
+        // @ts-ignore
         var rippleGroup = this.childAt(1); // Must reinitialize effect if following configuration changed
 
         var DIFFICULT_PROPS = ['symbolType', 'period', 'rippleScale', 'rippleNumber'];
@@ -67550,6 +69960,7 @@
         for (var i = 0; i < DIFFICULT_PROPS.length; i++) {
           var propName = DIFFICULT_PROPS[i];
 
+          // @ts-ignore
           if (oldEffectCfg[propName] !== effectCfg[propName]) {
             this.stopEffectAnimation();
             this.startEffectAnimation(effectCfg);
@@ -67577,6 +69988,7 @@
       };
 
       EffectSymbol.prototype.getSymbolType = function () {
+        // @ts-ignore
         var symbol = this.childAt(0);
         return symbol && symbol.getSymbolType();
       };
@@ -67589,7 +70001,9 @@
         var _this = this;
 
         var seriesModel = data.hostModel;
+        // @ts-ignore
         this.childAt(0).updateData(data, idx);
+        // @ts-ignore
         var rippleGroup = this.childAt(1);
         var itemModel = data.getItemModel(idx);
         var symbolType = data.getItemVisual(idx, 'symbol');
@@ -67656,6 +70070,7 @@
 
     var EffectScatterView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(EffectScatterView, _super);
 
@@ -67670,12 +70085,14 @@
         this._symbolDraw = new SymbolDraw(EffectSymbol);
       };
 
+      // @ts-ignore
       EffectScatterView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
         var effectSymbolDraw = this._symbolDraw;
         effectSymbolDraw.updateData(data, {
           clipShape: this._getClipShape(seriesModel)
         });
+        // @ts-ignore
         this.group.add(effectSymbolDraw.group);
       };
 
@@ -67687,7 +70104,9 @@
 
       EffectScatterView.prototype.updateTransform = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
+        // @ts-ignore
         this.group.dirty();
+        // @ts-ignore
         var res = pointsLayout('').reset(seriesModel, ecModel, api);
 
         if (res.progress) {
@@ -67705,11 +70124,14 @@
         var coordSys = seriesModel.coordinateSystem;
 
         if (coordSys && coordSys.getRoamTransform) {
+          // @ts-ignore
           this.group.transform = clone$2(coordSys.getRoamTransform());
+          // @ts-ignore
           this.group.decomposeTransform();
         }
       };
 
+      // @ts-ignore
       EffectScatterView.prototype.remove = function (ecModel, api) {
         this._symbolDraw && this._symbolDraw.remove(true);
       };
@@ -67720,6 +70142,7 @@
 
     var EffectScatterSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(EffectScatterSeriesModel, _super);
 
@@ -67731,6 +70154,7 @@
         return _this;
       }
 
+      // @ts-ignore
       EffectScatterSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this, {
           useEncodeDefaulter: true
@@ -67792,14 +70216,18 @@
 
     var EffectLine =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(EffectLine, _super);
 
       function EffectLine(lineData, idx, seriesScope) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this.add(_this.createLine(lineData, idx, seriesScope));
 
+        // @ts-ignore
         _this._updateEffectSymbol(lineData, idx);
 
         return _this;
@@ -67821,14 +70249,17 @@
 
         var lineStyle = lineData.getItemVisual(idx, 'style');
         var color = effectModel.get('color') || lineStyle && lineStyle.stroke;
+        // @ts-ignore
         var symbol = this.childAt(1);
 
         if (this._symbolType !== symbolType) {
           // Remove previous
+          // @ts-ignore
           this.remove(symbol);
           symbol = createSymbol(symbolType, -0.5, -0.5, 1, 1, color);
           symbol.z2 = 100;
           symbol.culling = true;
+          // @ts-ignore
           this.add(symbol);
         } // Symbol may be removed if loop is false
 
@@ -67850,6 +70281,7 @@
       };
 
       EffectLine.prototype._updateEffectAnimation = function (lineData, effectModel, idx) {
+        // @ts-ignore
         var symbol = this.childAt(1);
 
         if (!symbol) {
@@ -67886,6 +70318,7 @@
             }
 
             if (symbol.__t > 0) {
+              // @ts-ignore
               delayNum = -period * symbol.__t;
             }
 
@@ -67898,6 +70331,7 @@
 
             if (!loop) {
               animator.done(function () {
+                // @ts-ignore
                 self.remove(symbol);
               });
             }
@@ -67922,6 +70356,7 @@
       };
 
       EffectLine.prototype.updateData = function (lineData, idx, seriesScope) {
+        // @ts-ignore
         this.childAt(0).updateData(lineData, idx, seriesScope);
 
         this._updateEffectSymbol(lineData, idx);
@@ -67966,6 +70401,7 @@
       };
 
       EffectLine.prototype.updateLayout = function (lineData, idx) {
+        // @ts-ignore
         this.childAt(0).updateLayout(lineData, idx);
         var effectModel = lineData.getItemModel(idx).getModel('effect');
 
@@ -67977,12 +70413,15 @@
 
     var Polyline$1 =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(Polyline$1, _super);
 
       function Polyline$1(lineData, idx, seriesScope) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this._createPolyline(lineData, idx, seriesScope);
 
         return _this;
@@ -67996,6 +70435,7 @@
             points: points
           }
         });
+        // @ts-ignore
         this.add(line);
 
         this._updateCommonStl(lineData, idx, seriesScope);
@@ -68003,6 +70443,7 @@
 
       Polyline$1.prototype.updateData = function (lineData, idx, seriesScope) {
         var seriesModel = lineData.hostModel;
+        // @ts-ignore
         var line = this.childAt(0);
         var target = {
           shape: {
@@ -68015,6 +70456,7 @@
       };
 
       Polyline$1.prototype._updateCommonStl = function (lineData, idx, seriesScope) {
+        // @ts-ignore
         var line = this.childAt(0);
         var itemModel = lineData.getItemModel(idx);
         var emphasisLineStyle = seriesScope && seriesScope.emphasisLineStyle;
@@ -68039,6 +70481,7 @@
       };
 
       Polyline$1.prototype.updateLayout = function (lineData, idx) {
+        // @ts-ignore
         var polyline = this.childAt(0);
         polyline.setShape('points', lineData.getItemLayout(idx));
       };
@@ -68047,6 +70490,7 @@
 
     var EffectPolyline =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(EffectPolyline, _super);
 
@@ -68063,6 +70507,7 @@
         return new Polyline$1(lineData, idx, seriesScope);
       };
 
+      // @ts-ignore
       EffectPolyline.prototype._updateAnimationPoints = function (symbol, points) {
         this._points = points;
         var accLenArr = [0];
@@ -68109,6 +70554,7 @@
         if (t < this._lastFramePercent) {
           // Start from the next frame
           // PENDING start from lastFrame ?
+          // @ts-ignore
           var start = Math.min(lastFrame + 1, len - 1);
 
           for (frame = start; frame >= 0; frame--) {
@@ -68120,12 +70566,15 @@
 
           frame = Math.min(frame, len - 2);
         } else {
+          // @ts-ignore
           for (frame = lastFrame; frame < len; frame++) {
+            // @ts-ignore
             if (offsets[frame] > t) {
               break;
             }
           }
 
+          // @ts-ignore
           frame = Math.min(frame - 1, len - 2);
         }
 
@@ -68146,6 +70595,7 @@
 
     var LargeLinesPathShape =
     /** @class */
+    // @ts-ignore
     function () {
       function LargeLinesPathShape() {
         this.polyline = false;
@@ -68158,13 +70608,17 @@
 
     var LargeLinesPath =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LargeLinesPath, _super);
 
       function LargeLinesPath(opts) {
+        // @ts-ignore
         var _this = _super.call(this, opts) || this;
 
+        // @ts-ignore
         _this._off = 0;
+        // @ts-ignore
         _this.hoverDataIdx = -1;
         return _this;
       }
@@ -68220,6 +70674,7 @@
           }
         }
 
+        // @ts-ignore
         if (this.incremental) {
           this._off = i;
           this.notClear = true;
@@ -68227,9 +70682,11 @@
       };
 
       LargeLinesPath.prototype.findDataIndex = function (x, y) {
+        // @ts-ignore
         var shape = this.shape;
         var segs = shape.segs;
         var curveness = shape.curveness;
+        // @ts-ignore
         var lineWidth = this.style.lineWidth;
 
         if (shape.polyline) {
@@ -68284,6 +70741,7 @@
       };
 
       LargeLinesPath.prototype.contain = function (x, y) {
+        // @ts-ignore
         var localPos = this.transformCoordToLocal(x, y);
         var rect = this.getBoundingRect();
         x = localPos[0];
@@ -68304,6 +70762,7 @@
         var rect = this._rect;
 
         if (!rect) {
+          // @ts-ignore
           var shape = this.shape;
           var points = shape.segs;
           var minX = Infinity;
@@ -68331,6 +70790,7 @@
 
     var LargeLineDraw =
     /** @class */
+    // @ts-ignore
     function () {
       function LargeLineDraw() {
         this.group = new Group();
@@ -68355,6 +70815,7 @@
        * @override
        */
 
+      // @ts-ignore
       LargeLineDraw.prototype.incrementalPrepareUpdate = function (data) {
         this.group.removeAll();
 
@@ -68365,6 +70826,7 @@
        */
 
       LargeLineDraw.prototype.incrementalUpdate = function (taskParams, data) {
+        // @ts-ignore
         var lastAdded = this._newAdded[0];
         var linePoints = data.getLayout('linesPoints');
         var oldSegs = lastAdded && lastAdded.shape.segs; // Merging the exists. Each element has 1e4 points.
@@ -68405,6 +70867,7 @@
       };
 
       LargeLineDraw.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         this._newAdded[0] && cb(this._newAdded[0]);
       };
 
@@ -68413,12 +70876,14 @@
           cursor: 'default'
         });
 
+        // @ts-ignore
         this._newAdded.push(lineEl);
 
         this.group.add(lineEl);
         return lineEl;
       };
 
+      // @ts-ignore
       LargeLineDraw.prototype._setCommon = function (lineEl, data, isIncremental) {
         var hostModel = data.hostModel;
         lineEl.setShape({
@@ -68438,6 +70903,7 @@
         // PENDING May have performance issue when path is extremely large
 
         ecData.seriesIndex = hostModel.seriesIndex;
+        // @ts-ignore
         lineEl.on('mousemove', function (e) {
           ecData.dataIndex = null;
           var dataIndex = lineEl.hoverDataIdx;
@@ -68463,6 +70929,7 @@
         var coordSys = seriesModel.coordinateSystem;
 
         if (!coordSys) {
+          // @ts-ignore
           if ("development" !== 'production') {
             error('The lines series must have a coordinate system.');
           }
@@ -68487,8 +70954,10 @@
                   totalCoordsCount += seriesModel.getLineCoordsCount(i);
                 }
 
+                // @ts-ignore
                 points = new Float32Array(segCount + totalCoordsCount * 2);
               } else {
+                // @ts-ignore
                 points = new Float32Array(segCount * 4);
               }
 
@@ -68499,12 +70968,15 @@
                 var len = seriesModel.getLineCoords(i, lineCoords);
 
                 if (isPolyline) {
+                  // @ts-ignore
                   points[offset++] = len;
                 }
 
                 for (var k = 0; k < len; k++) {
                   pt = coordSys.dataToPoint(lineCoords[k], false, pt);
+                  // @ts-ignore
                   points[offset++] = pt[0];
+                  // @ts-ignore
                   points[offset++] = pt[1];
                 }
               }
@@ -68540,6 +71012,7 @@
 
     var LinesView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LinesView, _super);
 
@@ -68550,6 +71023,7 @@
         return _this;
       }
 
+      // @ts-ignore
       LinesView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
 
@@ -68580,6 +71054,7 @@
               motionBlur: true,
               lastFrameAlpha: Math.max(Math.min(trailLength / 10 + 0.9, 1), 0)
             });
+          // @ts-ignore
           } else if ("development" !== 'production') {
             console.warn('SVG render mode doesn\'t support lines with trail effect');
           }
@@ -68589,8 +71064,10 @@
         var clipPath = seriesModel.get('clip', true) && createClipPath(seriesModel.coordinateSystem, false, seriesModel);
 
         if (clipPath) {
+          // @ts-ignore
           this.group.setClipPath(clipPath);
         } else {
+          // @ts-ignore
           this.group.removeClipPath();
         }
 
@@ -68598,6 +71075,7 @@
         this._finished = true;
       };
 
+      // @ts-ignore
       LinesView.prototype.incrementalPrepareRender = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
 
@@ -68610,6 +71088,7 @@
         this._finished = false;
       };
 
+      // @ts-ignore
       LinesView.prototype.incrementalRender = function (taskParams, seriesModel, ecModel) {
         this._lineDraw.incrementalUpdate(taskParams, seriesModel.getData());
 
@@ -68632,9 +71111,12 @@
         } else {
           // TODO Use same logic with ScatterView.
           // Manually update layout
+          // @ts-ignore
           var res = linesLayout.reset(seriesModel, ecModel, api);
 
+          // @ts-ignore
           if (res.progress) {
+            // @ts-ignore
             res.progress({
               start: 0,
               end: data.count(),
@@ -68649,6 +71131,7 @@
         }
       };
 
+      // @ts-ignore
       LinesView.prototype._updateLineDraw = function (data, seriesModel) {
         var lineDraw = this._lineDraw;
 
@@ -68658,6 +71141,7 @@
         var pipelineContext = seriesModel.pipelineContext;
         var isLargeDraw = pipelineContext.large;
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (hasEffect && isLargeDraw) {
             console.warn('Large lines not support effect');
@@ -68675,6 +71159,7 @@
           this._isLargeDraw = isLargeDraw;
         }
 
+        // @ts-ignore
         this.group.add(lineDraw.group);
         return lineDraw;
       };
@@ -68693,6 +71178,7 @@
         }
       };
 
+      // @ts-ignore
       LinesView.prototype.remove = function (ecModel, api) {
         this._lineDraw && this._lineDraw.remove();
         this._lineDraw = null; // Clear motion when lineDraw is removed
@@ -68715,6 +71201,7 @@
       var data = seriesOpt.data;
 
       if (data && data[0] && data[0][0] && data[0][0].coord) {
+        // @ts-ignore
         if ("development" !== 'production') {
           console.warn('Lines data configuration has been changed to' + ' { coords:[[1,2],[2,3]] }');
         }
@@ -68740,6 +71227,7 @@
 
     var LinesSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LinesSeriesModel, _super);
 
@@ -68803,13 +71291,16 @@
           params.data = new Float32Array(result.count);
         }
 
+        // @ts-ignore
         this.getRawData().appendData(params.data);
       };
 
       LinesSeriesModel.prototype._getCoordsFromItemModel = function (idx) {
+        // @ts-ignore
         var itemModel = this.getData().getItemModel(idx);
         var coords = itemModel.option instanceof Array ? itemModel.option : itemModel.getShallow('coords');
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!(coords instanceof Array && coords.length > 0 && coords[0] instanceof Array)) {
             throw new Error('Invalid coords ' + JSON.stringify(coords) + '. Lines must have 2d coords array in data item.');
@@ -68885,6 +71376,7 @@
               coordsStorage[coordsCursor++] = y;
 
               if (i > len) {
+                // @ts-ignore
                 if ("development" !== 'production') {
                   throw new Error('Invalid data format.');
                 }
@@ -68893,6 +71385,7 @@
           }
 
           return {
+            // @ts-ignore
             flatCoordsOffset: new Uint32Array(coordsOffsetAndLenStorage.buffer, 0, offsetCursor),
             flatCoords: coordsStorage,
             count: dataCount
@@ -68906,7 +71399,9 @@
         };
       };
 
+      // @ts-ignore
       LinesSeriesModel.prototype.getInitialData = function (option, ecModel) {
+        // @ts-ignore
         if ("development" !== 'production') {
           var CoordSys = CoordinateSystemManager.get(option.coordinateSystem);
 
@@ -68917,6 +71412,7 @@
 
         var lineData = new SeriesData(['value'], this);
         lineData.hasItemOption = false;
+        // @ts-ignore
         lineData.initData(option.data, [], function (dataItem, dimName, dataIndex, dimIndex) {
           // dataItem is simply coords
           if (dataItem instanceof Array) {
@@ -68933,7 +71429,9 @@
         return lineData;
       };
 
+      // @ts-ignore
       LinesSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
+        // @ts-ignore
         var data = this.getData();
         var itemModel = data.getItemModel(dataIndex);
         var name = itemModel.get('name');
@@ -68953,13 +71451,16 @@
       };
 
       LinesSeriesModel.prototype.preventIncremental = function () {
+        // @ts-ignore
         return !!this.get(['effect', 'show']);
       };
 
       LinesSeriesModel.prototype.getProgressive = function () {
+        // @ts-ignore
         var progressive = this.option.progressive;
 
         if (progressive == null) {
+          // @ts-ignore
           return this.option.large ? 1e4 : this.get('progressive');
         }
 
@@ -68967,9 +71468,11 @@
       };
 
       LinesSeriesModel.prototype.getProgressiveThreshold = function () {
+        // @ts-ignore
         var progressiveThreshold = this.option.progressiveThreshold;
 
         if (progressiveThreshold == null) {
+          // @ts-ignore
           return this.option.large ? 2e4 : this.get('progressiveThreshold');
         }
 
@@ -68977,9 +71480,12 @@
       };
 
       LinesSeriesModel.prototype.getZLevelKey = function () {
+        // @ts-ignore
         var effectModel = this.getModel('effect');
         var trailLength = effectModel.get('trailLength');
+        // @ts-ignore
         return this.getData().count() > this.getProgressiveThreshold() // Each progressive series has individual key.
+        // @ts-ignore
         ? this.id : effectModel.get('show') && trailLength > 0 ? trailLength + '' : '';
       };
 
@@ -69112,6 +71618,7 @@
 
     var HeatmapLayer =
     /** @class */
+    // @ts-ignore
     function () {
       function HeatmapLayer() {
         this.blurSize = 30;
@@ -69136,15 +71643,20 @@
       HeatmapLayer.prototype.update = function (data, width, height, normalize, colorFunc, isInRange) {
         var brush = this._getBrush();
 
+        // @ts-ignore
         var gradientInRange = this._getGradient(colorFunc, 'inRange');
 
+        // @ts-ignore
         var gradientOutOfRange = this._getGradient(colorFunc, 'outOfRange');
 
         var r = this.pointSize + this.blurSize;
         var canvas = this.canvas;
+        // @ts-ignore
         var ctx = canvas.getContext('2d');
         var len = data.length;
+        // @ts-ignore
         canvas.width = width;
+        // @ts-ignore
         canvas.height = height;
 
         for (var i = 0; i < len; ++i) {
@@ -69159,6 +71671,7 @@
           ctx.drawImage(brush, x - r, y - r);
         }
 
+        // @ts-ignore
         if (!canvas.width || !canvas.height) {
           // Avoid "Uncaught DOMException: Failed to execute 'getImageData' on
           // 'CanvasRenderingContext2D': The source height is 0."
@@ -69166,6 +71679,7 @@
         } // colorize the canvas using alpha value and set with gradient
 
 
+        // @ts-ignore
         var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         var pixels = imageData.data;
         var offset = 0;
@@ -69175,6 +71689,7 @@
         var diffOpacity = maxOpacity - minOpacity;
 
         while (offset < pixelLen) {
+          // @ts-ignore
           var alpha = pixels[offset + 3] / 256;
           var gradientOffset = Math.floor(alpha * (GRADIENT_LEVELS - 1)) * 4; // Simple optimize to ignore the empty data
 
@@ -69204,8 +71719,11 @@
 
         var r = this.pointSize + this.blurSize;
         var d = r * 2;
+        // @ts-ignore
         brushCanvas.width = d;
+        // @ts-ignore
         brushCanvas.height = d;
+        // @ts-ignore
         var ctx = brushCanvas.getContext('2d');
         ctx.clearRect(0, 0, d, d); // in order to render shadow without the distinct circle,
         // draw the distinct circle in an invisible place,
@@ -69302,6 +71820,7 @@
 
     var HeatmapView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(HeatmapView, _super);
 
@@ -69322,6 +71841,7 @@
           });
         });
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!visualMapOfThisSeries) {
             throw new Error('Heatmap must use with visualMap');
@@ -69330,6 +71850,7 @@
 
 
         this._progressiveEls = null;
+        // @ts-ignore
         this.group.removeAll();
         var coordSys = seriesModel.coordinateSystem;
 
@@ -69340,7 +71861,9 @@
         }
       };
 
+      // @ts-ignore
       HeatmapView.prototype.incrementalPrepareRender = function (seriesModel, ecModel, api) {
+        // @ts-ignore
         this.group.removeAll();
       };
 
@@ -69360,9 +71883,11 @@
       };
 
       HeatmapView.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         traverseElements(this._progressiveEls || this.group, cb);
       };
 
+      // @ts-ignore
       HeatmapView.prototype._renderOnCartesianAndCalendar = function (seriesModel, api, start, end, incremental) {
         var coordSys = seriesModel.coordinateSystem;
         var width;
@@ -69374,6 +71899,7 @@
           var xAxis = coordSys.getAxis('x');
           var yAxis = coordSys.getAxis('y');
 
+          // @ts-ignore
           if ("development" !== 'production') {
             if (!(xAxis.type === 'category' && yAxis.type === 'category')) {
               throw new Error('Heatmap on cartesian must have two category axes');
@@ -69390,6 +71916,7 @@
           yAxisExtent = yAxis.scale.getExtent();
         }
 
+        // @ts-ignore
         var group = this.group;
         var data = seriesModel.getData();
         var emphasisStyle = seriesModel.getModel(['emphasis', 'itemStyle']).getItemStyle();
@@ -69415,6 +71942,7 @@
             }
 
             var point = coordSys.dataToPoint([dataDimX, dataDimY]);
+            // @ts-ignore
             rect = new Rect({
               shape: {
                 x: Math.floor(Math.round(point[0]) - width / 2),
@@ -69430,6 +71958,7 @@
               continue;
             }
 
+            // @ts-ignore
             rect = new Rect({
               z2: 1,
               shape: coordSys.dataToRect([data.get(dataDims[0], idx)]).contentShape,
@@ -69463,14 +71992,19 @@
             defaultOpacity: style.opacity,
             defaultText: defaultText
           });
+          // @ts-ignore
           rect.ensureState('emphasis').style = emphasisStyle;
+          // @ts-ignore
           rect.ensureState('blur').style = blurStyle;
+          // @ts-ignore
           rect.ensureState('select').style = selectStyle;
           toggleHoverEmphasis(rect, focus, blurScope, emphasisDisabled);
+          // @ts-ignore
           rect.incremental = incremental; // PENDING
 
           if (incremental) {
             // Rect must use hover layer if it's incremental.
+            // @ts-ignore
             rect.states.emphasis.hoverLayer = true;
           }
 
@@ -69490,6 +72024,7 @@
         // }
 
         var data = seriesModel.getData();
+        // @ts-ignore
         var hmLayer = this._hmLayer || this._hmLayer || new HeatmapLayer();
         hmLayer.blurSize = seriesModel.get('blurSize');
         hmLayer.pointSize = seriesModel.get('pointSize');
@@ -69529,6 +72064,7 @@
           },
           silent: true
         });
+        // @ts-ignore
         this.group.add(img);
       };
 
@@ -69538,6 +72074,7 @@
 
     var HeatmapSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(HeatmapSeriesModel, _super);
 
@@ -69548,6 +72085,7 @@
         return _this;
       }
 
+      // @ts-ignore
       HeatmapSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this, {
           generateCoord: 'value'
@@ -69555,6 +72093,7 @@
       };
 
       HeatmapSeriesModel.prototype.preventIncremental = function () {
+        // @ts-ignore
         var coordSysCreator = CoordinateSystemManager.get(this.get('coordinateSystem'));
 
         if (coordSysCreator && coordSysCreator.dimensions) {
@@ -69608,6 +72147,7 @@
 
     var PictorialBarView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PictorialBarView, _super);
 
@@ -69618,7 +72158,9 @@
         return _this;
       }
 
+      // @ts-ignore
       PictorialBarView.prototype.render = function (seriesModel, ecModel, api) {
+        // @ts-ignore
         var group = this.group;
         var data = seriesModel.getData();
         var oldData = this._data;
@@ -69683,10 +72225,13 @@
           bar && removeBar(oldData, dataIndex, bar.__pictorialSymbolMeta.animationModel, bar);
         }).execute();
         this._data = data;
+        // @ts-ignore
         return this.group;
       };
 
+      // @ts-ignore
       PictorialBarView.prototype.remove = function (ecModel, api) {
+        // @ts-ignore
         var group = this.group;
         var data = this._data;
 
@@ -69776,6 +72321,7 @@
     } // Support ['100%', '100%']
 
 
+    // @ts-ignore
     function prepareSymbolSize(data, dataIndex, layout, symbolRepeat, symbolClip, boundingLength, pxSign, symbolPatternSize, opt, outputSymbolMeta) {
       var valueDim = opt.valueDim;
       var categoryDim = opt.categoryDim;
@@ -69814,12 +72360,15 @@
       var valueLineWidth = itemModel.get(BAR_BORDER_WIDTH_QUERY) || 0;
 
       if (valueLineWidth) {
+        // @ts-ignore
         pathForLineWidth.attr({
           scaleX: symbolScale[0],
           scaleY: symbolScale[1],
           rotation: rotation
         });
+        // @ts-ignore
         pathForLineWidth.updateTransform();
+        // @ts-ignore
         valueLineWidth /= pathForLineWidth.getLineScale();
         valueLineWidth *= symbolScale[opt.valueDim.index];
       }
@@ -69827,6 +72376,7 @@
       outputSymbolMeta.valueLineWidth = valueLineWidth;
     }
 
+    // @ts-ignore
     function prepareLayoutInfo(itemModel, symbolSize, layout, symbolRepeat, symbolClip, symbolOffset, symbolPosition, valueLineWidth, boundingLength, repeatCutLength, opt, outputSymbolMeta) {
       var categoryDim = opt.categoryDim;
       var valueDim = opt.valueDim;
@@ -69899,9 +72449,11 @@
       var symbolPatternSize = symbolMeta.symbolPatternSize;
       var path = createSymbol( // Consider texture img, make a big size.
       symbolMeta.symbolType, -symbolPatternSize / 2, -symbolPatternSize / 2, symbolPatternSize, symbolPatternSize);
+      // @ts-ignore
       path.attr({
         culling: true
       });
+      // @ts-ignore
       path.type !== 'image' && path.setStyle({
         strokeNoScale: true
       });
@@ -69938,7 +72490,9 @@
 
       for (; index < repeatTimes; index++) {
         var path = createPath(symbolMeta);
+        // @ts-ignore
         path.__pictorialAnimationIndex = index;
+        // @ts-ignore
         path.__pictorialRepeatTimes = repeatTimes;
         bundle.add(path);
         var target = makeTarget(index);
@@ -69976,6 +72530,7 @@
       }
     }
 
+    // @ts-ignore
     function createOrUpdateSingleSymbol(bar, opt, symbolMeta, isUpdate) {
       var bundle = bar.__pictorialBundle;
       var mainPath = bar.__pictorialMainPath;
@@ -70077,6 +72632,7 @@
 
     function isAnimationEnabled() {
       // `animation` prop can be set on itemModel in pictorial bar chart.
+      // @ts-ignore
       return this.parentModel.isAnimationEnabled() && !!this.getShallow('animation');
     }
 
@@ -70086,8 +72642,11 @@
 
       var bundle = new Group();
       bar.add(bundle);
+      // @ts-ignore
       bar.__pictorialBundle = bundle;
+      // @ts-ignore
       bundle.x = symbolMeta.bundlePosition[0];
+      // @ts-ignore
       bundle.y = symbolMeta.bundlePosition[1];
 
       if (symbolMeta.symbolRepeat) {
@@ -70098,7 +72657,9 @@
 
       createOrUpdateBarRect(bar, symbolMeta, isUpdate);
       createOrUpdateClip(bar, opt, symbolMeta, isUpdate);
+      // @ts-ignore
       bar.__pictorialShapeStr = getShapeStr(data, symbolMeta);
+      // @ts-ignore
       bar.__pictorialSymbolMeta = symbolMeta;
       return bar;
     }
@@ -70180,7 +72741,9 @@
       var hoverScale = emphasisModel.get('scale');
       eachPath(bar, function (path) {
         if (path instanceof ZRImage) {
+          // @ts-ignore
           var pathStyle = path.style;
+          // @ts-ignore
           path.useStyle(extend({
             // TODO other properties like dx, dy ?
             image: pathStyle.image,
@@ -70228,6 +72791,7 @@
 
     var PictorialBarSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PictorialBarSeriesModel, _super);
 
@@ -70288,6 +72852,7 @@
 
     var ThemeRiverView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ThemeRiverView, _super);
 
@@ -70299,9 +72864,11 @@
         return _this;
       }
 
+      // @ts-ignore
       ThemeRiverView.prototype.render = function (seriesModel, ecModel, api) {
         var data = seriesModel.getData();
         var self = this;
+        // @ts-ignore
         var group = this.group;
         var layersSeries = seriesModel.getLayerSeries();
         var layoutInfo = data.getLayout('layoutInfo');
@@ -70322,6 +72889,7 @@
           var oldLayersGroups = self._layers;
 
           if (status === 'remove') {
+            // @ts-ignore
             group.remove(oldLayersGroups[idx]);
             return;
           }
@@ -70369,6 +72937,7 @@
               }));
             }
           } else {
+            // @ts-ignore
             var layerGroup = oldLayersGroups[oldIdx];
             polygon = layerGroup.childAt(0);
             group.add(layerGroup);
@@ -70440,6 +73009,7 @@
 
     var ThemeRiverSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ThemeRiverSeriesModel, _super);
 
@@ -70454,6 +73024,7 @@
        */
 
 
+      // @ts-ignore
       ThemeRiverSeriesModel.prototype.init = function (option) {
         // eslint-disable-next-line
         _super.prototype.init.apply(this, arguments); // Put this function here is for the sake of consistency of code style.
@@ -70461,6 +73032,7 @@
         // Use a function instead of direct access because data reference may changed
 
 
+        // @ts-ignore
         this.legendVisualProvider = new LegendVisualProvider(bind(this.getData, this), bind(this.getRawData, this));
       };
       /**
@@ -70525,7 +73097,9 @@
        */
 
 
+      // @ts-ignore
       ThemeRiverSeriesModel.prototype.getInitialData = function (option, ecModel) {
+        // @ts-ignore
         var singleAxisModel = this.getReferringComponents('singleAxis', SINGLE_REFERRING).models[0];
         var axisType = singleAxisModel.get('type'); // filter the data item with the value of label is undefined
 
@@ -70576,6 +73150,7 @@
 
 
       ThemeRiverSeriesModel.prototype.getLayerSeries = function () {
+        // @ts-ignore
         var data = this.getData();
         var lenCount = data.count();
         var indexArr = [];
@@ -70606,11 +73181,13 @@
        */
 
 
+      // @ts-ignore
       ThemeRiverSeriesModel.prototype.getAxisTooltipData = function (dim, value, baseAxis) {
         if (!isArray(dim)) {
           dim = dim ? [dim] : [];
         }
 
+        // @ts-ignore
         var data = this.getData();
         var layerSeries = this.getLayerSeries();
         var indices = [];
@@ -70642,7 +73219,9 @@
         };
       };
 
+      // @ts-ignore
       ThemeRiverSeriesModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
+        // @ts-ignore
         var data = this.getData();
         var name = data.getName(dataIndex);
         var value = data.get(data.mapDimension('value'), dataIndex);
@@ -70679,6 +73258,7 @@
       return ThemeRiverSeriesModel;
     }(SeriesModel);
 
+    // @ts-ignore
     function themeRiverLayout(ecModel, api) {
       ecModel.eachSeriesByType('themeRiver', function (seriesModel) {
         var data = seriesModel.getData();
@@ -70824,13 +73404,17 @@
 
     var SunburstPiece =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SunburstPiece, _super);
 
       function SunburstPiece(node, seriesModel, ecModel, api) {
+        // @ts-ignore
         var _this = _super.call(this) || this;
 
+        // @ts-ignore
         _this.z2 = DEFAULT_SECTOR_Z;
+        // @ts-ignore
         _this.textConfig = {
           inside: true
         };
@@ -70840,8 +73424,10 @@
           silent: node.getModel().get(['label', 'silent'])
         });
 
+        // @ts-ignore
         _this.setTextContent(text);
 
+        // @ts-ignore
         _this.updateData(true, node, seriesModel, ecModel, api);
 
         return _this;
@@ -70871,6 +73457,7 @@
         var cornerRadius = getSectorCornerRadius(itemModel.getModel('itemStyle'), sectorShape, true);
         extend(sectorShape, cornerRadius);
         each(SPECIAL_STATES, function (stateName) {
+          // @ts-ignore
           var state = sector.ensureState(stateName);
           var itemStyleModel = itemModel.getModel([stateName, 'itemStyle']);
           state.style = itemStyleModel.getItemStyle(); // border radius
@@ -70883,7 +73470,9 @@
         });
 
         if (firstCreate) {
+          // @ts-ignore
           sector.setShape(sectorShape);
+          // @ts-ignore
           sector.shape.r = layout.r0;
           updateProps(sector, {
             shape: {
@@ -70899,11 +73488,13 @@
           saveOldStyle(sector);
         }
 
+        // @ts-ignore
         sector.useStyle(normalStyle);
 
         this._updateLabel(seriesModel);
 
         var cursorStyle = itemModel.getShallow('cursor');
+        // @ts-ignore
         cursorStyle && sector.attr('cursor', cursorStyle);
         this._seriesModel = seriesModel || this._seriesModel;
         this._ecModel = ecModel || this._ecModel;
@@ -70923,6 +73514,7 @@
         var dx = Math.cos(midAngle);
         var dy = Math.sin(midAngle);
         var sector = this;
+        // @ts-ignore
         var label = sector.getTextContent();
         var dataIndex = this.node.dataIndex;
         var labelMinAngle = normalLabelModel.get('minAngle') / 180 * Math.PI;
@@ -70953,6 +73545,7 @@
           }
 
           var labelPosition = getLabelAttr(labelStateModel, 'position');
+          // @ts-ignore
           var sectorState = isNormal ? sector : sector.states[stateName];
           var labelColor = sectorState.style.fill;
           sectorState.textConfig = {
@@ -71043,6 +73636,7 @@
           query: payload
         }, handleRootToNode);
 
+        // @ts-ignore
         function handleRootToNode(model, index) {
           var targetInfo = retrieveTargetInfo(payload, [ROOT_TO_NODE_ACTION], model);
 
@@ -71077,6 +73671,7 @@
           }
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateReplaceLog('highlight', 'sunburstHighlight');
         } // Fast forward action
@@ -71089,9 +73684,11 @@
       registers.registerAction({
         type: UNHIGHLIGHT_ACTION,
         update: 'updateView'
+      // @ts-ignore
       }, function (payload, ecModel, api) {
         payload = extend({}, payload);
 
+        // @ts-ignore
         if ("development" !== 'production') {
           deprecateReplaceLog('downplay', 'sunburstUnhighlight');
         }
@@ -71104,6 +73701,7 @@
 
     var SunburstView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SunburstView, _super);
 
@@ -71115,6 +73713,7 @@
       }
 
       SunburstView.prototype.render = function (seriesModel, ecModel, api, // @ts-ignore
+      // @ts-ignore
       payload) {
         var self = this;
         this.seriesModel = seriesModel;
@@ -71123,6 +73722,7 @@
         var data = seriesModel.getData();
         var virtualRoot = data.tree.root;
         var newRoot = seriesModel.getViewRoot();
+        // @ts-ignore
         var group = this.group;
         var renderLabelForZeroData = seriesModel.get('renderLabelForZeroData');
         var newChildren = [];
@@ -71133,6 +73733,7 @@
         dualTravel(newChildren, oldChildren);
         renderRollUp(virtualRoot, newRoot);
 
+        // @ts-ignore
         this._initEvents();
 
         this._oldChildren = newChildren;
@@ -71196,23 +73797,32 @@
         function renderRollUp(virtualRoot, viewRoot) {
           if (viewRoot.depth > 0) {
             // Render
+            // @ts-ignore
             if (self.virtualPiece) {
               // Update
+              // @ts-ignore
               self.virtualPiece.updateData(false, virtualRoot, seriesModel, ecModel, api);
             } else {
               // Add
+              // @ts-ignore
               self.virtualPiece = new SunburstPiece(virtualRoot, seriesModel, ecModel, api);
+              // @ts-ignore
               group.add(self.virtualPiece);
             } // TODO event scope
 
 
             viewRoot.piece.off('click');
+            // @ts-ignore
             self.virtualPiece.on('click', function (e) {
+              // @ts-ignore
               self._rootToNode(viewRoot.parentNode);
             });
+          // @ts-ignore
           } else if (self.virtualPiece) {
             // Remove
+            // @ts-ignore
             group.remove(self.virtualPiece);
+            // @ts-ignore
             self.virtualPiece = null;
           }
         }
@@ -71225,7 +73835,9 @@
       SunburstView.prototype._initEvents = function () {
         var _this = this;
 
+        // @ts-ignore
         this.group.off('click');
+        // @ts-ignore
         this.group.on('click', function (e) {
           var targetFound = false;
 
@@ -71236,6 +73848,7 @@
               var nodeClick = node.getModel().get('nodeClick');
 
               if (nodeClick === 'rootToNode') {
+                // @ts-ignore
                 _this._rootToNode(node);
               } else if (nodeClick === 'link') {
                 var itemModel = node.getModel();
@@ -71261,6 +73874,7 @@
         if (node !== this.seriesModel.getViewRoot()) {
           this.api.dispatchAction({
             type: ROOT_TO_NODE_ACTION,
+            // @ts-ignore
             from: this.uid,
             seriesId: this.seriesModel.id,
             targetNode: node
@@ -71290,6 +73904,7 @@
 
     var SunburstSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SunburstSeriesModel, _super);
 
@@ -71309,6 +73924,7 @@
         };
         completeTreeValue$1(root);
         var levelModels = this._levelModels = map(option.levels || [], function (levelDefine) {
+          // @ts-ignore
           return new Model(levelDefine, this, ecModel);
         }, this); // Make sure always a new tree is created when setOption,
         // in TreemapView, we check whether oldTree === newTree
@@ -71339,6 +73955,7 @@
       SunburstSeriesModel.prototype.getDataParams = function (dataIndex) {
         var params = _super.prototype.getDataParams.apply(this, arguments);
 
+        // @ts-ignore
         var node = this.getData().tree.getNodeByDataIndex(dataIndex);
         params.treePathInfo = wrapTreePathInfo(node, this);
         return params;
@@ -71354,6 +73971,7 @@
 
       SunburstSeriesModel.prototype.resetViewRoot = function (viewRoot) {
         viewRoot ? this._viewRoot = viewRoot : viewRoot = this._viewRoot;
+        // @ts-ignore
         var root = this.getRawData().tree.root;
 
         if (!viewRoot || viewRoot !== root && !root.contains(viewRoot)) {
@@ -71576,6 +74194,7 @@
             // currentAngle = startAngle;
             var siblingAngle_1 = 0;
             each(node.children, function (node) {
+              // @ts-ignore
               siblingAngle_1 += renderNode(node, startAngle + siblingAngle_1);
             });
           }
@@ -71723,6 +74342,7 @@
 
     var CustomSeriesModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CustomSeriesModel, _super);
 
@@ -71734,10 +74354,13 @@
       }
 
       CustomSeriesModel.prototype.optionUpdated = function () {
+        // @ts-ignore
         this.currentZLevel = this.get('zlevel', true);
+        // @ts-ignore
         this.currentZ = this.get('z', true);
       };
 
+      // @ts-ignore
       CustomSeriesModel.prototype.getInitialData = function (option, ecModel) {
         return createSeriesData(null, this);
       };
@@ -71775,10 +74398,12 @@
       // dataItem is necessary in log axis.
       dataItem = dataItem || [0, 0];
       return map(['x', 'y'], function (dim, dimIdx) {
+        // @ts-ignore
         var axis = this.getAxis(dim);
         var val = dataItem[dimIdx];
         var halfSize = dataSize[dimIdx] / 2;
         return axis.type === 'category' ? axis.getBandWidth() : Math.abs(axis.dataToCoord(val - halfSize) - axis.dataToCoord(val + halfSize));
+      // @ts-ignore
       }, this);
     }
 
@@ -71813,7 +74438,9 @@
         p1[dimIdx] = val - halfSize;
         p2[dimIdx] = val + halfSize;
         p1[1 - dimIdx] = p2[1 - dimIdx] = dataItem[1 - dimIdx];
+        // @ts-ignore
         return Math.abs(this.dataToPoint(p1)[dimIdx] - this.dataToPoint(p2)[dimIdx]);
+      // @ts-ignore
       }, this);
     }
 
@@ -71842,6 +74469,7 @@
 
     function dataToCoordSize$2(dataSize, dataItem) {
       // dataItem is necessary in log axis.
+      // @ts-ignore
       var axis = this.getAxis();
       var val = dataItem instanceof Array ? dataItem[0] : dataItem;
       var halfSize = (dataSize instanceof Array ? dataSize[0] : dataSize) / 2;
@@ -71874,6 +74502,7 @@
       return map(['Radius', 'Angle'], function (dim, dimIdx) {
         var getterName = 'get' + dim + 'Axis'; // TODO: TYPE Check Angle Axis
 
+        // @ts-ignore
         var axis = this[getterName]();
         var val = dataItem[dimIdx];
         var halfSize = dataSize[dimIdx] / 2;
@@ -71884,6 +74513,7 @@
         }
 
         return result;
+      // @ts-ignore
       }, this);
     }
 
@@ -72018,13 +74648,21 @@
         textContentStyle = srcStyle;
       } else {
         textContentStyle = {};
+        // @ts-ignore
         hasOwn(srcStyle, 'text') && (textContentStyle.text = srcStyle.text);
+        // @ts-ignore
         hasOwn(srcStyle, 'rich') && (textContentStyle.rich = srcStyle.rich);
+        // @ts-ignore
         hasOwn(srcStyle, 'textFill') && (textContentStyle.fill = srcStyle.textFill);
+        // @ts-ignore
         hasOwn(srcStyle, 'textStroke') && (textContentStyle.stroke = srcStyle.textStroke);
+        // @ts-ignore
         hasOwn(srcStyle, 'fontFamily') && (textContentStyle.fontFamily = srcStyle.fontFamily);
+        // @ts-ignore
         hasOwn(srcStyle, 'fontSize') && (textContentStyle.fontSize = srcStyle.fontSize);
+        // @ts-ignore
         hasOwn(srcStyle, 'fontStyle') && (textContentStyle.fontStyle = srcStyle.fontStyle);
+        // @ts-ignore
         hasOwn(srcStyle, 'fontWeight') && (textContentStyle.fontWeight = srcStyle.fontWeight);
         textContent = {
           type: 'text',
@@ -72040,14 +74678,20 @@
         var hasOwnPos = hasOwn(srcStyle, 'textPosition');
 
         if (isNormal) {
+          // @ts-ignore
           textConfig.position = hasOwnPos ? srcStyle.textPosition : 'inside';
         } else {
+          // @ts-ignore
           hasOwnPos && (textConfig.position = srcStyle.textPosition);
         }
 
+        // @ts-ignore
         hasOwn(srcStyle, 'textPosition') && (textConfig.position = srcStyle.textPosition);
+        // @ts-ignore
         hasOwn(srcStyle, 'textOffset') && (textConfig.offset = srcStyle.textOffset);
+        // @ts-ignore
         hasOwn(srcStyle, 'textRotation') && (textConfig.rotation = srcStyle.textRotation);
+        // @ts-ignore
         hasOwn(srcStyle, 'textDistance') && (textConfig.distance = srcStyle.textDistance);
       }
 
@@ -72171,6 +74815,7 @@
     }
 
     function warnDeprecated(deprecated, insteadApproach) {
+      // @ts-ignore
       if ("development" !== 'production') {
         var key = deprecated + '^_^' + insteadApproach;
 
@@ -72201,13 +74846,17 @@
       var config = getAnimationConfig(animationType, parentModel, dataIndex) || {};
       var userDuring = transitionInnerStore(el).userDuring; // Only set when duration is > 0 and it's need to be animated.
 
+      // @ts-ignore
       if (config.duration > 0) {
         // For simplicity, if during not specified, the previous during will not work any more.
+        // @ts-ignore
         config.during = userDuring ? bind(duringCall, {
           el: el,
           userDuring: userDuring
         }) : null;
+        // @ts-ignore
         config.setToFinal = true;
+        // @ts-ignore
         config.scope = animationType;
       }
 
@@ -72258,6 +74907,7 @@
           });
           var config = getElementAnimationConfig('enter', el, elOption, animatableModel, dataIndex);
 
+          // @ts-ignore
           if (config.duration > 0) {
             el.animateFrom(enterFromProps_1, config);
           }
@@ -72301,6 +74951,7 @@
           // TODO Data index?
           var config = getElementAnimationConfig('update', el, elOption, animatableModel, 0);
 
+          // @ts-ignore
           config.done = function () {
             parent_1.remove(el);
             onRemove && onRemove();
@@ -72366,6 +75017,7 @@
       if (transFromProps) {
         var config = getElementAnimationConfig('update', el, elOption, model, dataIndex);
 
+        // @ts-ignore
         if (config.duration > 0) {
           el.animateFrom(transFromProps, config);
         }
@@ -72378,10 +75030,12 @@
       hasOwn(elOption, 'ignore') && (el.ignore = elOption.ignore);
 
       if (el instanceof Displayable) {
+        // @ts-ignore
         hasOwn(elOption, 'invisible') && (el.invisible = elOption.invisible);
       }
 
       if (el instanceof Path) {
+        // @ts-ignore
         hasOwn(elOption, 'autoBatch') && (el.autoBatch = elOption.autoBatch);
       }
     } // Use it to avoid it be exposed to user.
@@ -72391,6 +75045,7 @@
     var transitionDuringAPI = {
       // Usually other props do not need to be changed in animation during.
       setTransform: function (key, val) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(hasOwn(TRANSFORM_PROPS_MAP, key), 'Only ' + transformPropNamesStr + ' available in `setTransform`.');
         }
@@ -72399,6 +75054,7 @@
         return this;
       },
       getTransform: function (key) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(hasOwn(TRANSFORM_PROPS_MAP, key), 'Only ' + transformPropNamesStr + ' available in `getTransform`.');
         }
@@ -72406,6 +75062,7 @@
         return tmpDuringScope.el[key];
       },
       setShape: function (key, val) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72417,6 +75074,7 @@
         return this;
       },
       getShape: function (key) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72428,6 +75086,7 @@
         }
       },
       setStyle: function (key, val) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72436,6 +75095,7 @@
         var style = el.style;
 
         if (style) {
+          // @ts-ignore
           if ("development" !== 'production') {
             if (eqNaN(val)) {
               warn('style.' + key + ' must not be assigned with NaN.');
@@ -72449,6 +75109,7 @@
         return this;
       },
       getStyle: function (key) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72460,6 +75121,7 @@
         }
       },
       setExtra: function (key, val) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72469,6 +75131,7 @@
         return this;
       },
       getExtra: function (key) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assertNotReserved(key);
         }
@@ -72482,6 +75145,7 @@
     };
 
     function assertNotReserved(key) {
+      // @ts-ignore
       if ("development" !== 'production') {
         if (key === 'transition' || key === 'enterFrom' || key === 'leaveTo') {
           throw new Error('key must not be "' + key + '"');
@@ -72495,6 +75159,7 @@
       // enterFrom: {x: 100, y: 30}, transition: 'x'.
       // And enter duration is different from update duration.
       // Thus it might be confused about the meaning of "percent" in during callback.
+      // @ts-ignore
       var scope = this;
       var el = scope.el;
 
@@ -72557,6 +75222,7 @@
           var elPropsInAttrKeys = keys(elPropsInAttr);
 
           for (var i = 0; i < elPropsInAttrKeys.length; i++) {
+            // @ts-ignore
             var key = elPropsInAttrKeys[i];
             var elVal = elPropsInAttr[key];
 
@@ -72599,6 +75265,7 @@
 
         var elVal = el[key];
 
+        // @ts-ignore
         if ("development" !== 'production') {
           checkTransformPropRefer(key, 'el.transition');
         } // Do not clone, animator will perform that clone.
@@ -72608,6 +75275,7 @@
       }
     }
 
+    // @ts-ignore
     function prepareTransformAllPropsFinal(el, elOption, allProps) {
       for (var i = 0; i < LEGACY_TRANSFORM_PROPS.length; i++) {
         var legacyName = LEGACY_TRANSFORM_PROPS[i];
@@ -72660,6 +75328,7 @@
             var styleKeys = keys(styleOpt);
 
             for (var i = 0; i < styleKeys.length; i++) {
+              // @ts-ignore
               var key = styleKeys[i];
 
               if (animationStyleProps[key]) {
@@ -72679,6 +75348,7 @@
 
     var checkTransformPropRefer;
 
+    // @ts-ignore
     if ("development" !== 'production') {
       checkTransformPropRefer = function (key, usedIn) {
         if (!hasOwn(TRANSFORM_PROPS_MAP, key)) {
@@ -72743,6 +75413,7 @@
           var animators = el.animators;
           var kfValues = targetPropName ? kf[targetPropName] : kf;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             if (kf.percent >= 1) {
               endFrameIsSet = true;
@@ -72791,12 +75462,14 @@
           return;
         }
 
+        // @ts-ignore
         if ("development" !== 'production') {
           if (!endFrameIsSet) {
             warn('End frame with percent: 1 is missing in the keyframeAnimation.', true);
           }
         }
 
+        // @ts-ignore
         animator.delay(animationOpts.delay || 0).duration(duration).start(animationOpts.easing);
       });
     }
@@ -72861,10 +75534,15 @@
 
       if (isDisplayable(targetEl) && isDisplayable(sourceEl)) {
         targetEl.setStyle(sourceEl.style);
+        // @ts-ignore
         targetEl.z = sourceEl.z;
+        // @ts-ignore
         targetEl.z2 = sourceEl.z2;
+        // @ts-ignore
         targetEl.zlevel = sourceEl.zlevel;
+        // @ts-ignore
         targetEl.invisible = sourceEl.invisible;
+        // @ts-ignore
         targetEl.ignore = sourceEl.ignore;
 
         if (isPath$1(targetEl) && isPath$1(sourceEl)) {
@@ -72875,6 +75553,7 @@
 
     var CustomChartView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CustomChartView, _super);
 
@@ -72890,6 +75569,7 @@
         this._progressiveEls = null;
         var oldData = this._data;
         var data = customSeries.getData();
+        // @ts-ignore
         var group = this.group;
         var renderItem = makeRenderItem(customSeries, data, ecModel, api);
 
@@ -72920,7 +75600,9 @@
         this._data = data;
       };
 
+      // @ts-ignore
       CustomChartView.prototype.incrementalPrepareRender = function (customSeries, ecModel, api) {
+        // @ts-ignore
         this.group.removeAll();
         this._data = null;
       };
@@ -72938,6 +75620,7 @@
         }
 
         for (var idx = params.start; idx < params.end; idx++) {
+          // @ts-ignore
           var el = createOrUpdateItem(null, null, idx, renderItem(idx, payload), customSeries, this.group, data);
 
           if (el) {
@@ -72948,9 +75631,11 @@
       };
 
       CustomChartView.prototype.eachRendered = function (cb) {
+        // @ts-ignore
         traverseElements(this._progressiveEls || this.group, cb);
       };
 
+      // @ts-ignore
       CustomChartView.prototype.filterForExposedEvent = function (eventType, query, targetEl, packedEvent) {
         var elementName = query.element;
 
@@ -72960,6 +75645,7 @@
         // events that triggerd by its descendents.
 
 
+        // @ts-ignore
         while ((targetEl = targetEl.__hostTarget || targetEl.parent) && targetEl !== this.group) {
           if (targetEl.name === elementName) {
             return true;
@@ -73006,6 +75692,7 @@
         if (!Clz) {
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'graphic type "' + graphicType + '" can not be found.';
           }
@@ -73068,6 +75755,7 @@
 
       if (isDisplayable(el)) {
         if (styleOpt) {
+          // @ts-ignore
           var decalPattern = styleOpt.__decalPattern;
 
           if (decalPattern) {
@@ -73084,6 +75772,7 @@
       applyKeyframeAnimation(el, elOption.keyframeAnimation, seriesModel);
     }
 
+    // @ts-ignore
     function updateElOnState(state, el, elStateOpt, styleOpt, attachedTxInfo) {
       var elDisplayable = el.isGroup ? null : el;
       var txCfgOpt = attachedTxInfo && attachedTxInfo[state].cfg; // PENDING:5.0 support customize scale change and transition animation?
@@ -73155,6 +75844,7 @@
       var prepareResult = {};
 
       if (coordSys) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(renderItem, 'series.render is required.');
           assert(coordSys.prepareCustoms || prepareCustoms[coordSys.type], 'This coordSys does not support custom series.');
@@ -73284,6 +75974,7 @@
 
 
       function style(userProps, dataIndexInside) {
+        // @ts-ignore
         if ("development" !== 'production') {
           warnDeprecated('api.style', 'Please write literal style directly instead.');
         }
@@ -73319,6 +76010,7 @@
 
 
       function styleEmphasis(userProps, dataIndexInside) {
+        // @ts-ignore
         if ("development" !== 'production') {
           warnDeprecated('api.styleEmphasis', 'Please write literal style directly instead.');
         }
@@ -73440,6 +76132,7 @@
     }
 
     function doCreateOrUpdateEl(api, existsEl, dataIndex, elOption, seriesModel, group) {
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(elOption, 'should not have an null/undefined element setting');
       }
@@ -73555,6 +76248,7 @@
         if (!clipPath) {
           clipPath = createEl(clipPathOpt);
 
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(isPath$1(clipPath), 'Only any type of `path` can be used in `clipPath`, rather than ' + clipPath.type + '.');
           }
@@ -73653,6 +76347,7 @@
 
         !txConOptNormal_1.type && (txConOptNormal_1.type = 'text');
 
+        // @ts-ignore
         if ("development" !== 'production') {
           // Do not tolerate incorret type for forward compat.
           assert(txConOptNormal_1.type === 'text', 'textContent.type must be "text"');
@@ -73745,6 +76440,7 @@
     }
 
     function processAddUpdate(newIndex, oldIndex) {
+      // @ts-ignore
       var context = this.context;
       var childOption = newIndex != null ? context.newChildren[newIndex] : null;
       var child = oldIndex != null ? context.oldChildren[oldIndex] : null;
@@ -73752,6 +76448,7 @@
     }
 
     function processRemove(oldIndex) {
+      // @ts-ignore
       var context = this.context;
       var child = context.oldChildren[oldIndex];
       applyLeaveTransition(child, customInnerStore(child).option, context.seriesModel);
@@ -73784,6 +76481,7 @@
 
     var BaseAxisPointer =
     /** @class */
+    // @ts-ignore
     function () {
       function BaseAxisPointer() {
         this._dragging = false;
@@ -73821,39 +76519,51 @@
 
         if (!status || status === 'hide') {
           // Do not clear here, for animation better.
+          // @ts-ignore
           group && group.hide();
+          // @ts-ignore
           handle && handle.hide();
           return;
         }
 
+        // @ts-ignore
         group && group.show();
+        // @ts-ignore
         handle && handle.show(); // Otherwise status is 'show'
 
         var elOption = {};
+        // @ts-ignore
         this.makeElOption(elOption, value, axisModel, axisPointerModel, api); // Enable change axis pointer type.
 
         var graphicKey = elOption.graphicKey;
 
         if (graphicKey !== this._lastGraphicKey) {
+          // @ts-ignore
           this.clear(api);
         }
 
         this._lastGraphicKey = graphicKey;
+        // @ts-ignore
         var moveAnimation = this._moveAnimation = this.determineAnimation(axisModel, axisPointerModel);
 
         if (!group) {
           group = this._group = new Group();
+          // @ts-ignore
           this.createPointerEl(group, elOption, axisModel, axisPointerModel);
+          // @ts-ignore
           this.createLabelEl(group, elOption, axisModel, axisPointerModel);
           api.getZr().add(group);
         } else {
           var doUpdateProps = curry(updateProps$1, axisPointerModel, moveAnimation);
+          // @ts-ignore
           this.updatePointerEl(group, elOption, doUpdateProps);
+          // @ts-ignore
           this.updateLabelEl(group, elOption, doUpdateProps, axisPointerModel);
         }
 
         updateMandatoryProps(group, axisPointerModel, true);
 
+        // @ts-ignore
         this._renderHandle(value);
       };
       /**
@@ -73862,6 +76572,7 @@
 
 
       BaseAxisPointer.prototype.remove = function (api) {
+        // @ts-ignore
         this.clear(api);
       };
       /**
@@ -73870,6 +76581,7 @@
 
 
       BaseAxisPointer.prototype.dispose = function (api) {
+        // @ts-ignore
         this.clear(api);
       };
       /**
@@ -73915,6 +76627,7 @@
        */
 
 
+      // @ts-ignore
       BaseAxisPointer.prototype.makeElOption = function (elOption, value, axisModel, axisPointerModel, api) {// Shoule be implemenented by sub-class.
       };
       /**
@@ -73922,6 +76635,7 @@
        */
 
 
+      // @ts-ignore
       BaseAxisPointer.prototype.createPointerEl = function (group, elOption, axisModel, axisPointerModel) {
         var pointerOption = elOption.pointer;
 
@@ -73935,6 +76649,7 @@
        */
 
 
+      // @ts-ignore
       BaseAxisPointer.prototype.createLabelEl = function (group, elOption, axisModel, axisPointerModel) {
         if (elOption.label) {
           var labelEl = inner$a(group).labelEl = new ZRText(clone$3(elOption.label));
@@ -73984,6 +76699,7 @@
 
 
       BaseAxisPointer.prototype._renderHandle = function (value) {
+        // @ts-ignore
         if (this._dragging || !this.updateHandleTransform) {
           return;
         }
@@ -74022,6 +76738,7 @@
 
         updateMandatoryProps(handle, axisPointerModel, false); // update style
 
+        // @ts-ignore
         handle.setStyle(handleModel.getItemStyle(null, ['color', 'borderColor', 'borderWidth', 'opacity', 'shadowColor', 'shadowBlur', 'shadowOffsetX', 'shadowOffsetY'])); // update position
 
         var handleSize = handleModel.get('size');
@@ -74030,7 +76747,9 @@
           handleSize = [handleSize, handleSize];
         }
 
+        // @ts-ignore
         handle.scaleX = handleSize[0] / 2;
+        // @ts-ignore
         handle.scaleY = handleSize[1] / 2;
         createOrUpdate(this, '_doDispatchAxisPointer', handleModel.get('throttle') || 0, 'fixRate');
 
@@ -74038,6 +76757,7 @@
       };
 
       BaseAxisPointer.prototype._moveHandleToValue = function (value, isInit) {
+        // @ts-ignore
         updateProps$1(this._axisPointerModel, !isInit && this._moveAnimation, this._handle, getHandleTransProps(this.getHandleTransform(value, this._axisModel, this._axisPointerModel)));
       };
 
@@ -74050,9 +76770,12 @@
 
         this._dragging = true; // Persistent for throttle.
 
+        // @ts-ignore
         var trans = this.updateHandleTransform(getHandleTransProps(handle), [dx, dy], this._axisModel, this._axisPointerModel);
         this._payloadInfo = trans;
+        // @ts-ignore
         handle.stopAnimation();
+        // @ts-ignore
         handle.attr(getHandleTransProps(trans));
         inner$a(handle).lastProp = null;
 
@@ -74223,13 +76946,16 @@
       var paddings = normalizeCssArray$1(labelModel.get('padding') || 0);
       var font = labelModel.getFont();
       var textRect = getBoundingRect(text, font);
+      // @ts-ignore
       var position = labelPos.position;
       var width = textRect.width + paddings[1] + paddings[3];
       var height = textRect.height + paddings[0] + paddings[2]; // Adjust by align.
 
+      // @ts-ignore
       var align = labelPos.align;
       align === 'right' && (position[0] -= width);
       align === 'center' && (position[0] -= width / 2);
+      // @ts-ignore
       var verticalAlign = labelPos.verticalAlign;
       verticalAlign === 'bottom' && (position[1] -= height);
       verticalAlign === 'middle' && (position[1] -= height / 2); // Not overflow ec container
@@ -74290,6 +77016,7 @@
           var series = ecModel.getSeriesByIndex(idxItem.seriesIndex);
           var dataIndex = idxItem.dataIndexInside;
           var dataParams = series && series.getDataParams(dataIndex);
+          // @ts-ignore
           dataParams && params_1.seriesData.push(dataParams);
         });
 
@@ -74306,6 +77033,7 @@
       var transform = create$1();
       rotate(transform, transform, layoutInfo.rotation);
       translate(transform, transform, layoutInfo.position);
+      // @ts-ignore
       return applyTransform$1([axis.dataToCoord(value), (layoutInfo.labelOffset || 0) + (layoutInfo.labelDirection || 1) * (layoutInfo.labelMargin || 0)], transform);
     }
     function buildCartesianSingleLabelElOption(value, elOption, layoutInfo, axisModel, axisPointerModel, api) {
@@ -74313,6 +77041,7 @@
       var textLayout = AxisBuilder.innerTextLayout(layoutInfo.rotation, 0, layoutInfo.labelDirection);
       layoutInfo.labelMargin = axisPointerModel.get(['label', 'margin']);
       buildLabelElOption(elOption, axisModel, axisPointerModel, api, {
+        // @ts-ignore
         position: getTransformedPosition(axisModel.axis, value, layoutInfo),
         align: textLayout.textAlign,
         verticalAlign: textLayout.textVerticalAlign
@@ -74350,6 +77079,7 @@
 
     var CartesianAxisPointer =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CartesianAxisPointer, _super);
 
@@ -74403,6 +77133,7 @@
        */
 
 
+      // @ts-ignore
       CartesianAxisPointer.prototype.updateHandleTransform = function (transform, delta, axisModel, axisPointerModel) {
         var axis = axisModel.axis;
         var grid = axis.grid;
@@ -74465,10 +77196,12 @@
 
     var AxisPointerModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AxisPointerModel, _super);
 
       function AxisPointerModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = AxisPointerModel.type;
@@ -74595,6 +77328,7 @@
       }
     }
 
+    // @ts-ignore
     function onLeave(record, e, dispatchAction) {
       record.handler('leave', null, dispatchAction);
     }
@@ -74645,6 +77379,7 @@
 
     var AxisPointerView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AxisPointerView, _super);
 
@@ -74673,10 +77408,12 @@
         });
       };
 
+      // @ts-ignore
       AxisPointerView.prototype.remove = function (ecModel, api) {
         unregister('axisPointer', api);
       };
 
+      // @ts-ignore
       AxisPointerView.prototype.dispose = function (ecModel, api) {
         unregister('axisPointer', api);
       };
@@ -74698,6 +77435,7 @@
 
       if (seriesIndex == null || !(seriesModel = ecModel.getSeriesByIndex(seriesIndex))) {
         return {
+          // @ts-ignore
           point: []
         };
       }
@@ -74707,6 +77445,7 @@
 
       if (dataIndex == null || dataIndex < 0 || isArray(dataIndex)) {
         return {
+          // @ts-ignore
           point: []
         };
       }
@@ -74741,6 +77480,7 @@
       }
 
       return {
+        // @ts-ignore
         point: point,
         el: el
       };
@@ -74774,6 +77514,7 @@
           // Do not use dataIndexInside from other ec instance.
           // FIXME: auto detect it?
           dataIndex: finder.dataIndex
+        // @ts-ignore
         }, ecModel).point;
       }
 
@@ -74799,6 +77540,7 @@
       each(coordSysAxesInfo.coordSysMap, function (coordSys, coordSysKey) {
         // If a point given, it must be contained by the coordinate system.
         var coordSysContainsPoint = isIllegalPoint || coordSys.containPoint(point);
+        // @ts-ignore
         each(coordSysAxesInfo.coordSysAxesInfo[coordSysKey], function (axisInfo, key) {
           var axis = axisInfo.axis;
           var inputAxisInfo = findInputAxisInfo(inputAxesInfo, axisInfo); // If no inputAxesInfo, no axis is restricted.
@@ -74883,6 +77625,7 @@
       var payloadBatch = [];
       var minDist = Number.MAX_VALUE;
       var minDiff = -1;
+      // @ts-ignore
       each(axisInfo.seriesModels, function (series, idx) {
         var dataDim = series.getData().mapDimensionsAll(dim);
         var seriesNestestValue;
@@ -75043,6 +77786,7 @@
       });
     }
 
+    // @ts-ignore
     function dispatchHighDownActually(axesInfo, dispatchAction, api) {
       // FIXME
       // highlight status modification shoule be a stage of main process?
@@ -75053,6 +77797,7 @@
       var newHighlights = inner$c(zr)[highDownKey] = {}; // Update highlight/downplay status according to axisPointer model.
       // Build hash map and remove duplicate incidentally.
 
+      // @ts-ignore
       each(axesInfo, function (axisInfo, key) {
         var option = axisInfo.axisPointerModel.option;
         option.status === 'show' && each(option.seriesDataIndices, function (batchItem) {
@@ -75144,6 +77889,7 @@
       }, axisTrigger);
     }
 
+    // @ts-ignore
     function install$t(registers) {
       use(install$5);
       use(install$s);
@@ -75151,6 +77897,7 @@
 
     var PolarAxisPointer =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PolarAxisPointer, _super);
 
@@ -75185,12 +77932,14 @@
 
         var labelMargin = axisPointerModel.get(['label', 'margin']);
         var labelPos = getLabelPosition(value, axisModel, axisPointerModel, polar, labelMargin);
+        // @ts-ignore
         buildLabelElOption(elOption, axisModel, axisPointerModel, api, labelPos);
       };
 
       return PolarAxisPointer;
     }(BaseAxisPointer);
 
+    // @ts-ignore
     function getLabelPosition(value, axisModel, axisPointerModel, polar, labelMargin) {
       var axis = axisModel.axis;
       var coord = axis.dataToCoord(value);
@@ -75205,6 +77954,7 @@
         var transform = create$1();
         rotate(transform, transform, axisAngle);
         translate(transform, transform, [polar.cx, polar.cy]);
+        // @ts-ignore
         position = applyTransform$1([coord, -labelMargin], transform);
         var labelRotation = axisModel.getModel('axisLabel').get('rotate') || 0; // @ts-ignore
 
@@ -75258,6 +78008,7 @@
 
     var PolarModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PolarModel, _super);
 
@@ -75270,8 +78021,10 @@
 
       PolarModel.prototype.findAxisModel = function (axisType) {
         var foundAxisModel;
+        // @ts-ignore
         var ecModel = this.ecModel;
         ecModel.eachComponent(axisType, function (axisModel) {
+          // @ts-ignore
           if (axisModel.getCoordSysModel() === this) {
             foundAxisModel = axisModel;
           }
@@ -75292,6 +78045,7 @@
 
     var PolarAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PolarAxisModel, _super);
 
@@ -75300,6 +78054,7 @@
       }
 
       PolarAxisModel.prototype.getCoordSysModel = function () {
+        // @ts-ignore
         return this.getReferringComponents('polar', SINGLE_REFERRING).models[0];
       };
 
@@ -75311,10 +78066,12 @@
 
     var AngleAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AngleAxisModel, _super);
 
       function AngleAxisModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = AngleAxisModel.type;
@@ -75327,10 +78084,12 @@
 
     var RadiusAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadiusAxisModel, _super);
 
       function RadiusAxisModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = RadiusAxisModel.type;
@@ -75343,6 +78102,7 @@
 
     var RadiusAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadiusAxis, _super);
 
@@ -75351,6 +78111,7 @@
       }
 
       RadiusAxis.prototype.pointToData = function (point, clamp) {
+        // @ts-ignore
         return this.polar.pointToData(point, clamp)[this.dim === 'radius' ? 0 : 1];
       };
 
@@ -75364,6 +78125,7 @@
 
     var AngleAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AngleAxis, _super);
 
@@ -75372,6 +78134,7 @@
       }
 
       AngleAxis.prototype.pointToData = function (point, clamp) {
+        // @ts-ignore
         return this.polar.pointToData(point, clamp)[this.dim === 'radius' ? 0 : 1];
       };
       /**
@@ -75385,7 +78148,9 @@
 
       AngleAxis.prototype.calculateCategoryInterval = function () {
         var axis = this;
+        // @ts-ignore
         var labelModel = axis.getLabelModel();
+        // @ts-ignore
         var ordinalScale = axis.scale;
         var ordinalExtent = ordinalScale.getExtent(); // Providing this method is for optimization:
         // avoid generating a long array by `getTicks`
@@ -75398,6 +78163,7 @@
         }
 
         var tickValue = ordinalExtent[0];
+        // @ts-ignore
         var unitSpan = axis.dataToCoord(tickValue + 1) - axis.dataToCoord(tickValue);
         var unitH = Math.abs(unitSpan); // Not precise, just use height as text width
         // and each distance from axis line yet.
@@ -75408,6 +78174,7 @@
 
         isNaN(dh) && (dh = Infinity);
         var interval = Math.max(0, Math.floor(dh));
+        // @ts-ignore
         var cache = inner$d(axis.model);
         var lastAutoInterval = cache.lastAutoInterval;
         var lastTickCount = cache.lastTickCount; // Use cache to keep interval stable while moving zoom window,
@@ -75438,6 +78205,7 @@
 
     var Polar =
     /** @class */
+    // @ts-ignore
     function () {
       function Polar(name) {
         this.dimensions = polarDimensions;
@@ -75621,11 +78389,13 @@
         };
       };
 
+      // @ts-ignore
       Polar.prototype.convertToPixel = function (ecModel, finder, value) {
         var coordSys = getCoordSys$2(finder);
         return coordSys === this ? this.dataToPoint(value) : null;
       };
 
+      // @ts-ignore
       Polar.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         var coordSys = getCoordSys$2(finder);
         return coordSys === this ? this.pointToData(pixel) : null;
@@ -75669,7 +78439,9 @@
      */
 
 
+    // @ts-ignore
     function updatePolarScale(ecModel, api) {
+      // @ts-ignore
       var polar = this;
       var angleAxis = polar.getAngleAxis();
       var radiusAxis = polar.getRadiusAxis(); // Reset scale
@@ -75708,6 +78480,7 @@
 
     function setAxis(axis, axisModel) {
       axis.type = axisModel.get('type');
+      // @ts-ignore
       axis.scale = createScaleByModel(axisModel);
       axis.onBand = axisModel.get('boundaryGap') && axis.type === 'category';
       axis.inverse = axisModel.get('inverse');
@@ -75747,6 +78520,7 @@
           if (seriesModel.get('coordinateSystem') === 'polar') {
             var polarModel = seriesModel.getReferringComponents('polar', SINGLE_REFERRING).models[0];
 
+            // @ts-ignore
             if ("development" !== 'production') {
               if (!polarModel) {
                 throw new Error('Polar "' + retrieve(seriesModel.get('polarIndex'), seriesModel.get('polarId'), 0) + '" not found');
@@ -75791,6 +78565,7 @@
 
     var AngleAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(AngleAxisView, _super);
 
@@ -75802,7 +78577,9 @@
         return _this;
       }
 
+      // @ts-ignore
       AngleAxisView.prototype.render = function (angleAxisModel, ecModel) {
+        // @ts-ignore
         this.group.removeAll();
 
         if (!angleAxisModel.get('show')) {
@@ -75825,6 +78602,7 @@
         fixAngleOverlap(ticksAngles);
         each(elementList$1, function (name) {
           if (angleAxisModel.get([name, 'show']) && (!angleAxis.scale.isBlank() || name === 'axisLine')) {
+            // @ts-ignore
             angelAxisElementsBuilders[name](this.group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent, labels);
           }
         }, this);
@@ -75835,6 +78613,7 @@
     }(AxisView);
 
     var angelAxisElementsBuilders = {
+      // @ts-ignore
       axisLine: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent) {
         var lineStyleModel = angleAxisModel.getModel(['axisLine', 'lineStyle']); // extent id of the axis radius (r0 and r)
 
@@ -75867,9 +78646,11 @@
           });
         }
 
+        // @ts-ignore
         shape.style.fill = null;
         group.add(shape);
       },
+      // @ts-ignore
       axisTick: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent) {
         var tickModel = angleAxisModel.getModel('axisTick');
         var tickLen = (tickModel.get('inside') ? -1 : 1) * tickModel.get('length');
@@ -75885,6 +78666,7 @@
           })
         }));
       },
+      // @ts-ignore
       minorTick: function (group, angleAxisModel, polar, tickAngles, minorTickAngles, radiusExtent) {
         if (!minorTickAngles.length) {
           return;
@@ -75910,12 +78692,14 @@
           }))
         }));
       },
+      // @ts-ignore
       axisLabel: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent, labels) {
         var rawCategoryData = angleAxisModel.getCategories(true);
         var commonLabelModel = angleAxisModel.getModel('axisLabel');
         var labelMargin = commonLabelModel.get('margin');
         var triggerEvent = angleAxisModel.get('triggerEvent'); // Use length of ticksAngles because it may remove the last tick to avoid overlapping
 
+        // @ts-ignore
         each(labels, function (labelItem, idx) {
           var labelModel = commonLabelModel;
           var tickValue = labelItem.tickValue;
@@ -75955,6 +78739,7 @@
           }
         }, this);
       },
+      // @ts-ignore
       splitLine: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent) {
         var splitLineModel = angleAxisModel.getModel('splitLine');
         var lineStyleModel = splitLineModel.getModel('lineStyle');
@@ -75983,6 +78768,7 @@
           }));
         }
       },
+      // @ts-ignore
       minorSplitLine: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent) {
         if (!minorTickAngles.length) {
           return;
@@ -76006,6 +78792,7 @@
           z: angleAxisModel.get('z')
         }));
       },
+      // @ts-ignore
       splitArea: function (group, angleAxisModel, polar, ticksAngles, minorTickAngles, radiusExtent) {
         if (!ticksAngles.length) {
           return;
@@ -76060,6 +78847,7 @@
 
     var RadiusAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RadiusAxisView, _super);
 
@@ -76071,7 +78859,9 @@
         return _this;
       }
 
+      // @ts-ignore
       RadiusAxisView.prototype.render = function (radiusAxisModel, ecModel) {
+        // @ts-ignore
         this.group.removeAll();
 
         if (!radiusAxisModel.get('show')) {
@@ -76080,6 +78870,7 @@
 
         var oldAxisGroup = this._axisGroup;
         var newAxisGroup = this._axisGroup = new Group();
+        // @ts-ignore
         this.group.add(newAxisGroup);
         var radiusAxis = radiusAxisModel.axis;
         var polar = radiusAxis.polar;
@@ -76095,6 +78886,7 @@
         groupTransition(oldAxisGroup, newAxisGroup, radiusAxisModel);
         each(selfBuilderAttrs$1, function (name) {
           if (radiusAxisModel.get([name, 'show']) && !radiusAxis.scale.isBlank()) {
+            // @ts-ignore
             axisElementBuilders$1[name](this.group, radiusAxisModel, polar, axisAngle, radiusExtent, ticksCoords, minorTicksCoords);
           }
         }, this);
@@ -76105,6 +78897,7 @@
     }(AxisView);
 
     var axisElementBuilders$1 = {
+      // @ts-ignore
       splitLine: function (group, radiusAxisModel, polar, axisAngle, radiusExtent, ticksCoords) {
         var splitLineModel = radiusAxisModel.getModel('splitLine');
         var lineStyleModel = splitLineModel.getModel('lineStyle');
@@ -76137,6 +78930,7 @@
           }));
         }
       },
+      // @ts-ignore
       minorSplitLine: function (group, radiusAxisModel, polar, axisAngle, radiusExtent, ticksCoords, minorTicksCoords) {
         if (!minorTicksCoords.length) {
           return;
@@ -76165,6 +78959,7 @@
           silent: true
         }));
       },
+      // @ts-ignore
       splitArea: function (group, radiusAxisModel, polar, axisAngle, radiusExtent, ticksCoords) {
         if (!ticksCoords.length) {
           return;
@@ -76232,6 +79027,7 @@
       return axis.dim + polar.model.componentIndex;
     }
 
+    // @ts-ignore
     function barLayoutPolar(seriesType, ecModel, api) {
       var lastStackCoords = {};
       var barWidthAndOffset = calRadialBar(filter(ecModel.getSeriesByType(seriesType), function (seriesModel) {
@@ -76301,7 +79097,9 @@
 
             r0 = baseCoord;
             r = baseCoord + radiusSpan;
+            // @ts-ignore
             startAngle = angle - columnOffset;
+            // @ts-ignore
             endAngle = startAngle - columnWidth;
             stacked && (lastStackCoords[stackId][baseValue][sign] = r);
           } // tangential sector
@@ -76337,7 +79135,9 @@
             r: r,
             // Consider that positive angle is anti-clockwise,
             // while positive radian of sector is clockwise
+            // @ts-ignore
             startAngle: -startAngle * Math.PI / 180,
+            // @ts-ignore
             endAngle: -endAngle * Math.PI / 180,
 
             /**
@@ -76346,6 +79146,7 @@
              * default), the sector will always draw clockwisely, no matter
              * whether endAngle is greater or less than startAngle.
              */
+            // @ts-ignore
             clockwise: startAngle >= endAngle
           });
         }
@@ -76359,6 +79160,7 @@
     function calRadialBar(barSeries) {
       // Columns info on each category axis. Key is polar name
       var columnsMap = {};
+      // @ts-ignore
       each(barSeries, function (seriesModel, idx) {
         var data = seriesModel.getData();
         var polar = seriesModel.coordinateSystem;
@@ -76413,6 +79215,7 @@
         var autoWidth = (remainedWidth - categoryGap) / (autoWidthCount + (autoWidthCount - 1) * barGapPercent);
         autoWidth = Math.max(autoWidth, 0); // Find if any auto calculated bar exceeded maxBarWidth
 
+        // @ts-ignore
         each(stacks, function (column, stack) {
           var maxWidth = column.maxWidth;
 
@@ -76433,6 +79236,7 @@
         autoWidth = Math.max(autoWidth, 0);
         var widthSum = 0;
         var lastColumn;
+        // @ts-ignore
         each(stacks, function (column, idx) {
           if (!column.width) {
             column.width = autoWidth;
@@ -76443,6 +79247,7 @@
         });
 
         if (lastColumn) {
+          // @ts-ignore
           widthSum -= lastColumn.width * barGapPercent;
         }
 
@@ -76472,10 +79277,12 @@
 
     var PolarView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PolarView, _super);
 
       function PolarView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = PolarView.type;
@@ -76553,6 +79360,7 @@
 
     var SingleAxisView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SingleAxisView, _super);
 
@@ -76565,6 +79373,7 @@
       }
 
       SingleAxisView.prototype.render = function (axisModel, ecModel, api, payload) {
+        // @ts-ignore
         var group = this.group;
         group.removeAll();
         var oldAxisGroup = this._axisGroup;
@@ -76576,6 +79385,7 @@
         group.add(axisBuilder.getGroup());
         each(selfBuilderAttrs$2, function (name) {
           if (axisModel.get([name, 'show'])) {
+            // @ts-ignore
             axisElementBuilders$2[name](this, this.group, this._axisGroup, axisModel);
           }
         }, this);
@@ -76593,6 +79403,7 @@
     }(AxisView);
 
     var axisElementBuilders$2 = {
+      // @ts-ignore
       splitLine: function (axisView, group, axisGroup, axisModel) {
         var axis = axisModel.axis;
 
@@ -76654,6 +79465,7 @@
           }));
         }
       },
+      // @ts-ignore
       splitArea: function (axisView, group, axisGroup, axisModel) {
         rectCoordAxisBuildSplitArea(axisView, axisGroup, axisModel, axisModel);
       }
@@ -76661,6 +79473,7 @@
 
     var SingleAxisModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SingleAxisModel, _super);
 
@@ -76724,6 +79537,7 @@
 
     var SingleAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SingleAxis, _super);
 
@@ -76740,11 +79554,14 @@
 
 
       SingleAxis.prototype.isHorizontal = function () {
+        // @ts-ignore
         var position = this.position;
         return position === 'top' || position === 'bottom';
       };
 
+      // @ts-ignore
       SingleAxis.prototype.pointToData = function (point, clamp) {
+        // @ts-ignore
         return this.coordinateSystem.pointToData(point)[0];
       };
 
@@ -76758,6 +79575,7 @@
 
     var Single =
     /** @class */
+    // @ts-ignore
     function () {
       function Single(axisModel, ecModel, api) {
         this.type = 'single';
@@ -76777,8 +79595,10 @@
        */
 
 
+      // @ts-ignore
       Single.prototype._init = function (axisModel, ecModel, api) {
         var dim = this.dimension;
+        // @ts-ignore
         var axis = new SingleAxis(dim, createScaleByModel(axisModel), [0, 0], axisModel.get('type'), axisModel.get('position'));
         var isCategory = axis.type === 'category';
         axis.onBand = isCategory && axisModel.get('boundaryGap');
@@ -76794,13 +79614,19 @@
        */
 
 
+      // @ts-ignore
       Single.prototype.update = function (ecModel, api) {
         ecModel.eachSeries(function (seriesModel) {
+          // @ts-ignore
           if (seriesModel.coordinateSystem === this) {
             var data_1 = seriesModel.getData();
+            // @ts-ignore
             each(data_1.mapDimensionsAll(this.dimension), function (dim) {
+              // @ts-ignore
               this._axis.scale.unionExtentFromData(data_1, dim);
+            // @ts-ignore
             }, this);
+            // @ts-ignore
             niceScaleExtent(this._axis.scale, this._axis.model);
           }
         }, this);
@@ -76834,10 +79660,12 @@
         var rect = this._rect;
         var axis = this._axis;
         var isHorizontal = axis.isHorizontal();
+        // @ts-ignore
         var extent = isHorizontal ? [0, rect.width] : [0, rect.height];
         var idx = axis.reverse ? 1 : 0;
         axis.setExtent(extent[idx], extent[1 - idx]);
 
+        // @ts-ignore
         this._updateAxisTransform(axis, isHorizontal ? rect.x : rect.y);
       };
 
@@ -76895,8 +79723,10 @@
         var orient = axis.orient;
 
         if (orient === 'horizontal') {
+          // @ts-ignore
           return axis.contain(axis.toLocalCoord(point[0])) && point[1] >= rect.y && point[1] <= rect.y + rect.height;
         } else {
+          // @ts-ignore
           return axis.contain(axis.toLocalCoord(point[1])) && point[0] >= rect.y && point[0] <= rect.y + rect.height;
         }
       };
@@ -76922,15 +79752,18 @@
         }
 
         pt[idx] = axis.toGlobalCoord(axis.dataToCoord(+val));
+        // @ts-ignore
         pt[1 - idx] = idx === 0 ? rect.y + rect.height / 2 : rect.x + rect.width / 2;
         return pt;
       };
 
+      // @ts-ignore
       Single.prototype.convertToPixel = function (ecModel, finder, value) {
         var coordSys = getCoordSys$3(finder);
         return coordSys === this ? this.dataToPoint(value) : null;
       };
 
+      // @ts-ignore
       Single.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         var coordSys = getCoordSys$3(finder);
         return coordSys === this ? this.pointToData(pixel) : null;
@@ -76977,6 +79810,7 @@
 
     var SingleAxisPointer =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SingleAxisPointer, _super);
 
@@ -77030,6 +79864,7 @@
        */
 
 
+      // @ts-ignore
       SingleAxisPointer.prototype.updateHandleTransform = function (transform, delta, axisModel, axisPointerModel) {
         var axis = axisModel.axis;
         var coordSys = axis.coordinateSystem;
@@ -77087,10 +79922,12 @@
 
     var SingleView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SingleView, _super);
 
       function SingleView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = SingleView.type;
@@ -77114,6 +79951,7 @@
 
     var CalendarModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CalendarModel, _super);
 
@@ -77128,6 +79966,7 @@
        */
 
 
+      // @ts-ignore
       CalendarModel.prototype.init = function (option, parentModel, ecModel) {
         var inputPositionParams = getLayoutParams(option);
 
@@ -77143,11 +79982,13 @@
       CalendarModel.prototype.mergeOption = function (option) {
         _super.prototype.mergeOption.apply(this, arguments);
 
+        // @ts-ignore
         mergeAndNormalizeLayoutParams(this.option, option);
       };
 
       CalendarModel.prototype.getCellSize = function () {
         // Has been normalized
+        // @ts-ignore
         return this.option.cellSize;
       };
 
@@ -77244,6 +80085,7 @@
 
     var CalendarView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(CalendarView, _super);
 
@@ -77254,7 +80096,9 @@
         return _this;
       }
 
+      // @ts-ignore
       CalendarView.prototype.render = function (calendarModel, ecModel, api) {
+        // @ts-ignore
         var group = this.group;
         group.removeAll();
         var coordSys = calendarModel.coordinateSystem; // range info
@@ -77328,14 +80172,18 @@
         addPoints(coordSys.getNextNDay(rangeData.end.time, 1).formatedDate);
 
         function addPoints(date) {
+          // @ts-ignore
           self._firstDayOfMonth.push(coordSys.getDateInfo(date));
 
+          // @ts-ignore
           self._firstDayPoints.push(coordSys.dataToRect([date], false).tl);
 
           var points = self._getLinePointsOfOneWeek(calendarModel, date, orient);
 
+          // @ts-ignore
           self._tlpoints.push(points[0]);
 
+          // @ts-ignore
           self._blpoints.push(points[points.length - 1]);
 
           show && self._drawSplitline(points, lineStyleModel, group);
@@ -77397,6 +80245,7 @@
         return params.nameMap;
       };
 
+      // @ts-ignore
       CalendarView.prototype._yearTextPositionControl = function (textEl, point, orient, position, margin) {
         var x = point[0];
         var y = point[1];
@@ -77447,6 +80296,7 @@
           pos = orient !== 'horizontal' ? 'top' : 'left';
         }
 
+        // @ts-ignore
         var points = [this._tlpoints[this._tlpoints.length - 1], this._blpoints[0]];
         var xc = (points[0][0] + points[1][0]) / 2;
         var yc = (points[0][1] + points[1][1]) / 2;
@@ -77478,6 +80328,7 @@
             text: content
           })
         });
+        // @ts-ignore
         yearText.attr(this._yearTextPositionControl(yearText, posPoints[pos], orient, pos, margin));
         group.add(yearText);
       };
@@ -77548,12 +80399,17 @@
         margin = pos === 'start' ? -margin : margin;
         var isCenter = align === 'center';
 
+        // @ts-ignore
         for (var i = 0; i < termPoints[idx].length - 1; i++) {
+          // @ts-ignore
           var tmp = termPoints[idx][i].slice();
+          // @ts-ignore
           var firstDay = this._firstDayOfMonth[i];
 
           if (isCenter) {
+            // @ts-ignore
             var firstDayPoints = this._firstDayPoints[i];
+            // @ts-ignore
             tmp[axis] = (firstDayPoints[axis] + termPoints[0][i + 1][axis]) / 2;
           }
 
@@ -77661,7 +80517,9 @@
 
     var Calendar =
     /** @class */
+    // @ts-ignore
     function () {
+      // @ts-ignore
       function Calendar(calendarModel, ecModel, api) {
         this.type = 'calendar';
         this.dimensions = Calendar.dimensions; // Required in createListFromData
@@ -77712,6 +80570,7 @@
 
 
       Calendar.prototype.getFirstDayOfWeek = function () {
+        // @ts-ignore
         return this._firstDayOfWeek;
       };
       /**
@@ -77752,10 +80611,12 @@
         return this.getDateInfo(date);
       };
 
+      // @ts-ignore
       Calendar.prototype.update = function (ecModel, api) {
         this._firstDayOfWeek = +this._model.getModel('dayLabel').get('firstDay');
         this._orient = this._model.get('orient');
         this._lineWidth = this._model.getModel('itemStyle').getItemStyle().lineWidth || 0;
+        // @ts-ignore
         this._rangeInfo = this._getRangeInfo(this._initRangeOption());
         var weeks = this._rangeInfo.weeks || 1;
         var whNames = ['width', 'height'];
@@ -77809,12 +80670,15 @@
 
         var week = dayInfo.day;
 
+        // @ts-ignore
         var nthWeek = this._getRangeInfo([range.start.time, date]).nthWeek;
 
         if (this._orient === 'vertical') {
+          // @ts-ignore
           return [this._rect.x + week * this._sw + this._sw / 2, this._rect.y + nthWeek * this._sh + this._sh / 2];
         }
 
+        // @ts-ignore
         return [this._rect.x + nthWeek * this._sw + this._sw / 2, this._rect.y + week * this._sh + this._sh / 2];
       };
       /**
@@ -77856,27 +80720,34 @@
 
 
       Calendar.prototype.pointToDate = function (point) {
+        // @ts-ignore
         var nthX = Math.floor((point[0] - this._rect.x) / this._sw) + 1;
+        // @ts-ignore
         var nthY = Math.floor((point[1] - this._rect.y) / this._sh) + 1;
         var range = this._rangeInfo.range;
 
         if (this._orient === 'vertical') {
+          // @ts-ignore
           return this._getDateByWeeksAndDay(nthY, nthX - 1, range);
         }
 
+        // @ts-ignore
         return this._getDateByWeeksAndDay(nthX, nthY - 1, range);
       };
 
+      // @ts-ignore
       Calendar.prototype.convertToPixel = function (ecModel, finder, value) {
         var coordSys = getCoordSys$4(finder);
         return coordSys === this ? coordSys.dataToPoint(value) : null;
       };
 
+      // @ts-ignore
       Calendar.prototype.convertFromPixel = function (ecModel, finder, pixel) {
         var coordSys = getCoordSys$4(finder);
         return coordSys === this ? coordSys.pointToData(pixel) : null;
       };
 
+      // @ts-ignore
       Calendar.prototype.containPoint = function (point) {
         console.warn('Not implemented.');
         return false;
@@ -77921,6 +80792,7 @@
         }
 
         if (!normalizedRange) {
+          // @ts-ignore
           if ("development" !== 'production') {
             logError('Invalid date range.');
           } // Not handling it.
@@ -77929,6 +80801,7 @@
           return range;
         }
 
+        // @ts-ignore
         var tmp = this._getRangeInfo(normalizedRange);
 
         if (tmp.start.time > tmp.end.time) {
@@ -78010,6 +80883,7 @@
 
 
       Calendar.prototype._getDateByWeeksAndDay = function (nthWeek, day, range) {
+        // @ts-ignore
         var rangeInfo = this._getRangeInfo(range);
 
         if (nthWeek > rangeInfo.weeks || nthWeek === 0 && day < rangeInfo.fweek || nthWeek === rangeInfo.weeks && day > rangeInfo.lweek) {
@@ -78091,6 +80965,7 @@
 
       if ($action === 'merge') {
         if (existElOption) {
+          // @ts-ignore
           if ("development" !== 'production') {
             var newType = newElOption.type;
             assert(!newType || existElOption.type === newType, 'Please set $action: "replace" to change `type`');
@@ -78172,6 +81047,7 @@
 
     var GraphicComponentModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GraphicComponentModel, _super);
 
@@ -78185,15 +81061,19 @@
 
       GraphicComponentModel.prototype.mergeOption = function (option, ecModel) {
         // Prevent default merge to elements
+        // @ts-ignore
         var elements = this.option.elements;
+        // @ts-ignore
         this.option.elements = null;
 
         _super.prototype.mergeOption.call(this, option, ecModel);
 
+        // @ts-ignore
         this.option.elements = elements;
       };
 
       GraphicComponentModel.prototype.optionUpdated = function (newOption, isInit) {
+        // @ts-ignore
         var thisOption = this.option;
         var newList = (isInit ? thisOption : newOption).elements;
         var existList = thisOption.elements = isInit ? [] : thisOption.elements;
@@ -78207,6 +81087,7 @@
         each(mappingResult, function (resultItem, index) {
           var newElOption = resultItem.newOption;
 
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(isObject(newElOption) || resultItem.existing, 'Empty graphic option definition');
           }
@@ -78258,6 +81139,7 @@
           var children = option.children;
 
           if (option.type === 'group' && children) {
+            // @ts-ignore
             this._flatten(children, result, option);
           } // Deleting for JSON output, and for not affecting group creation.
 
@@ -78298,6 +81180,7 @@
 
     var GraphicComponentView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(GraphicComponentView, _super);
 
@@ -78312,6 +81195,7 @@
         this._elMap = createHashMap();
       };
 
+      // @ts-ignore
       GraphicComponentView.prototype.render = function (graphicModel, ecModel, api) {
         // Having leveraged between use cases and algorithm complexity, a very
         // simple layout mechanism is used:
@@ -78345,14 +81229,17 @@
         }
 
         var elMap = this._elMap;
+        // @ts-ignore
         var rootGroup = this.group;
         var globalZ = graphicModel.get('z');
         var globalZLevel = graphicModel.get('zlevel'); // Top-down tranverse to assign graphic settings to each elements.
 
         each(elOptionsToUpdate, function (elOption) {
           var id = convertOptionIdName(elOption.id, null);
+          // @ts-ignore
           var elExisting = id != null ? elMap.get(id) : null;
           var parentId = convertOptionIdName(elOption.parentId, null);
+          // @ts-ignore
           var targetElParent = parentId != null ? elMap.get(parentId) : rootGroup;
           var elType = elOption.type;
           var elOptionStyle = elOption.style;
@@ -78383,6 +81270,7 @@
 
           var elOptionCleaned = getCleanedElOption(elOption); // For simple, do not support parent change, otherwise reorder is needed.
 
+          // @ts-ignore
           if ("development" !== 'production') {
             elExisting && assert(targetElParent === elExisting.parent, 'Changing parent is not supported.');
           }
@@ -78424,6 +81312,7 @@
             removeEl(elExisting, elOption, elMap, graphicModel);
           }
 
+          // @ts-ignore
           var el = elMap.get(id);
 
           if (el && textContentOption) {
@@ -78480,6 +81369,7 @@
 
       GraphicComponentView.prototype._relocate = function (graphicModel, api) {
         var elOptions = graphicModel.option.elements;
+        // @ts-ignore
         var rootGroup = this.group;
         var elMap = this._elMap;
         var apiWidth = api.getWidth();
@@ -78489,6 +81379,7 @@
         for (var i = 0; i < elOptions.length; i++) {
           var elOption = elOptions[i];
           var id = convertOptionIdName(elOption.id, null);
+          // @ts-ignore
           var el = id != null ? elMap.get(id) : null;
 
           if (!el || !el.isGroup) {
@@ -78508,6 +81399,7 @@
         for (var i = elOptions.length - 1; i >= 0; i--) {
           var elOption = elOptions[i];
           var id = convertOptionIdName(elOption.id, null);
+          // @ts-ignore
           var el = id != null ? elMap.get(id) : null;
 
           if (!el) {
@@ -78563,6 +81455,7 @@
         var _this = this;
 
         var elMap = this._elMap;
+        // @ts-ignore
         elMap.each(function (el) {
           removeEl(el, inner$e(el).option, elMap, _this._lastGraphicModel);
         });
@@ -78578,6 +81471,7 @@
     }(ComponentView);
 
     function newEl(graphicType) {
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(graphicType, 'graphic type MUST be set');
       }
@@ -78586,6 +81480,7 @@
       // overwritten by users, so do them first.
       ? nonShapeGraphicElements[graphicType] : getShapeClass(graphicType);
 
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(Clz, "graphic type " + graphicType + " can not be found");
       }
@@ -78707,6 +81602,7 @@
       return indexOf(SERIES_COORDS, coordType) >= 0;
     }
     function getAxisMainType(axisDim) {
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(axisDim);
       }
@@ -78822,6 +81718,7 @@
             model: coordSysModel,
             axisModels: []
           };
+          // @ts-ignore
           coordSysInfoWrap.infoList.push(coordSysInfo);
           coordSysInfoWrap.infoMap.set(coordSysUid, coordSysInfo);
         }
@@ -78833,6 +81730,7 @@
 
     var DataZoomAxisInfo =
     /** @class */
+    // @ts-ignore
     function () {
       function DataZoomAxisInfo() {
         this.indexList = [];
@@ -78852,6 +81750,7 @@
 
     var DataZoomModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DataZoomModel, _super);
 
@@ -78882,6 +81781,7 @@
         return _this;
       }
 
+      // @ts-ignore
       DataZoomModel.prototype.init = function (option, parentModel, ecModel) {
         var inputRawOption = retrieveRawOption(option);
         /**
@@ -78907,6 +81807,7 @@
          */
 
         this.settledOption = inputRawOption;
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel);
 
         this._doInit(inputRawOption);
@@ -78915,6 +81816,7 @@
       DataZoomModel.prototype.mergeOption = function (newOption) {
         var inputRawOption = retrieveRawOption(newOption); //FIX #2591
 
+        // @ts-ignore
         merge(this.option, newOption, true);
         merge(this.settledOption, inputRawOption, true);
 
@@ -78922,6 +81824,7 @@
       };
 
       DataZoomModel.prototype._doInit = function (inputRawOption) {
+        // @ts-ignore
         var thisOption = this.option;
 
         this._setDefaultThrottle(inputRawOption);
@@ -78933,7 +81836,9 @@
           // start/end has higher priority over startValue/endValue if they
           // both set, but we should make chart.setOption({endValue: 1000})
           // effective, rather than chart.setOption({endValue: 1000, end: null}).
+          // @ts-ignore
           if (this._rangePropMode[index] === 'value') {
+            // @ts-ignore
             thisOption[names[0]] = settledOption[names[0]] = null;
           } // Otherwise do nothing and use the merge result.
 
@@ -78943,6 +81848,7 @@
       };
 
       DataZoomModel.prototype._resetTarget = function () {
+        // @ts-ignore
         var optionOrient = this.get('orient', true);
         var targetAxisIndexMap = this._targetAxisInfoMap = createHashMap();
 
@@ -78967,6 +81873,7 @@
       DataZoomModel.prototype._fillSpecifiedTargetAxis = function (targetAxisIndexMap) {
         var hasAxisSpecified = false;
         each(DATA_ZOOM_AXIS_DIMENSIONS, function (axisDim) {
+          // @ts-ignore
           var refering = this.getReferringComponents(getAxisMainType(axisDim), MULTIPLE_REFERRING); // When user set axisIndex as a empty array, we think that user specify axisIndex
           // but do not want use auto mode. Because empty array may be encountered when
           // some error occured.
@@ -78986,6 +81893,7 @@
       };
 
       DataZoomModel.prototype._fillAutoTargetAxisByOrient = function (targetAxisIndexMap, orient) {
+        // @ts-ignore
         var ecModel = this.ecModel;
         var needAuto = true; // Find axis that parallel to dataZoom as default.
 
@@ -79071,13 +81979,17 @@
         }
 
         if (this._autoThrottle) {
+          // @ts-ignore
           var globalOption = this.ecModel.option;
+          // @ts-ignore
           this.option.throttle = globalOption.animation && globalOption.animationDurationUpdate > 0 ? 100 : 20;
         }
       };
 
       DataZoomModel.prototype._updateRangeUse = function (inputRawOption) {
+        // @ts-ignore
         var rangePropMode = this._rangePropMode;
+        // @ts-ignore
         var rangeModeInOption = this.get('rangeMode');
         each([['start', 'startValue'], ['end', 'endValue']], function (names, index) {
           var percentSpecified = inputRawOption[names[0]] != null;
@@ -79105,6 +82017,7 @@
         var firstAxisModel;
         this.eachTargetAxis(function (axisDim, axisIndex) {
           if (firstAxisModel == null) {
+            // @ts-ignore
             firstAxisModel = this.ecModel.getComponent(getAxisMainType(axisDim), axisIndex);
           }
         }, this);
@@ -79116,6 +82029,7 @@
 
 
       DataZoomModel.prototype.eachTargetAxis = function (callback, context) {
+        // @ts-ignore
         this._targetAxisInfoMap.each(function (axisInfo, axisDim) {
           each(axisInfo.indexList, function (axisIndex) {
             callback.call(context, axisDim, axisIndex);
@@ -79140,13 +82054,16 @@
 
 
       DataZoomModel.prototype.getAxisModel = function (axisDim, axisIndex) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(axisDim && axisIndex != null);
         }
 
+        // @ts-ignore
         var axisInfo = this._targetAxisInfoMap.get(axisDim);
 
         if (axisInfo && axisInfo.indexMap[axisIndex]) {
+          // @ts-ignore
           return this.ecModel.getComponent(getAxisMainType(axisDim), axisIndex);
         }
       };
@@ -79156,6 +82073,7 @@
 
 
       DataZoomModel.prototype.setRawRange = function (opt) {
+        // @ts-ignore
         var thisOption = this.option;
         var settledOption = this.settledOption;
         each([['start', 'startValue'], ['end', 'endValue']], function (names) {
@@ -79169,7 +82087,9 @@
           // `dispatchAction`.
           // The pair <end, endValue> is treated in the same way.
           if (opt[names[0]] != null || opt[names[1]] != null) {
+            // @ts-ignore
             thisOption[names[0]] = settledOption[names[0]] = opt[names[0]];
+            // @ts-ignore
             thisOption[names[1]] = settledOption[names[1]] = opt[names[1]];
           }
         }, this);
@@ -79178,6 +82098,7 @@
       };
 
       DataZoomModel.prototype.setCalculatedRange = function (opt) {
+        // @ts-ignore
         var option = this.option;
         each(['start', 'startValue', 'end', 'endValue'], function (name) {
           option[name] = opt[name];
@@ -79185,6 +82106,7 @@
       };
 
       DataZoomModel.prototype.getPercentRange = function () {
+        // @ts-ignore
         var axisProxy = this.findRepresentativeAxisProxy();
 
         if (axisProxy) {
@@ -79200,6 +82122,7 @@
 
       DataZoomModel.prototype.getValueRange = function (axisDim, axisIndex) {
         if (axisDim == null && axisIndex == null) {
+          // @ts-ignore
           var axisProxy = this.findRepresentativeAxisProxy();
 
           if (axisProxy) {
@@ -79223,11 +82146,13 @@
 
         var firstProxy;
 
+        // @ts-ignore
         var axisDimList = this._targetAxisInfoMap.keys();
 
         for (var i = 0; i < axisDimList.length; i++) {
           var axisDim = axisDimList[i];
 
+          // @ts-ignore
           var axisInfo = this._targetAxisInfoMap.get(axisDim);
 
           for (var j = 0; j < axisInfo.indexList.length; j++) {
@@ -79250,10 +82175,12 @@
       };
 
       DataZoomModel.prototype.getRangePropMode = function () {
+        // @ts-ignore
         return this._rangePropMode.slice();
       };
 
       DataZoomModel.prototype.getOrient = function () {
+        // @ts-ignore
         if ("development" !== 'production') {
           // Should not be called before initialized.
           assert(this._orient);
@@ -79290,10 +82217,12 @@
 
     var SelectDataZoomModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SelectDataZoomModel, _super);
 
       function SelectDataZoomModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = SelectDataZoomModel.type;
@@ -79306,6 +82235,7 @@
 
     var DataZoomView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DataZoomView, _super);
 
@@ -79316,6 +82246,7 @@
         return _this;
       }
 
+      // @ts-ignore
       DataZoomView.prototype.render = function (dataZoomModel, ecModel, api, payload) {
         this.dataZoomModel = dataZoomModel;
         this.ecModel = ecModel;
@@ -79328,10 +82259,12 @@
 
     var SelectDataZoomView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SelectDataZoomView, _super);
 
       function SelectDataZoomView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = SelectDataZoomView.type;
@@ -79354,6 +82287,7 @@
 
     var AxisProxy =
     /** @class */
+    // @ts-ignore
     function () {
       function AxisProxy(dimName, axisIndex, dataZoomModel, ecModel) {
         this._dimName = dimName;
@@ -79379,6 +82313,7 @@
 
 
       AxisProxy.prototype.getDataValueWindow = function () {
+        // @ts-ignore
         return this._valueWindow.slice();
       };
       /**
@@ -79387,6 +82322,7 @@
 
 
       AxisProxy.prototype.getDataPercentWindow = function () {
+        // @ts-ignore
         return this._percentWindow.slice();
       };
 
@@ -79394,9 +82330,11 @@
         var seriesModels = [];
         this.ecModel.eachSeries(function (seriesModel) {
           if (isCoordSupported(seriesModel)) {
+            // @ts-ignore
             var axisMainType = getAxisMainType(this._dimName);
             var axisModel = seriesModel.getReferringComponents(axisMainType, SINGLE_REFERRING).models[0];
 
+            // @ts-ignore
             if (axisModel && this._axisIndex === axisModel.componentIndex) {
               seriesModels.push(seriesModel);
             }
@@ -79447,13 +82385,16 @@
           if (rangePropMode[idx] === 'percent') {
             boundPercent == null && (boundPercent = percentExtent[idx]); // Use scale.parse to math round for category or time axis.
 
+            // @ts-ignore
             boundValue = scale.parse(linearMap(boundPercent, percentExtent, dataExtent));
           } else {
             hasPropModeValue = true;
+            // @ts-ignore
             boundValue = boundValue == null ? dataExtent[idx] : scale.parse(boundValue); // Calculating `percent` from `value` may be not accurate, because
             // This calculation can not be inversed, because all of values that
             // are overflow the `dataExtent` will be calculated to percent '100%'
 
+            // @ts-ignore
             boundPercent = linearMap(boundValue, dataExtent, percentExtent);
           } // valueWindow[idx] = round(boundValue);
           // percentWindow[idx] = round(boundPercent);
@@ -79474,6 +82415,7 @@
 
         function restrictSet(fromWindow, toWindow, fromExtent, toExtent, toValue) {
           var suffix = toValue ? 'Span' : 'ValueSpan';
+          // @ts-ignore
           sliderMove(0, fromWindow, fromExtent, 'all', spans['min' + suffix], spans['max' + suffix]);
 
           for (var i = 0; i < 2; i++) {
@@ -79512,6 +82454,7 @@
         this._setAxisModel();
       };
 
+      // @ts-ignore
       AxisProxy.prototype.filterData = function (dataZoomModel, api) {
         if (dataZoomModel !== this._dataZoomModel) {
           return;
@@ -79566,7 +82509,9 @@
               for (var i = 0; i < dataDims.length; i++) {
                 var value = store_1.get(dataDimIndices_1[i], dataIndex);
                 var thisHasValue = !isNaN(value);
+                // @ts-ignore
                 var thisLeftOut = value < valueWindow[0];
+                // @ts-ignore
                 var thisRightOut = value > valueWindow[1];
 
                 if (thisHasValue && !thisLeftOut && !thisRightOut) {
@@ -79602,6 +82547,7 @@
         });
 
         function isInWindow(value) {
+          // @ts-ignore
           return value >= valueWindow[0] && value <= valueWindow[1];
         }
       };
@@ -79613,11 +82559,14 @@
         each$8(['min', 'max'], function (minMax) {
           var percentSpan = dataZoomModel.get(minMax + 'Span');
           var valueSpan = dataZoomModel.get(minMax + 'ValueSpan');
+          // @ts-ignore
           valueSpan != null && (valueSpan = this.getAxisModel().axis.scale.parse(valueSpan)); // minValueSpan and maxValueSpan has higher priority than minSpan and maxSpan
 
           if (valueSpan != null) {
+            // @ts-ignore
             percentSpan = linearMap(dataExtent[0] + valueSpan, dataExtent, [0, 100], true);
           } else if (percentSpan != null) {
+            // @ts-ignore
             valueSpan = linearMap(percentSpan, [0, 100], dataExtent, true) - dataExtent[0];
           }
 
@@ -79645,10 +82594,12 @@
         var rawExtentInfo = axisModel.axis.scale.rawExtentInfo;
 
         if (percentWindow[0] !== 0) {
+          // @ts-ignore
           rawExtentInfo.setDeterminedMinMax('min', +valueWindow[0].toFixed(precision));
         }
 
         if (percentWindow[1] !== 100) {
+          // @ts-ignore
           rawExtentInfo.setDeterminedMinMax('max', +valueWindow[1].toFixed(precision));
         }
 
@@ -79693,6 +82644,7 @@
         // Prepare axis proxies.
 
 
+        // @ts-ignore
         eachAxisModel(function (axisDim, axisIndex, axisModel, dataZoomModel) {
           // dispose all last axis proxy, in case that some axis are deleted.
           axisModel.__dzAxisProxy = null;
@@ -79824,6 +82776,7 @@
 
     var ToolboxFeature =
     /** @class */
+    // @ts-ignore
     function () {
       function ToolboxFeature() {}
 
@@ -79839,6 +82792,7 @@
 
     var ToolboxModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ToolboxModel, _super);
 
@@ -79852,7 +82806,9 @@
       ToolboxModel.prototype.optionUpdated = function () {
         _super.prototype.optionUpdated.apply(this, arguments);
 
+        // @ts-ignore
         var ecModel = this.ecModel;
+        // @ts-ignore
         each(this.option.feature, function (featureOpt, featureName) {
           var Feature = getFeature(featureName);
 
@@ -79924,6 +82880,7 @@
       };
       var rect = getLayoutRect(boxLayoutParams, viewportSize, padding);
       box(componentModel.get('orient'), group, componentModel.get('itemGap'), rect.width, rect.height);
+      // @ts-ignore
       positionElement(group, boxLayoutParams, viewportSize, padding);
     }
     function makeBackground(rect, componentModel) {
@@ -79951,6 +82908,7 @@
 
     var ToolboxView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ToolboxView, _super);
 
@@ -79959,6 +82917,7 @@
       }
 
       ToolboxView.prototype.render = function (toolboxModel, ecModel, api, payload) {
+        // @ts-ignore
         var group = this.group;
         group.removeAll();
 
@@ -79970,6 +82929,7 @@
         var featureOpts = toolboxModel.get('feature') || {};
         var features = this._features || (this._features = {});
         var featureNames = [];
+        // @ts-ignore
         each(featureOpts, function (opt, name) {
           featureNames.push(name);
         });
@@ -80092,7 +83052,9 @@
               height: itemSize
             }); // TODO handling image
 
+            // @ts-ignore
             path.setStyle(iconStyleModel.getItemStyle());
+            // @ts-ignore
             var pathEmphasisState = path.ensureState('emphasis');
             pathEmphasisState.style = iconStyleEmphasisModel.getItemStyle(); // Text position calculation
 
@@ -80106,6 +83068,7 @@
               },
               ignore: true
             });
+            // @ts-ignore
             path.setTextContent(textContent);
             setTooltipConfig({
               el: path,
@@ -80116,31 +83079,40 @@
               }
             }); // graphic.enableHoverEmphasis(path);
 
+            // @ts-ignore
             path.__title = titlesMap[iconName];
+            // @ts-ignore
             path.on('mouseover', function () {
               // Should not reuse above hoverStyle, which might be modified.
               var hoverStyle = iconStyleEmphasisModel.getItemStyle();
               var defaultTextPosition = toolboxModel.get('orient') === 'vertical' ? toolboxModel.get('right') == null ? 'right' : 'left' : toolboxModel.get('bottom') == null ? 'bottom' : 'top';
+              // @ts-ignore
               textContent.setStyle({
                 fill: iconStyleEmphasisModel.get('textFill') || hoverStyle.fill || hoverStyle.stroke || '#000',
                 backgroundColor: iconStyleEmphasisModel.get('textBackgroundColor')
               });
+              // @ts-ignore
               path.setTextConfig({
                 position: iconStyleEmphasisModel.get('textPosition') || defaultTextPosition
               });
+              // @ts-ignore
               textContent.ignore = !toolboxModel.get('showTitle'); // Use enterEmphasis and leaveEmphasis provide by ec.
               // There are flags managed by the echarts.
 
+              // @ts-ignore
               enterEmphasis(this);
             }).on('mouseout', function () {
               if (featureModel.get(['iconStatus', iconName]) !== 'emphasis') {
+                // @ts-ignore
                 leaveEmphasis(this);
               }
 
+              // @ts-ignore
               textContent.hide();
             });
             (featureModel.get(['iconStatus', iconName]) === 'emphasis' ? enterEmphasis : leaveEmphasis)(path);
             group.add(path);
+            // @ts-ignore
             path.on('click', bind(feature.onclick, feature, ecModel, api, iconName));
             iconPaths[iconName] = path;
           });
@@ -80185,6 +83157,7 @@
         });
       };
 
+      // @ts-ignore
       ToolboxView.prototype.updateView = function (toolboxModel, ecModel, api, payload) {
         each(this._features, function (feature) {
           feature instanceof ToolboxFeature && feature.updateView && feature.updateView(feature.model, ecModel, api, payload);
@@ -80200,6 +83173,7 @@
         each(this._features, function (feature) {
           feature instanceof ToolboxFeature && feature.remove && feature.remove(ecModel, api);
         });
+        // @ts-ignore
         this.group.removeAll();
       };
 
@@ -80221,6 +83195,7 @@
 
     var SaveAsImage =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SaveAsImage, _super);
 
@@ -80229,6 +83204,7 @@
       }
 
       SaveAsImage.prototype.onclick = function (ecModel, api) {
+        // @ts-ignore
         var model = this.model;
         var title = model.get('name') || ecModel.get('title.0.text') || 'echarts';
         var isSvg = api.getZr().painter.getType() === 'svg';
@@ -80285,10 +83261,12 @@
                 var frame = document.createElement('iframe');
                 document.body.appendChild(frame);
                 var cw = frame.contentWindow;
+                // @ts-ignore
                 var doc = cw.document;
                 doc.open('image/svg+xml', 'replace');
                 doc.write(bstr);
                 doc.close();
+                // @ts-ignore
                 cw.focus();
                 doc.execCommand('SaveAs', true, filename);
                 document.body.removeChild(frame);
@@ -80297,7 +83275,9 @@
               var lang = model.get('lang');
               var html = '' + '<body style="margin:0;">' + '<img src="' + url + '" style="max-width:100%;" title="' + (lang && lang[0] || '') + '" />' + '</body>';
               var tab = window.open();
+              // @ts-ignore
               tab.document.write(html);
+              // @ts-ignore
               tab.document.title = title;
             }
           }
@@ -80329,6 +83309,7 @@
 
     var MagicType =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MagicType, _super);
 
@@ -80337,6 +83318,7 @@
       }
 
       MagicType.prototype.getIcons = function () {
+        // @ts-ignore
         var model = this.model;
         var availableIcons = model.get('icon');
         var icons = {};
@@ -80369,6 +83351,7 @@
       };
 
       MagicType.prototype.onclick = function (ecModel, api, type) {
+        // @ts-ignore
         var model = this.model;
         var seriesIndex = model.get(['seriesIndex', type]); // Not supported magicType
 
@@ -80388,6 +83371,7 @@
           if (newSeriesOpt) {
             // PENDING If merge original option?
             defaults(newSeriesOpt, seriesModel.option);
+            // @ts-ignore
             newOption.series.push(newSeriesOpt);
           } // Modify boundaryGap
 
@@ -80562,6 +83546,7 @@
 
     function assembleSeriesWithCategoryAxis(groups) {
       var tables = [];
+      // @ts-ignore
       each(groups, function (group, key) {
         var categoryAxis = group.categoryAxis;
         var valueAxis = group.valueAxis;
@@ -80708,14 +83693,18 @@
           };
           value = data[i].value;
         } else {
+          // @ts-ignore
           value = data[i] = [];
         }
 
         for (var j = 0; j < items.length; j++) {
+          // @ts-ignore
           value.push(+items[j]);
         }
 
+        // @ts-ignore
         if (value.length === 1) {
+          // @ts-ignore
           hasName ? data[i].value = value[0] : data[i] = value[0];
         }
       }
@@ -80745,7 +83734,9 @@
             newOption.series = newOption.series.concat(result.series);
           }
         } else {
+          // @ts-ignore
           var result = parseListContents(block);
+          // @ts-ignore
           newOption.series.push(result);
         }
       });
@@ -80754,6 +83745,7 @@
 
     var DataView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DataView, _super);
 
@@ -80763,6 +83755,7 @@
 
       DataView.prototype.onclick = function (ecModel, api) {
         var container = api.getDom();
+        // @ts-ignore
         var model = this.model;
 
         if (this._dom) {
@@ -80816,12 +83809,14 @@
 
         function close() {
           container.removeChild(root);
+          // @ts-ignore
           self._dom = null;
         }
 
         addEventListener(closeButton, 'click', close);
         addEventListener(refreshButton, 'click', function () {
           if (contentToOption == null && optionToContent != null || contentToOption != null && optionToContent == null) {
+            // @ts-ignore
             if ("development" !== 'production') {
               // eslint-disable-next-line
               console.warn('It seems you have just provided one of `contentToOption` and `optionToContent` functions but missed the other one. Data change is ignored.');
@@ -80867,6 +83862,7 @@
         this._dom = root;
       };
 
+      // @ts-ignore
       DataView.prototype.remove = function (ecModel, api) {
         this._dom && api.getDom().removeChild(this._dom);
       };
@@ -80968,6 +83964,7 @@
       var storedSnapshots = getStoreSnapshots(ecModel); // If previous dataZoom can not be found,
       // complete an range with current range.
 
+      // @ts-ignore
       each$9(newSnapshot, function (batchItem, dataZoomId) {
         var i = storedSnapshots.length - 1;
 
@@ -81040,6 +84037,7 @@
 
     var RestoreOption =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(RestoreOption, _super);
 
@@ -81051,6 +84049,7 @@
         clear$1(ecModel);
         api.dispatchAction({
           type: 'restore',
+          // @ts-ignore
           from: this.uid
         });
       };
@@ -81073,6 +84072,7 @@
       type: 'restore',
       event: 'restore',
       update: 'prepareAndUpdate'
+    // @ts-ignore
     }, function (payload, ecModel) {
       ecModel.resetOption('recreate');
     });
@@ -81083,6 +84083,7 @@
 
     var BrushTargetManager =
     /** @class */
+    // @ts-ignore
     function () {
       /**
        * @param finder contains Index/Id/Name of xAxis/yAxis/geo/grid
@@ -81124,6 +84125,7 @@
 
       BrushTargetManager.prototype.matchOutputRanges = function (areas, ecModel, cb) {
         each(areas, function (area) {
+          // @ts-ignore
           var targetInfo = this.findTargetInfo(area, ecModel);
 
           if (targetInfo && targetInfo !== true) {
@@ -81143,8 +84145,10 @@
 
       BrushTargetManager.prototype.setInputRanges = function (areas, ecModel) {
         each(areas, function (area) {
+          // @ts-ignore
           var targetInfo = this.findTargetInfo(area, ecModel);
 
+          // @ts-ignore
           if ("development" !== 'production') {
             assert(!targetInfo || targetInfo === true || area.coordRange, 'coordRange must be specified when coord index specified.');
             assert(!targetInfo || targetInfo !== true || area.range, 'range must be specified in global brush.');
@@ -81263,6 +84267,7 @@
         gridModelMap.each(function (gridModel) {
           var grid = gridModel.coordinateSystem;
           var cartesians = [];
+          // @ts-ignore
           each(grid.getCartesians(), function (cartesian, index) {
             if (indexOf(xAxisModels, cartesian.getAxis('x').model) >= 0 || indexOf(yAxisModels, cartesian.getAxis('y').model) >= 0) {
               cartesians.push(cartesian);
@@ -81351,6 +84356,7 @@
     };
 
     function axisConvert(axisNameIndex, to, coordSys, rangeOrCoordRange) {
+      // @ts-ignore
       if ("development" !== 'production') {
         assert(coordSys.type === 'cartesian2d', 'lineX/lineY brush is available only in cartesian2d.');
       }
@@ -81406,6 +84412,7 @@
 
     var DataZoomFeature =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DataZoomFeature, _super);
 
@@ -81424,14 +84431,17 @@
         updateBackBtnStatus(featureModel, ecModel);
       };
 
+      // @ts-ignore
       DataZoomFeature.prototype.onclick = function (ecModel, api, type) {
         handlers$1[type].call(this);
       };
 
+      // @ts-ignore
       DataZoomFeature.prototype.remove = function (ecModel, api) {
         this._brushController && this._brushController.unmount();
       };
 
+      // @ts-ignore
       DataZoomFeature.prototype.dispose = function (ecModel, api) {
         this._brushController && this._brushController.dispose();
       };
@@ -81444,11 +84454,13 @@
         }
 
         var snapshot = {};
+        // @ts-ignore
         var ecModel = this.ecModel;
 
         this._brushController.updateCovers([]); // remove cover
 
 
+        // @ts-ignore
         var brushTargetManager = new BrushTargetManager(makeAxisFinder(this.model), ecModel, {
           include: ['grid']
         });
@@ -81478,13 +84490,16 @@
           var axisModel = axis.model;
           var dataZoomModel = findDataZoom(dimName, axisModel, ecModel); // Restrict range.
 
+          // @ts-ignore
           var minMaxSpan = dataZoomModel.findRepresentativeAxisProxy(axisModel).getMinMaxSpan();
 
           if (minMaxSpan.minValueSpan != null || minMaxSpan.maxValueSpan != null) {
             minMax = sliderMove(0, minMax.slice(), axis.scale.getExtent(), 0, minMaxSpan.minValueSpan, minMaxSpan.maxValueSpan);
           }
 
+          // @ts-ignore
           dataZoomModel && (snapshot[dataZoomModel.id] = {
+            // @ts-ignore
             dataZoomId: dataZoomModel.id,
             startValue: minMax[0],
             endValue: minMax[1]
@@ -81507,11 +84522,14 @@
       DataZoomFeature.prototype._dispatchZoomAction = function (snapshot) {
         var batch = []; // Convert from hash map to array.
 
+        // @ts-ignore
         each$a(snapshot, function (batchItem, dataZoomId) {
           batch.push(clone(batchItem));
         });
+        // @ts-ignore
         batch.length && this.api.dispatchAction({
           type: 'dataZoom',
+          // @ts-ignore
           from: this.uid,
           batch: batch
         });
@@ -81650,10 +84668,12 @@
 
     var TooltipModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TooltipModel, _super);
 
       function TooltipModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = TooltipModel.type;
@@ -81937,6 +84957,7 @@
 
     var TooltipHTMLContent =
     /** @class */
+    // @ts-ignore
     function () {
       function TooltipHTMLContent(container, api, opt) {
         this._show = false;
@@ -81951,6 +84972,7 @@
 
         var el = document.createElement('div'); // TODO: TYPE
 
+        // @ts-ignore
         el.domBelongToZr = true;
         this.el = el;
         var zr = this._zr = api.getZr();
@@ -81976,6 +84998,7 @@
             self._show = true;
           }
 
+          // @ts-ignore
           self._inContent = true;
         };
 
@@ -81998,6 +85021,7 @@
 
         el.onmouseleave = function () {
           // set `_inContent` to `false` before `hideLater`
+          // @ts-ignore
           self._inContent = false;
 
           if (self._enterable) {
@@ -82027,6 +85051,7 @@
         var alwaysShowContent = tooltipModel.get('alwaysShowContent');
         alwaysShowContent && this._moveIfResized(); // update className
 
+        // @ts-ignore
         this.el.className = tooltipModel.get('className') || ''; // Hide the tooltip
         // PENDING
         // this.hide();
@@ -82036,9 +85061,11 @@
         clearTimeout(this._hideTimeout);
         clearTimeout(this._longHideTimeout);
         var el = this.el;
+        // @ts-ignore
         var style = el.style;
         var styleCoord = this._styleCoord;
 
+        // @ts-ignore
         if (!el.innerHTML) {
           style.display = 'none';
         } else {
@@ -82056,10 +85083,12 @@
         this._longHide = false;
       };
 
+      // @ts-ignore
       TooltipHTMLContent.prototype.setContent = function (content, markers, tooltipModel, borderColor, arrowPosition) {
         var el = this.el;
 
         if (content == null) {
+          // @ts-ignore
           el.innerHTML = '';
           return;
         }
@@ -82071,9 +85100,11 @@
         }
 
         if (isString(content)) {
+          // @ts-ignore
           el.innerHTML = content + arrow;
         } else if (content) {
           // Clear previous
+          // @ts-ignore
           el.innerHTML = '';
 
           if (!isArray(content)) {
@@ -82082,16 +85113,19 @@
 
           for (var i = 0; i < content.length; i++) {
             if (isDom(content[i]) && content[i].parentNode !== el) {
+              // @ts-ignore
               el.appendChild(content[i]);
             }
           } // no arrow if empty
 
 
+          // @ts-ignore
           if (arrow && el.childNodes.length) {
             // no need to create a new parent element, but it's not supported by IE 10 and older.
             // const arrowEl = document.createRange().createContextualFragment(arrow);
             var arrowEl = document.createElement('div');
             arrowEl.innerHTML = arrow;
+            // @ts-ignore
             el.appendChild(arrowEl);
           }
         }
@@ -82103,6 +85137,7 @@
 
       TooltipHTMLContent.prototype.getSize = function () {
         var el = this.el;
+        // @ts-ignore
         return [el.offsetWidth, el.offsetHeight];
       };
 
@@ -82111,6 +85146,7 @@
         makeStyleCoord(styleCoord, this._zr, this._appendToBody, zrX, zrY);
 
         if (styleCoord[0] != null && styleCoord[1] != null) {
+          // @ts-ignore
           var style_1 = this.el.style;
           var transforms = assembleTransform(styleCoord[0], styleCoord[1]);
           each(transforms, function (transform) {
@@ -82135,6 +85171,7 @@
       TooltipHTMLContent.prototype.hide = function () {
         var _this = this;
 
+        // @ts-ignore
         var style = this.el.style;
         style.visibility = 'hidden';
         style.opacity = '0';
@@ -82146,6 +85183,7 @@
       };
 
       TooltipHTMLContent.prototype.hideLater = function (time) {
+        // @ts-ignore
         if (this._show && !(this._inContent && this._enterable)) {
           if (time) {
             this._hideDelay = time; // Set show false to avoid invoke hideLater multiple times
@@ -82163,6 +85201,7 @@
       };
 
       TooltipHTMLContent.prototype.dispose = function () {
+        // @ts-ignore
         this.el.parentNode.removeChild(this.el);
       };
 
@@ -82171,6 +85210,7 @@
 
     var TooltipRichContent =
     /** @class */
+    // @ts-ignore
     function () {
       function TooltipRichContent(api) {
         this._show = false;
@@ -82194,6 +85234,7 @@
           clearTimeout(this._hideTimeout);
         }
 
+        // @ts-ignore
         this.el.show();
         this._show = true;
       };
@@ -82202,10 +85243,12 @@
        */
 
 
+      // @ts-ignore
       TooltipRichContent.prototype.setContent = function (content, markupStyleCreator, tooltipModel, borderColor, arrowPosition) {
         var _this = this;
 
         if (isObject(content)) {
+          // @ts-ignore
           throwError("development" !== 'production' ? 'Passing DOM nodes as content is not supported in richText tooltip!' : '');
         }
 
@@ -82230,15 +85273,18 @@
           z: tooltipModel.get('z')
         });
         each(['backgroundColor', 'borderRadius', 'shadowColor', 'shadowBlur', 'shadowOffsetX', 'shadowOffsetY'], function (propName) {
+          // @ts-ignore
           _this.el.style[propName] = tooltipModel.get(propName);
         });
         each(['textShadowBlur', 'textShadowOffsetX', 'textShadowOffsetY'], function (propName) {
+          // @ts-ignore
           _this.el.style[propName] = textStyleModel.get(propName) || 0;
         });
 
         this._zr.add(this.el);
 
         var self = this;
+        // @ts-ignore
         this.el.on('mouseover', function () {
           // clear the timeout in hideLater and keep showing tooltip
           if (self._enterable) {
@@ -82246,8 +85292,10 @@
             self._show = true;
           }
 
+          // @ts-ignore
           self._inContent = true;
         });
+        // @ts-ignore
         this.el.on('mouseout', function () {
           if (self._enterable) {
             if (self._show) {
@@ -82255,6 +85303,7 @@
             }
           }
 
+          // @ts-ignore
           self._inContent = false;
         });
       };
@@ -82265,9 +85314,11 @@
 
       TooltipRichContent.prototype.getSize = function () {
         var el = this.el;
+        // @ts-ignore
         var bounding = this.el.getBoundingRect(); // bounding rect does not include shadow. For renderMode richText,
         // if overflow, it will be cut. So calculate them accurately.
 
+        // @ts-ignore
         var shadowOuterSize = calcShadowOuterSize(el.style);
         return [bounding.width + shadowOuterSize.left + shadowOuterSize.right, bounding.height + shadowOuterSize.top + shadowOuterSize.bottom];
       };
@@ -82280,12 +85331,16 @@
           makeStyleCoord$1(styleCoord, this._zr, x, y);
           x = styleCoord[0];
           y = styleCoord[1];
+          // @ts-ignore
           var style = el.style;
           var borderWidth = mathMaxWith0(style.borderWidth || 0);
           var shadowOuterSize = calcShadowOuterSize(style); // rich text x, y do not include border.
 
+          // @ts-ignore
           el.x = x + borderWidth + shadowOuterSize.left;
+          // @ts-ignore
           el.y = y + borderWidth + shadowOuterSize.top;
+          // @ts-ignore
           el.markRedraw();
         }
       };
@@ -82305,6 +85360,7 @@
 
       TooltipRichContent.prototype.hide = function () {
         if (this.el) {
+          // @ts-ignore
           this.el.hide();
         }
 
@@ -82312,6 +85368,7 @@
       };
 
       TooltipRichContent.prototype.hideLater = function (time) {
+        // @ts-ignore
         if (this._show && !(this._inContent && this._enterable)) {
           if (time) {
             this._hideDelay = time; // Set show false to avoid invoke hideLater multiple times
@@ -82369,6 +85426,7 @@
 
     var TooltipView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TooltipView, _super);
 
@@ -82397,6 +85455,7 @@
         } // Reset
 
 
+        // @ts-ignore
         this.group.removeAll();
         this._tooltipModel = tooltipModel;
         this._ecModel = ecModel;
@@ -82406,6 +85465,7 @@
          * @type {boolean}
          */
 
+        // @ts-ignore
         this._alwaysShowContent = tooltipModel.get('alwaysShowContent');
         var tooltipContent = this._tooltipContent;
         tooltipContent.update(tooltipModel);
@@ -82435,8 +85495,10 @@
           // If 'none', it is not controlled by mouse totally.
           if (triggerOn !== 'none') {
             if (triggerOn.indexOf(currTrigger) >= 0) {
+              // @ts-ignore
               this._tryShow(e, dispatchAction);
             } else if (currTrigger === 'leave') {
+              // @ts-ignore
               this._hide(dispatchAction);
             }
           }
@@ -82485,6 +85547,7 @@
 
 
       TooltipView.prototype.manuallyShowTip = function (tooltipModel, ecModel, api, payload) {
+        // @ts-ignore
         if (payload.from === this.uid || env.node || !api.getDom()) {
           return;
         }
@@ -82497,7 +85560,9 @@
         var cmptRef = findComponentReference(payload, ecModel, api);
 
         if (cmptRef) {
+          // @ts-ignore
           var rect = cmptRef.el.getBoundingRect().clone();
+          // @ts-ignore
           rect.applyTransform(cmptRef.el.transform);
 
           this._tryShow({
@@ -82511,8 +85576,11 @@
           }, dispatchAction);
         } else if (payload.tooltip && payload.x != null && payload.y != null) {
           var el = proxyRect;
+          // @ts-ignore
           el.x = payload.x;
+          // @ts-ignore
           el.y = payload.y;
+          // @ts-ignore
           el.update();
           getECData(el).tooltipConfig = {
             name: null,
@@ -82538,13 +85606,16 @@
           }
 
           var pointInfo = findPointFromSeries(payload, ecModel);
+          // @ts-ignore
           var cx = pointInfo.point[0];
+          // @ts-ignore
           var cy = pointInfo.point[1];
 
           if (cx != null && cy != null) {
             this._tryShow({
               offsetX: cx,
               offsetY: cy,
+              // @ts-ignore
               target: pointInfo.el,
               position: payload.position,
               // When manully trigger, the mouse is not on the el, so we'd better to
@@ -82570,15 +85641,18 @@
         }
       };
 
+      // @ts-ignore
       TooltipView.prototype.manuallyHideTip = function (tooltipModel, ecModel, api, payload) {
         var tooltipContent = this._tooltipContent;
 
+        // @ts-ignore
         if (!this._alwaysShowContent && this._tooltipModel) {
           tooltipContent.hideLater(this._tooltipModel.get('hideDelay'));
         }
 
         this._lastX = this._lastY = this._lastDataByCoordSys = null;
 
+        // @ts-ignore
         if (payload.from !== this.uid) {
           this._hide(makeDispatchAction$1(payload, api));
         }
@@ -82587,6 +85661,7 @@
       // and tooltip.
 
 
+      // @ts-ignore
       TooltipView.prototype._manuallyAxisShowTip = function (tooltipModel, ecModel, api, payload) {
         var seriesIndex = payload.seriesIndex;
         var dataIndex = payload.dataIndex; // @ts-ignore
@@ -82758,9 +85833,12 @@
         var allMarkupText = markupTextArrLegacy.join(blockBreak);
 
         this._showOrMove(singleTooltipModel, function () {
+          // @ts-ignore
           if (this._updateContentNotChangedOnAxis(dataByCoordSys, cbParamsList)) {
+            // @ts-ignore
             this._updatePosition(singleTooltipModel, positionExpr, point[0], point[1], this._tooltipContent, cbParamsList);
           } else {
+            // @ts-ignore
             this._showTooltipContent(singleTooltipModel, allMarkupText, cbParamsList, Math.random() + '', point[0], point[1], positionExpr, null, markupStyleCreator);
           }
         }); // Do not trigger events here, because this branch only be entered
@@ -82807,6 +85885,7 @@
         var asyncTicket = 'item_' + dataModel.name + '_' + dataIndex;
 
         this._showOrMove(tooltipModel, function () {
+          // @ts-ignore
           this._showTooltipContent(tooltipModel, markupText, params, asyncTicket, e.offsetX, e.offsetY, e.position, e.target, markupStyleCreator);
         }); // FIXME
         // duplicated showtip if manuallyShowTip is called from dispatchAction.
@@ -82817,6 +85896,7 @@
           dataIndexInside: dataIndex,
           dataIndex: data.getRawIndex(dataIndex),
           seriesIndex: seriesIndex,
+          // @ts-ignore
           from: this.uid
         });
       };
@@ -82865,12 +85945,14 @@
           // Avoid users modify it.
           var formatterParams = clone(subTooltipModel.get('formatterParams') || {});
 
+          // @ts-ignore
           this._showTooltipContent(subTooltipModel, defaultHtml, formatterParams, asyncTicket, e.offsetX, e.offsetY, e.position, el, markupStyleCreator);
         }); // If not dispatch showTip, tip may be hide triggered by axis.
 
 
         dispatchAction({
           type: 'showTip',
+          // @ts-ignore
           from: this.uid
         });
       };
@@ -82892,6 +85974,7 @@
 
         var nearPoint = this._getNearestPoint([x, y], params, tooltipModel.get('trigger'), tooltipModel.get('borderColor'));
 
+        // @ts-ignore
         var nearPointColor = nearPoint.color;
 
         if (formatter) {
@@ -82908,9 +85991,11 @@
             html = formatTpl(html, params, true);
           } else if (isFunction(formatter)) {
             var callback = bind(function (cbTicket, html) {
+              // @ts-ignore
               if (cbTicket === this._ticket) {
                 tooltipContent.setContent(html, markupStyleCreator, tooltipModel, nearPointColor, positionExpr);
 
+                // @ts-ignore
                 this._updatePosition(tooltipModel, positionExpr, x, y, tooltipContent, params, el);
               }
             }, this);
@@ -82927,6 +86012,7 @@
         this._updatePosition(tooltipModel, positionExpr, x, y, tooltipContent, params, el);
       };
 
+      // @ts-ignore
       TooltipView.prototype._getNearestPoint = function (point, tooltipDataParams, trigger, borderColor) {
         if (trigger === 'axis' || isArray(tooltipDataParams)) {
           return {
@@ -82986,6 +86072,7 @@
             x = pos[0];
             y = pos[1];
           } else {
+            // @ts-ignore
             var pos = refixTooltipPosition(x, y, content, viewWidth, viewHeight, align ? null : 20, vAlign ? null : 20);
             x = pos[0];
             y = pos[1];
@@ -82995,6 +86082,7 @@
         vAlign && (y -= isCenterAlign(vAlign) ? contentSize[1] / 2 : vAlign === 'bottom' ? contentSize[1] : 0);
 
         if (shouldTooltipConfine(tooltipModel)) {
+          // @ts-ignore
           var pos = confineTooltipPosition(x, y, content, viewWidth, viewHeight);
           x = pos[0];
           y = pos[1];
@@ -83048,10 +86136,12 @@
         this._lastDataByCoordSys = null;
         dispatchAction({
           type: 'hideTip',
+          // @ts-ignore
           from: this.uid
         });
       };
 
+      // @ts-ignore
       TooltipView.prototype.dispose = function (ecModel, api) {
         if (env.node || !api.getDom()) {
           return;
@@ -83222,6 +86312,7 @@
         enableAll: false,
         enableNone: false
       });
+      // @ts-ignore
       var model = queryResult.models[0];
 
       if (!model) {
@@ -83319,6 +86410,7 @@
         map[val] = 1;
       });
       arr.length = 0;
+      // @ts-ignore
       each(map, function (flag, val) {
         arr.push(val);
       });
@@ -83515,17 +86607,21 @@
       lineX: getLineSelectors(0),
       lineY: getLineSelectors(1),
       rect: {
+        // @ts-ignore
         point: function (itemLayout, selectors, area) {
           return itemLayout && area.boundingRect.contain(itemLayout[0], itemLayout[1]);
         },
+        // @ts-ignore
         rect: function (itemLayout, selectors, area) {
           return itemLayout && area.boundingRect.intersect(itemLayout);
         }
       },
       polygon: {
+        // @ts-ignore
         point: function (itemLayout, selectors, area) {
           return itemLayout && area.boundingRect.contain(itemLayout[0], itemLayout[1]) && contain$2(area.range, itemLayout[0], itemLayout[1]);
         },
+        // @ts-ignore
         rect: function (itemLayout, selectors, area) {
           var points = area.range;
 
@@ -83550,6 +86646,7 @@
       var xy = ['x', 'y'];
       var wh = ['width', 'height'];
       return {
+        // @ts-ignore
         point: function (itemLayout, selectors, area) {
           if (itemLayout) {
             var range = area.range;
@@ -83557,6 +86654,7 @@
             return inLineRange(p, range);
           }
         },
+        // @ts-ignore
         rect: function (itemLayout, selectors, area) {
           if (itemLayout) {
             var range = area.range;
@@ -83711,15 +86809,19 @@
           }; // Every series exists in event params, convenient
           // for user to find series by seriesIndex.
 
+          // @ts-ignore
           thisBrushSelected.selected.push(seriesBrushSelected);
           var rangeInfoList = rangeInfoBySeries[seriesIndex];
           var data = seriesModel.getData();
           var getValueState = linkOthers(seriesIndex) ? function (dataIndex) {
+            // @ts-ignore
             return selectedDataIndexForLink[dataIndex] ? (seriesBrushSelected.dataIndex.push(data.getRawIndex(dataIndex)), 'inBrush') : 'outOfBrush';
           } : function (dataIndex) {
+            // @ts-ignore
             return checkInRange(seriesModel, rangeInfoList, data, dataIndex) ? (seriesBrushSelected.dataIndex.push(data.getRawIndex(dataIndex)), 'inBrush') : 'outOfBrush';
           }; // If no supported brush or no brush, all visuals are in original state.
 
+          // @ts-ignore
           (linkOthers(seriesIndex) ? hasBrushExists : brushed(rangeInfoList)) && applyVisual(STATE_LIST, visualMappings, data, getValueState);
         });
       });
@@ -83807,6 +86909,7 @@
 
     var BrushView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BrushView, _super);
 
@@ -83847,6 +86950,7 @@
         this._updateController(brushModel, ecModel, api, payload);
       };
 
+      // @ts-ignore
       BrushView.prototype._updateController = function (brushModel, ecModel, api, payload) {
         // Do not update controller when drawing.
         (!payload || payload.$from !== brushModel.id) && this._brushController.setPanels(brushModel.brushTargetManager.makePanelOpts(api)).enableBrush(brushModel.brushOption).updateCovers(brushModel.areas.slice());
@@ -83887,6 +86991,7 @@
 
     var BrushModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BrushModel, _super);
 
@@ -83909,6 +87014,7 @@
       }
 
       BrushModel.prototype.optionUpdated = function (newOption, isInit) {
+        // @ts-ignore
         var thisOption = this.option;
         !isInit && replaceVisualOption(thisOption, newOption, ['inBrush', 'outOfBrush']);
         var inBrush = thisOption.inBrush = thisOption.inBrush || {}; // Always give default visual, consider setOption at the second time.
@@ -83920,6 +87026,7 @@
         if (!inBrush.hasOwnProperty('liftZ')) {
           // Bigger than the highlight z lift, otherwise it will
           // be effected by the highlight z when brush.
+          // @ts-ignore
           inBrush.liftZ = 5;
         }
       };
@@ -83929,6 +87036,7 @@
 
 
       BrushModel.prototype.setAreas = function (areas) {
+        // @ts-ignore
         if ("development" !== 'production') {
           assert(isArray(areas));
           each(areas, function (area) {
@@ -83944,6 +87052,7 @@
         }
 
         this.areas = map(areas, function (area) {
+          // @ts-ignore
           return generateBrushOption(this.option, area);
         }, this);
       };
@@ -83953,6 +87062,7 @@
 
 
       BrushModel.prototype.setBrushOption = function (brushOption) {
+        // @ts-ignore
         this.brushOption = generateBrushOption(this.option, brushOption);
         this.brushType = this.brushOption.brushType;
       };
@@ -83992,6 +87102,7 @@
 
     var BrushFeature =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(BrushFeature, _super);
 
@@ -83999,6 +87110,7 @@
         return _super !== null && _super.apply(this, arguments) || this;
       }
 
+      // @ts-ignore
       BrushFeature.prototype.render = function (featureModel, ecModel, api) {
         var brushType;
         var brushMode;
@@ -84022,6 +87134,7 @@
       };
 
       BrushFeature.prototype.getIcons = function () {
+        // @ts-ignore
         var model = this.model;
         var availableIcons = model.get('icon', true);
         var icons = {};
@@ -84033,6 +87146,7 @@
         return icons;
       };
 
+      // @ts-ignore
       BrushFeature.prototype.onclick = function (ecModel, api, type) {
         var brushType = this._brushType;
         var brushMode = this._brushMode;
@@ -84140,10 +87254,12 @@
 
     var TitleModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TitleModel, _super);
 
       function TitleModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = TitleModel.type;
@@ -84186,6 +87302,7 @@
 
     var TitleView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TitleView, _super);
 
@@ -84196,13 +87313,16 @@
         return _this;
       }
 
+      // @ts-ignore
       TitleView.prototype.render = function (titleModel, ecModel, api) {
+        // @ts-ignore
         this.group.removeAll();
 
         if (!titleModel.get('show')) {
           return;
         }
 
+        // @ts-ignore
         var group = this.group;
         var textStyleModel = titleModel.getModel('textStyle');
         var subtextStyleModel = titleModel.getModel('subtextStyle');
@@ -84233,16 +87353,20 @@
         var link = titleModel.get('link');
         var sublink = titleModel.get('sublink');
         var triggerEvent = titleModel.get('triggerEvent', true);
+        // @ts-ignore
         textEl.silent = !link && !triggerEvent;
+        // @ts-ignore
         subTextEl.silent = !sublink && !triggerEvent;
 
         if (link) {
+          // @ts-ignore
           textEl.on('click', function () {
             windowOpen(link, '_' + titleModel.get('target'));
           });
         }
 
         if (sublink) {
+          // @ts-ignore
           subTextEl.on('click', function () {
             windowOpen(sublink, '_' + titleModel.get('subtarget'));
           });
@@ -84303,11 +87427,14 @@
           align: textAlign,
           verticalAlign: textVerticalAlign
         };
+        // @ts-ignore
         textEl.setStyle(alignStyle);
+        // @ts-ignore
         subTextEl.setStyle(alignStyle); // Render background
         // Get groupRect again because textAlign has been changed
 
         groupRect = group.getBoundingRect();
+        // @ts-ignore
         var padding = layoutRect.margin;
         var style = titleModel.getItemStyle(['color', 'opacity']);
         style.fill = titleModel.get('backgroundColor');
@@ -84337,6 +87464,7 @@
 
     var TimelineModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TimelineModel, _super);
 
@@ -84352,9 +87480,12 @@
        */
 
 
+      // @ts-ignore
       TimelineModel.prototype.init = function (option, parentModel, ecModel) {
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel);
 
+        // @ts-ignore
         this._initData();
       };
       /**
@@ -84362,19 +87493,23 @@
        */
 
 
+      // @ts-ignore
       TimelineModel.prototype.mergeOption = function (option) {
         _super.prototype.mergeOption.apply(this, arguments);
 
+        // @ts-ignore
         this._initData();
       };
 
       TimelineModel.prototype.setCurrentIndex = function (currentIndex) {
         if (currentIndex == null) {
+          // @ts-ignore
           currentIndex = this.option.currentIndex;
         }
 
         var count = this._data.count();
 
+        // @ts-ignore
         if (this.option.loop) {
           currentIndex = (currentIndex % count + count) % count;
         } else {
@@ -84382,6 +87517,7 @@
           currentIndex < 0 && (currentIndex = 0);
         }
 
+        // @ts-ignore
         this.option.currentIndex = currentIndex;
       };
       /**
@@ -84390,6 +87526,7 @@
 
 
       TimelineModel.prototype.getCurrentIndex = function () {
+        // @ts-ignore
         return this.option.currentIndex;
       };
       /**
@@ -84406,6 +87543,7 @@
 
 
       TimelineModel.prototype.setPlayState = function (state) {
+        // @ts-ignore
         this.option.autoPlay = !!state;
       };
       /**
@@ -84414,6 +87552,7 @@
 
 
       TimelineModel.prototype.getPlayState = function () {
+        // @ts-ignore
         return !!this.option.autoPlay;
       };
       /**
@@ -84422,6 +87561,7 @@
 
 
       TimelineModel.prototype._initData = function () {
+        // @ts-ignore
         var thisOption = this.option;
         var dataArr = thisOption.data || [];
         var axisType = thisOption.axisType;
@@ -84470,7 +87610,9 @@
 
 
       TimelineModel.prototype.getCategories = function () {
+        // @ts-ignore
         if (this.get('axisType') === 'category') {
+          // @ts-ignore
           return this._names.slice();
         }
       };
@@ -84480,6 +87622,7 @@
        * @protected
        */
 
+      // @ts-ignore
       TimelineModel.defaultOption = {
         // zlevel: 0,                  // 一级层叠
         z: 4,
@@ -84510,10 +87653,12 @@
 
     var SliderTimelineModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SliderTimelineModel, _super);
 
       function SliderTimelineModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = SliderTimelineModel.type;
@@ -84628,10 +87773,12 @@
 
     var TimelineView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TimelineView, _super);
 
       function TimelineView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = TimelineView.type;
@@ -84648,6 +87795,7 @@
 
     var TimelineAxis =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(TimelineAxis, _super);
 
@@ -84664,6 +87812,7 @@
 
       TimelineAxis.prototype.getLabelModel = function () {
         // Force override
+        // @ts-ignore
         return this.model.getModel('label');
       };
       /**
@@ -84672,6 +87821,7 @@
 
 
       TimelineAxis.prototype.isHorizontal = function () {
+        // @ts-ignore
         return this.model.get('orient') === 'horizontal';
       };
 
@@ -84683,6 +87833,7 @@
 
     var SliderTimelineView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SliderTimelineView, _super);
 
@@ -84693,6 +87844,7 @@
         return _this;
       }
 
+      // @ts-ignore
       SliderTimelineView.prototype.init = function (ecModel, api) {
         this.api = api;
       };
@@ -84705,6 +87857,7 @@
         this.model = timelineModel;
         this.api = api;
         this.ecModel = ecModel;
+        // @ts-ignore
         this.group.removeAll();
 
         if (timelineModel.get('show', true)) {
@@ -84727,6 +87880,7 @@
           };
 
           each(['AxisLine', 'AxisTick', 'Control', 'CurrentPointer'], function (name) {
+            // @ts-ignore
             this['_render' + name](layoutInfo_1, mainGroup_1, axis_1, timelineModel);
           }, this);
 
@@ -84747,6 +87901,7 @@
       SliderTimelineView.prototype.remove = function () {
         this._clearTimer();
 
+        // @ts-ignore
         this.group.removeAll();
       };
       /**
@@ -84851,13 +88006,16 @@
         };
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._position = function (layoutInfo, timelineModel) {
         // Position is be called finally, because bounding rect is needed for
         // adapt content to fill viewRect (auto adapt offset).
         // Timeline may be not all in the viewRect when 'offset' is specified
         // as a number, because it is more appropriate that label aligns at
         // 'offset' but not the other edge defined by viewRect.
+        // @ts-ignore
         var mainGroup = this._mainGroup;
+        // @ts-ignore
         var labelGroup = this._labelGroup;
         var viewRect = layoutInfo.viewRect;
 
@@ -84936,10 +88094,12 @@
 
       SliderTimelineView.prototype._createGroup = function (key) {
         var newGroup = this[key] = new Group();
+        // @ts-ignore
         this.group.add(newGroup);
         return newGroup;
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._renderAxisLine = function (layoutInfo, group, axis, timelineModel) {
         var axisExtent = axis.getExtent();
 
@@ -84970,6 +88130,7 @@
           },
           style: defaults({
             lineCap: 'round',
+            // @ts-ignore
             lineWidth: line.style.lineWidth
           }, timelineModel.getModel(['progress', 'lineStyle']).getLineStyle()),
           silent: true,
@@ -84978,6 +88139,7 @@
         group.add(progressLine);
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._renderAxisTick = function (layoutInfo, group, axis, timelineModel) {
         var _this = this;
 
@@ -85010,6 +88172,7 @@
             ecData.dataIndex = ecData.dataModel = null;
           }
 
+          // @ts-ignore
           _this._tickSymbols.push(el);
         });
       };
@@ -85046,16 +88209,20 @@
               verticalAlign: layoutInfo.labelBaseline
             })
           });
+          // @ts-ignore
           textEl.ensureState('emphasis').style = createTextStyle(hoverLabelModel);
+          // @ts-ignore
           textEl.ensureState('progress').style = createTextStyle(progressLabelModel);
           group.add(textEl);
           enableHoverEmphasis(textEl);
           labelDataIndexStore(textEl).dataIndex = dataIndex;
 
+          // @ts-ignore
           _this._tickLabels.push(textEl);
         });
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._renderControl = function (layoutInfo, group, axis, timelineModel) {
         var controlSize = layoutInfo.controlSize;
         var rotation = layoutInfo.rotation;
@@ -85084,12 +88251,14 @@
             style: itemStyle,
             onclick: onclick
           });
+          // @ts-ignore
           btn.ensureState('emphasis').style = hoverStyle;
           group.add(btn);
           enableHoverEmphasis(btn);
         }
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._renderCurrentPointer = function (layoutInfo, group, axis, timelineModel) {
         var data = timelineModel.getData();
         var currentIndex = timelineModel.getCurrentIndex();
@@ -85107,6 +88276,7 @@
           }
         }; // Reuse when exists, for animation and drag.
 
+        // @ts-ignore
         this._currentPointer = giveSymbol(pointerModel, pointerModel, this._mainGroup, {}, this._currentPointer, callback);
       };
 
@@ -85116,10 +88286,12 @@
         this.api.dispatchAction({
           type: 'timelinePlayChange',
           playState: nextState,
+          // @ts-ignore
           from: this.uid
         });
       };
 
+      // @ts-ignore
       SliderTimelineView.prototype._handlePointerDrag = function (dx, dy, e) {
         this._clearTimer();
 
@@ -85141,8 +88313,10 @@
 
         this._currentPointer.markRedraw();
 
+        // @ts-ignore
         this._progressLine.shape.x2 = toCoord;
 
+        // @ts-ignore
         this._progressLine.dirty();
 
         var targetDataIndex = this._findNearestTick(toCoord);
@@ -85170,6 +88344,7 @@
       };
 
       SliderTimelineView.prototype._toAxisCoord = function (vertex) {
+        // @ts-ignore
         var trans = this._mainGroup.getLocalTransform();
 
         return applyTransform$1(vertex, trans, true);
@@ -85211,6 +88386,7 @@
         this.api.dispatchAction({
           type: 'timelineChange',
           currentIndex: nextIndex,
+          // @ts-ignore
           from: this.uid
         });
       };
@@ -85274,6 +88450,7 @@
       var icon = createIcon(timelineModel.get(['controlStyle', objPath]), opts || {}, new BoundingRect(rect[0], rect[1], rect[2], rect[3])); // TODO createIcon won't use style in opt.
 
       if (style) {
+        // @ts-ignore
         icon.setStyle(style);
       }
 
@@ -85530,6 +88707,7 @@
 
     var MarkerModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkerModel, _super);
 
@@ -85549,13 +88727,17 @@
        */
 
 
+      // @ts-ignore
       MarkerModel.prototype.init = function (option, parentModel, ecModel) {
+        // @ts-ignore
         if ("development" !== 'production') {
+          // @ts-ignore
           if (this.type === 'marker') {
             throw new Error('Marker component is abstract component. Use markLine, markPoint, markArea instead.');
           }
         }
 
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel);
 
         this._mergeOption(option, ecModel, false, true);
@@ -85566,7 +88748,9 @@
           return false;
         }
 
+        // @ts-ignore
         var hostSeries = this.__hostSeries;
+        // @ts-ignore
         return this.getShallow('animation') && hostSeries && hostSeries.isAnimationEnabled();
       };
       /**
@@ -85578,12 +88762,15 @@
         this._mergeOption(newOpt, ecModel, false, false);
       };
 
+      // @ts-ignore
       MarkerModel.prototype._mergeOption = function (newOpt, ecModel, createdBySelf, isInit) {
+        // @ts-ignore
         var componentType = this.mainType;
 
         if (!createdBySelf) {
           ecModel.eachSeries(function (seriesModel) {
             // mainType can be markPoint, markLine, markArea
+            // @ts-ignore
             var markerOpt = seriesModel.get(this.mainType, true);
             var markerModel = inner$g(seriesModel)[componentType];
 
@@ -85607,11 +88794,13 @@
                   fillLabel(item);
                 }
               });
+              // @ts-ignore
               markerModel = this.createMarkerModelFromSeries(markerOpt, this, ecModel); // markerModel = new ImplementedMarkerModel(
               //     markerOpt, this, ecModel
               // );
 
               extend(markerModel, {
+                // @ts-ignore
                 mainType: this.mainType,
                 // Use the same series index and name
                 seriesIndex: seriesModel.seriesIndex,
@@ -85628,11 +88817,14 @@
         }
       };
 
+      // @ts-ignore
       MarkerModel.prototype.formatTooltip = function (dataIndex, multipleSeries, dataType) {
         var data = this.getData();
+        // @ts-ignore
         var value = this.getRawValue(dataIndex);
         var itemName = data.getName(dataIndex);
         return createTooltipMarkup('section', {
+          // @ts-ignore
           header: this.name,
           blocks: [createTooltipMarkup('nameValue', {
             name: itemName,
@@ -85665,6 +88857,7 @@
 
     var MarkPointModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkPointModel, _super);
 
@@ -85821,10 +89014,12 @@
       return coordSys && coordSys.containData && item.coord && !hasXOrY(item) ? coordSys.containData(item.coord) : true;
     }
     function createMarkerDimValueGetter(inCoordSys, dims) {
+      // @ts-ignore
       return inCoordSys ? function (item, dimName, dataIndex, dimIndex) {
         var rawVal = dimIndex < 2 // x, y, radius, angle
         ? item.coord && item.coord[dimIndex] : item.value;
         return parseDataValue(rawVal, dims[dimIndex]);
+      // @ts-ignore
       } : function (item, dimName, dataIndex, dimIndex) {
         return parseDataValue(item.value, dims[dimIndex]);
       };
@@ -85833,6 +89028,7 @@
       if (type === 'average') {
         var sum_1 = 0;
         var count_1 = 0;
+        // @ts-ignore
         data.each(valueDataDim, function (val, idx) {
           if (!isNaN(val)) {
             sum_1 += val;
@@ -85852,6 +89048,7 @@
 
     var MarkerView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkerView, _super);
 
@@ -85866,18 +89063,24 @@
         this.markerGroupMap = createHashMap();
       };
 
+      // @ts-ignore
       MarkerView.prototype.render = function (markerModel, ecModel, api) {
         var _this = this;
 
         var markerGroupMap = this.markerGroupMap;
+        // @ts-ignore
         markerGroupMap.each(function (item) {
           inner$h(item).keep = false;
         });
         ecModel.eachSeries(function (seriesModel) {
+          // @ts-ignore
           var markerModel = MarkerModel.getMarkerModelFromSeries(seriesModel, _this.type);
+          // @ts-ignore
           markerModel && _this.renderSeries(seriesModel, markerModel, ecModel, api);
         });
+        // @ts-ignore
         markerGroupMap.each(function (item) {
+          // @ts-ignore
           !inner$h(item).keep && _this.group.remove(item.group);
         });
       };
@@ -85890,6 +89093,7 @@
         var _this = this;
 
         each(seriesModelList, function (seriesModel) {
+          // @ts-ignore
           var markerModel = MarkerModel.getMarkerModelFromSeries(seriesModel, _this.type);
 
           if (markerModel) {
@@ -85942,6 +89146,7 @@
 
     var MarkPointView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkPointView, _super);
 
@@ -85952,21 +89157,25 @@
         return _this;
       }
 
+      // @ts-ignore
       MarkPointView.prototype.updateTransform = function (markPointModel, ecModel, api) {
         ecModel.eachSeries(function (seriesModel) {
           var mpModel = MarkerModel.getMarkerModelFromSeries(seriesModel, 'markPoint');
 
           if (mpModel) {
             updateMarkerLayout(mpModel.getData(), seriesModel, api);
+            // @ts-ignore
             this.markerGroupMap.get(seriesModel.id).updateLayout();
           }
         }, this);
       };
 
+      // @ts-ignore
       MarkPointView.prototype.renderSeries = function (seriesModel, mpModel, ecModel, api) {
         var coordSys = seriesModel.coordinateSystem;
         var seriesId = seriesModel.id;
         var seriesData = seriesModel.getData();
+        // @ts-ignore
         var symbolDrawMap = this.markerGroupMap;
         var symbolDraw = symbolDrawMap.get(seriesId) || symbolDrawMap.set(seriesId, new SymbolDraw());
         var mpData = createData(coordSys, seriesModel, mpModel); // FIXME
@@ -86021,6 +89230,7 @@
         }); // TODO Text are wrong
 
         symbolDraw.updateData(mpData);
+        // @ts-ignore
         this.group.add(symbolDraw.group); // Set host model for tooltip
         // FIXME
 
@@ -86029,6 +89239,7 @@
             getECData(child).dataModel = mpModel;
           });
         });
+        // @ts-ignore
         this.markKeep(symbolDraw);
         symbolDraw.group.silent = mpModel.get('silent') || seriesModel.get('silent');
       };
@@ -86082,6 +89293,7 @@
 
     var MarkLineModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkLineModel, _super);
 
@@ -86157,6 +89369,7 @@
             value = numCalculate(data, valueDataDim, mlType);
           }
 
+          // @ts-ignore
           var valueIndex = valueAxis.dim === 'x' ? 0 : 1;
           var baseIndex = 1 - valueIndex; // Normized to 2d data with start and end point
 
@@ -86167,13 +89380,16 @@
           mlFrom.type = null;
           mlFrom.coord = [];
           mlFrom.coord[baseIndex] = -Infinity;
+          // @ts-ignore
           mlTo.coord[baseIndex] = Infinity;
           var precision = mlModel.get('precision');
 
           if (precision >= 0 && isNumber(value)) {
+            // @ts-ignore
             value = +value.toFixed(Math.min(precision, 20));
           }
 
+          // @ts-ignore
           mlFrom.coord[valueIndex] = mlTo.coord[valueIndex] = value;
           itemArray = [mlFrom, mlTo, {
             type: mlType,
@@ -86183,6 +89399,7 @@
           }];
         } else {
           // Invalid data
+          // @ts-ignore
           if ("development" !== 'production') {
             logError('Invalid markLine data.');
           }
@@ -86289,6 +89506,7 @@
 
     var MarkLineView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkLineView, _super);
 
@@ -86299,6 +89517,7 @@
         return _this;
       }
 
+      // @ts-ignore
       MarkLineView.prototype.updateTransform = function (markLineModel, ecModel, api) {
         ecModel.eachSeries(function (seriesModel) {
           var mlModel = MarkerModel.getMarkerModelFromSeries(seriesModel, 'markLine');
@@ -86316,17 +89535,21 @@
             mlData_1.each(function (idx) {
               mlData_1.setItemLayout(idx, [fromData_1.getItemLayout(idx), toData_1.getItemLayout(idx)]);
             });
+            // @ts-ignore
             this.markerGroupMap.get(seriesModel.id).updateLayout();
           }
         }, this);
       };
 
+      // @ts-ignore
       MarkLineView.prototype.renderSeries = function (seriesModel, mlModel, ecModel, api) {
         var coordSys = seriesModel.coordinateSystem;
         var seriesId = seriesModel.id;
         var seriesData = seriesModel.getData();
+        // @ts-ignore
         var lineDrawMap = this.markerGroupMap;
         var lineDraw = lineDrawMap.get(seriesId) || lineDrawMap.set(seriesId, new LineDraw());
+        // @ts-ignore
         this.group.add(lineDraw.group);
         var mlData = createList$1(coordSys, seriesModel, mlModel);
         var fromData = mlData.from;
@@ -86395,6 +89618,7 @@
         lineDraw.updateData(lineData); // Set host model for tooltip
         // FIXME
 
+        // @ts-ignore
         mlData.line.eachItemGraphicEl(function (el, idx) {
           el.traverse(function (child) {
             getECData(child).dataModel = mlModel;
@@ -86422,6 +89646,7 @@
           });
         }
 
+        // @ts-ignore
         this.markKeep(lineDraw);
         lineDraw.group.silent = mlModel.get('silent') || seriesModel.get('silent');
       };
@@ -86491,6 +89716,7 @@
 
     var MarkAreaModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkAreaModel, _super);
 
@@ -86537,6 +89763,7 @@
 
     var inner$j = makeInner();
 
+    // @ts-ignore
     var markAreaTransform = function (seriesModel, coordSys, maModel, item) {
       var lt = dataTransform(seriesModel, item[0]);
       var rb = dataTransform(seriesModel, item[1]); // FIXME make sure lt is less than rb
@@ -86562,6 +89789,7 @@
     } // If a markArea has one dim
 
 
+    // @ts-ignore
     function ifMarkAreaHasOnlyDim(dimIndex, fromCoord, toCoord, coordSys) {
       var otherDimIndex = 1 - dimIndex;
       return isInifinity$1(fromCoord[otherDimIndex]) && isInifinity$1(toCoord[otherDimIndex]);
@@ -86648,6 +89876,7 @@
 
     var MarkAreaView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(MarkAreaView, _super);
 
@@ -86658,6 +89887,7 @@
         return _this;
       }
 
+      // @ts-ignore
       MarkAreaView.prototype.updateTransform = function (markAreaModel, ecModel, api) {
         ecModel.eachSeries(function (seriesModel) {
           var maModel = MarkerModel.getMarkerModelFromSeries(seriesModel, 'markArea');
@@ -86677,15 +89907,19 @@
         }, this);
       };
 
+      // @ts-ignore
       MarkAreaView.prototype.renderSeries = function (seriesModel, maModel, ecModel, api) {
         var coordSys = seriesModel.coordinateSystem;
         var seriesId = seriesModel.id;
         var seriesData = seriesModel.getData();
+        // @ts-ignore
         var areaGroupMap = this.markerGroupMap;
         var polygonGroup = areaGroupMap.get(seriesId) || areaGroupMap.set(seriesId, {
           group: new Group()
         });
+        // @ts-ignore
         this.group.add(polygonGroup.group);
+        // @ts-ignore
         this.markKeep(polygonGroup);
         var areaData = createList$2(coordSys, seriesModel, maModel); // Line data for tooltip and formatter
 
@@ -86829,10 +90063,12 @@
         optData = filter(optData, curry(markAreaFilter, coordSys));
       }
 
+      // @ts-ignore
       var dimValueGetter = coordSys ? function (item, dimName, dataIndex, dimIndex) {
         // TODO should convert to ParsedValue?
         var rawVal = item.coord[Math.floor(dimIndex / 2)][dimIndex % 2];
         return parseDataValue(rawVal, dataDims[dimIndex]);
+      // @ts-ignore
       } : function (item, dimName, dataIndex, dimIndex) {
         return parseDataValue(item.value, dataDims[dimIndex]);
       };
@@ -86868,6 +90104,7 @@
 
     var LegendModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LegendModel, _super);
 
@@ -86889,7 +90126,9 @@
         return _this;
       }
 
+      // @ts-ignore
       LegendModel.prototype.init = function (option, parentModel, ecModel) {
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel);
         option.selected = option.selected || {};
 
@@ -86904,6 +90143,7 @@
 
       LegendModel.prototype._updateSelector = function (option) {
         var selector = option.selector;
+        // @ts-ignore
         var ecModel = this.ecModel;
 
         if (selector === true) {
@@ -86921,14 +90161,19 @@
       };
 
       LegendModel.prototype.optionUpdated = function () {
+        // @ts-ignore
         this._updateData(this.ecModel);
 
+        // @ts-ignore
         var legendData = this._data; // If selectedMode is single, try to select one
 
+        // @ts-ignore
         if (legendData[0] && this.get('selectedMode') === 'single') {
           var hasSelected = false; // If has any selected in option.selected
 
+          // @ts-ignore
           for (var i = 0; i < legendData.length; i++) {
+            // @ts-ignore
             var name_1 = legendData[i].get('name');
 
             if (this.isSelected(name_1)) {
@@ -86940,6 +90185,7 @@
           } // Try select the first if selectedMode is single
 
 
+          // @ts-ignore
           !hasSelected && this.select(legendData[0].get('name'));
         }
       };
@@ -86978,9 +90224,11 @@
          * @private
          */
 
+        // @ts-ignore
         this._availableNames = availableNames; // If legend.data not specified in option, use availableNames as data,
         // which is convinient for user preparing option.
 
+        // @ts-ignore
         var rawData = this.get('data') || potentialData;
         var legendData = map(rawData, function (dataItem) {
           // Can be string or number
@@ -86990,6 +90238,7 @@
             };
           }
 
+          // @ts-ignore
           return new Model(dataItem, this, this.ecModel);
         }, this);
         /**
@@ -86997,18 +90246,23 @@
          * @private
          */
 
+        // @ts-ignore
         this._data = legendData;
       };
 
       LegendModel.prototype.getData = function () {
+        // @ts-ignore
         return this._data;
       };
 
       LegendModel.prototype.select = function (name) {
+        // @ts-ignore
         var selected = this.option.selected;
+        // @ts-ignore
         var selectedMode = this.get('selectedMode');
 
         if (selectedMode === 'single') {
+          // @ts-ignore
           var data = this._data;
           each(data, function (dataItem) {
             selected[dataItem.get('name')] = false;
@@ -87019,12 +90273,15 @@
       };
 
       LegendModel.prototype.unSelect = function (name) {
+        // @ts-ignore
         if (this.get('selectedMode') !== 'single') {
+          // @ts-ignore
           this.option.selected[name] = false;
         }
       };
 
       LegendModel.prototype.toggleSelected = function (name) {
+        // @ts-ignore
         var selected = this.option.selected; // Default is true
 
         if (!selected.hasOwnProperty(name)) {
@@ -87035,7 +90292,9 @@
       };
 
       LegendModel.prototype.allSelect = function () {
+        // @ts-ignore
         var data = this._data;
+        // @ts-ignore
         var selected = this.option.selected;
         each(data, function (dataItem) {
           selected[dataItem.get('name', true)] = true;
@@ -87043,7 +90302,9 @@
       };
 
       LegendModel.prototype.inverseSelect = function () {
+        // @ts-ignore
         var data = this._data;
+        // @ts-ignore
         var selected = this.option.selected;
         each(data, function (dataItem) {
           var name = dataItem.get('name', true); // Initially, default value is true
@@ -87057,11 +90318,14 @@
       };
 
       LegendModel.prototype.isSelected = function (name) {
+        // @ts-ignore
         var selected = this.option.selected;
+        // @ts-ignore
         return !(selected.hasOwnProperty(name) && !selected[name]) && indexOf(this._availableNames, name) >= 0;
       };
 
       LegendModel.prototype.getOrient = function () {
+        // @ts-ignore
         return this.get('orient') === 'vertical' ? {
           index: 1,
           name: 'vertical'
@@ -87156,6 +90420,7 @@
 
     var LegendView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(LegendView, _super);
 
@@ -87168,7 +90433,9 @@
       }
 
       LegendView.prototype.init = function () {
+        // @ts-ignore
         this.group.add(this._contentGroup = new Group$2());
+        // @ts-ignore
         this.group.add(this._selectorGroup = new Group$2());
         this._isFirstRender = true;
       };
@@ -87232,20 +90499,28 @@
           width: mainRect.width,
           height: mainRect.height
         }, positionInfo), viewportSize, padding);
+        // @ts-ignore
         this.group.x = layoutRect.x - mainRect.x;
+        // @ts-ignore
         this.group.y = layoutRect.y - mainRect.y;
+        // @ts-ignore
         this.group.markRedraw(); // Render background after group is layout.
 
+        // @ts-ignore
         this.group.add(this._backgroundEl = makeBackground(mainRect, legendModel));
       };
 
       LegendView.prototype.resetInner = function () {
+        // @ts-ignore
         this.getContentGroup().removeAll();
+        // @ts-ignore
         this._backgroundEl && this.group.remove(this._backgroundEl);
+        // @ts-ignore
         this.getSelectorGroup().removeAll();
       };
 
       LegendView.prototype.renderInner = function (itemAlign, legendModel, ecModel, api, selector, orient, selectorPosition) {
+        // @ts-ignore
         var contentGroup = this.getContentGroup();
         var legendDrawnMap = createHashMap();
         var selectMode = legendModel.get('selectedMode');
@@ -87256,10 +90531,12 @@
         each$c(legendModel.getData(), function (legendItemModel, dataIndex) {
           var name = legendItemModel.get('name'); // Use empty string or \n as a newline string
 
+          // @ts-ignore
           if (!this.newlineDisabled && (name === '' || name === '\n')) {
             var g = new Group$2(); // @ts-ignore
 
             g.newline = true;
+            // @ts-ignore
             contentGroup.add(g);
             return;
           } // Representitive series.
@@ -87284,6 +90561,7 @@
 
             var style = data.getVisual('style');
 
+            // @ts-ignore
             var itemGroup = this._createItem(seriesModel, name, dataIndex, legendItemModel, legendModel, itemAlign, lineVisualStyle, style, legendIcon, selectMode);
 
             itemGroup.on('click', curry$1(dispatchSelectAction, name, null, api, excludeSeriesId)).on('mouseover', curry$1(dispatchHighlightAction, seriesModel.name, null, api, excludeSeriesId)).on('mouseout', curry$1(dispatchDownplayAction, seriesModel.name, null, api, excludeSeriesId));
@@ -87317,6 +90595,7 @@
                   });
                 }
 
+                // @ts-ignore
                 var itemGroup = this._createItem(seriesModel, name, dataIndex, legendItemModel, legendModel, itemAlign, {}, style, legendIcon, selectMode); // FIXME: consider different series has items with the same name.
 
 
@@ -87325,9 +90604,11 @@
                 .on('mouseover', curry$1(dispatchHighlightAction, null, name, api, excludeSeriesId)).on('mouseout', curry$1(dispatchDownplayAction, null, name, api, excludeSeriesId));
                 legendDrawnMap.set(name, true);
               }
+            // @ts-ignore
             }, this);
           }
 
+          // @ts-ignore
           if ("development" !== 'production') {
             if (!legendDrawnMap.get(name)) {
               console.warn(name + ' series not exists. Legend data should be same with series name or data name.');
@@ -87340,7 +90621,9 @@
         }
       };
 
+      // @ts-ignore
       LegendView.prototype._createSelector = function (selector, legendModel, api, orient, selectorPosition) {
+        // @ts-ignore
         var selectorGroup = this.getSelectorGroup();
         each$c(selector, function createSelectorButton(selectorItem) {
           var type = selectorItem.type;
@@ -87357,6 +90640,7 @@
               });
             }
           });
+          // @ts-ignore
           selectorGroup.add(labelText);
           var labelModel = legendModel.getModel('selectorLabel');
           var emphasisLabelModel = legendModel.getModel(['emphasis', 'selectorLabel']);
@@ -87451,7 +90735,9 @@
         itemGroup.eachChild(function (child) {
           child.silent = true;
         });
+        // @ts-ignore
         hitRect.silent = !selectMode;
+        // @ts-ignore
         this.getContentGroup().add(itemGroup);
         enableHoverEmphasis(itemGroup); // @ts-ignore
 
@@ -87459,20 +90745,27 @@
         return itemGroup;
       };
 
+      // @ts-ignore
       LegendView.prototype.layoutInner = function (legendModel, itemAlign, maxSize, isFirstRender, selector, selectorPosition) {
+        // @ts-ignore
         var contentGroup = this.getContentGroup();
+        // @ts-ignore
         var selectorGroup = this.getSelectorGroup(); // Place items in contentGroup.
 
         box(legendModel.get('orient'), contentGroup, legendModel.get('itemGap'), maxSize.width, maxSize.height);
+        // @ts-ignore
         var contentRect = contentGroup.getBoundingRect();
         var contentPos = [-contentRect.x, -contentRect.y];
+        // @ts-ignore
         selectorGroup.markRedraw();
+        // @ts-ignore
         contentGroup.markRedraw();
 
         if (selector) {
           // Place buttons in selectorGroup
           box( // Buttons in selectorGroup always layout horizontally
           'horizontal', selectorGroup, legendModel.get('selectorItemGap', true));
+          // @ts-ignore
           var selectorRect = selectorGroup.getBoundingRect();
           var selectorPos = [-selectorRect.x, -selectorRect.y];
           var selectorButtonGap = legendModel.get('selectorButtonGap', true);
@@ -87489,9 +90782,13 @@
 
 
           selectorPos[1 - orientIdx] += contentRect[hw] / 2 - selectorRect[hw] / 2;
+          // @ts-ignore
           selectorGroup.x = selectorPos[0];
+          // @ts-ignore
           selectorGroup.y = selectorPos[1];
+          // @ts-ignore
           contentGroup.x = contentPos[0];
+          // @ts-ignore
           contentGroup.y = contentPos[1];
           var mainRect = {
             x: 0,
@@ -87502,8 +90799,11 @@
           mainRect[yx] = Math.min(0, selectorRect[yx] + selectorPos[1 - orientIdx]);
           return mainRect;
         } else {
+          // @ts-ignore
           contentGroup.x = contentPos[0];
+          // @ts-ignore
           contentGroup.y = contentPos[1];
+          // @ts-ignore
           return this.group.getBoundingRect();
         }
       };
@@ -87513,6 +90813,7 @@
 
 
       LegendView.prototype.remove = function () {
+        // @ts-ignore
         this.getContentGroup().removeAll();
         this._isFirstRender = true;
       };
@@ -87532,6 +90833,7 @@
           style.lineWidth = visualStyle.lineWidth > 0 ? 2 : 0;
         }
 
+        // @ts-ignore
         each$c(style, function (propVal, propName) {
           style[propName] === 'inherit' && (style[propName] = visualStyle[propName]);
         });
@@ -87601,13 +90903,19 @@
     function getDefaultLegendIcon(opt) {
       var symboType = opt.icon || 'roundRect';
       var icon = createSymbol(symboType, 0, 0, opt.itemWidth, opt.itemHeight, opt.itemStyle.fill, opt.symbolKeepAspect);
+      // @ts-ignore
       icon.setStyle(opt.itemStyle);
+      // @ts-ignore
       icon.rotation = (opt.iconRotate || 0) * Math.PI / 180;
+      // @ts-ignore
       icon.setOrigin([opt.itemWidth / 2, opt.itemHeight / 2]);
 
       if (symboType.indexOf('empty') > -1) {
+        // @ts-ignore
         icon.style.stroke = icon.style.fill;
+        // @ts-ignore
         icon.style.fill = '#fff';
+        // @ts-ignore
         icon.style.lineWidth = 2;
       }
 
@@ -87812,6 +91120,7 @@
 
     var ScrollableLegendModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ScrollableLegendModel, _super);
 
@@ -87827,6 +91136,7 @@
 
 
       ScrollableLegendModel.prototype.setScrollDataIndex = function (scrollDataIndex) {
+        // @ts-ignore
         this.option.scrollDataIndex = scrollDataIndex;
       };
 
@@ -87845,6 +91155,7 @@
       ScrollableLegendModel.prototype.mergeOption = function (option, ecModel) {
         _super.prototype.mergeOption.call(this, option, ecModel);
 
+        // @ts-ignore
         mergeAndNormalizeLayoutParams$1(this, this.option, option);
       };
 
@@ -87886,6 +91197,7 @@
 
     var ScrollableLegendView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ScrollableLegendView, _super);
 
@@ -87901,10 +91213,13 @@
       ScrollableLegendView.prototype.init = function () {
         _super.prototype.init.call(this);
 
+        // @ts-ignore
         this.group.add(this._containerGroup = new Group$3());
 
+        // @ts-ignore
         this._containerGroup.add(this.getContentGroup());
 
+        // @ts-ignore
         this.group.add(this._controllerGroup = new Group$3());
       };
       /**
@@ -87915,10 +91230,13 @@
       ScrollableLegendView.prototype.resetInner = function () {
         _super.prototype.resetInner.call(this);
 
+        // @ts-ignore
         this._controllerGroup.removeAll();
 
+        // @ts-ignore
         this._containerGroup.removeClipPath();
 
+        // @ts-ignore
         this._containerGroup.__rectSize = null;
       };
       /**
@@ -87938,6 +91256,7 @@
         var pageIconSizeArr = isArray(pageIconSize) ? pageIconSize : [pageIconSize, pageIconSize];
         createPageButton('pagePrev', 0);
         var pageTextStyleModel = legendModel.getModel('pageTextStyle');
+        // @ts-ignore
         controllerGroup.add(new ZRText({
           name: 'pageText',
           style: {
@@ -87964,7 +91283,9 @@
             width: pageIconSizeArr[0],
             height: pageIconSizeArr[1]
           });
+          // @ts-ignore
           icon.name = name;
+          // @ts-ignore
           controllerGroup.add(icon);
         }
       };
@@ -87973,7 +91294,9 @@
        */
 
 
+      // @ts-ignore
       ScrollableLegendView.prototype.layoutInner = function (legendModel, itemAlign, maxSize, isFirstRender, selector, selectorPosition) {
+        // @ts-ignore
         var selectorGroup = this.getSelectorGroup();
         var orientIdx = legendModel.getOrient().index;
         var wh = WH$1[orientIdx];
@@ -88012,6 +91335,7 @@
       };
 
       ScrollableLegendView.prototype._layoutContentAndController = function (legendModel, isFirstRender, maxSize, orientIdx, wh, hw, yx, xy) {
+        // @ts-ignore
         var contentGroup = this.getContentGroup();
         var containerGroup = this._containerGroup;
         var controllerGroup = this._controllerGroup; // Place items in contentGroup.
@@ -88020,6 +91344,7 @@
         box( // Buttons in controller are layout always horizontally.
         'horizontal', controllerGroup, legendModel.get('pageButtonItemGap', true));
         var contentRect = contentGroup.getBoundingRect();
+        // @ts-ignore
         var controllerRect = controllerGroup.getBoundingRect();
         var showController = this._showController = contentRect[wh] > maxSize[wh]; // In case that the inner elements of contentGroup layout do not based on [0, 0]
 
@@ -88050,7 +91375,9 @@
 
         controllerPos[1 - orientIdx] += contentRect[hw] / 2 - controllerRect[hw] / 2;
         contentGroup.setPosition(contentPos);
+        // @ts-ignore
         containerGroup.setPosition(containerPos);
+        // @ts-ignore
         controllerGroup.setPosition(controllerPos); // Calculate `mainRect` and set `clipPath`.
         // mainRect should not be calculated by `this.group.getBoundingRect()`
         // for sake of the overflow.
@@ -88064,6 +91391,7 @@
         mainRect[hw] = Math.max(contentRect[hw], controllerRect[hw]); // `containerRect[yx] + containerPos[1 - orientIdx]` is 0.
 
         mainRect[yx] = Math.min(0, controllerRect[yx] + controllerPos[1 - orientIdx]);
+        // @ts-ignore
         containerGroup.__rectSize = maxSize[wh];
 
         if (showController) {
@@ -88073,14 +91401,17 @@
           };
           clipShape[wh] = Math.max(maxSize[wh] - controllerRect[wh] - pageButtonGap, 0);
           clipShape[hw] = mainRect[hw];
+          // @ts-ignore
           containerGroup.setClipPath(new Rect({
             shape: clipShape
           })); // Consider content may be larger than container, container rect
           // can not be obtained from `containerGroup.getBoundingRect()`.
 
+          // @ts-ignore
           containerGroup.__rectSize = clipShape[wh];
         } else {
           // Do not remove or ignore controller. Keep them set as placeholders.
+          // @ts-ignore
           controllerGroup.eachChild(function (child) {
             child.attr({
               invisible: true,
@@ -88119,6 +91450,7 @@
         each(['pagePrev', 'pageNext'], function (name) {
           var key = name + 'DataIndex';
           var canJump = pageInfo[key] != null;
+          // @ts-ignore
           var icon = controllerGroup.childOfName(name);
 
           if (icon) {
@@ -88126,6 +91458,7 @@
             icon.cursor = canJump ? 'pointer' : 'default';
           }
         });
+        // @ts-ignore
         var pageText = controllerGroup.childOfName('pageText');
         var pageFormatter = legendModel.get('pageFormatter');
         var pageIndex = pageInfo.pageIndex;
@@ -88148,7 +91481,9 @@
 
       ScrollableLegendView.prototype._getPageInfo = function (legendModel) {
         var scrollDataIndex = legendModel.get('scrollDataIndex', true);
+        // @ts-ignore
         var contentGroup = this.getContentGroup();
+        // @ts-ignore
         var containerRectSize = this._containerGroup.__rectSize;
         var orientIdx = legendModel.getOrient().index;
         var wh = WH$1[orientIdx];
@@ -88173,6 +91508,7 @@
         }
 
         var targetItemInfo = getItemInfo(targetItem);
+        // @ts-ignore
         result.contentPosition[orientIdx] = -targetItemInfo.s; // Strategy:
         // (1) Always align based on the left/top most item.
         // (2) It is user-friendly that the last item shown in the
@@ -88185,13 +91521,17 @@
         // (4) The window is to narrow to contain more than
         // one item, we should make sure that the page can be fliped.
 
+        // @ts-ignore
         for (var i = targetItemIndex + 1, winStartItemInfo = targetItemInfo, winEndItemInfo = targetItemInfo, currItemInfo = null; i <= itemCount; ++i) {
           currItemInfo = getItemInfo(children[i]);
 
           if ( // Half of the last item is out of the window.
+          // @ts-ignore
           !currItemInfo && winEndItemInfo.e > winStartItemInfo.s + containerRectSize || // If the current item does not intersect with the window, the new page
           // can be started at the current item or the last item.
+          // @ts-ignore
           currItemInfo && !intersect(currItemInfo, winStartItemInfo.s)) {
+            // @ts-ignore
             if (winEndItemInfo.i > winStartItemInfo.i) {
               winStartItemInfo = winEndItemInfo;
             } else {
@@ -88211,16 +91551,19 @@
           winEndItemInfo = currItemInfo;
         }
 
+        // @ts-ignore
         for (var i = targetItemIndex - 1, winStartItemInfo = targetItemInfo, winEndItemInfo = targetItemInfo, currItemInfo = null; i >= -1; --i) {
           currItemInfo = getItemInfo(children[i]);
 
           if ( // If the the end item does not intersect with the window started
           // from the current item, a page can be settled.
           (!currItemInfo || !intersect(winEndItemInfo, currItemInfo.s)) && // e.g., when page size is smaller than item size.
+          // @ts-ignore
           winStartItemInfo.i < winEndItemInfo.i) {
             winEndItemInfo = winStartItemInfo;
 
             if (result.pagePrevDataIndex == null) {
+              // @ts-ignore
               result.pagePrevDataIndex = winStartItemInfo.i;
             }
 
@@ -88256,6 +91599,7 @@
         }
 
         var index;
+        // @ts-ignore
         var contentGroup = this.getContentGroup();
         var defaultIndex;
         contentGroup.eachChild(function (child, idx) {
@@ -88348,6 +91692,7 @@
       installScrollableLegendAction(registers);
     }
 
+    // @ts-ignore
     function install$J(registers) {
       use(install$H);
       use(install$I);
@@ -88355,10 +91700,12 @@
 
     var InsideZoomModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(InsideZoomModel, _super);
 
       function InsideZoomModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = InsideZoomModel.type;
@@ -88434,6 +91781,7 @@
       each(['pan', 'zoom', 'scrollMove'], function (eventName) {
         controller.on(eventName, function (event) {
           var batch = [];
+          // @ts-ignore
           coordSysRecord.dataZoomInfoMap.each(function (dzInfo) {
             // Check whether the behaviors (zoomOnMouseWheel, moveOnMouseMove,
             // moveOnMouseWheel, ...) enabled.
@@ -88472,6 +91820,7 @@
       }
     }
 
+    // @ts-ignore
     function containsPoint(coordSysModel, e, x, y) {
       return coordSysModel.coordinateSystem.containPoint([x, y]);
     }
@@ -88574,6 +91923,7 @@
 
     var InsideZoomView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(InsideZoomView, _super);
 
@@ -88584,6 +91934,7 @@
         return _this;
       }
 
+      // @ts-ignore
       InsideZoomView.prototype.render = function (dataZoomModel, ecModel, api) {
         _super.prototype.render.apply(this, arguments);
 
@@ -88612,6 +91963,7 @@
       };
 
       InsideZoomView.prototype._clear = function () {
+        // @ts-ignore
         disposeCoordSysRecordIfNeeded(this.api, this.dataZoomModel);
         this.range = null;
       };
@@ -88658,6 +92010,7 @@
     function makeMover(getPercentDelta) {
       return function (coordSysInfo, coordSysMainType, controller, e) {
         var lastRange = this.range;
+        // @ts-ignore
         var range = lastRange.slice(); // Calculate transform by the first axis.
 
         var axisModel = coordSysInfo.axisModels[0];
@@ -88667,9 +92020,11 @@
         }
 
         var percentDelta = getPercentDelta(range, axisModel, coordSysInfo, coordSysMainType, controller, e);
+        // @ts-ignore
         sliderMove(percentDelta, range, [0, 100], 'all');
         this.range = range;
 
+        // @ts-ignore
         if (lastRange[0] !== range[0] || lastRange[1] !== range[1]) {
           return range;
         }
@@ -88677,6 +92032,7 @@
     }
 
     var getDirectionInfo = {
+      // @ts-ignore
       grid: function (oldPoint, newPoint, axisModel, controller, coordSysInfo) {
         var axis = axisModel.axis;
         var ret = {};
@@ -88698,6 +92054,7 @@
 
         return ret;
       },
+      // @ts-ignore
       polar: function (oldPoint, newPoint, axisModel, controller, coordSysInfo) {
         var axis = axisModel.axis;
         var ret = {};
@@ -88726,6 +92083,7 @@
 
         return ret;
       },
+      // @ts-ignore
       singleAxis: function (oldPoint, newPoint, axisModel, controller, coordSysInfo) {
         var axis = axisModel.axis;
         var rect = coordSysInfo.model.coordinateSystem.getRect();
@@ -88758,10 +92116,12 @@
 
     var SliderZoomModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SliderZoomModel, _super);
 
       function SliderZoomModel() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = SliderZoomModel.type;
@@ -88859,6 +92219,7 @@
 
     var SliderZoomView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(SliderZoomView, _super);
 
@@ -88870,13 +92231,17 @@
         return _this;
       }
 
+      // @ts-ignore
       SliderZoomView.prototype.init = function (ecModel, api) {
         this.api = api; // A unique handler for each dataZoom component
 
+        // @ts-ignore
         this._onBrush = bind(this._onBrush, this);
+        // @ts-ignore
         this._onBrushEnd = bind(this._onBrushEnd, this);
       };
 
+      // @ts-ignore
       SliderZoomView.prototype.render = function (dataZoomModel, ecModel, api, payload) {
         _super.prototype.render.apply(this, arguments);
 
@@ -88884,6 +92249,7 @@
         this._orient = dataZoomModel.getOrient();
 
         if (dataZoomModel.get('show') === false) {
+          // @ts-ignore
           this.group.removeAll();
           return;
         }
@@ -88891,6 +92257,7 @@
         if (dataZoomModel.noTarget()) {
           this._clear();
 
+          // @ts-ignore
           this.group.removeAll();
           return;
         } // Notice: this._resetInterval() should not be executed when payload.type
@@ -88898,6 +92265,7 @@
         // or 'zoom' info will be missed because of 'throttle' of this.dispatchAction,
 
 
+        // @ts-ignore
         if (!payload || payload.type !== 'dataZoom' || payload.from !== this.uid) {
           this._buildView();
         }
@@ -88919,15 +92287,18 @@
       };
 
       SliderZoomView.prototype._buildView = function () {
+        // @ts-ignore
         var thisGroup = this.group;
         thisGroup.removeAll();
         this._brushing = false;
+        // @ts-ignore
         this._displayables.brushRect = null;
 
         this._resetLocation();
 
         this._resetInterval();
 
+        // @ts-ignore
         var barGroup = this._displayables.sliderGroup = new Group();
 
         this._renderBackground();
@@ -88942,6 +92313,7 @@
       };
 
       SliderZoomView.prototype._resetLocation = function () {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var api = this.api;
         var showMoveHandle = dataZoomModel.get('brushSelect');
@@ -88987,12 +92359,15 @@
       };
 
       SliderZoomView.prototype._positionGroup = function () {
+        // @ts-ignore
         var thisGroup = this.group;
         var location = this._location;
         var orient = this._orient; // Just use the first axis to determine mapping.
 
+        // @ts-ignore
         var targetAxisModel = this.dataZoomModel.getFirstTargetAxisModel();
         var inverse = targetAxisModel && targetAxisModel.get('inverse');
+        // @ts-ignore
         var sliderGroup = this._displayables.sliderGroup;
         var otherAxisInverse = (this._dataShadowInfo || {}).otherAxisInverse; // Transform barGroup.
 
@@ -89014,18 +92389,23 @@
         }); // Position barGroup
 
         var rect = thisGroup.getBoundingRect([sliderGroup]);
+        // @ts-ignore
         thisGroup.x = location.x - rect.x;
+        // @ts-ignore
         thisGroup.y = location.y - rect.y;
         thisGroup.markRedraw();
       };
 
       SliderZoomView.prototype._getViewExtent = function () {
+        // @ts-ignore
         return [0, this._size[0]];
       };
 
       SliderZoomView.prototype._renderBackground = function () {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var size = this._size;
+        // @ts-ignore
         var barGroup = this._displayables.sliderGroup;
         var brushSelect = dataZoomModel.get('brushSelect');
         barGroup.add(new Rect$2({
@@ -89033,7 +92413,9 @@
           shape: {
             x: 0,
             y: 0,
+            // @ts-ignore
             width: size[0],
+            // @ts-ignore
             height: size[1]
           },
           style: {
@@ -89046,7 +92428,9 @@
           shape: {
             x: 0,
             y: 0,
+            // @ts-ignore
             width: size[0],
+            // @ts-ignore
             height: size[1]
           },
           style: {
@@ -89058,7 +92442,9 @@
         var zr = this.api.getZr();
 
         if (brushSelect) {
+          // @ts-ignore
           clickPanel.on('mousedown', this._onBrushStart, this);
+          // @ts-ignore
           clickPanel.cursor = 'crosshair';
           zr.on('mousemove', this._onBrush);
           zr.on('mouseup', this._onBrushEnd);
@@ -89073,6 +92459,7 @@
       SliderZoomView.prototype._renderDataShadow = function () {
         var info = this._dataShadowInfo = this._prepareDataShadowInfo();
 
+        // @ts-ignore
         this._displayables.dataShadowSegs = [];
 
         if (!info) {
@@ -89081,9 +92468,11 @@
 
         var size = this._size;
         var oldSize = this._shadowSize || [];
+        // @ts-ignore
         var seriesModel = info.series;
         var data = seriesModel.getRawData();
         var otherDim = seriesModel.getShadowDim ? seriesModel.getShadowDim() // @see candlestick
+        // @ts-ignore
         : info.otherDim;
 
         if (otherDim == null) {
@@ -89093,18 +92482,23 @@
         var polygonPts = this._shadowPolygonPts;
         var polylinePts = this._shadowPolylinePts; // Not re-render if data doesn't change.
 
+        // @ts-ignore
         if (data !== this._shadowData || otherDim !== this._shadowDim || size[0] !== oldSize[0] || size[1] !== oldSize[1]) {
           var otherDataExtent_1 = data.getDataExtent(otherDim); // Nice extent.
 
           var otherOffset = (otherDataExtent_1[1] - otherDataExtent_1[0]) * 0.3;
           otherDataExtent_1 = [otherDataExtent_1[0] - otherOffset, otherDataExtent_1[1] + otherOffset];
+          // @ts-ignore
           var otherShadowExtent_1 = [0, size[1]];
+          // @ts-ignore
           var thisShadowExtent = [0, size[0]];
+          // @ts-ignore
           var areaPoints_1 = [[size[0], 0], [0, 0]];
           var linePoints_1 = [];
           var step_1 = thisShadowExtent[1] / (data.count() - 1);
           var thisCoord_1 = 0; // Optimize for large data shadow
 
+          // @ts-ignore
           var stride_1 = Math.round(data.count() / size[0]);
           var lastIsEmpty_1;
           data.each([otherDim], function (value, index) {
@@ -89140,7 +92534,9 @@
 
         this._shadowData = data;
         this._shadowDim = otherDim;
+        // @ts-ignore
         this._shadowSize = [size[0], size[1]];
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
 
         function createDataShadowGroup(isSelectedArea) {
@@ -89173,13 +92569,16 @@
         for (var i = 0; i < 3; i++) {
           var group = createDataShadowGroup(i === 1);
 
+          // @ts-ignore
           this._displayables.sliderGroup.add(group);
 
+          // @ts-ignore
           this._displayables.dataShadowSegs.push(group);
         }
       };
 
       SliderZoomView.prototype._prepareDataShadowInfo = function () {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var showDataShadow = dataZoomModel.get('showDataShadow');
 
@@ -89189,6 +92588,7 @@
 
 
         var result;
+        // @ts-ignore
         var ecModel = this.ecModel;
         dataZoomModel.eachTargetAxis(function (axisDim, axisIndex) {
           var seriesModels = dataZoomModel.getAxisProxy(axisDim, axisIndex).getTargetSeriesModels();
@@ -89218,18 +92618,23 @@
               otherDim: otherDim,
               otherAxisInverse: otherAxisInverse
             };
+          // @ts-ignore
           }, this);
         }, this);
         return result;
       };
 
       SliderZoomView.prototype._renderHandle = function () {
+        // @ts-ignore
         var thisGroup = this.group;
+        // @ts-ignore
         var displayables = this._displayables;
         var handles = displayables.handles = [null, null];
         var handleLabels = displayables.handleLabels = [null, null];
+        // @ts-ignore
         var sliderGroup = this._displayables.sliderGroup;
         var size = this._size;
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var api = this.api;
         var borderRadius = dataZoomModel.get('borderRadius') || 0;
@@ -89251,7 +92656,9 @@
           shape: {
             x: 0,
             y: 0,
+            // @ts-ignore
             width: size[0],
+            // @ts-ignore
             height: size[1],
             r: borderRadius
           },
@@ -89270,39 +92677,55 @@
             // Compatitable with the old icon parsers. Which can use a path string without path://
             iconStr = 'path://' + iconStr;
 
+            // @ts-ignore
             if ("development" !== 'production') {
               deprecateLog('handleIcon now needs \'path://\' prefix when using a path string');
             }
           }
 
           var path = createSymbol(iconStr, -1, 0, 2, 2, null, true);
+          // @ts-ignore
           path.attr({
+            // @ts-ignore
             cursor: getCursor(this._orient),
             draggable: true,
+            // @ts-ignore
             drift: bind(this._onDragMove, this, handleIndex),
+            // @ts-ignore
             ondragend: bind(this._onDragEnd, this),
+            // @ts-ignore
             onmouseover: bind(this._showDataInfo, this, true),
+            // @ts-ignore
             onmouseout: bind(this._showDataInfo, this, false),
             z2: 5
           });
+          // @ts-ignore
           var bRect = path.getBoundingRect();
           var handleSize = dataZoomModel.get('handleSize');
+          // @ts-ignore
           this._handleHeight = parsePercent$1(handleSize, this._size[1]);
           this._handleWidth = bRect.width / bRect.height * this._handleHeight;
+          // @ts-ignore
           path.setStyle(dataZoomModel.getModel('handleStyle').getItemStyle());
+          // @ts-ignore
           path.style.strokeNoScale = true;
+          // @ts-ignore
           path.rectHover = true;
+          // @ts-ignore
           path.ensureState('emphasis').style = dataZoomModel.getModel(['emphasis', 'handleStyle']).getItemStyle();
           enableHoverEmphasis(path);
           var handleColor = dataZoomModel.get('handleColor'); // deprecated option
           // Compatitable with previous version
 
           if (handleColor != null) {
+            // @ts-ignore
             path.style.fill = handleColor;
           }
 
+          // @ts-ignore
           sliderGroup.add(handles[handleIndex] = path);
           var textStyleModel = dataZoomModel.getModel('textStyle');
+          // @ts-ignore
           thisGroup.add(handleLabels[handleIndex] = new ZRText({
             silent: true,
             invisible: true,
@@ -89322,29 +92745,37 @@
         var actualMoveZone = filler;
 
         if (brushSelect) {
+          // @ts-ignore
           var moveHandleHeight = parsePercent$1(dataZoomModel.get('moveHandleSize'), size[1]);
           var moveHandle_1 = displayables.moveHandle = new Rect({
             style: dataZoomModel.getModel('moveHandleStyle').getItemStyle(),
             silent: true,
             shape: {
               r: [0, 0, 2, 2],
+              // @ts-ignore
               y: size[1] - 0.5,
               height: moveHandleHeight
             }
           });
           var iconSize = moveHandleHeight * 0.8;
           var moveHandleIcon = displayables.moveHandleIcon = createSymbol(dataZoomModel.get('moveHandleIcon'), -iconSize / 2, -iconSize / 2, iconSize, iconSize, '#fff', true);
+          // @ts-ignore
           moveHandleIcon.silent = true;
+          // @ts-ignore
           moveHandleIcon.y = size[1] + moveHandleHeight / 2 - 0.5;
+          // @ts-ignore
           moveHandle_1.ensureState('emphasis').style = dataZoomModel.getModel(['emphasis', 'moveHandleStyle']).getItemStyle();
+          // @ts-ignore
           var moveZoneExpandSize = Math.min(size[1] / 2, Math.max(moveHandleHeight, 10));
           actualMoveZone = displayables.moveZone = new Rect({
             invisible: true,
             shape: {
+              // @ts-ignore
               y: size[1] - moveZoneExpandSize,
               height: moveHandleHeight + moveZoneExpandSize
             }
           });
+          // @ts-ignore
           actualMoveZone.on('mouseover', function () {
             api.enterEmphasis(moveHandle_1);
           }).on('mouseout', function () {
@@ -89355,6 +92786,7 @@
           sliderGroup.add(actualMoveZone);
         }
 
+        // @ts-ignore
         actualMoveZone.attr({
           draggable: true,
           cursor: getCursor(this._orient),
@@ -89367,6 +92799,7 @@
       };
 
       SliderZoomView.prototype._resetInterval = function () {
+        // @ts-ignore
         var range = this._range = this.dataZoomModel.getPercentRange();
 
         var viewExtent = this._getViewExtent();
@@ -89375,6 +92808,7 @@
       };
 
       SliderZoomView.prototype._updateInterval = function (handleIndex, delta) {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var handleEnds = this._handleEnds;
 
@@ -89384,11 +92818,13 @@
         var percentExtent = [0, 100];
         sliderMove(delta, handleEnds, viewExtend, dataZoomModel.get('zoomLock') ? 'all' : handleIndex, minMaxSpan.minSpan != null ? linearMap(minMaxSpan.minSpan, percentExtent, viewExtend, true) : null, minMaxSpan.maxSpan != null ? linearMap(minMaxSpan.maxSpan, percentExtent, viewExtend, true) : null);
         var lastRange = this._range;
+        // @ts-ignore
         var range = this._range = asc([linearMap(handleEnds[0], viewExtend, percentExtent, true), linearMap(handleEnds[1], viewExtend, percentExtent, true)]);
         return !lastRange || lastRange[0] !== range[0] || lastRange[1] !== range[1];
       };
 
       SliderZoomView.prototype._updateView = function (nonRealtime) {
+        // @ts-ignore
         var displaybles = this._displayables;
         var handleEnds = this._handleEnds;
         var handleInterval = asc(handleEnds.slice());
@@ -89396,6 +92832,7 @@
         each([0, 1], function (handleIndex) {
           // Handles
           var handle = displaybles.handles[handleIndex];
+          // @ts-ignore
           var handleHeight = this._handleHeight;
           handle.attr({
             scaleX: handleHeight / 2,
@@ -89403,6 +92840,7 @@
             // This is a trick, by adding an extra tiny offset to let the default handle's end point align to the drag window.
             // NOTE: It may affect some custom shapes a bit. But we prefer to have better result by default.
             x: handleEnds[handleIndex] + (handleIndex ? -1 : 1),
+            // @ts-ignore
             y: size[1] / 2 - handleHeight / 2
           });
         }, this); // Filler
@@ -89411,6 +92849,7 @@
           x: handleInterval[0],
           y: 0,
           width: handleInterval[1] - handleInterval[0],
+          // @ts-ignore
           height: size[1]
         });
         var viewExtent = {
@@ -89428,6 +92867,7 @@
 
 
         var dataShadowSegs = displaybles.dataShadowSegs;
+        // @ts-ignore
         var segIntervals = [0, handleInterval[0], handleInterval[1], size[0]];
 
         for (var i = 0; i < dataShadowSegs.length; i++) {
@@ -89443,6 +92883,7 @@
             x: segIntervals[i],
             y: 0,
             width: segIntervals[i + 1] - segIntervals[i],
+            // @ts-ignore
             height: size[1]
           });
         }
@@ -89451,7 +92892,9 @@
       };
 
       SliderZoomView.prototype._updateDataInfo = function (nonRealtime) {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
+        // @ts-ignore
         var displaybles = this._displayables;
         var handleLabels = displaybles.handleLabels;
         var orient = this._orient;
@@ -89481,9 +92924,13 @@
           // Label
           // Text should not transform by barGroup.
           // Ignore handlers transform
+          // @ts-ignore
           var barTransform = getTransform(displaybles.handles[handleIndex].parent, this.group);
+          // @ts-ignore
           var direction = transformDirection(handleIndex === 0 ? 'right' : 'left', barTransform);
+          // @ts-ignore
           var offset = this._handleWidth / 2 + LABEL_GAP;
+          // @ts-ignore
           var textPoint = applyTransform$1([orderedHandleEnds[handleIndex] + (handleIndex === 0 ? -offset : offset), this._size[1] / 2], barTransform);
           handleLabels[handleIndex].setStyle({
             x: textPoint[0],
@@ -89496,6 +92943,7 @@
       };
 
       SliderZoomView.prototype._formatLabel = function (value, axis) {
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var labelFormatter = dataZoomModel.get('labelFormatter');
         var labelPrecision = dataZoomModel.get('labelPrecision');
@@ -89519,6 +92967,7 @@
       SliderZoomView.prototype._showDataInfo = function (showOrHide) {
         // Always show when drgging.
         showOrHide = this._dragging || showOrHide;
+        // @ts-ignore
         var displayables = this._displayables;
         var handleLabels = displayables.handleLabels;
         handleLabels[0].attr('invisible', !showOrHide);
@@ -89532,12 +92981,14 @@
 
         stop(event.event); // Transform dx, dy to bar coordination.
 
+        // @ts-ignore
         var barTransform = this._displayables.sliderGroup.getLocalTransform();
 
         var vertex = applyTransform$1([dx, dy], barTransform, true);
 
         var changed = this._updateInterval(handleIndex, vertex[0]);
 
+        // @ts-ignore
         var realtime = this.dataZoomModel.get('realtime');
 
         this._updateView(!realtime); // Avoid dispatch dataZoom repeatly but range not changed,
@@ -89554,6 +93005,7 @@
         // drag end will cause the whole view rerender, which is unnecessary.
 
 
+        // @ts-ignore
         var realtime = this.dataZoomModel.get('realtime');
         !realtime && this._dispatchZoomAction(false);
       };
@@ -89561,8 +93013,10 @@
       SliderZoomView.prototype._onClickPanel = function (e) {
         var size = this._size;
 
+        // @ts-ignore
         var localPoint = this._displayables.sliderGroup.transformCoordToLocal(e.offsetX, e.offsetY);
 
+        // @ts-ignore
         if (localPoint[0] < 0 || localPoint[0] > size[0] || localPoint[1] < 0 || localPoint[1] > size[1]) {
           return;
         }
@@ -89585,11 +93039,13 @@
         this._brushStartTime = +new Date(); // this._updateBrushRect(x, y);
       };
 
+      // @ts-ignore
       SliderZoomView.prototype._onBrushEnd = function (e) {
         if (!this._brushing) {
           return;
         }
 
+        // @ts-ignore
         var brushRect = this._displayables.brushRect;
         this._brushing = false;
 
@@ -89601,6 +93057,7 @@
         var brushShape = brushRect.shape;
         var brushEndTime = +new Date(); // console.log(brushEndTime - this._brushStartTime);
 
+        // @ts-ignore
         if (brushEndTime - this._brushStartTime < 200 && Math.abs(brushShape.width) < 5) {
           // Will treat it as a click
           return;
@@ -89617,6 +93074,7 @@
         this._dispatchZoomAction(false);
       };
 
+      // @ts-ignore
       SliderZoomView.prototype._onBrush = function (e) {
         if (this._brushing) {
           // For mobile device, prevent screen slider on the button.
@@ -89627,7 +93085,9 @@
       };
 
       SliderZoomView.prototype._updateBrushRect = function (mouseX, mouseY) {
+        // @ts-ignore
         var displayables = this._displayables;
+        // @ts-ignore
         var dataZoomModel = this.dataZoomModel;
         var brushRect = displayables.brushRect;
 
@@ -89641,15 +93101,19 @@
 
         brushRect.attr('ignore', false);
         var brushStart = this._brushStart;
+        // @ts-ignore
         var sliderGroup = this._displayables.sliderGroup;
         var endPoint = sliderGroup.transformCoordToLocal(mouseX, mouseY);
+        // @ts-ignore
         var startPoint = sliderGroup.transformCoordToLocal(brushStart.x, brushStart.y);
         var size = this._size;
+        // @ts-ignore
         endPoint[0] = Math.max(Math.min(size[0], endPoint[0]), 0);
         brushRect.setShape({
           x: startPoint[0],
           y: 0,
           width: endPoint[0] - startPoint[0],
+          // @ts-ignore
           height: size[1]
         });
       };
@@ -89662,7 +93126,9 @@
         var range = this._range;
         this.api.dispatchAction({
           type: 'dataZoom',
+          // @ts-ignore
           from: this.uid,
+          // @ts-ignore
           dataZoomId: this.dataZoomModel.id,
           animation: realtime ? REALTIME_ANIMATION_CONFIG : null,
           start: range[0],
@@ -89673,6 +93139,7 @@
       SliderZoomView.prototype._findCoordRect = function () {
         // Find the grid coresponding to the first axis referred by dataZoom.
         var rect;
+        // @ts-ignore
         var coordSysInfoList = collectReferCoordSysModelInfo(this.dataZoomModel).infoList;
 
         if (!rect && coordSysInfoList.length) {
@@ -89720,6 +93187,7 @@
       installCommon(registers);
     }
 
+    // @ts-ignore
     function install$M(registers) {
       use(install$K);
       use(install$L); // Do not install './dataZoomSelect',
@@ -89779,6 +93247,7 @@
 
     var VisualMapModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(VisualMapModel, _super);
 
@@ -89802,7 +93271,9 @@
         return _this;
       }
 
+      // @ts-ignore
       VisualMapModel.prototype.init = function (option, parentModel, ecModel) {
+        // @ts-ignore
         this.mergeDefaultAndTheme(option, ecModel);
       };
       /**
@@ -89811,8 +93282,11 @@
 
 
       VisualMapModel.prototype.optionUpdated = function (newOption, isInit) {
+        // @ts-ignore
         var thisOption = this.option;
+        // @ts-ignore
         !isInit && replaceVisualOption(thisOption, newOption, this.replacableOptionKeys);
+        // @ts-ignore
         this.textStyleModel = this.getModel('textStyle');
         this.resetItemSize();
         this.completeVisualOption();
@@ -89823,9 +93297,12 @@
 
 
       VisualMapModel.prototype.resetVisual = function (supplementVisualOption) {
+        // @ts-ignore
         var stateList = this.stateList;
         supplementVisualOption = bind(supplementVisualOption, this);
+        // @ts-ignore
         this.controllerVisuals = createVisualMappings(this.option.controller, stateList, supplementVisualOption);
+        // @ts-ignore
         this.targetVisuals = createVisualMappings(this.option.target, stateList, supplementVisualOption);
       };
       /**
@@ -89843,10 +93320,12 @@
 
 
       VisualMapModel.prototype.getTargetSeriesIndices = function () {
+        // @ts-ignore
         var optionSeriesIndex = this.option.seriesIndex;
         var seriesIndices = [];
 
         if (optionSeriesIndex == null || optionSeriesIndex === 'all') {
+          // @ts-ignore
           this.ecModel.eachSeries(function (seriesModel, index) {
             seriesIndices.push(index);
           });
@@ -89862,7 +93341,9 @@
 
 
       VisualMapModel.prototype.eachTargetSeries = function (callback, context) {
+        // @ts-ignore
         each(this.getTargetSeriesIndices(), function (seriesIndex) {
+          // @ts-ignore
           var seriesModel = this.ecModel.getSeriesByIndex(seriesIndex);
 
           if (seriesModel) {
@@ -89898,8 +93379,10 @@
 
 
       VisualMapModel.prototype.formatValueText = function (value, isCategory, edgeSymbols) {
+        // @ts-ignore
         var option = this.option;
         var precision = option.precision;
+        // @ts-ignore
         var dataBound = this.dataBound;
         var formatter = option.formatter;
         var isMinMax;
@@ -89942,6 +93425,7 @@
 
 
       VisualMapModel.prototype.resetExtent = function () {
+        // @ts-ignore
         var thisOption = this.option; // Can not calculate data extent by data here.
         // Because series and data may be modified in processing stage.
         // So we do not support the feature "auto min/max".
@@ -89972,6 +93456,7 @@
 
 
       VisualMapModel.prototype.getDataDimensionIndex = function (data) {
+        // @ts-ignore
         var optDim = this.option.dimension;
 
         if (optDim != null) {
@@ -89995,7 +93480,9 @@
       };
 
       VisualMapModel.prototype.completeVisualOption = function () {
+        // @ts-ignore
         var ecModel = this.ecModel;
+        // @ts-ignore
         var thisOption = this.option;
         var base = {
           inRange: thisOption.inRange,
@@ -90044,6 +93531,7 @@
 
           if (optExist && !optAbsent) {
             optAbsent = base[stateAbsent] = {};
+            // @ts-ignore
             each$d(optExist, function (visualData, visualType) {
               if (!VisualMapping.isValidType(visualType)) {
                 return;
@@ -90067,10 +93555,14 @@
         function completeController(controller) {
           var symbolExists = (controller.inRange || {}).symbol || (controller.outOfRange || {}).symbol;
           var symbolSizeExists = (controller.inRange || {}).symbolSize || (controller.outOfRange || {}).symbolSize;
+          // @ts-ignore
           var inactiveColor = this.get('inactiveColor');
+          // @ts-ignore
           var itemSymbol = this.getItemSymbol();
           var defaultSymbol = itemSymbol || 'roundRect';
+          // @ts-ignore
           each$d(this.stateList, function (state) {
+            // @ts-ignore
             var itemSize = this.itemSize;
             var visuals = controller[state]; // Set inactive color for controller if no other color
             // attr (like colorAlpha) specified.
@@ -90107,15 +93599,18 @@
                 return linearMap$1(value, [0, max_1], [0, itemSize[0]], true);
               });
             }
+          // @ts-ignore
           }, this);
         }
       };
 
       VisualMapModel.prototype.resetItemSize = function () {
+        // @ts-ignore
         this.itemSize = [parseFloat(this.get('itemWidth')), parseFloat(this.get('itemHeight'))];
       };
 
       VisualMapModel.prototype.isCategory = function () {
+        // @ts-ignore
         return !!this.option.categories;
       };
       /**
@@ -90124,6 +93619,7 @@
        */
 
 
+      // @ts-ignore
       VisualMapModel.prototype.setSelected = function (selected) {};
 
       VisualMapModel.prototype.getSelected = function () {
@@ -90135,6 +93631,7 @@
        */
 
 
+      // @ts-ignore
       VisualMapModel.prototype.getValueState = function (value) {
         return null;
       };
@@ -90155,6 +93652,7 @@
        */
 
 
+      // @ts-ignore
       VisualMapModel.prototype.getVisualMeta = function (getColorVisual) {
         return null;
       };
@@ -90197,6 +93695,7 @@
 
     var ContinuousModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ContinuousModel, _super);
 
@@ -90211,15 +93710,20 @@
        */
 
 
+      // @ts-ignore
       ContinuousModel.prototype.optionUpdated = function (newOption, isInit) {
         _super.prototype.optionUpdated.apply(this, arguments);
 
+        // @ts-ignore
         this.resetExtent();
+        // @ts-ignore
         this.resetVisual(function (mappingOption) {
           mappingOption.mappingMethod = 'linear';
+          // @ts-ignore
           mappingOption.dataExtent = this.getExtent();
         });
 
+        // @ts-ignore
         this._resetRange();
       };
       /**
@@ -90231,6 +93735,7 @@
       ContinuousModel.prototype.resetItemSize = function () {
         _super.prototype.resetItemSize.apply(this, arguments);
 
+        // @ts-ignore
         var itemSize = this.itemSize;
         (itemSize[0] == null || isNaN(itemSize[0])) && (itemSize[0] = DEFAULT_BAR_BOUND[0]);
         (itemSize[1] == null || isNaN(itemSize[1])) && (itemSize[1] = DEFAULT_BAR_BOUND[1]);
@@ -90241,13 +93746,16 @@
 
 
       ContinuousModel.prototype._resetRange = function () {
+        // @ts-ignore
         var dataExtent = this.getExtent();
+        // @ts-ignore
         var range = this.option.range;
 
         if (!range || range.auto) {
           // `range` should always be array (so we dont use other
           // value like 'auto') for user-friend. (consider getOption).
           dataExtent.auto = 1;
+          // @ts-ignore
           this.option.range = dataExtent;
         } else if (isArray(range)) {
           if (range[0] > range[1]) {
@@ -90267,7 +93775,9 @@
       ContinuousModel.prototype.completeVisualOption = function () {
         _super.prototype.completeVisualOption.apply(this, arguments);
 
+        // @ts-ignore
         each(this.stateList, function (state) {
+          // @ts-ignore
           var symbolSize = this.option.controller[state].symbolSize;
 
           if (symbolSize && symbolSize[0] !== symbolSize[1]) {
@@ -90281,8 +93791,10 @@
 
 
       ContinuousModel.prototype.setSelected = function (selected) {
+        // @ts-ignore
         this.option.range = selected.slice();
 
+        // @ts-ignore
         this._resetRange();
       };
       /**
@@ -90291,7 +93803,9 @@
 
 
       ContinuousModel.prototype.getSelected = function () {
+        // @ts-ignore
         var dataExtent = this.getExtent();
+        // @ts-ignore
         var dataInterval = asc((this.get('range') || []).slice()); // Clamp
 
         dataInterval[0] > dataExtent[1] && (dataInterval[0] = dataExtent[1]);
@@ -90306,7 +93820,9 @@
 
 
       ContinuousModel.prototype.getValueState = function (value) {
+        // @ts-ignore
         var range = this.option.range;
+        // @ts-ignore
         var dataExtent = this.getExtent(); // When range[0] === dataExtent[0], any value larger than dataExtent[0] maps to 'inRange'.
         // range[1] is processed likewise.
 
@@ -90315,11 +93831,14 @@
 
       ContinuousModel.prototype.findTargetDataIndices = function (range) {
         var result = [];
+        // @ts-ignore
         this.eachTargetSeries(function (seriesModel) {
           var dataIndices = [];
           var data = seriesModel.getData();
+          // @ts-ignore
           data.each(this.getDataDimensionIndex(data), function (value, dataIndex) {
             range[0] <= value && value <= range[1] && dataIndices.push(dataIndex);
+          // @ts-ignore
           }, this);
           result.push({
             seriesId: seriesModel.id,
@@ -90334,7 +93853,9 @@
 
 
       ContinuousModel.prototype.getVisualMeta = function (getColorVisual) {
+        // @ts-ignore
         var oVals = getColorStopValues(this, 'outOfRange', this.getExtent());
+        // @ts-ignore
         var iVals = getColorStopValues(this, 'inRange', this.option.range.slice());
         var stops = [];
 
@@ -90418,6 +93939,7 @@
       return ContinuousModel;
     }(VisualMapModel);
 
+    // @ts-ignore
     function getColorStopValues(visualMapModel, valueState, dataExtent) {
       if (dataExtent[0] === dataExtent[1]) {
         return dataExtent.slice();
@@ -90443,6 +93965,7 @@
 
     var VisualMapView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(VisualMapView, _super);
 
@@ -90473,6 +93996,7 @@
         this.visualMapModel = visualMapModel;
 
         if (visualMapModel.get('show') === false) {
+          // @ts-ignore
           this.group.removeAll();
           return;
         }
@@ -90554,12 +94078,14 @@
       VisualMapView.prototype.positionGroup = function (group) {
         var model = this.visualMapModel;
         var api = this.api;
+        // @ts-ignore
         positionElement(group, model.getBoxLayoutParams(), {
           width: api.getWidth(),
           height: api.getHeight()
         });
       };
 
+      // @ts-ignore
       VisualMapView.prototype.doRender = function (visualMapModel, ecModel, api, payload) {};
 
       VisualMapView.type = 'visualMap';
@@ -90599,6 +94125,7 @@
 
       var rParam = [['x', 'width', 3], ['y', 'height', 0]][realIndex];
       var rect = getLayoutRect(layoutInput, ecSize, modelOption.padding);
+      // @ts-ignore
       return reals[(rect.margin[rParam[2]] || 0) + rect[rParam[0]] + rect[rParam[1]] * 0.5 < ecSize[rParam[1]] * 0.5 ? 0 : 1];
     }
     /**
@@ -90635,6 +94162,7 @@
 
     var ContinuousView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(ContinuousView, _super);
 
@@ -90649,17 +94177,22 @@
         return _this;
       }
 
+      // @ts-ignore
       ContinuousView.prototype.doRender = function (visualMapModel, ecModel, api, payload) {
         this._api = api;
 
+        // @ts-ignore
         if (!payload || payload.type !== 'selectDataRange' || payload.from !== this.uid) {
           this._buildView();
         }
       };
 
       ContinuousView.prototype._buildView = function () {
+        // @ts-ignore
         this.group.removeAll();
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
+        // @ts-ignore
         var thisGroup = this.group;
         this._orient = visualMapModel.get('orient');
         this._useHandle = visualMapModel.get('calculable');
@@ -90679,6 +94212,7 @@
         // and then background can be rendered.
 
 
+        // @ts-ignore
         this.renderBackground(thisGroup); // Real update view
 
         this._updateView();
@@ -90687,9 +94221,11 @@
 
         this._enableHoverLinkFromSeries();
 
+        // @ts-ignore
         this.positionGroup(thisGroup);
       };
 
+      // @ts-ignore
       ContinuousView.prototype._renderEndsText = function (group, dataRangeText, endsIndex) {
         if (!dataRangeText) {
           return;
@@ -90698,9 +94234,11 @@
 
         var text = dataRangeText[1 - endsIndex];
         text = text != null ? text + '' : '';
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var textGap = visualMapModel.get('textGap');
         var itemSize = visualMapModel.itemSize;
+        // @ts-ignore
         var barGroup = this._shapes.mainGroup;
 
         var position = this._applyTransform([itemSize[0] / 2, endsIndex === 0 ? -textGap : itemSize[1] + textGap], barGroup);
@@ -90708,7 +94246,9 @@
         var align = this._applyTransform(endsIndex === 0 ? 'bottom' : 'top', barGroup);
 
         var orient = this._orient;
+        // @ts-ignore
         var textStyleModel = this.visualMapModel.textStyleModel;
+        // @ts-ignore
         this.group.add(new ZRText({
           style: {
             x: position[0],
@@ -90723,11 +94263,14 @@
       };
 
       ContinuousView.prototype._renderBar = function (targetGroup) {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
+        // @ts-ignore
         var shapes = this._shapes;
         var itemSize = visualMapModel.itemSize;
         var orient = this._orient;
         var useHandle = this._useHandle;
+        // @ts-ignore
         var itemAlign = getItemAlign(visualMapModel, this.api, itemSize);
 
         var mainGroup = shapes.mainGroup = this._createBarGroup(itemAlign);
@@ -90738,6 +94281,7 @@
         gradientBarGroup.add(shapes.outOfRange = createPolygon());
         gradientBarGroup.add(shapes.inRange = createPolygon(null, useHandle ? getCursor$1(this._orient) : null, bind(this._dragHandle, this, 'all', false), bind(this._dragHandle, this, 'all', true))); // A border radius clip.
 
+        // @ts-ignore
         gradientBarGroup.setClipPath(new Rect({
           shape: {
             x: 0,
@@ -90765,12 +94309,14 @@
         targetGroup.add(mainGroup);
       };
 
+      // @ts-ignore
       ContinuousView.prototype._createHandle = function (visualMapModel, mainGroup, handleIndex, itemSize, textSize, orient) {
         var onDrift = bind(this._dragHandle, this, handleIndex, false);
         var onDragEnd = bind(this._dragHandle, this, handleIndex, true);
         var handleSize = parsePercent(visualMapModel.get('handleSize'), itemSize[0]);
         var handleThumb = createSymbol(visualMapModel.get('handleIcon'), -handleSize / 2, -handleSize / 2, handleSize, handleSize, null, true);
         var cursor = getCursor$1(this._orient);
+        // @ts-ignore
         handleThumb.attr({
           cursor: cursor,
           draggable: true,
@@ -90780,13 +94326,18 @@
             stop(e.event);
           }
         });
+        // @ts-ignore
         handleThumb.x = itemSize[0] / 2;
+        // @ts-ignore
         handleThumb.useStyle(visualMapModel.getModel('handleStyle').getItemStyle());
+        // @ts-ignore
         handleThumb.setStyle({
           strokeNoScale: true,
           strokeFirst: true
         });
+        // @ts-ignore
         handleThumb.style.lineWidth *= 2;
+        // @ts-ignore
         handleThumb.ensureState('emphasis').style = visualMapModel.getModel(['emphasis', 'handleStyle']).getItemStyle();
         setAsHighDownDispatcher(handleThumb, true);
         mainGroup.add(handleThumb); // Text is always horizontal layout but should not be effected by
@@ -90794,6 +94345,7 @@
         // use zrender/graphic/helper/RectText, and is located based on view
         // group (according to handleLabelPoint) but not barGroup.
 
+        // @ts-ignore
         var textStyleModel = this.visualMapModel.textStyleModel;
         var handleLabel = new ZRText({
           cursor: cursor,
@@ -90812,14 +94364,18 @@
             fill: textStyleModel.getTextColor()
           }
         });
+        // @ts-ignore
         handleLabel.ensureState('blur').style = {
           opacity: 0.1
         };
+        // @ts-ignore
         handleLabel.stateTransition = {
           duration: 200
         };
+        // @ts-ignore
         this.group.add(handleLabel);
         var handleLabelPoint = [handleSize, 0];
+        // @ts-ignore
         var shapes = this._shapes;
         shapes.handleThumbs[handleIndex] = handleThumb;
         shapes.handleLabelPoints[handleIndex] = handleLabelPoint;
@@ -90829,6 +94385,7 @@
       ContinuousView.prototype._createIndicator = function (visualMapModel, mainGroup, itemSize, textSize, orient) {
         var scale = parsePercent(visualMapModel.get('indicatorSize'), itemSize[0]);
         var indicator = createSymbol(visualMapModel.get('indicatorIcon'), -scale / 2, -scale / 2, scale, scale, null, true);
+        // @ts-ignore
         indicator.attr({
           cursor: 'move',
           invisible: true,
@@ -90838,7 +94395,9 @@
         var indicatorStyle = visualMapModel.getModel('indicatorStyle').getItemStyle();
 
         if (indicator instanceof ZRImage) {
+          // @ts-ignore
           var pathStyle = indicator.style;
+          // @ts-ignore
           indicator.useStyle(extend({
             // TODO other properties like x, y ?
             image: pathStyle.image,
@@ -90848,10 +94407,12 @@
             height: pathStyle.height
           }, indicatorStyle));
         } else {
+          // @ts-ignore
           indicator.useStyle(indicatorStyle);
         }
 
         mainGroup.add(indicator);
+        // @ts-ignore
         var textStyleModel = this.visualMapModel.textStyleModel;
         var indicatorLabel = new ZRText({
           silent: true,
@@ -90864,8 +94425,10 @@
             fill: textStyleModel.getTextColor()
           }
         });
+        // @ts-ignore
         this.group.add(indicatorLabel);
         var indicatorLabelPoint = [(orient === 'horizontal' ? textSize / 2 : HOVER_LINK_OUT) + itemSize[0] / 2, 0];
+        // @ts-ignore
         var shapes = this._shapes;
         shapes.indicator = indicator;
         shapes.indicatorLabel = indicatorLabel;
@@ -90883,8 +94446,10 @@
 
         if (!isEnd) {
           // Transform dx, dy to bar coordination.
+          // @ts-ignore
           var vertex = this._applyTransform([dx, dy], this._shapes.mainGroup, true);
 
+          // @ts-ignore
           this._updateInterval(handleIndex, vertex[1]);
 
           this._hideIndicator(); // Considering realtime, update view should be executed
@@ -90895,24 +94460,31 @@
         } // dragEnd do not dispatch action when realtime.
 
 
+        // @ts-ignore
         if (isEnd === !this.visualMapModel.get('realtime')) {
           // jshint ignore:line
+          // @ts-ignore
           this.api.dispatchAction({
             type: 'selectDataRange',
+            // @ts-ignore
             from: this.uid,
+            // @ts-ignore
             visualMapId: this.visualMapModel.id,
             selected: this._dataInterval.slice()
           });
         }
 
         if (isEnd) {
+          // @ts-ignore
           !this._hovering && this._clearHoverLinkToSeries();
+        // @ts-ignore
         } else if (useHoverLinkOnHandle(this.visualMapModel)) {
           this._doHoverLinkToSeries(this._handleEnds[handleIndex], false);
         }
       };
 
       ContinuousView.prototype._resetInterval = function () {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var dataInterval = this._dataInterval = visualMapModel.getSelected();
         var dataExtent = visualMapModel.getExtent();
@@ -90929,19 +94501,24 @@
 
       ContinuousView.prototype._updateInterval = function (handleIndex, delta) {
         delta = delta || 0;
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var handleEnds = this._handleEnds;
         var sizeExtent = [0, visualMapModel.itemSize[1]];
+        // @ts-ignore
         sliderMove(delta, handleEnds, sizeExtent, handleIndex, // cross is forbiden
         0);
         var dataExtent = visualMapModel.getExtent(); // Update data interval.
 
+        // @ts-ignore
         this._dataInterval = [linearMap$2(handleEnds[0], sizeExtent, dataExtent, true), linearMap$2(handleEnds[1], sizeExtent, dataExtent, true)];
       };
 
       ContinuousView.prototype._updateView = function (forSketch) {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var dataExtent = visualMapModel.getExtent();
+        // @ts-ignore
         var shapes = this._shapes;
         var outOfRangeHandleEnds = [0, visualMapModel.itemSize[1]];
         var inRangeHandleEnds = forSketch ? outOfRangeHandleEnds : this._handleEnds;
@@ -90962,6 +94539,7 @@
         this._updateHandle(inRangeHandleEnds, visualInRange);
       };
 
+      // @ts-ignore
       ContinuousView.prototype._createBarVisual = function (dataInterval, dataExtent, handleEnds, forceState) {
         var opts = {
           forceState: forceState,
@@ -90970,11 +94548,13 @@
 
         var colorStops = this._makeColorGradient(dataInterval, opts);
 
+        // @ts-ignore
         var symbolSizes = [this.getControllerVisual(dataInterval[0], 'symbolSize', opts), this.getControllerVisual(dataInterval[1], 'symbolSize', opts)];
 
         var barPoints = this._createBarPoints(handleEnds, symbolSizes);
 
         return {
+          // @ts-ignore
           barColor: new LinearGradient(0, 0, 0, 1, colorStops),
           barPoints: barPoints,
           handlesColor: [colorStops[0].color, colorStops[colorStops.length - 1].color]
@@ -90990,6 +94570,7 @@
         var colorStops = [];
         var step = (dataInterval[1] - dataInterval[0]) / sampleNumber;
         colorStops.push({
+          // @ts-ignore
           color: this.getControllerVisual(dataInterval[0], 'color', opts),
           offset: 0
         });
@@ -91002,12 +94583,14 @@
           }
 
           colorStops.push({
+            // @ts-ignore
             color: this.getControllerVisual(currValue, 'color', opts),
             offset: i / sampleNumber
           });
         }
 
         colorStops.push({
+          // @ts-ignore
           color: this.getControllerVisual(dataInterval[1], 'color', opts),
           offset: 1
         });
@@ -91015,12 +94598,14 @@
       };
 
       ContinuousView.prototype._createBarPoints = function (handleEnds, symbolSizes) {
+        // @ts-ignore
         var itemSize = this.visualMapModel.itemSize;
         return [[itemSize[0] - symbolSizes[0], handleEnds[0]], [itemSize[0], handleEnds[0]], [itemSize[0], handleEnds[1]], [itemSize[0] - symbolSizes[1], handleEnds[1]]];
       };
 
       ContinuousView.prototype._createBarGroup = function (itemAlign) {
         var orient = this._orient;
+        // @ts-ignore
         var inverse = this.visualMapModel.get('inverse');
         return new Group(orient === 'horizontal' && !inverse ? {
           scaleX: itemAlign === 'bottom' ? 1 : -1,
@@ -91041,7 +94626,9 @@
           return;
         }
 
+        // @ts-ignore
         var shapes = this._shapes;
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var handleThumbs = shapes.handleThumbs;
         var handleLabels = shapes.handleLabels;
@@ -91052,26 +94639,33 @@
           handleThumb.setStyle('fill', visualInRange.handlesColor[handleIndex]);
           handleThumb.y = handleEnds[handleIndex];
           var val = linearMap$2(handleEnds[handleIndex], [0, itemSize[1]], dataExtent, true);
+          // @ts-ignore
           var symbolSize = this.getControllerVisual(val, 'symbolSize');
           handleThumb.scaleX = handleThumb.scaleY = symbolSize / itemSize[0];
           handleThumb.x = itemSize[0] - symbolSize / 2; // Update handle label position.
 
+          // @ts-ignore
           var textPoint = applyTransform$1(shapes.handleLabelPoints[handleIndex], getTransform(handleThumb, this.group));
           handleLabels[handleIndex].setStyle({
             x: textPoint[0],
             y: textPoint[1],
+            // @ts-ignore
             text: visualMapModel.formatValueText(this._dataInterval[handleIndex]),
             verticalAlign: 'middle',
+            // @ts-ignore
             align: this._orient === 'vertical' ? this._applyTransform('left', shapes.mainGroup) : 'center'
           });
         }, this);
       };
 
+      // @ts-ignore
       ContinuousView.prototype._showIndicator = function (cursorValue, textValue, rangeSymbol, halfHoverLinkSize) {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var dataExtent = visualMapModel.getExtent();
         var itemSize = visualMapModel.itemSize;
         var sizeExtent = [0, itemSize[1]];
+        // @ts-ignore
         var shapes = this._shapes;
         var indicator = shapes.indicator;
 
@@ -91083,7 +94677,9 @@
         var opts = {
           convertOpacityToAlpha: true
         };
+        // @ts-ignore
         var color = this.getControllerVisual(cursorValue, 'color', opts);
+        // @ts-ignore
         var symbolSize = this.getControllerVisual(cursorValue, 'symbolSize');
         var y = linearMap$2(cursorValue, dataExtent, sizeExtent, true);
         var x = itemSize[0] - symbolSize / 2;
@@ -91094,6 +94690,7 @@
 
         indicator.y = y;
         indicator.x = x;
+        // @ts-ignore
         var textPoint = applyTransform$1(shapes.indicatorLabelPoint, getTransform(indicator, this.group));
         var indicatorLabel = shapes.indicatorLabel;
         indicatorLabel.attr('invisible', false);
@@ -91137,6 +94734,7 @@
         }
 
         this._firstShowIndicator = false;
+        // @ts-ignore
         var handleLabels = this._shapes.handleLabels;
 
         if (handleLabels) {
@@ -91151,12 +94749,16 @@
       ContinuousView.prototype._enableHoverLinkToSeries = function () {
         var self = this;
 
+        // @ts-ignore
         this._shapes.mainGroup.on('mousemove', function (e) {
+          // @ts-ignore
           self._hovering = true;
 
           if (!self._dragging) {
+            // @ts-ignore
             var itemSize = self.visualMapModel.itemSize;
 
+            // @ts-ignore
             var pos = self._applyTransform([e.offsetX, e.offsetY], self._shapes.mainGroup, true, true); // For hover link show when hover handle, which might be
             // below or upper than sizeExtent.
 
@@ -91168,14 +94770,17 @@
         }).on('mouseout', function () {
           // When mouse is out of handle, hoverLink still need
           // to be displayed when realtime is set as false.
+          // @ts-ignore
           self._hovering = false;
           !self._dragging && self._clearHoverLinkToSeries();
         });
       };
 
       ContinuousView.prototype._enableHoverLinkFromSeries = function () {
+        // @ts-ignore
         var zr = this.api.getZr();
 
+        // @ts-ignore
         if (this.visualMapModel.option.hoverLink) {
           zr.on('mouseover', this._hoverLinkFromSeriesMouseOver, this);
           zr.on('mouseout', this._hideIndicator, this);
@@ -91185,6 +94790,7 @@
       };
 
       ContinuousView.prototype._doHoverLinkToSeries = function (cursorPos, hoverOnBar) {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var itemSize = visualMapModel.itemSize;
 
@@ -91238,6 +94844,7 @@
 
       ContinuousView.prototype._hoverLinkFromSeriesMouseOver = function (e) {
         var el = e.target;
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
 
         if (!el || getECData(el).dataIndex == null) {
@@ -91245,6 +94852,7 @@
         }
 
         var ecData = getECData(el);
+        // @ts-ignore
         var dataModel = this.ecModel.getSeriesByIndex(ecData.seriesIndex);
 
         if (!visualMapModel.isTargetSeries(dataModel)) {
@@ -91260,9 +94868,11 @@
       };
 
       ContinuousView.prototype._hideIndicator = function () {
+        // @ts-ignore
         var shapes = this._shapes;
         shapes.indicator && shapes.indicator.attr('invisible', true);
         shapes.indicatorLabel && shapes.indicatorLabel.attr('invisible', true);
+        // @ts-ignore
         var handleLabels = this._shapes.handleLabels;
 
         if (handleLabels) {
@@ -91279,6 +94889,7 @@
 
         var indices = this._hoverLinkDataIndices;
 
+        // @ts-ignore
         this._dispatchHighDown('downplay', makeHighDownBatch(indices, this.visualMapModel));
 
         indices.length = 0;
@@ -91287,18 +94898,21 @@
       ContinuousView.prototype._clearHoverLinkFromSeries = function () {
         this._hideIndicator();
 
+        // @ts-ignore
         var zr = this.api.getZr();
         zr.off('mouseover', this._hoverLinkFromSeriesMouseOver);
         zr.off('mouseout', this._hideIndicator);
       };
 
       ContinuousView.prototype._applyTransform = function (vertex, element, inverse, global) {
+        // @ts-ignore
         var transform = getTransform(element, global ? null : this.group);
         return isArray(vertex) ? applyTransform$1(vertex, transform, inverse) : transformDirection(vertex, transform, inverse);
       }; // TODO: TYPE more specified payload types.
 
 
       ContinuousView.prototype._dispatchHighDown = function (type, batch) {
+        // @ts-ignore
         batch && batch.length && this.api.dispatchAction({
           type: type,
           batch: batch
@@ -91557,6 +95171,7 @@
 
     var PiecewiseModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PiecewiseModel, _super);
 
@@ -91576,6 +95191,7 @@
       PiecewiseModel.prototype.optionUpdated = function (newOption, isInit) {
         _super.prototype.optionUpdated.apply(this, arguments);
 
+        // @ts-ignore
         this.resetExtent();
 
         var mode = this._mode = this._determineMode();
@@ -91586,14 +95202,18 @@
 
         this._resetSelected(newOption, isInit);
 
+        // @ts-ignore
         var categories = this.option.categories;
+        // @ts-ignore
         this.resetVisual(function (mappingOption, state) {
           if (mode === 'categories') {
             mappingOption.mappingMethod = 'category';
             mappingOption.categories = clone(categories);
           } else {
+            // @ts-ignore
             mappingOption.dataExtent = this.getExtent();
             mappingOption.mappingMethod = 'piecewise';
+            // @ts-ignore
             mappingOption.pieceList = map(this._pieceList, function (piece) {
               piece = clone(piece);
 
@@ -91622,9 +95242,11 @@
         // where no inRange/outOfRange set but only pieces. So we should make
         // default inRange/outOfRange for this case, otherwise visuals that only
         // appear in `pieces` will not be taken into account in visual encoding.
+        // @ts-ignore
         var option = this.option;
         var visualTypesInPieces = {};
         var visualTypes = VisualMapping.listVisualTypes();
+        // @ts-ignore
         var isCategory = this.isCategory();
         each(option.pieces, function (piece) {
           each(visualTypes, function (visualType) {
@@ -91633,11 +95255,15 @@
             }
           });
         });
+        // @ts-ignore
         each(visualTypesInPieces, function (v, visualType) {
           var exists = false;
+          // @ts-ignore
           each(this.stateList, function (state) {
             exists = exists || has(option, state, visualType) || has(option.target, state, visualType);
+          // @ts-ignore
           }, this);
+          // @ts-ignore
           !exists && each(this.stateList, function (state) {
             (option[state] || (option[state] = {}))[visualType] = visualDefault.get(visualType, state === 'inRange' ? 'active' : 'inactive', isCategory);
           });
@@ -91651,13 +95277,16 @@
       };
 
       PiecewiseModel.prototype._resetSelected = function (newOption, isInit) {
+        // @ts-ignore
         var thisOption = this.option;
         var pieceList = this._pieceList; // Selected do not merge but all override.
 
         var selected = (isInit ? thisOption : newOption).selected || {};
         thisOption.selected = selected; // Consider 'not specified' means true.
 
+        // @ts-ignore
         each(pieceList, function (piece, index) {
+          // @ts-ignore
           var key = this.getSelectedMapKey(piece);
 
           if (!selected.hasOwnProperty(key)) {
@@ -91668,7 +95297,9 @@
         if (thisOption.selectedMode === 'single') {
           // Ensure there is only one selected.
           var hasSel_1 = false;
+          // @ts-ignore
           each(pieceList, function (piece, index) {
+            // @ts-ignore
             var key = this.getSelectedMapKey(piece);
 
             if (selected[key]) {
@@ -91684,6 +95315,7 @@
 
 
       PiecewiseModel.prototype.getItemSymbol = function () {
+        // @ts-ignore
         return this.get('itemSymbol');
       };
       /**
@@ -91708,7 +95340,9 @@
 
 
       PiecewiseModel.prototype._determineMode = function () {
+        // @ts-ignore
         var option = this.option;
+        // @ts-ignore
         return option.pieces && option.pieces.length > 0 ? 'pieces' : this.option.categories ? 'categories' : 'splitNumber';
       };
       /**
@@ -91717,6 +95351,7 @@
 
 
       PiecewiseModel.prototype.setSelected = function (selected) {
+        // @ts-ignore
         this.option.selected = clone(selected);
       };
       /**
@@ -91726,6 +95361,7 @@
 
       PiecewiseModel.prototype.getValueState = function (value) {
         var index = VisualMapping.findPieceIndex(value, this._pieceList);
+        // @ts-ignore
         return index != null ? this.option.selected[this.getSelectedMapKey(this._pieceList[index])] ? 'inRange' : 'outOfRange' : 'outOfRange';
       };
       /**
@@ -91737,13 +95373,16 @@
       PiecewiseModel.prototype.findTargetDataIndices = function (pieceIndex) {
         var result = [];
         var pieceList = this._pieceList;
+        // @ts-ignore
         this.eachTargetSeries(function (seriesModel) {
           var dataIndices = [];
           var data = seriesModel.getData();
+          // @ts-ignore
           data.each(this.getDataDimensionIndex(data), function (value, dataIndex) {
             // Should always base on model pieceList, because it is order sensitive.
             var pIdx = VisualMapping.findPieceIndex(value, pieceList);
             pIdx === pieceIndex && dataIndices.push(dataIndex);
+          // @ts-ignore
           }, this);
           result.push({
             seriesId: seriesModel.id,
@@ -91762,6 +95401,7 @@
       PiecewiseModel.prototype.getRepresentValue = function (piece) {
         var representValue;
 
+        // @ts-ignore
         if (this.isCategory()) {
           representValue = piece.value;
         } else {
@@ -91778,6 +95418,7 @@
 
       PiecewiseModel.prototype.getVisualMeta = function (getColorVisual) {
         // Do not support category. (category axis is ordinal, numerical)
+        // @ts-ignore
         if (this.isCategory()) {
           return;
         }
@@ -91787,6 +95428,7 @@
         var visualMapModel = this;
 
         function setStop(interval, valueState) {
+          // @ts-ignore
           var representValue = visualMapModel.getRepresentValue({
             interval: interval
           }); // Not category
@@ -91813,6 +95455,7 @@
         } // Suplement
 
 
+        // @ts-ignore
         var pieceList = this._pieceList.slice();
 
         if (!pieceList.length) {
@@ -91914,6 +95557,7 @@
         reformIntervals(outPieceList);
         each(outPieceList, function (piece, index) {
           piece.index = index;
+          // @ts-ignore
           piece.text = this.formatValueText(piece.interval);
         }, this);
       },
@@ -91923,6 +95567,7 @@
           // FIXME category模式也使用pieceList，但在visualMapping中不是使用pieceList。
           // 是否改一致。
           outPieceList.push({
+            // @ts-ignore
             text: this.formatValueText(cate, true),
             value: cate
           });
@@ -91976,6 +95621,7 @@
             useMinMax[0] && interval[1] === Infinity && (close_1[0] = 0);
             useMinMax[1] && interval[0] === -Infinity && (close_1[1] = 0);
 
+            // @ts-ignore
             if ("development" !== 'production') {
               if (interval[0] > interval[1]) {
                 console.warn('Piece ' + index + 'is illegal: ' + interval + ' lower bound should not greater then uppper bound.');
@@ -91999,6 +95645,7 @@
         each(outPieceList, function (piece) {
           var close = piece.close;
           var edgeSymbols = [['<', '≤'][close[1]], ['>', '≥'][close[0]]];
+          // @ts-ignore
           piece.text = piece.text || this.formatValueText(piece.value != null ? piece.value : piece.interval, false, edgeSymbols);
         }, this);
       }
@@ -92014,6 +95661,7 @@
 
     var PiecewiseVisualMapView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(PiecewiseVisualMapView, _super);
 
@@ -92025,8 +95673,10 @@
       }
 
       PiecewiseVisualMapView.prototype.doRender = function () {
+        // @ts-ignore
         var thisGroup = this.group;
         thisGroup.removeAll();
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var textGap = visualMapModel.get('textGap');
         var textStyleModel = visualMapModel.textStyleModel;
@@ -92037,6 +95687,7 @@
 
         var itemSize = visualMapModel.itemSize;
 
+        // @ts-ignore
         var viewData = this._getViewData();
 
         var endsText = viewData.endsText;
@@ -92045,16 +95696,20 @@
         each(viewData.viewPieceList, function (item) {
           var piece = item.piece;
           var itemGroup = new Group();
+          // @ts-ignore
           itemGroup.onclick = bind(this._onItemClick, this, piece);
 
+          // @ts-ignore
           this._enableHoverLink(itemGroup, item.indexInModelPieceList); // TODO Category
 
 
           var representValue = visualMapModel.getRepresentValue(piece);
 
+          // @ts-ignore
           this._createItemSymbol(itemGroup, representValue, [0, 0, itemSize[0], itemSize[1]]);
 
           if (showLabel) {
+            // @ts-ignore
             var visualState = this.visualMapModel.getValueState(representValue);
             itemGroup.add(new ZRText({
               style: {
@@ -92074,7 +95729,9 @@
         }, this);
         endsText && this._renderEndsText(thisGroup, endsText[1], itemSize, showLabel, itemAlign);
         box(visualMapModel.get('orient'), thisGroup, visualMapModel.get('itemGap'));
+        // @ts-ignore
         this.renderBackground(thisGroup);
+        // @ts-ignore
         this.positionGroup(thisGroup);
       };
 
@@ -92088,8 +95745,10 @@
         });
 
         var onHoverLink = function (method) {
+          // @ts-ignore
           var visualMapModel = _this.visualMapModel; // TODO: TYPE More detailed action types
 
+          // @ts-ignore
           visualMapModel.option.hoverLink && _this.api.dispatchAction({
             type: method,
             batch: makeHighDownBatch(visualMapModel.findTargetDataIndices(pieceIndex), visualMapModel)
@@ -92098,10 +95757,12 @@
       };
 
       PiecewiseVisualMapView.prototype._getItemAlign = function () {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var modelOption = visualMapModel.option;
 
         if (modelOption.orient === 'vertical') {
+          // @ts-ignore
           return getItemAlign(visualMapModel, this.api, visualMapModel.itemSize);
         } else {
           // horizontal, most case left unless specifying right.
@@ -92121,6 +95782,7 @@
         }
 
         var itemGroup = new Group();
+        // @ts-ignore
         var textStyleModel = this.visualMapModel.textStyleModel;
         itemGroup.add(new ZRText({
           style: {
@@ -92142,6 +95804,7 @@
 
 
       PiecewiseVisualMapView.prototype._getViewData = function () {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var viewPieceList = map(visualMapModel.getPieceList(), function (piece, index) {
           return {
@@ -92169,11 +95832,14 @@
 
       PiecewiseVisualMapView.prototype._createItemSymbol = function (group, representValue, shapeParam) {
         group.add(createSymbol( // symbol will be string
+        // @ts-ignore
         this.getControllerVisual(representValue, 'symbol'), shapeParam[0], shapeParam[1], shapeParam[2], shapeParam[3], // color will be string
+        // @ts-ignore
         this.getControllerVisual(representValue, 'color')));
       };
 
       PiecewiseVisualMapView.prototype._onItemClick = function (piece) {
+        // @ts-ignore
         var visualMapModel = this.visualMapModel;
         var option = visualMapModel.option;
         var selected = clone(option.selected);
@@ -92181,6 +95847,7 @@
 
         if (option.selectedMode === 'single') {
           selected[newKey] = true;
+          // @ts-ignore
           each(selected, function (o, key) {
             selected[key] = key === newKey;
           });
@@ -92188,9 +95855,12 @@
           selected[newKey] = !selected[newKey];
         }
 
+        // @ts-ignore
         this.api.dispatchAction({
           type: 'selectDataRange',
+          // @ts-ignore
           from: this.uid,
+          // @ts-ignore
           visualMapId: this.visualMapModel.id,
           selected: selected
         });
@@ -92206,6 +95876,7 @@
       installCommon$1(registers);
     }
 
+    // @ts-ignore
     function install$P(registers) {
       use(install$N);
       use(install$O); // Do not install './dataZoomSelect',
@@ -92384,6 +96055,7 @@
                 }
               }
 
+              // @ts-ignore
               seriesLabel += dataLabels.join(middleSeparator_1) + endSeparator_1;
               seriesLabels_1.push(seriesLabel);
             }
@@ -92471,6 +96143,7 @@
 
     var RegExpEvaluator =
     /** @class */
+    // @ts-ignore
     function () {
       function RegExpEvaluator(rVal) {
         // Support condVal: RegExp | string
@@ -92479,6 +96152,7 @@
         if (condValue == null) {
           var errMsg = '';
 
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = makePrintable('Illegal regexp', rVal, 'in');
           }
@@ -92497,10 +96171,12 @@
 
     var ConstConditionInternal =
     /** @class */
+    // @ts-ignore
     function () {
       function ConstConditionInternal() {}
 
       ConstConditionInternal.prototype.evaluate = function () {
+        // @ts-ignore
         return this.value;
       };
 
@@ -92509,10 +96185,12 @@
 
     var AndConditionInternal =
     /** @class */
+    // @ts-ignore
     function () {
       function AndConditionInternal() {}
 
       AndConditionInternal.prototype.evaluate = function () {
+        // @ts-ignore
         var children = this.children;
 
         for (var i = 0; i < children.length; i++) {
@@ -92529,10 +96207,12 @@
 
     var OrConditionInternal =
     /** @class */
+    // @ts-ignore
     function () {
       function OrConditionInternal() {}
 
       OrConditionInternal.prototype.evaluate = function () {
+        // @ts-ignore
         var children = this.children;
 
         for (var i = 0; i < children.length; i++) {
@@ -92549,10 +96229,12 @@
 
     var NotConditionInternal =
     /** @class */
+    // @ts-ignore
     function () {
       function NotConditionInternal() {}
 
       NotConditionInternal.prototype.evaluate = function () {
+        // @ts-ignore
         return !this.child.evaluate();
       };
 
@@ -92561,17 +96243,24 @@
 
     var RelationalConditionInternal =
     /** @class */
+    // @ts-ignore
     function () {
       function RelationalConditionInternal() {}
 
       RelationalConditionInternal.prototype.evaluate = function () {
+        // @ts-ignore
         var needParse = !!this.valueParser; // Call getValue with no `this`.
 
+        // @ts-ignore
         var getValue = this.getValue;
+        // @ts-ignore
         var tarValRaw = getValue(this.valueGetterParam);
+        // @ts-ignore
         var tarValParsed = needParse ? this.valueParser(tarValRaw) : null; // Relational cond follow "and" logic internally.
 
+        // @ts-ignore
         for (var i = 0; i < this.subCondList.length; i++) {
+          // @ts-ignore
           if (!this.subCondList[i].evaluate(needParse ? tarValParsed : tarValRaw)) {
             return false;
           }
@@ -92593,6 +96282,7 @@
       var errMsg = '';
 
       if (!isObjectNotArray(exprOption)) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = makePrintable('Illegal config. Expect a plain object but actually', exprOption);
         }
@@ -92615,6 +96305,7 @@
       var subOptionArr = exprOption[op];
       var errMsg = '';
 
+      // @ts-ignore
       if ("development" !== 'production') {
         errMsg = makePrintable('"and"/"or" condition should only be `' + op + ': [...]` and must not be empty array.', 'Illegal condition:', exprOption);
       }
@@ -92643,6 +96334,7 @@
       var subOption = exprOption.not;
       var errMsg = '';
 
+      // @ts-ignore
       if ("development" !== 'production') {
         errMsg = makePrintable('"not" condition should only be `not: {}`.', 'Illegal condition:', exprOption);
       }
@@ -92682,6 +96374,7 @@
         var evaluator = createFilterComparator(op, condValueParsed) || op === 'reg' && new RegExpEvaluator(condValueParsed);
 
         if (!evaluator) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = makePrintable('Illegal relational operation: "' + keyRaw + '" in condition:', exprOption);
           }
@@ -92693,6 +96386,7 @@
       }
 
       if (!subCondList.length) {
+        // @ts-ignore
         if ("development" !== 'production') {
           errMsg = makePrintable('Relational condition must have at least one operator.', 'Illegal condition:', exprOption);
         } // No relational operator always disabled in case of dangers result.
@@ -92715,6 +96409,7 @@
 
     var ConditionalExpressionParsed =
     /** @class */
+    // @ts-ignore
     function () {
       function ConditionalExpressionParsed(exprOption, getters) {
         this._cond = parseOption(exprOption, getters);
@@ -92749,6 +96444,7 @@
             var dimLoose = exprOption.dimension;
 
             if (!hasOwn(exprOption, 'dimension')) {
+              // @ts-ignore
               if ("development" !== 'production') {
                 errMsg = makePrintable('Relation condition must has prop "dimension" specified.', 'Illegal condition:', exprOption);
               }
@@ -92759,6 +96455,7 @@
             var dimInfo = upstream.getDimensionInfo(dimLoose);
 
             if (!dimInfo) {
+              // @ts-ignore
               if ("development" !== 'production') {
                 errMsg = makePrintable('Can not find dimension info via: ' + dimLoose + '.\n', 'Existing dimensions: ', upstream.cloneAllDimensionInfo(), '.\n', 'Illegal condition:', exprOption, '.\n');
               }
@@ -92792,6 +96489,7 @@
 
     var sampleLog = '';
 
+    // @ts-ignore
     if ("development" !== 'production') {
       sampleLog = ['Valid config is like:', '{ dimension: "age", order: "asc" }', 'or [{ dimension: "age", order: "asc"], { dimension: "date", order: "desc" }]'].join(' ');
     }
@@ -92809,6 +96507,7 @@
         var orderExprList = normalizeToArray(config);
 
         if (!orderExprList.length) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'Empty `config` in sort transform.';
           }
@@ -92824,6 +96523,7 @@
           var incomparable = orderExpr.incomparable;
 
           if (dimLoose == null) {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = 'Sort transform config must has "dimension" specified.' + sampleLog;
             }
@@ -92832,6 +96532,7 @@
           }
 
           if (order !== 'asc' && order !== 'desc') {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = 'Sort transform config must has "order" specified.' + sampleLog;
             }
@@ -92842,6 +96543,7 @@
           if (incomparable && incomparable !== 'min' && incomparable !== 'max') {
             var errMsg_1 = '';
 
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg_1 = 'incomparable must be "min" or "max" rather than "' + incomparable + '".';
             }
@@ -92852,6 +96554,7 @@
           if (order !== 'asc' && order !== 'desc') {
             var errMsg_2 = '';
 
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg_2 = 'order must be "asc" or "desc" rather than "' + order + '".';
             }
@@ -92862,6 +96565,7 @@
           var dimInfo = upstream.getDimensionInfo(dimLoose);
 
           if (!dimInfo) {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = makePrintable('Can not find dimension info via: ' + dimLoose + '.\n', 'Existing dimensions: ', upstream.cloneAllDimensionInfo(), '.\n', 'Illegal config:', orderExpr, '.\n');
             }
@@ -92872,6 +96576,7 @@
           var parser = parserName ? getRawValueParser(parserName) : null;
 
           if (parserName && !parser) {
+            // @ts-ignore
             if ("development" !== 'production') {
               errMsg = makePrintable('Invalid parser name ' + parserName + '.\n', 'Illegal config:', orderExpr, '.\n');
             }
@@ -92889,6 +96594,7 @@
         var sourceFormat = upstream.sourceFormat;
 
         if (sourceFormat !== SOURCE_FORMAT_ARRAY_ROWS && sourceFormat !== SOURCE_FORMAT_OBJECT_ROWS) {
+          // @ts-ignore
           if ("development" !== 'production') {
             errMsg = 'sourceFormat "' + sourceFormat + '" is not supported yet';
           }
@@ -92936,6 +96642,7 @@
 
     var DatasetModel =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DatasetModel, _super);
 
@@ -92976,10 +96683,12 @@
 
     var DatasetView =
     /** @class */
+    // @ts-ignore
     function (_super) {
       __extends(DatasetView, _super);
 
       function DatasetView() {
+        // @ts-ignore
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.type = 'dataset';
@@ -93065,6 +96774,7 @@
                     yi = y1;
                     break;
                 case CMD$4.C:
+                    // @ts-ignore
                     currentSubpath.push(data[i++], data[i++], data[i++], data[i++], xi = data[i++], yi = data[i++]);
                     break;
                 case CMD$4.Q:
@@ -93072,6 +96782,7 @@
                     y1 = data[i++];
                     x2 = data[i++];
                     y2 = data[i++];
+                    // @ts-ignore
                     currentSubpath.push(xi + 2 / 3 * (x1 - xi), yi + 2 / 3 * (y1 - yi), x2 + 2 / 3 * (x1 - x2), y2 + 2 / 3 * (y1 - y2), x2, y2);
                     xi = x2;
                     yi = y2;
@@ -93487,6 +97198,7 @@
         var out = [];
         for (var i = 0; i < outShapes.length; i++) {
             var subPath = new OutShapeCtor();
+            // @ts-ignore
             subPath.setShape(outShapes[i]);
             copyPathProps(path, subPath);
             out.push(subPath);
@@ -93562,10 +97274,12 @@
             var newSubpath1 = void 0;
             var newSubpath2 = void 0;
             if (!subpath1) {
+                // @ts-ignore
                 newSubpath1 = createSubpath(lastSubpath1 || subpath2, subpath2);
                 newSubpath2 = subpath2;
             }
             else if (!subpath2) {
+                // @ts-ignore
                 newSubpath2 = createSubpath(lastSubpath2 || subpath1, subpath1);
                 newSubpath1 = subpath1;
             }
@@ -93795,7 +97509,9 @@
                     var y0 = tmpArr[1];
                     path.moveTo(x0, y0);
                     for (var m = 2; m < from.length;) {
+                        // @ts-ignore
                         var x1 = tmpArr[m++];
+                        // @ts-ignore
                         var y1 = tmpArr[m++];
                         var x2 = tmpArr[m++];
                         var y2 = tmpArr[m++];
@@ -94095,7 +97811,9 @@
         var len = many[i].length;
         var k = void 0;
 
+        // @ts-ignore
         for (k = 0; k < len; k++) {
+          // @ts-ignore
           batches[k % batchCount].many.push(many[i][k]);
         }
       }
@@ -94116,9 +97834,12 @@
             }
           }
 
+          // @ts-ignore
           var len = moveFrom.length;
           var mid = Math.ceil(len / 2);
+          // @ts-ignore
           batches[i].many = moveFrom.slice(mid, len);
+          // @ts-ignore
           batches[off].many = moveFrom.slice(0, mid);
           off++;
         }
@@ -94135,6 +97856,7 @@
 
         for (var i = 0; i < params.count; i++) {
           var cloned = clonePath(params.path);
+          // @ts-ignore
           cloned.setStyle('opacity', approxOpacity);
           ret.push(cloned);
         }
@@ -94201,6 +97923,7 @@
         } else {
           var separateAnimationCfg = defaults({
             dividePath: pathDividers[divideShape],
+            // @ts-ignore
             individualDelay: animationDelay && function (idx, count, fromPath, toPath) {
               return animationDelay(idx + animateIndex, animateCount);
             }
@@ -94254,6 +97977,7 @@
 
       var pathList = [];
       elements.traverse(function (el) {
+        // @ts-ignore
         if (el instanceof Path && !el.disableMorphing && !el.invisible && !el.ignore) {
           pathList.push(el);
         }
@@ -94282,6 +98006,7 @@
         var data = seriesInfo.data;
 
         if (data.count() > DATA_COUNT_THRESHOLD) {
+          // @ts-ignore
           if ("development" !== 'production') {
             warn('Universal transition is disabled on large data > 10k.');
           }
@@ -94347,6 +98072,7 @@
           var oldStyle = getOldStyle(child);
 
           if (oldStyle) {
+            // @ts-ignore
             child.animateFrom({
               style: oldStyle
             }, animationConfig);
@@ -94378,6 +98104,7 @@
       var oldDiffItems = flattenDataDiffItems(oldList);
       var newDiffItems = flattenDataDiffItems(newList);
 
+      // @ts-ignore
       function updateMorphingPathProps(from, to, rawFrom, rawTo, animationCfg) {
         if (rawFrom || from) {
           to.animateFrom({
@@ -94581,9 +98308,11 @@
 
           if (view && seriesModel.isAnimationEnabled() && animationCfg && animationCfg.duration > 0) {
             view.group.traverse(function (el) {
+              // @ts-ignore
               if (el instanceof Path && !el.animators.length) {
                 // We can't accept there still exists element that has no animation
                 // if universalTransition is enabled
+                // @ts-ignore
                 el.animateFrom({
                   style: {
                     opacity: 0
@@ -94660,6 +98389,7 @@
           var oldData = oldDataMap.get(transitionKeyStr); // string transition key is the best match.
 
           if (oldData) {
+            // @ts-ignore
             if ("development" !== 'production') {
               checkTransitionSeriesKeyDuplicated(transitionKeyStr);
             } // TODO check if data is same?
@@ -94678,6 +98408,7 @@
           } else {
             // Transition from multiple series.
             if (isArray(transitionKey)) {
+              // @ts-ignore
               if ("development" !== 'production') {
                 checkTransitionSeriesKeyDuplicated(transitionKeyStr);
               }
@@ -94749,10 +98480,13 @@
       each(normalizeToArray(transitionOpt.from), function (finder) {
         var idx = querySeries(globalStore.oldSeries, finder);
 
+        // @ts-ignore
         if (idx >= 0) {
           from.push({
+            // @ts-ignore
             data: globalStore.oldData[idx],
             // TODO can specify divideShape in transition.
+            // @ts-ignore
             divide: getDivideShapeFromData(globalStore.oldData[idx]),
             dim: finder.dimension
           });
@@ -94761,7 +98495,9 @@
       each(normalizeToArray(transitionOpt.to), function (finder) {
         var idx = querySeries(params.updatedSeries, finder);
 
+        // @ts-ignore
         if (idx >= 0) {
+          // @ts-ignore
           var data = params.updatedSeries[idx].getData();
           to.push({
             data: data,
@@ -94777,6 +98513,7 @@
     }
 
     function installUniversalTransition(registers) {
+      // @ts-ignore
       registers.registerUpdateLifecycle('series:beforeupdate', function (ecMOdel, api, params) {
         each(normalizeToArray(params.seriesTransition), function (transOpt) {
           each(normalizeToArray(transOpt.to), function (finder) {
