@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
     ioBroker.vis lg-ess-home Widget-Set
 
@@ -9,8 +10,10 @@
 
 
 // add translations for edit mode
+// @ts-ignore
 $.extend(
     true,
+    // @ts-ignore
     systemDictionary,
     {
         'PvForecastInstance': {
@@ -309,11 +312,13 @@ $.extend(
 
 
 // this code can be placed directly in lg-ess-home.html
+// eslint-disable-next-line no-undef
 vis.binds['lg-ess-home'] = {
     version: '0.0.1',
     showVersion: function () {
         if (vis.binds['lg-ess-home'].version) {
             console.log('Version lg-ess-home: ' + vis.binds['lg-ess-home'].version);
+            // @ts-ignore
             vis.binds['lg-ess-home'].version = null;
         }
     },
@@ -347,6 +352,7 @@ vis.binds['lg-ess-home'] = {
         const _widgetID = widgetID;
 
         console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Trying to render widget');
+        // @ts-ignore
         const $div = $('#' + widgetID);
         // if nothing found => wait
         if (!$div.length) {
@@ -447,24 +453,32 @@ vis.binds['lg-ess-home'] = {
         //Add html
         $div.html(text);
 
+        // @ts-ignore
         const $chart1 = $(`#${widgetID}-Chart1`);
+        // @ts-ignore
         const $chart2 = $(`#${widgetID}-Chart2`);
 
+        // @ts-ignore
         const $strHeader = $(`#${widgetID}-strHeader`);
 
+        // @ts-ignore
         $( function() {
+            // @ts-ignore
             $(`#date_input`).datepicker({
                 maxDate: '0',
                 showButtonPanel: false
             });
         });
 
+        // @ts-ignore
         $(`#${widgetID}-strDate`).click(function() {
+            // @ts-ignore
             $(`#date_input`).datepicker('show');
         });
 
         let selectedDate = new Date().toLocaleDateString('en-ca');
         /* Button backward */
+        // @ts-ignore
         $( `#${widgetID}-btnBackward`).click(function() {
             const date = new Date(selectedDate);
             if (strChart == 'day')
@@ -477,11 +491,14 @@ vis.binds['lg-ess-home'] = {
                 date.setDate(date.getDate() - 365);
             selectedDate = date.toLocaleDateString('en-ca');
             loadChartData(selectedDate);
+            // @ts-ignore
             $( `#${widgetID}-btnForward`).removeClass('last');
         });
 
         /* Button forward */
+        // @ts-ignore
         $( `#${widgetID}-btnForward`).click(function() {
+            // @ts-ignore
             if ($(this).hasClass('last')) return;
 
             let date = new Date(selectedDate);
@@ -501,17 +518,22 @@ vis.binds['lg-ess-home'] = {
             loadChartData(selectedDate);
 
             if (today.toDateString() == date.toDateString())
+                // @ts-ignore
                 $( `#${widgetID}-btnForward`).addClass('last');
         });
 
         /* Selected date changed */
+        // @ts-ignore
         $( '#date_input' ).change(function() {
             const today = new Date();
+            // @ts-ignore
             const date = new Date((this).value);
             selectedDate = date.toLocaleDateString('en-ca');
             if (today.toDateString() == date.toDateString())
+                // @ts-ignore
                 $( `#${widgetID}-btnForward`).addClass('last');
             else
+                // @ts-ignore
                 $( `#${widgetID}-btnForward`).removeClass('last');
             loadChartData(selectedDate);
         });
@@ -520,28 +542,41 @@ vis.binds['lg-ess-home'] = {
         loadChartData();
 
         /* Translate Errortext */
+        // @ts-ignore
         $('.lg-ess-home-error-text').text(translate('No_data_available'));
 
         /*---------------------------------------------------------------------------------------------
             Left Menue
          ---------------------------------------------------------------------------------------------*/
         /* Translate Left Menue */
+        // @ts-ignore
         $('#menu-text_OverviewChart').text(translate('energy_view'));
+        // @ts-ignore
         $('#menu-text_PvChart').text(translate('PV_diagram'));
+        // @ts-ignore
         $('#menu-text_EssChart').text(translate('ESS_diagram'));
+        // @ts-ignore
         $('#menu-text_LoadChart').text(translate('Load_diagram'));
+        // @ts-ignore
         $('.lg-ess-home-left-menu .container h2').text(translate('Charts'));
 
         /* Open Menue */
+        // @ts-ignore
         $(document).on('click',`#${widgetID}-btnOpenMainMenu.js-menu_toggle.closed`,function(e){
             e.preventDefault();
+            // @ts-ignore
             $(this).removeClass('closed').addClass('opened');
 
+            // @ts-ignore
             $('.lg-ess-home-left-menu').css({ 'width':'250px' });
+            // @ts-ignore
             $('.container').css({ 'display':'block' });
+            // @ts-ignore
             $('.container h2').css({ 'opacity':'1' });
 
+            // @ts-ignore
             $('.list_item').each(function(i){
+                // @ts-ignore
                 const thisLI = $(this);
                 setTimeout(function(){
                     thisLI.css({
@@ -553,14 +588,20 @@ vis.binds['lg-ess-home'] = {
         });
 
         /* Close Menue */
+        // @ts-ignore
         $(document).on('click',`#${widgetID}-btnOpenMainMenu.js-menu_toggle.opened`,function(e){
             e.preventDefault();
+            // @ts-ignore
             $(this).removeClass('opened').addClass('closed');
 
+            // @ts-ignore
             $('.lg-ess-home-left-menu').css({ 'width':'0px' });
+            // @ts-ignore
             $('.container').css({ 'display':'none' });
+            // @ts-ignore
             $('.container h2').css({ 'opacity':'0' });
 
+            // @ts-ignore
             $('.list_item').css({
                 'opacity':'0',
                 'margin-left':'-20px'
@@ -568,20 +609,28 @@ vis.binds['lg-ess-home'] = {
         });
 
         /* Menue Item click */
+        // @ts-ignore
         $(document).on('click','.list_item',function(e){
             e.preventDefault();
+            // @ts-ignore
             $('.list_item.selected').removeClass('selected');
+            // @ts-ignore
             $(this).addClass('selected');
+            // @ts-ignore
             const words = $(this).attr('id').split('_');
             strChartType = words[1];
             newChart();
 
             /* Close Menue */
+            // @ts-ignore
             $(`#${widgetID}-btnOpenMainMenu.js-menu_toggle.opened`).removeClass('opened').addClass('closed');
 
+            // @ts-ignore
             $('.lg-ess-home-left-menu').css({ 'width':'0px' });
+            // @ts-ignore
             $('.container').css({ 'display':'none' });
 
+            // @ts-ignore
             $('.list_item').css({
                 'opacity':'0',
                 'margin-left':'-20px'
@@ -594,22 +643,34 @@ vis.binds['lg-ess-home'] = {
             Menue right
          ---------------------------------------------------------------------------------------------*/
         /* Translate Right Menue */
+        // @ts-ignore
         $(`#${widgetID}-btn_day`).text(translate('Day'));
+        // @ts-ignore
         $(`#${widgetID}-btn_week`).text(translate('Week'));
+        // @ts-ignore
         $(`#${widgetID}-btn_month`).text(translate('Month'));
+        // @ts-ignore
         $(`#${widgetID}-btn_year`).text(translate('Year'));
+        // @ts-ignore
         $('.lg-ess-home-right-menu .lg-ess-home-right-menu-container h2').text(translate('period_of_time'));
 
         /* Open Menue */
+        // @ts-ignore
         $(document).on('click',`#${widgetID}-btnOpenRightMenu.js-menu_toggle.closed`,function(e){
             e.preventDefault();
+            // @ts-ignore
             $(this).removeClass('closed').addClass('opened');
 
+            // @ts-ignore
             $('.lg-ess-home-right-menu').css({ 'width':'250px' });
+            // @ts-ignore
             $('.lg-ess-home-right-menu-container').css({ 'display':'block' });
+            // @ts-ignore
             $('.lg-ess-home-right-menu-container h2').css({ 'opacity':'1' });
 
+            // @ts-ignore
             $('.lg-ess-home-right_menu_item').each(function(i){
+                // @ts-ignore
                 const thisLI = $(this);
                 setTimeout(function(){
                     thisLI.css({
@@ -621,14 +682,20 @@ vis.binds['lg-ess-home'] = {
         });
 
         /* Close Menue */
+        // @ts-ignore
         $(document).on('click',`#${widgetID}-btnOpenRightMenu.js-menu_toggle.opened`,function(e){
             e.preventDefault();
+            // @ts-ignore
             $(this).removeClass('opened').addClass('closed');
 
+            // @ts-ignore
             $('.lg-ess-home-right-menu').css({ 'width':'0px' });
+            // @ts-ignore
             $('.lg-ess-home-right-menu-container').css({ 'display':'none' });
+            // @ts-ignore
             $('.lg-ess-home-right-menu-container h2').css({ 'opacity':'0' });
 
+            // @ts-ignore
             $('.lg-ess-home-right_menu_item').css({
                 'opacity':'0',
                 'margin-left':'30px'
@@ -636,20 +703,28 @@ vis.binds['lg-ess-home'] = {
         });
 
         /* Right Menu Item click */
+        // @ts-ignore
         $(document).on('click','.lg-ess-home-right_menu_item',function(e){
             e.preventDefault();
+            // @ts-ignore
             $('.lg-ess-home-right_menu_item.selected').removeClass('selected');
+            // @ts-ignore
             $(this).addClass('selected');
+            // @ts-ignore
             const words = $(this).attr('id').split('_');
             strChart = words[1];
             newChart();
 
             /*Close Menue*/
+            // @ts-ignore
             $(`#${widgetID}-btnOpenRightMenu.js-menu_toggle.opened`).removeClass('opened').addClass('closed');
 
+            // @ts-ignore
             $('.lg-ess-home-right-menu').css({ 'width':'0px' });
+            // @ts-ignore
             $('.lg-ess-home-right-menu-container').css({ 'display':'none' });
 
+            // @ts-ignore
             $('.lg-ess-home-right_menu_item').css({
                 'opacity':'0',
                 'margin-left':'30px'
@@ -658,7 +733,9 @@ vis.binds['lg-ess-home'] = {
         });
 
         // Initialize the echarts instance based on the prepared dom
+        // @ts-ignore
         const myChart1 = echarts.init(document.getElementById(widgetID +'-Chart1'));
+        // @ts-ignore
         const myChart2 = echarts.init(document.getElementById(widgetID +'-Chart2'));
 
         const dps = [
@@ -678,14 +755,18 @@ vis.binds['lg-ess-home'] = {
         ];
 
         // Update states and subscribe to changes
+        // @ts-ignore
         vis.conn.getStates(dps, function (error, states) {
             console.log(new Date().toLocaleTimeString() + ' Lg-Ess[' + widgetID + ']: Subscribing to state changes');
+            // @ts-ignore
             vis.updateStates(states);
+            // @ts-ignore
             vis.conn.subscribe(dps);
 
             // add onChange listener
             for (let i = 0; i < dps.length; i++) {
                 dps[i] = dps[i] + '.val';
+                // @ts-ignore
                 vis.states.bind(dps[i], onChange);
             } // endFor
 
@@ -697,9 +778,12 @@ vis.binds['lg-ess-home'] = {
 
         function loadChartData(strdate){
             const _date = strdate || new Date().toLocaleDateString('en-ca');
+            // @ts-ignore
             $('.loading').css({ 'display':'block' });
+            // @ts-ignore
             vis.conn._socket.emit('sendTo', instance, 'getChart', _date,function (data) {
                 setTimeout(() => newChart(),500);
+                // @ts-ignore
                 $('.loading').css({ 'display':'none' });
             });
         }
@@ -755,6 +839,7 @@ vis.binds['lg-ess-home'] = {
         });
 
         // subscribe on updates of value, we can use obj, newVal, oldVal
+        // @ts-ignore
         function onChange(obj, newVal) {
             //newChart();
         }
@@ -782,8 +867,11 @@ vis.binds['lg-ess-home'] = {
         const dateStringTxt = document.getElementById(`${widgetID}-strDate`);
 
         onresize(dateStringTxt, function () {
+            // @ts-ignore
             const width = $(`#${widgetID}-strDate`).width();
+            // @ts-ignore
             $( '#date_input' ).width(width);
+            // @ts-ignore
             $( '#date_input' ).css({ 'margin-left':`${-width/2}px` });
         });
 
@@ -795,10 +883,15 @@ vis.binds['lg-ess-home'] = {
             const strBatt = instance + '.user.graph.batt.' + strChart +'.val';
             const strForecast = _pvForecast +'.val';
             let jsonForecast;
+            // @ts-ignore
             const jsonPv = JSON.parse(vis.states[strPv]);
+            // @ts-ignore
             const jsonBatt = JSON.parse(vis.states[strBatt]);
+            // @ts-ignore
             const jsonLoad = JSON.parse(vis.states[strLoad]);
+            // @ts-ignore
             if (vis.states[strForecast]){
+                // @ts-ignore
                 jsonForecast = JSON.parse(vis.states[strForecast]);
             }
 
@@ -816,13 +909,17 @@ vis.binds['lg-ess-home'] = {
             if (strChart == 'week'){
                 strTitle = strTitle  + ' - ' + convertFromStringToDate(jsonPv.m_timeTo).toLocaleDateString([],{year: 'numeric',  month: '2-digit', day: '2-digit'});
             }
+            // @ts-ignore
             $(`#${_widgetID}-strDate`).text(strTitle);
 
             if ((jsonPv.db != 'success')||(jsonBatt.db != 'success')||(jsonLoad.db != 'success')){
+                // @ts-ignore
                 $('.lg-ess-home-error').css({ 'display':'block' });
+                // @ts-ignore
                 $(`#${_widgetID}-strTotal`).html('');
                 return;
             }
+            // @ts-ignore
             $('.lg-ess-home-error').css({ 'display':'none' });
 
 
@@ -830,24 +927,34 @@ vis.binds['lg-ess-home'] = {
                 var charts = createOverviewCharts(strChart,jsonPv, jsonBatt,jsonLoad,jsonForecast);
                 var chart1 = charts.chartGen;
                 const chart2 = charts.chartPurch;
+                // @ts-ignore
                 $(`#${_widgetID}-strTotal`).html('');
                 return {chart1,chart2};
             }
             else if (strChartType == 'PvChart'){
+                // @ts-ignore
                 var charts = createPvCharts(strChart,jsonPv);
+                // @ts-ignore
                 var chart1 = charts.chartPv;
+                // @ts-ignore
                 $(`#${_widgetID}-strTotal`).html(charts.footer);
                 return {chart1};
             }
             else if (strChartType == 'EssChart'){
+                // @ts-ignore
                 var charts = createEssCharts(strChart,jsonBatt);
+                // @ts-ignore
                 var chart1 = charts.chartEss;
+                // @ts-ignore
                 $(`#${_widgetID}-strTotal`).html(charts.footer);
                 return {chart1};
             }
             else if (strChartType == 'LoadChart'){
+                // @ts-ignore
                 var charts = createLoadCharts(strChart, jsonLoad);
+                // @ts-ignore
                 var chart1 = charts.chartLoad;
+                // @ts-ignore
                 $(`#${_widgetID}-strTotal`).html(charts.footer);
                 return {chart1};
             }
@@ -894,6 +1001,7 @@ vis.binds['lg-ess-home'] = {
 
             // Specify the configuration items and data for the chart
             const chartGen = createBasicChart(unit);
+            // @ts-ignore
             chartGen.series.push({
                 name: translate('Feed_in'),
                 type: chartType,
@@ -903,6 +1011,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartGen.series.push({
                 name: translate('Charge'),
                 type: chartType,
@@ -912,6 +1021,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartGen.series.push({
                 name: translate('Direct_consumption'),
                 type: chartType,
@@ -921,6 +1031,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartGen.series.push({
                 name: translate('Generation'),
                 type: chartType,
@@ -932,6 +1043,7 @@ vis.binds['lg-ess-home'] = {
 
             // Specify the configuration items and data for the chart
             const chartPurch = createBasicChart(unit);
+            // @ts-ignore
             chartPurch.series.push({
                 name: translate('Purchased'),
                 type: chartType,
@@ -941,6 +1053,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartPurch.series.push({
                 name: translate('Discharge'),
                 type: chartType,
@@ -950,6 +1063,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartPurch.series.push({
                 name: translate('Direct_consumption'),
                 type: chartType,
@@ -959,6 +1073,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartPurch.series.push({
                 name: translate('Consumption'),
                 type: chartType,
@@ -970,6 +1085,7 @@ vis.binds['lg-ess-home'] = {
 
             if (strChart == 'day'){
                 chartGen.series.push(
+                    // @ts-ignore
                     {
                         name: translate('Soc'),
                         type: chartType,
@@ -989,6 +1105,7 @@ vis.binds['lg-ess-home'] = {
 
                 if (showForecast == true){
 
+                    // @ts-ignore
                     chartGen.series.push({
                         name: translate('group_PvForecast'),
                         type: chartType,
@@ -1018,25 +1135,34 @@ vis.binds['lg-ess-home'] = {
 
             for(let i = 0; i < jsonBatt.loginfo.length; i++) {
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartGen.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleTimeString([],timeOptions));
+                    // @ts-ignore
                     chartPurch.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleTimeString([],timeOptions));
                 } else {
+                    // @ts-ignore
                     chartGen.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleDateString([],timeOptions));
+                    // @ts-ignore
                     chartPurch.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleDateString([],timeOptions));
                 }
 
                 // Generation and Feedin
                 generation = jsonPv.loginfo[i].generation * factor;
                 feedIn = jsonPv.loginfo[i].feed_in * factor;
+                // @ts-ignore
                 chartGen.series[3].data.push(generation);
+                // @ts-ignore
                 chartGen.series[0].data.push(feedIn);
 
                 // Battery
                 battCharge = jsonBatt.loginfo[i].charge * factor;
                 battDisCharge = jsonBatt.loginfo[i].discharge * factor;
+                // @ts-ignore
                 chartGen.series[1].data.push(battCharge);
+                // @ts-ignore
                 chartPurch.series[1].data.push(battDisCharge);
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartGen.series[4].data.push(jsonBatt.loginfo[i].soc );
                 }
 
@@ -1044,11 +1170,15 @@ vis.binds['lg-ess-home'] = {
                 directConsumption = generation - feedIn - battCharge;
                 if (directConsumption < 0) directConsumption = 0;
 
+                // @ts-ignore
                 chartGen.series[2].data.push(directConsumption);
+                // @ts-ignore
                 chartPurch.series[2].data.push(directConsumption);
 
                 //Consumption and Purchase
+                // @ts-ignore
                 chartPurch.series[3].data.push(jsonLoad.loginfo[i].consumption * factor);
+                // @ts-ignore
                 chartPurch.series[0].data.push(jsonLoad.loginfo[i].purchase * factor);
 
                 //Forecast
@@ -1056,14 +1186,17 @@ vis.binds['lg-ess-home'] = {
                     const time = convertFromStringToDate(jsonPv.loginfo[i].time).valueOf();
 
                     if (time < jsonForecast[0].t){
+                        // @ts-ignore
                         chartGen.series[5].data.push(0);
                     }
                     else if (time === jsonForecast[indexForecast].t){
                         console.log('Test ' + jsonForecast[indexForecast].y);
+                        // @ts-ignore
                         chartGen.series[5].data.push(jsonForecast[indexForecast].y);
                         indexForecast++;
                     }
                     else if (indexForecast > 0){
+                        // @ts-ignore
                         chartGen.series[5].data.push((jsonForecast[indexForecast].y + jsonForecast[indexForecast-1].y)/2);
                     }
 
@@ -1071,20 +1204,30 @@ vis.binds['lg-ess-home'] = {
             }
 
             //Legend
+            // @ts-ignore
             chartGen.legend.data.push(translate('Generation'));
+            // @ts-ignore
             chartGen.legend.data.push(translate('Direct_consumption'));
+            // @ts-ignore
             chartGen.legend.data.push(translate('Charge'));
+            // @ts-ignore
             chartGen.legend.data.push(translate('Feed_in'));
             if (strChart == 'day'){
+                // @ts-ignore
                 chartGen.legend.data.push(translate('Soc'));
             }
             if (showForecast == true){
+                // @ts-ignore
                 chartGen.legend.data.push(translate('group_PvForecast'));
             }
 
+            // @ts-ignore
             chartPurch.legend.data.push(translate('Consumption'));
+            // @ts-ignore
             chartPurch.legend.data.push(translate('Direct_consumption'));
+            // @ts-ignore
             chartPurch.legend.data.push(translate('Discharge'));
+            // @ts-ignore
             chartPurch.legend.data.push(translate('Purchased'));
 
             //Colors
@@ -1126,6 +1269,7 @@ vis.binds['lg-ess-home'] = {
 
             // Specify the configuration items and data for the chart
             const chartPv = createBasicChart(unit);
+            // @ts-ignore
             chartPv.series.push({
                 name: translate('Generation'),
                 type: chartType,
@@ -1134,6 +1278,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartPv.series.push({
                 name: translate('Feed_in'),
                 type: chartType,
@@ -1147,20 +1292,26 @@ vis.binds['lg-ess-home'] = {
             let feedIn = 0;
             for(let i = 0; i < jsonPv.loginfo.length; i++) {
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartPv.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleTimeString([],timeOptions));
                 } else {
+                    // @ts-ignore
                     chartPv.xAxis[0].data.push(convertFromStringToDate(jsonPv.loginfo[i].time).toLocaleDateString([],timeOptions));
                 }
 
                 // Generation and Feedin
                 generation = jsonPv.loginfo[i].generation * factor;
                 feedIn = jsonPv.loginfo[i].feed_in * factor;
+                // @ts-ignore
                 chartPv.series[0].data.push(generation);
+                // @ts-ignore
                 chartPv.series[1].data.push(feedIn);
             }
 
             //Legend
+            // @ts-ignore
             chartPv.legend.data.push(translate('Generation'));
+            // @ts-ignore
             chartPv.legend.data.push(translate('Feed_in'));
 
             //Colors
@@ -1211,6 +1362,7 @@ vis.binds['lg-ess-home'] = {
 
             // Specify the configuration items and data for the chart
             const chartEss = createBasicChart(unit);
+            // @ts-ignore
             chartEss.series.push({
                 name: translate('Charge'),
                 type: chartType,
@@ -1219,6 +1371,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartEss.series.push({
                 name: translate('Discharge'),
                 type: chartType,
@@ -1229,6 +1382,7 @@ vis.binds['lg-ess-home'] = {
             });
             if (strChart == 'day'){
                 chartEss.series.push(
+                    // @ts-ignore
                     {
                         name: translate('Soc'),
                         type: chartType,
@@ -1251,25 +1405,33 @@ vis.binds['lg-ess-home'] = {
             let battDisCharge = 0;
             for(let i = 0; i < jsonBatt.loginfo.length; i++) {
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartEss.xAxis[0].data.push(convertFromStringToDate(jsonBatt.loginfo[i].time).toLocaleTimeString([],timeOptions));
                 } else {
+                    // @ts-ignore
                     chartEss.xAxis[0].data.push(convertFromStringToDate(jsonBatt.loginfo[i].time).toLocaleDateString([],timeOptions));
                 }
 
                 // Battery
                 battCharge = jsonBatt.loginfo[i].charge * factor;
                 battDisCharge = jsonBatt.loginfo[i].discharge * factor;
+                // @ts-ignore
                 chartEss.series[0].data.push(battCharge);
+                // @ts-ignore
                 chartEss.series[1].data.push(battDisCharge);
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartEss.series[2].data.push(jsonBatt.loginfo[i].soc );
                 }
             }
 
             //Legend
+            // @ts-ignore
             chartEss.legend.data.push(translate('Charge'));
+            // @ts-ignore
             chartEss.legend.data.push(translate('Discharge'));
             if (strChart == 'day'){
+                // @ts-ignore
                 chartEss.legend.data.push(translate('Soc'));
             }
 
@@ -1317,6 +1479,7 @@ vis.binds['lg-ess-home'] = {
 
             // Specify the configuration items and data for the chart
             const chartLoad = createBasicChart(unit);
+            // @ts-ignore
             chartLoad.series.push({
                 name: translate('Consumption'),
                 type: chartType,
@@ -1326,6 +1489,7 @@ vis.binds['lg-ess-home'] = {
                 areaStyle: {},
                 data: []
             });
+            // @ts-ignore
             chartLoad.series.push({
                 name: translate('Purchased'),
                 type: chartType,
@@ -1338,18 +1502,24 @@ vis.binds['lg-ess-home'] = {
 
             for(let i = 0; i < jsonLoad.loginfo.length; i++) {
                 if (strChart == 'day'){
+                    // @ts-ignore
                     chartLoad.xAxis[0].data.push(convertFromStringToDate(jsonLoad.loginfo[i].time).toLocaleTimeString([],timeOptions));
                 } else {
+                    // @ts-ignore
                     chartLoad.xAxis[0].data.push(convertFromStringToDate(jsonLoad.loginfo[i].time).toLocaleDateString([],timeOptions));
                 }
 
                 //Consumption and Purchase
+                // @ts-ignore
                 chartLoad.series[0].data.push(jsonLoad.loginfo[i].consumption * factor);
+                // @ts-ignore
                 chartLoad.series[1].data.push(jsonLoad.loginfo[i].purchase * factor);
             }
 
             //Legend
+            // @ts-ignore
             chartLoad.legend.data.push(translate('Consumption'));
+            // @ts-ignore
             chartLoad.legend.data.push(translate('Purchased'));
 
             //Colors
@@ -1438,16 +1608,20 @@ vis.binds['lg-ess-home'] = {
         // Translate function
         function translate(text) {
             if (!text) return '';
+            // @ts-ignore
             const lang = vis.language;
             text = text.toString();
 
             if (typeof text !== 'string') {
                 console.warn('Trying to translate non-text:' + text);
+            // @ts-ignore
             } else if (systemDictionary[text]) {
+                // @ts-ignore
                 let newText = systemDictionary[text][lang];
                 if (newText) {
                     return newText;
                 } else if (lang !== 'en') {
+                    // @ts-ignore
                     newText = systemDictionary[text].en;
                     if (newText) {
                         return newText;
