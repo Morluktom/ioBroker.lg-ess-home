@@ -1,0 +1,5 @@
+chore: release v0.4.0
+
+* (Morluktom) Bugfix: State value to set for "lg-ess-home.0.user.essinfo.home.statistics.bat_status" has to be type "number" but received type "string"
+* LG ESS HOME 15 Plus added
+* Switch AutoCharge and backup soc writeable
