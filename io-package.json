@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "news": {
+      "0.4.0": {
+        "en": "Bugfix: State value to set for \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" has to be type \"number\" but received type \"string\"\nLG ESS HOME 15 Plus added\nSwitch AutoCharge and backup soc writeable",
+        "de": "Bugfix: State Value to set for \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" muss Typ \"number\" sein, aber empfangener Typ \"string\"\nLG ESS HOME 15 Plus hinzugefügt\nSwitch AutoCharge und Backup soc Schreibbar",
+        "ru": "Bugfix: Государственное значение, установленное для \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" должно быть типом \"номер\", но полученный тип \"string\"\nLG ESS HOME 15 Плюс\nSwitch AutoCharge и резервная система записи",
+        "pt": "Bugfix: Valor do estado para definir para \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" tem de ser tipo \"número\" mas recebeu tipo \"string\"\nLG ESS HOME 15 Mais adicionado\nInterruptor AutoCharge e backup soc escritível",
+        "nl": "Bugfix: Staatswaarde voor \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" moet type \"number\" zijn, maar ontvangen type \"string\"\nLG ESS HOME 15 Plus toegevoegd\nSchakelen AutoCharge en reservekopie Soc schrijfbaar",
+        "fr": "Correction : Indiquer la valeur à définir pour \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" doit être le type \"nombre\" mais reçu type \"chaîne\"\nLG ESS ACCUEIL 15 Plus ajouté\nSwitch AutoCharge et sauvegarde soc en écriture",
+        "it": "Bugfix: Valore di stato da impostare per \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" deve essere tipo \"numero\" ma ricevuto tipo \"string\"\nLG ESS HOME 15 Plus aggiunto\nInterruttore AutoCharge e backup soc scrivibile",
+        "es": "Bugfix: Valor del Estado para establecer para \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" tiene que ser tipo \"número\" pero recibió tipo \"estring\"\nLG ESS HOME 15 Más añadido\nInterruptor AutoCharge y copia de seguridad soc",
+        "pl": "Bugfix: Wartość państwa do ustawienia dla \"lg- ess- home.0.user.essinfo.home.statistics.bat _ status\" musi być typu \"number\", ale otrzymał typ \"string\"\nLG ESS HOME 15 Plus dodany\nPrzełącz AutoCharge i backup soc do zapisu",
+        "uk": "Помилки: Державне значення для установки для \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" має бути типу \"number\", але отримав тип \"string\"\nLG ESS ГОЛОВНА 15 Плюс додано\nПеремикач AutoCharge і резервне копіювання soc",
+        "zh-cn": "错误修正 : 要设置“ lg- ess- home. 0. user. essinfo. home. statistics. bat_ status” 的状态值, 必须是“ 数字” 类型, 但收到“ 字符串 ”\nLG ESS 家园 15 加号\n切换自动管理员和备份 soc 可写入"
+      },
       "0.3.0": {
         "en": "Fixed warnings found by adapter checker\nAdded Admin 5 configuration\nAdded Ukrainan language\nAdd PV Forecast to chart\nNodeJS >= 18.x and js-controller >= 5 is required",
         "de": "Feste Warnungen durch Adapter-Checker gefunden\nAdmin 5 Konfiguration hinzugefügt\nUkrainan Sprache hinzugefügt\nPV-Vorhersage zum Diagramm hinzufügen\nNodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
