@@ -45,6 +45,7 @@ This should give you the password and a status in return.
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (Morluktom) Bugfix lg-ess-home.0.user.essinfo.common not updated
 * (Morluktom) Responsive Design added
 
 ### 0.4.0 (2024-12-23)
