@@ -44,7 +44,7 @@ This should give you the password and a status in return.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.4.1 (2024-12-23)
 * (Morluktom) Bugfix lg-ess-home.0.user.essinfo.common not updated
 * (Morluktom) Responsive Design added
 

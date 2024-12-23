@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "lg-ess-home",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "news": {
+      "0.4.1": {
+        "en": "Bugfix lg-ess-home.0.user.essinfo.common not updated\nResponsive Design added",
+        "de": "Bugfix lg-ess-home.0.user.essinfo.common nicht aktualisiert\nResponsive Design hinzugefügt",
+        "ru": "Bugfix lg-ess-home.0.user.essinfo.common не обновляется\nResponsive Design",
+        "pt": "Bugfix lg-ess-home.0.user.essinfo.common não atualizado\nDesign responsivo adicionado",
+        "nl": "Bugfix lg-ess-home.0.user.essinfo.common niet bijgewerkt\nResponsive Design toegevoegd",
+        "fr": "Bugfix lg-ess-home.0.user.essinfo.common non mis à jour\nDesign sensible ajouté",
+        "it": "Bugfix lg-ess-home.0.user.essinfo.common non aggiornato\nResponsive Design aggiunto",
+        "es": "Bugfix lg-ess-home.0.user.essinfo.common not updated\nDiseño responsable añadido",
+        "pl": "Bugfix lg- ess- home.0.user.essinfo.common nie jest aktualizowany\nDodano projekt odpowiedzialny",
+        "uk": "English, Українська, Français..\nДодано адаптивний дизайн",
+        "zh-cn": "错误fix lg-s- home.0.user.essinfo.common common un更新\n添加响应设计"
+      },
       "0.4.0": {
         "en": "Bugfix: State value to set for \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" has to be type \"number\" but received type \"string\"\nLG ESS HOME 15 Plus added\nSwitch AutoCharge and backup soc writeable",
         "de": "Bugfix: State Value to set for \"lg-ess-home.0.user.essinfo.home.statistics.bat_status\" muss Typ \"number\" sein, aber empfangener Typ \"string\"\nLG ESS HOME 15 Plus hinzugefügt\nSwitch AutoCharge und Backup soc Schreibbar",
