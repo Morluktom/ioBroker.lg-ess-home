@@ -130,7 +130,8 @@
     "readme": "https://github.com/Morluktom/ioBroker.lg-ess-home/blob/master/README.md",
     "loglevel": "info",
     "restartAdapters": [
-      "vis"
+      "vis",
+      "vis-2"
     ],
     "mode": "daemon",
     "type": "energy",
@@ -140,9 +141,14 @@
     "messagebox": true,
     "dependencies": [
       {
-        "js-controller": ">=5.0.19"
+        "js-controller": ">=6.0.11"
       }
-    ]
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ],
   },
   "encryptedNative": [
     "userpassword",
