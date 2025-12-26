@@ -148,7 +148,7 @@
       {
         "admin": ">=7.6.17"
       }
-    ],
+    ]
   },
   "encryptedNative": [
     "userpassword",
