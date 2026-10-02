@@ -14,15 +14,15 @@ try {
 
     try {
         use(require('sinon-chai'));
-    } catch (_err) {
+    } catch {
         // Optional plugin not installed.
     }
 
     try {
         use(require('chai-as-promised'));
-    } catch (_err) {
+    } catch {
         // Optional plugin not installed.
     }
-} catch (_err) {
+} catch {
     // If chai is ever unavailable, let the test runner fail normally.
 }
