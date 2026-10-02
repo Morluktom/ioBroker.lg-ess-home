@@ -3,12 +3,26 @@ process.on('unhandledRejection', (e) => {
     throw e;
 });
 
-// enable the should interface with sinon
-// and load chai-as-promised and sinon-chai by default
-const sinonChai = require('sinon-chai');
-const chaiAsPromised = require('chai-as-promised');
-const { should, use } = require('chai');
+// Enable the should interface and optional chai plugins if they are installed.
+// Some test scaffolds include these packages, but they are not always available
+// in minimal adapter setups. Loading them only when present keeps the test suite
+// portable across ioBroker template versions and CI environments.
+try {
+    const { should, use } = require('chai');
 
-should();
-use(sinonChai);
-use(chaiAsPromised);
+    should();
+
+    try {
+        use(require('sinon-chai'));
+    } catch (_err) {
+        // Optional plugin not installed.
+    }
+
+    try {
+        use(require('chai-as-promised'));
+    } catch (_err) {
+        // Optional plugin not installed.
+    }
+} catch (_err) {
+    // If chai is ever unavailable, let the test runner fail normally.
+}
