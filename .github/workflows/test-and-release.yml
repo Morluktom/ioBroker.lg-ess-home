@@ -28,10 +28,11 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-check@v2
         with:
-          node-version: '24.x'
+          node-version: '22.x'
           lint: true
 
-  # Runs adapter tests on all supported node versions and OSes
+  # Runs adapter tests on supported node versions and OSes.
+  # Node 24/26 are kept out of CI until the ioBroker test tooling is consistently stable there.
   adapter-tests:
     needs: [check-and-lint]
     if: contains(github.event.head_commit.message, '[skip ci]') == false
@@ -39,7 +40,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [22.x, 24.x, 26.x]
+        node-version: [22.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -67,8 +68,7 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: '24.x'
-          # npm-token: ${{ secrets.NPM_TOKEN }}  # Commented out for migration to Trusted Publishing
+          node-version: '22.x'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
 #          # When using Sentry for error reporting, Sentry can be informed about new releases
