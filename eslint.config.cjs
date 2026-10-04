@@ -1,50 +1,79 @@
-const globals = require('globals');
-const js = require('@eslint/js');
-
-const {
-    FlatCompat,
-} = require('@eslint/eslintrc');
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-module.exports = [{
-    ignores: [
-        '.dev-server/**',
-        'widgets/**'
-    ],
-}, ...compat.extends('eslint:recommended'), {
-    plugins: {},
-
-    languageOptions: {
-        globals: {
-            ...globals.node,
-            ...globals.mocha,
-            Intl: 'readonly',
-        },
-
-        ecmaVersion: 2022,
-        sourceType: 'commonjs',
-    },
-
-    rules: {
-        indent: ['error', 4, {
-            SwitchCase: 1,
-        }],
-
-        'no-console': 'off',
-        'no-var': 'error',
-        'no-trailing-spaces': 'error',
-        'prefer-const': 'error',
-
-        quotes: ['error', 'single', {
-            avoidEscape: true,
-            allowTemplateLiterals: true,
-        }],
-
-        semi: ['error', 'always'],
-    },
-}];
+{
+  "name": "iobroker.lg-ess-home",
+  "version": "0.4.1",
+  "description": "Adapter to read data from a LG ESS inverter.",
+  "author": {
+    "name": "Morluktom",
+    "email": "strassertom@gmx.de"
+  },
+  "homepage": "https://github.com/Morluktom/ioBroker.lg-ess-home",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "Smart Home",
+    "home automation",
+    "Solar",
+    "Photovoltaik",
+    "PV",
+    "LG ESS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Morluktom/ioBroker.lg-ess-home"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.4.3",
+    "axios": "^1.20.0"
+  },
+  "devDependencies": {
+    "@alcalzone/release-script": "^5.2.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
+    "@alcalzone/release-script-plugin-license": "^5.2.2",
+    "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
+    "@eslint/eslintrc": "^3.3.7",
+    "@eslint/js": "^10.0.1",
+    "@iobroker/adapter-dev": "^1.5.0",
+    "@iobroker/eslint-config": "^2.0.0",
+    "@iobroker/testing": "^6.3.0",
+    "@tsconfig/node22": "^22.0.6",
+    "@types/node": "^22.15.0",
+    "@types/proxyquire": "^1.3.31",
+    "eslint": "^10.11.0",
+    "globals": "^17.12.0",
+    "proxyquire": "^2.1.3",
+    "typescript": "^7.0.2"
+  },
+  "main": "main.js",
+  "files": [
+    "admin/",
+    "lib/",
+    "docs/",
+    "www/",
+    "www-react/",
+    "io-package.json",
+    "LICENSE",
+    "main.js",
+    "widgets"
+  ],
+  "scripts": {
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "check": "tsc --noEmit -p tsconfig.check.json",
+    "lint": "eslint",
+    "translate": "translate-adapter",
+    "release": "release-script",
+    "release-patch": "release-script patch --yes --no-update-lockfile",
+    "release-minor": "release-script minor --yes --no-update-lockfile",
+    "release-major": "release-script major --yes --no-update-lockfile",
+    "update-packages": "ncu --upgrade"
+  },
+  "bugs": {
+    "url": "https://github.com/Morluktom/ioBroker.lg-ess-home/issues"
+  },
+  "readmeFilename": "README.md"
+}
