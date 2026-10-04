@@ -30,7 +30,6 @@ jobs:
         with:
           node-version: '24.x'
           lint: true
-          lint-command: 'npm run lint .'
 
   # Runs adapter tests on all supported node versions and OSes
   adapter-tests:
@@ -57,7 +56,7 @@ jobs:
       id-token: write
     needs: [check-and-lint, adapter-tests]
 
-   # Trigger this step only when a commit on any branch is tagged with a version number
+    # Trigger this step only when a commit on any branch is tagged with a version number
     if: |
       contains(github.event.head_commit.message, '[skip ci]') == false &&
       github.event_name == 'push' &&
