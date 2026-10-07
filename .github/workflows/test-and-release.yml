@@ -7,42 +7,32 @@ on:
     branches:
       - "master"
     tags:
-      # normal versions
       - "v[0-9]+.[0-9]+.[0-9]+"
-      # pre-releases
       - "v[0-9]+.[0-9]+.[0-9]+-**"
   pull_request: {}
 
-# Cancel previous PR/branch runs when a new commit is pushed
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # Performs quick checks before the expensive test runs
   check-and-lint:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: ioBroker/testing-action-check@v2
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           lint: true
 
-  # Runs adapter tests on supported node versions and OSes.
-  # Node 24/26 are kept out of CI until the ioBroker test tooling is consistently stable there.
   adapter-tests:
     needs: [check-and-lint]
     if: contains(github.event.head_commit.message, '[skip ci]') == false
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [22.x]
+        node-version: [24.x, 26.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
-
     steps:
       - uses: ioBroker/testing-action-adapter@v1
         with:
@@ -50,34 +40,18 @@ jobs:
           os: ${{ matrix.os }}
           extra-tests: npm run test:js
 
-  # Deploys the final package to NPM
   deploy:
     permissions:
       contents: write
       id-token: write
     needs: [check-and-lint, adapter-tests]
-
-    # Trigger this step only when a commit on any branch is tagged with a version number
     if: |
       contains(github.event.head_commit.message, '[skip ci]') == false &&
       github.event_name == 'push' &&
       startsWith(github.ref, 'refs/tags/v')
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: '22.x'
+          node-version: '24.x'
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-#          # When using Sentry for error reporting, Sentry can be informed about new releases
-#          # To enable create a API-Token in Sentry (User settings, API keys)
-#          # Enter this token as a GitHub secret (with name SENTRY_AUTH_TOKEN) in the repository options
-#          # Then uncomment and customize the following block:
-#          sentry: true
-#          sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-#          sentry-project: "iobroker-pvforecast"
-#          sentry-version-prefix: "iobroker.pvforecast"
-#          # If your sentry project is linked to a GitHub repository, you can enable the following option
-#          # sentry-github-integration: true
