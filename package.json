@@ -22,11 +22,10 @@
     "url": "https://github.com/Morluktom/ioBroker.lg-ess-home"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.3",
-    "axios": "^1.20.0"
+    "@iobroker/adapter-core": "^3.4.3"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^5.2.1",
