@@ -1,12 +1,19 @@
 const js = require('@eslint/js');
-const eslintConfigIobroker = require('@iobroker/eslint-config-ioBroker');
+const globals = require('globals');
 
 module.exports = [
-  eslintConfigIobroker,
+  js.configs.recommended,
   {
-    files: ['**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+      },
+      ecmaVersion: 2020,
+      sourceType: 'module',
+    },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
 ];
