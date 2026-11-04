@@ -36,7 +36,7 @@
     "@eslint/eslintrc": "^3.3.7",
     "@eslint/js": "^10.0.1",
     "@iobroker/adapter-dev": "^1.5.0",
-    "@iobroker/eslint-config": "^0.4.0",
+    "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^6.3.0",
     "@tsconfig/node24": "^24.0.0",
     "@types/node": "^24.0.0",
