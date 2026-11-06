@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /*
  * Created with @iobroker/create-adapter v1.30.1
@@ -16,7 +16,9 @@ let lgEss;
 function decrypt(key, value) {
   let result = "";
   for (let i = 0; i < value.length; ++i) {
-    result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+    result += String.fromCharCode(
+      key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i),
+    );
   }
   return result;
 }
@@ -45,9 +47,10 @@ class LgEssHome extends utils.Adapter {
     // The adapter configuration (everything under the native attribute in the
     // instance object) is accessible via this.config.
 
-    const ipAddressPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+    const ipAddressPattern =
+      /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     if (!ipAddressPattern.test(this.config.ipadress)) {
-      this.log.info("Ip Adress: " + this.config.ipadress + " is invalid");
+      this.log.info(`Ip Adress: ${this.config.ipadress} is invalid`);
       return;
     }
 
@@ -55,12 +58,24 @@ class LgEssHome extends utils.Adapter {
       if (!this.supportsFeature || !this.supportsFeature("ADAPTER_AUTO_DECRYPT_NATIVE")) {
         if (obj && obj.native && obj.native.secret) {
           //noinspection JSUnresolvedVariable
-          this.config.userpassword = decrypt(obj.native.secret, this.config.userpassword);
-          this.config.installerPassword = decrypt(obj.native.secret, this.config.installerPassword);
+          this.config.userpassword = decrypt(
+            obj.native.secret,
+            this.config.userpassword,
+          );
+          this.config.installerPassword = decrypt(
+            obj.native.secret,
+            this.config.installerPassword,
+          );
         } else {
           //noinspection JSUnresolvedVariable
-          this.config.userpassword = decrypt("Zgfr56gFe87jJOM", this.config.userpassword);
-          this.config.installerPassword = decrypt("Zgfr56gFe87jJOM", this.config.installerPassword);
+          this.config.userpassword = decrypt(
+            "Zgfr56gFe87jJOM",
+            this.config.userpassword,
+          );
+          this.config.installerPassword = decrypt(
+            "Zgfr56gFe87jJOM",
+            this.config.installerPassword,
+          );
         }
       }
       this.main();
@@ -144,7 +159,7 @@ class LgEssHome extends utils.Adapter {
     if (typeof obj === "object" && obj.message) {
       if (obj.command === "getChart") {
         // e.g. send email or pushover or whatever
-        this.log.debug("[LG_ESS] Message getChart Date: " + obj.message);
+        this.log.debug(`[LG_ESS] Message getChart Date: ${obj.message}`);
         await lgEss.GetGraphs(new Date(obj.message));
 
         // Send a response in the callback if required.
