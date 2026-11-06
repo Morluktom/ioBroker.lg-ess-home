@@ -55,7 +55,10 @@ class LgEssHome extends utils.Adapter {
     }
 
     this.getForeignObject("system.config", (_err, obj) => {
-      if (!this.supportsFeature || !this.supportsFeature("ADAPTER_AUTO_DECRYPT_NATIVE")) {
+      if (
+        !this.supportsFeature ||
+        !this.supportsFeature("ADAPTER_AUTO_DECRYPT_NATIVE")
+      ) {
         if (obj && obj.native && obj.native.secret) {
           //noinspection JSUnresolvedVariable
           this.config.userpassword = decrypt(
@@ -98,7 +101,10 @@ class LgEssHome extends utils.Adapter {
   }
 
   /**
-   * Is called when the adapter shuts down. The callback must always be called.
+   * Is called when the adapter shuts down.
+   *
+   * The callback must always be called.
+   *
    * @param {() => void} callback Shutdown callback.
    */
   onUnload(callback) {
@@ -119,6 +125,7 @@ class LgEssHome extends utils.Adapter {
   // objects with this.subscribeObjects, similar to this.subscribeStates.
   // /**
   //  * Is called if a subscribed object changes.
+  //  *
   //  * @param {string} id
   //  * @param {ioBroker.Object | null | undefined} obj
   //  */
@@ -132,6 +139,7 @@ class LgEssHome extends utils.Adapter {
 
   /**
    * Is called if a subscribed state changes.
+   *
    * @param {string} id State ID.
    * @param {ioBroker.State | null | undefined} state State value.
    */
@@ -152,7 +160,9 @@ class LgEssHome extends utils.Adapter {
   // the corresponding listener in the constructor.
   /**
    * Handles a message sent to this instance over the message box.
+   *
    * Requires "common.message" to be true in io-package.json.
+   *
    * @param {ioBroker.Message} obj Message received by the adapter.
    */
   async onMessage(obj) {
